@@ -4,15 +4,10 @@
 
 package frc.robot;
 
-import com.revrobotics.spark.SparkMax;
-
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import frc.robot.Logic.TeleopController;
 import frc.robot.Subsystems.Drivebase;
 
 /**
@@ -25,19 +20,14 @@ public class Robot extends TimedRobot {
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
-  Joystick joystick = new Joystick(0);
-  private final SparkMax m_frontleftMotor = new SparkMax(Settings.kFrontLeftMotorPort);
-  private final SparkMax m_frontrightMotor = new SparkMax(Settings.kFrontRightMotorPort);
-  private final SparkMax m_backleftMotor = new SparkMax(Settings.kBackLeftMotorPort);
-  private final SparkMax m_backrightMotor = new SparkMax(Settings.kBackRightMotorPort);
-  private final DifferentialDrive m_robotDrive = new DifferentialDrive(m_frontleftMotor::set, m_frontrightMotor::set, m_backleftMotor::set, m_backrightMotor::set);
-  private final GenericHID m_stick = new GenericHID(Constants.kJoystickPort);
-  m_robotDrive.arcadeDrive(-m_stick.getRawAxis(0), m_stick.getRawAxis(1));
 
   public Drivebase drivebase;
+  public TeleopController teleopController;
   public boolean onRedAlliance;
+
   public Robot() {
     drivebase = new Drivebase(this);
+    teleopController = new TeleopController(this);
   }
 
   @Override
@@ -48,16 +38,17 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-    drivebase.swerveDrive.drive(new ChassisSpeeds(3.0, -2.0, Math.PI));
+    //drivebase.swerveDrive.drive(new ChassisSpeeds(3.0, -2.0, Math.PI));
   }
 
   @Override
   public void teleopInit() {
+    drivebase.swerveDrive.resetOdometry(new Pose2d(2,2, new Rotation2d()));
   }
 
   @Override
   public void teleopPeriodic() {
-    drivebase.swerveDrive.drive(new ChassisSpeeds(vx, vy, vt));
+    teleopController.driveTele();
   }
 
   @Override

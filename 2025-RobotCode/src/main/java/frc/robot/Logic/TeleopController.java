@@ -1,43 +1,50 @@
 package frc.robot.Logic;
 
-import org.dyn4j.dynamics.Settings;
-
+import frc.robot.Settings;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Robot;
 
 public class TeleopController {
+
     Robot thisRobot;
     Joystick driverXboxController = new Joystick(Settings.driverJoystickPort);
-}
 
-public void driveTele() {
-    double xSpeedJoystick = -driverXboxController.getRawAxis(Settings.forwardBackwardsAxis); // forward back
-    if (xSpeedJoystick < Settings.joystickDeadband && xSpeedJoystick > -Settings.joystickDeadband) {
-        xSpeedJoystick = 0;
+    public TeleopController(Robot thisRobotIn){
+        thisRobot = thisRobotIn;
     }
 
-    double ySpeedJoystick = -driverXboxController.getRawAxis(Settings.leftRightAxis); // left right
-    if (ySpeedJoystick < Settings.joystickDeadband && ySpeedJoystick > -Settings.joystickDeadband) {
-        ySpeedJoystick = 0;
+    public void driveTele() {
+        double xSpeedJoystick = -driverXboxController.getRawAxis(Settings.forwardBackwardsAxis); // forward back
+        if (xSpeedJoystick < Settings.joystickDeadband && xSpeedJoystick > -Settings.joystickDeadband) {
+            xSpeedJoystick = 0;
+        }
+
+        double ySpeedJoystick = -driverXboxController.getRawAxis(Settings.leftRightAxis); // left right
+        if (ySpeedJoystick < Settings.joystickDeadband && ySpeedJoystick > -Settings.joystickDeadband) {
+            ySpeedJoystick = 0;
+        }
+
+        double rSpeedJoystick = -driverXboxController.getRawAxis(Settings.rotAxis); // left right 2 at home, 4 on xbox
+        if (rSpeedJoystick < Settings.joystickDeadband && rSpeedJoystick > -Settings.joystickDeadband) {
+            rSpeedJoystick = 0;
+        }
+
+        // if we are on red, flip the joysticks
+        if (thisRobot.onRedAlliance) {
+            xSpeedJoystick = -xSpeedJoystick;
+            ySpeedJoystick = -ySpeedJoystick;
+        }
+
+        // cube the joystick values for smoother control
+        double xInput = Math.pow(xSpeedJoystick, 3);
+        double yInput = Math.pow(ySpeedJoystick, 3);
+        double rInput = Math.pow(rSpeedJoystick, 3);
+
+        double xV = xInput * thisRobot.drivebase.swerveDrive.getMaximumChassisVelocity();
+        double yV = yInput * thisRobot.drivebase.swerveDrive.getMaximumChassisVelocity();
+        double rV = rInput * thisRobot.drivebase.swerveDrive.getMaximumChassisAngularVelocity();
+
+        thisRobot.drivebase.swerveDrive.driveFieldOriented(new ChassisSpeeds(xV, yV, rV));
     }
-
-    double rSpeedJoystick = -driverXboxController.getRawAxis(Settings.rotAxis); // left right 2 at home, 4 on xbox
-    if (rSpeedJoystick < Settings.joystickDeadband && rSpeedJoystick > -Settings.joystickDeadband) {
-        rSpeedJoystick = 0;
-    }
-
-    // if we are on red, flip the joysticks
-    if (thisRobot.onRedAlliance) {
-        xSpeedJoystick = -xSpeedJoystick;
-        ySpeedJoystick = -ySpeedJoystick;
-    }
-
-    // cube the joystick values for smoother control
-    double xInput = Math.pow(xSpeedJoystick, 3);
-    double yInput = Math.pow(ySpeedJoystick, 3);
-    double rInput = Math.pow(rSpeedJoystick, 3);
-
-    double xV = xInput * thisRobot.drivebase.swerveDrive.getMaximumVelocity();
-    double yV = yInput * thisRobot.drivebase.swerveDrive.getMaximumVelocity();
-    double rV = rInput * Settings.rotJoyRate;
 }
