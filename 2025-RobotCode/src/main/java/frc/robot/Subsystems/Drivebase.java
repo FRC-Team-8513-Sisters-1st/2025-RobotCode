@@ -36,8 +36,8 @@ public class Drivebase {
         swerveSpeeds.vxMetersPerSecond = vx;
         swerveSpeeds.vyMetersPerSecond = vy;
         swerveSpeeds.omegaRadiansPerSecond = vr;
-        thisRobot.drivebase.swerveDrive.driveFieldOriented(swerveSpeeds);
+        thisRobot.drivebase.swerveDrive.drive(swerveSpeeds);
 
     }
-   
+
 }
