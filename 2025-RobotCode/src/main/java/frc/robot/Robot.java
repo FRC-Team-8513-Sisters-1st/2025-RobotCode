@@ -26,6 +26,8 @@ public class Robot extends TimedRobot {
   public TeleopController teleopController;
   public boolean onRedAlliance;
 
+  double rV = 3;
+
   public Robot() {
     drivebase = new Drivebase(this);
     teleopController = new TeleopController(this);
@@ -39,7 +41,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-    drivebase.betaDrive(0, 0, 1);
+    rV = rV - 0.01;
+    if (rV < 0) {
+      rV = 3;
+    }
+    drivebase.betaDrive(0, 0, rV);
   }
 
   @Override
