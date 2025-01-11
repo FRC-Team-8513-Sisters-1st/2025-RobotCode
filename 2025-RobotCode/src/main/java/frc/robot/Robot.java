@@ -39,17 +39,17 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-    drivebase.swerveDrive.drive(new ChassisSpeeds(0, 1, 0));
+    drivebase.betaDrive(0, 0, 1);
   }
 
   @Override
   public void teleopInit() {
-    drivebase.swerveDrive.resetOdometry(new Pose2d(2,2, new Rotation2d()));
+    drivebase.swerveDrive.resetOdometry(new Pose2d(0,0, new Rotation2d()));
   }
 
   @Override
   public void teleopPeriodic() {
-    teleopController.driveTele();
+   teleopController.driveTele();
   }
 
   @Override

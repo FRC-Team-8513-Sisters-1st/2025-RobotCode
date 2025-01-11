@@ -3,6 +3,7 @@ package frc.robot.Logic;
 import frc.robot.Settings;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class TeleopController {
@@ -44,7 +45,9 @@ public class TeleopController {
         double xV = xInput * thisRobot.drivebase.swerveDrive.getMaximumChassisVelocity();
         double yV = yInput * thisRobot.drivebase.swerveDrive.getMaximumChassisVelocity();
         double rV = rInput * thisRobot.drivebase.swerveDrive.getMaximumChassisAngularVelocity();
-
-        thisRobot.drivebase.swerveDrive.driveFieldOriented(new ChassisSpeeds(xV, yV, rV));
+        SmartDashboard.putNumber("xv", xV);
+        SmartDashboard.putNumber("yv", yV);
+        SmartDashboard.putNumber("rv", rV);
+        thisRobot.drivebase.betaDrive(xV,yV,rV);
     }
 }

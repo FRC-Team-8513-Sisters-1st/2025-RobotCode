@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Filesystem;
 import frc.robot.Robot;
 import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
@@ -15,6 +16,8 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 public class Drivebase {
     Robot thisRobot;
     public SwerveDrive swerveDrive;
+    public ChassisSpeeds swerveSpeeds;
+
     public Drivebase(Robot thisRobotIn) {
         double maximumSpeed = Units.feetToMeters(17.1);
         File swerveJsonDirectory = new File(Filesystem.getDeployDirectory(),"swerve");
@@ -26,6 +29,15 @@ public class Drivebase {
         }
         SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
         thisRobot = thisRobotIn;
+        swerveSpeeds = new ChassisSpeeds();
+    }
+
+    public void betaDrive(double vx, double vy, double vr){
+        swerveSpeeds.vxMetersPerSecond = vx;
+        swerveSpeeds.vyMetersPerSecond = vy;
+        swerveSpeeds.omegaRadiansPerSecond = vr;
+        thisRobot.drivebase.swerveDrive.driveFieldOriented(swerveSpeeds);
+
     }
    
 }
