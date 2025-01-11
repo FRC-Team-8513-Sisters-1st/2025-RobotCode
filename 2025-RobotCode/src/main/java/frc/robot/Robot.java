@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.Logic.TeleopController;
 import frc.robot.Subsystems.Drivebase;
@@ -38,7 +39,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-    //drivebase.swerveDrive.drive(new ChassisSpeeds(3.0, -2.0, Math.PI));
+    drivebase.swerveDrive.drive(new ChassisSpeeds(0, 1, 0));
   }
 
   @Override
