@@ -3,11 +3,12 @@
         - create a variables class maybe?
     - Impliment path planning
     - Discuss controlability
+    - Create state machine
+    - Advantage scope layout
 
 - Auto
     - Plan out each path in pathplanner
-    - 
+    - Auto selector
 
 - Teleop
     - How to drive this thing
-    

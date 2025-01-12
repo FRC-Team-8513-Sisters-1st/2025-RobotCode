@@ -1,6 +1,9 @@
 package frc.robot;
 
 public final class Settings {
+  // drivebase settings
+  public static double drivebaseMaxVelocityFPS = 17.1;
+
   // joystick deadband
   public static double joystickDeadband = 0.01;
 

@@ -1,10 +1,11 @@
-package frc.robot.Subsystems;
+package frc.robot.subsystems;
 
 import java.io.File;
 import java.io.IOException;
 
 import edu.wpi.first.wpilibj.Filesystem;
 import frc.robot.Robot;
+import frc.robot.Settings;
 import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -16,28 +17,30 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 public class Drivebase {
     Robot thisRobot;
     public SwerveDrive swerveDrive;
-    public ChassisSpeeds swerveSpeeds;
+    public ChassisSpeeds drivebaseSpeeds;
 
     public Drivebase(Robot thisRobotIn) {
-        double maximumSpeed = Units.feetToMeters(17.1);
+        double maximumSpeed = Units.feetToMeters(Settings.drivebaseMaxVelocityFPS);
         File swerveJsonDirectory = new File(Filesystem.getDeployDirectory(),"swerve");
         try {
             swerveDrive = new SwerveParser(swerveJsonDirectory).createSwerveDrive(maximumSpeed);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
         thisRobot = thisRobotIn;
-        swerveSpeeds = new ChassisSpeeds();
+        drivebaseSpeeds = new ChassisSpeeds();
     }
 
-    public void betaDrive(double vx, double vy, double vr){
-        swerveSpeeds.vxMetersPerSecond = vx;
-        swerveSpeeds.vyMetersPerSecond = vy;
-        swerveSpeeds.omegaRadiansPerSecond = vr;
-        thisRobot.drivebase.swerveDrive.drive(swerveSpeeds);
-
+    public void drive(double vx, double vy, double vr, boolean fieldCentric){
+        drivebaseSpeeds.vxMetersPerSecond = vx;
+        drivebaseSpeeds.vyMetersPerSecond = vy;
+        drivebaseSpeeds.omegaRadiansPerSecond = vr;
+        if(fieldCentric){
+            thisRobot.drivebase.swerveDrive.driveFieldOriented(drivebaseSpeeds);
+        }else{  
+            thisRobot.drivebase.swerveDrive.drive(drivebaseSpeeds);
+        }
     }
 
 }

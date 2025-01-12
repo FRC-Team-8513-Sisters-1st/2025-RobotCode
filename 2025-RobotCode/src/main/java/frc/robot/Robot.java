@@ -1,25 +1,16 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
+
+import java.util.Optional;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
-import frc.robot.Logic.TeleopController;
-import frc.robot.Subsystems.Drivebase;
+import frc.robot.logic.TeleopController;
+import frc.robot.subsystems.Drivebase;
 
-/**
- * The methods in this class are called automatically corresponding to each mode, as described in
- * the TimedRobot documentation. If you change the name of this class or the package after creating
- * this project, you must also update the Main.java file in the project.
- */
 public class Robot extends TimedRobot {
-  /**
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
-   */
 
   public Drivebase drivebase;
   public TeleopController teleopController;
@@ -33,10 +24,12 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+  }
 
   @Override
-  public void autonomousInit() {}
+  public void autonomousInit() {
+  }
 
   @Override
   public void autonomousPeriodic() {
@@ -44,34 +37,50 @@ public class Robot extends TimedRobot {
     if (rV < 0) {
       rV = 3;
     }
-    drivebase.drive(0, 0, rV);
+    drivebase.drive(0, 0, rV, false);
   }
 
   @Override
   public void teleopInit() {
-    drivebase.swerveDrive.resetOdometry(new Pose2d(0,0, new Rotation2d()));
+    updateAllianceFromDS();
+    drivebase.swerveDrive.resetOdometry(new Pose2d(2, 2, new Rotation2d()));
   }
 
   @Override
   public void teleopPeriodic() {
-   teleopController.driveTele();
+    teleopController.driveTele();
   }
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+  }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+  }
 
   @Override
-  public void testInit() {}
+  public void testInit() {
+  }
 
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+  }
 
   @Override
-  public void simulationInit() {}
+  public void simulationInit() {
+  }
 
   @Override
-  public void simulationPeriodic() {}
+  public void simulationPeriodic() {
+  }
+
+  public void updateAllianceFromDS() {
+    // checks driverstation for alliance and sets vaiable
+    Optional<Alliance> alliance = DriverStation.getAlliance();
+    if (alliance.isPresent() && alliance.get().equals(Alliance.Red)) {
+      onRedAlliance = true;
+    }
+    System.out.println(onRedAlliance);
+  }
 }

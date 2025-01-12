@@ -1,0 +1,148 @@
+{
+  "hubs": [
+    {
+      "x": 372,
+      "y": 79,
+      "width": 1101,
+      "height": 651,
+      "state": {
+        "sidebar": {
+          "width": 300,
+          "expanded": [
+            "/SmartDashboard",
+            "/SmartDashboard/Field",
+            "/SmartDashboard/Field/Robot",
+            "/SmartDashboard/Field/OdometryPose",
+            "/SmartDashboard/swerve"
+          ]
+        },
+        "tabs": {
+          "selected": 1,
+          "tabs": [
+            {
+              "type": 0,
+              "title": "",
+              "controller": null,
+              "controllerUUID": "fzxw9l56z1ivpss6rajo6ezhbi1ly26f",
+              "renderer": "#/",
+              "controlsHeight": 0
+            },
+            {
+              "type": 2,
+              "title": "Odometry",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robotLegacy",
+                    "logKey": "NT:/SmartDashboard/Field/Robot",
+                    "logType": "NumberArray",
+                    "visible": true,
+                    "options": {
+                      "format": "Pose2d",
+                      "units": "degrees"
+                    }
+                  },
+                  {
+                    "type": "ghostLegacy",
+                    "logKey": "NT:/SmartDashboard/Field/OdometryPose",
+                    "logType": "NumberArray",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00",
+                      "format": "Pose2d",
+                      "units": "degrees"
+                    }
+                  }
+                ],
+                "game": "2025 Field",
+                "bumpers": "auto",
+                "origin": "blue",
+                "orientation": 0,
+                "size": 30
+              },
+              "controllerUUID": "oeb95r6uvmf4ehphpdrxy53sxglo7aot",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 3,
+              "title": "3D Field",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robotLegacy",
+                    "logKey": "NT:/SmartDashboard/Field/Robot",
+                    "logType": "NumberArray",
+                    "visible": true,
+                    "options": {
+                      "model": "2025 KitBot",
+                      "format": "Pose2d",
+                      "units": "degrees"
+                    }
+                  }
+                ],
+                "game": "2025 Field",
+                "origin": "blue"
+              },
+              "controllerUUID": "qt404ayv0fad1cd1yi30jol9xxhnce1c",
+              "renderer": {
+                "cameraIndex": -1,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  -8.74618120398501,
+                  9.816991900530773,
+                  0.3394657066793972
+                ],
+                "cameraTarget": [
+                  -3.2875641976565864,
+                  -2.2679679981017458,
+                  0.3216435256970027
+                ]
+              },
+              "controlsHeight": 200
+            },
+            {
+              "type": 9,
+              "title": "Swerve",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "statesLegacy",
+                    "logKey": "NT:/SmartDashboard/swerve/measuredStates",
+                    "logType": "NumberArray",
+                    "visible": true,
+                    "options": {
+                      "color": "#0000ff",
+                      "arrangement": "0,1,2,3",
+                      "units": "degrees"
+                    }
+                  },
+                  {
+                    "type": "statesLegacy",
+                    "logKey": "NT:/SmartDashboard/swerve/desiredStates",
+                    "logType": "NumberArray",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff0000",
+                      "arrangement": "0,1,2,3",
+                      "units": "degrees"
+                    }
+                  }
+                ],
+                "maxSpeed": 5,
+                "sizeX": 0.65,
+                "sizeY": 0.65,
+                "orientation": 1
+              },
+              "controllerUUID": "l1kits26ahem33dsbtu1jo26122gr623",
+              "renderer": null,
+              "controlsHeight": 200
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "satellites": [],
+  "version": "4.1.1"
+}
