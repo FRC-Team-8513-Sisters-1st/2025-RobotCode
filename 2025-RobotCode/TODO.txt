@@ -1,0 +1,13 @@
+- ToDO
+    - Create class structure diagram
+        - create a variables class maybe?
+    - Impliment path planning
+    - Discuss controlability
+
+- Auto
+    - Plan out each path in pathplanner
+    - 
+
+- Teleop
+    - How to drive this thing
+    
