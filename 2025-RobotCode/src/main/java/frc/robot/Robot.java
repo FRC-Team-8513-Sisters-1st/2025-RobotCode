@@ -6,7 +6,6 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.Logic.TeleopController;
 import frc.robot.Subsystems.Drivebase;
@@ -45,7 +44,7 @@ public class Robot extends TimedRobot {
     if (rV < 0) {
       rV = 3;
     }
-    drivebase.betaDrive(0, 0, rV);
+    drivebase.drive(0, 0, rV);
   }
 
   @Override
