@@ -2,6 +2,12 @@
     - Create class structure diagram
         - create a variables class maybe?
     - Impliment path planning
+        - Test a 1m straight path
+            - tune for precision
+        - test 1m out and back
+            - tune for precision
+        - straight while turning
+        - driving in x and y 
     - Discuss controlability
     - Create state machine
     - Advantage scope layout
