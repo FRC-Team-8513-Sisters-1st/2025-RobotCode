@@ -12,12 +12,20 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
+import com.pathplanner.lib.trajectory.PathPlannerTrajectory;
+import com.pathplanner.lib.trajectory.PathPlannerTrajectoryState;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.path.PathPlannerPath;
+
 
 
 public class Drivebase {
     Robot thisRobot;
     public SwerveDrive swerveDrive;
     public ChassisSpeeds drivebaseSpeeds;
+
+    public PathPlannerPath path;
+    public String pathName = "";
 
     public Drivebase(Robot thisRobotIn) {
         double maximumSpeed = Units.feetToMeters(Settings.drivebaseMaxVelocityFPS);
@@ -44,16 +52,25 @@ public class Drivebase {
     }
 
 
-    public void initPath(String pathName){
+    public void initPath(String pathNameIn, boolean onRedAlliance){
         //create a path object from a path file
+        pathName = pathNameIn;
+
+        path = PathPlannerPath.fromPathFile(pathName);
+
+        }
 
         //flip if you are on red
-
+        if (onRedAlliance){
+            path = path.flipPath();
+        }
         //turn that path into a trajectory object
+
+        boolean simulationStarted = false;
 
         //if we are a simulation
         //if we are a simulation set the robots pose to the starting pose of the path
-        thisRobot.isSimulation();
+            thisRobot.isSimulation();
 
         //update a variable to keep track of the fact we loaded a new path but have not begun to follow it
         boolean loadedPathHasStarted = false;
@@ -62,6 +79,8 @@ public class Drivebase {
 
     public boolean followLoadedPath(){
         //returns true if path is over
+        if (!loadedPathHasStarted)
+
 
         //this is the first time we have followed the path, update loadedPathHasStarted and save the time the path started
 
