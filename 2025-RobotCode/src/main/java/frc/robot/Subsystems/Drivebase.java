@@ -114,7 +114,7 @@ public class Drivebase {
         } else {
             //get the goal chasisSpeeds from the trajectory and tell the robot to drive at that speed
             trajGoalState = traj.sample(elapsedTime);
-            swerveDrive.drive(trajGoalState.fieldSpeeds);
+            swerveDrive.driveFieldOriented(trajGoalState.fieldSpeeds);
 
             trajGoalPosition.setRobotPose(trajGoalState.pose);
             SmartDashboard.putData("path planner goal postition", trajGoalPosition);
