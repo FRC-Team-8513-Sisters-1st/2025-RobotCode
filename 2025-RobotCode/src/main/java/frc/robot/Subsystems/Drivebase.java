@@ -102,12 +102,8 @@ public class Drivebase {
     public boolean followLoadedPath(){
         //returns true if path is over
         if (!loadedPathHasStarted){
-            loadedPathHasStarted = true;
-        } else {
-            //this is the first time we have followed the path, update loadedPathHasStarted and save the time the path started
-            loadedPathHasStarted = true;
             timePathStarted = Timer.getFPGATimestamp();
-
+            loadedPathHasStarted = true;
         }
                 //get the elapsed time, currentTime - timePathStarted
         elapsedTime = Timer.getFPGATimestamp() - timePathStarted;
