@@ -12,15 +12,22 @@ import frc.robot.subsystems.Drivebase;
 
 public class Robot extends TimedRobot {
 
+  //subsystems
   public Drivebase drivebase;
+
+  //logic
   public TeleopController teleopController;
+
+  //variables
   public boolean onRedAlliance;
 
   double rV = 3;
 
   public Robot() {
+    updateAllianceFromDS();
     drivebase = new Drivebase(this);
     teleopController = new TeleopController(this);
+    
   }
 
   @Override
@@ -29,15 +36,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    updateAllianceFromDS();
   }
 
   @Override
   public void autonomousPeriodic() {
-    rV = rV - 0.01;
-    if (rV < 0) {
-      rV = 3;
-    }
-    drivebase.drive(0, 0, rV, false);
   }
 
   @Override
@@ -80,7 +83,8 @@ public class Robot extends TimedRobot {
     Optional<Alliance> alliance = DriverStation.getAlliance();
     if (alliance.isPresent() && alliance.get().equals(Alliance.Red)) {
       onRedAlliance = true;
+    }else{
+      onRedAlliance = false;
     }
-    System.out.println(onRedAlliance);
   }
 }

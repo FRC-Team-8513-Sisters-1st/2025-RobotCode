@@ -1,6 +1,9 @@
 - ToDO
-    - Create class structure diagram
-        - create a variables class maybe?
+    - add logic classes
+        - Auto
+        - state machine
+        - vision
+        
     - Impliment path planning
         - Test a 1m straight path
             - tune for precision
