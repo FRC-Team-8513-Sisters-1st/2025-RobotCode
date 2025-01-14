@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 
 import org.json.simple.parser.ParseException;
 
@@ -12,14 +13,20 @@ import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.util.Units;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
+
 import com.pathplanner.lib.trajectory.PathPlannerTrajectory;
 import com.pathplanner.lib.trajectory.PathPlannerTrajectoryState;
 import com.pathplanner.lib.util.FileVersionException;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.path.PathPlannerPath;
+
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 
@@ -33,6 +40,10 @@ public class Drivebase {
     boolean loadedPathHasStarted = false;
     PathPlannerPath path;
     String pathName = "";
+    double elapsedTime;
+    double timePathStarted;
+    PathPlannerTrajectoryState trajGoalState;
+    Field2d trajGoalPosition = new Field2d();
     
     public Drivebase(Robot thisRobotIn) {
         double maximumSpeed = Units.feetToMeters(Settings.drivebaseMaxVelocityFPS);
@@ -91,17 +102,29 @@ public class Drivebase {
     public boolean followLoadedPath(){
         //returns true if path is over
         if (!loadedPathHasStarted){
+            loadedPathHasStarted = true;
+        } else {
+            //this is the first time we have followed the path, update loadedPathHasStarted and save the time the path started
+            loadedPathHasStarted = true;
+            timePathStarted = Timer.getFPGATimestamp();
+
+        }
+                //get the elapsed time, currentTime - timePathStarted
+        elapsedTime = Timer.getFPGATimestamp() - timePathStarted;
+
+        //sample the trajctory for the current goal state
+        if (elapsedTime > traj.getTotalTimeSeconds()) {
+            return true;
+        } else {
+            //get the goal chasisSpeeds from the trajectory and tell the robot to drive at that speed
+            trajGoalState = traj.sample(elapsedTime);
+            swerveDrive.drive(trajGoalState.fieldSpeeds);
+
+            trajGoalPosition.setRobotPose(trajGoalState.pose);
+            SmartDashboard.putData("path planner goal postition", trajGoalPosition);
 
         }
 
-
-        //this is the first time we have followed the path, update loadedPathHasStarted and save the time the path started
-
-        //get the elapsed time, currentTime - timePathStarted
-
-        //sample the trajctory for the current goal state
-
-        //get the goal chasisSpeeds from the trajectory and tell the robot to drive at that speed
 
         return false;
     }

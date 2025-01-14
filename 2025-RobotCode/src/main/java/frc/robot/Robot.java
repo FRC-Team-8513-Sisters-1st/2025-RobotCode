@@ -37,10 +37,12 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     updateAllianceFromDS();
+    drivebase.initPath("Example Path");
   }
 
   @Override
   public void autonomousPeriodic() {
+    drivebase.followLoadedPath();
   }
 
   @Override
