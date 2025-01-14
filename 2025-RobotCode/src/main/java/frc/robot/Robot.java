@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     updateAllianceFromDS();
-    drivebase.initPath("Example Path");
+    drivebase.initPath("circle while turning");
   }
 
   @Override
