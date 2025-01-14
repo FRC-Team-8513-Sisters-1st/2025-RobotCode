@@ -43,4 +43,35 @@ public class Drivebase {
         }
     }
 
+
+    public void initPath(String pathName){
+        //create a path object from a path file
+
+        //flip if you are on red
+
+        //turn that path into a trajectory object
+
+        //if we are a simulation
+        //if we are a simulation set the robots pose to the starting pose of the path
+        thisRobot.isSimulation();
+
+        //update a variable to keep track of the fact we loaded a new path but have not begun to follow it
+        boolean loadedPathHasStarted = false;
+
+    }
+
+    public boolean followLoadedPath(){
+        //returns true if path is over
+
+        //this is the first time we have followed the path, update loadedPathHasStarted and save the time the path started
+
+        //get the elapsed time, currentTime - timePathStarted
+
+        //sample the trajctory for the current goal state
+
+        //get the goal chasisSpeeds from the trajectory and tell the robot to drive at that speed
+
+        return false;
+    }
+
 }
