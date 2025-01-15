@@ -4,5 +4,10 @@ import frc.robot.Robot;
 
 public class StateMachine {
     Robot thisRobot;
+
+     public StateMachine(Robot thisRobotIn) {
+        
+        thisRobot = thisRobotIn;
+    }
 }
 
