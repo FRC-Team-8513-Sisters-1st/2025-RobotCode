@@ -1,7 +1,8 @@
 - ToDO
     - all paths should be made on blue side of field and then we flip to red
         - 0,0 origin is blue side, and its the standard
-        
+    - slow down paths
+        - lets get paths working well at slow speeds before going too much faster
     - add logic classes
         - Auto
         - state machine
