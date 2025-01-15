@@ -9,6 +9,7 @@ import frc.robot.Robot;
 import frc.robot.Settings;
 import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
@@ -39,6 +40,10 @@ public class Drivebase {
     double timePathStarted;
     PathPlannerTrajectoryState trajGoalState;
     Field2d trajGoalPosition = new Field2d();
+    //pid controllers
+    PIDController xController = new PIDController(35, 0, 1);
+    PIDController yController = new PIDController(35, 0, 1);
+    PIDController rController = new PIDController(1.8, 0, 0.1);
 
     public Drivebase(Robot thisRobotIn) {
         double maximumSpeed = Units.feetToMeters(Settings.drivebaseMaxVelocityFPS);
@@ -75,9 +80,10 @@ public class Drivebase {
         if (thisRobot.onRedAlliance) {
             path = path.flipPath();
         }
+
         // turn that path into a trajectory object
         try {
-            traj = path.generateTrajectory(new ChassisSpeeds(), new Rotation2d(), RobotConfig.fromGUISettings());
+            traj = path.generateTrajectory(new ChassisSpeeds(), path.getInitialHeading(), RobotConfig.fromGUISettings());
         } catch (IOException | ParseException e) {
             System.out.println("Error in trajectory generation");
             e.printStackTrace();
@@ -114,7 +120,15 @@ public class Drivebase {
 
             trajGoalPosition.setRobotPose(trajGoalState.pose);
             SmartDashboard.putData("path planner goal postition", trajGoalPosition);
+
+            double dvx = xController.calculate(swerveDrive.getPose().getX(), trajGoalState.pose.getX());
+            double dvy = yController.calculate(swerveDrive.getPose().getY(), trajGoalState.pose.getY());
+            double dvr = rController.calculate(swerveDrive.getPose().getRotation().minus(trajGoalState.pose.getRotation()).getDegrees(), 0);
+            
+            swerveDrive.driveFieldOriented(trajGoalState.fieldSpeeds.plus(new ChassisSpeeds(dvx, dvy, dvr)));
+
             return false;
+
 
         }
 
