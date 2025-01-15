@@ -41,9 +41,9 @@ public class Drivebase {
     PathPlannerTrajectoryState trajGoalState;
     Field2d trajGoalPosition = new Field2d();
     //pid controllers
-    PIDController xController = new PIDController(35, 0, 1);
-    PIDController yController = new PIDController(35, 0, 1);
-    PIDController rController = new PIDController(1.8, 0, 0.1);
+    PIDController xController = new PIDController(33, 0, 1);
+    PIDController yController = new PIDController(33, 0, 1);
+    PIDController rController = new PIDController(1, 0, 0);
 
     public Drivebase(Robot thisRobotIn) {
         double maximumSpeed = Units.feetToMeters(Settings.drivebaseMaxVelocityFPS);
