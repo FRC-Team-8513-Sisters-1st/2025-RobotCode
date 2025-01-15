@@ -2,8 +2,6 @@ package frc.robot.subsystems;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
-
 import org.json.simple.parser.ParseException;
 
 import edu.wpi.first.wpilibj.Filesystem;
@@ -13,7 +11,6 @@ import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.util.Units;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
@@ -28,14 +25,12 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
-
 public class Drivebase {
-    //public vars
+    // public vars
     Robot thisRobot;
     public SwerveDrive swerveDrive;
 
-    //class variables
+    // class variables
     PathPlannerTrajectory traj;
     boolean loadedPathHasStarted = false;
     PathPlannerPath path;
@@ -44,10 +39,10 @@ public class Drivebase {
     double timePathStarted;
     PathPlannerTrajectoryState trajGoalState;
     Field2d trajGoalPosition = new Field2d();
-    
+
     public Drivebase(Robot thisRobotIn) {
         double maximumSpeed = Units.feetToMeters(Settings.drivebaseMaxVelocityFPS);
-        File swerveJsonDirectory = new File(Filesystem.getDeployDirectory(),"swerve");
+        File swerveJsonDirectory = new File(Filesystem.getDeployDirectory(), "swerve");
         try {
             swerveDrive = new SwerveParser(swerveJsonDirectory).createSwerveDrive(maximumSpeed);
         } catch (IOException e) {
@@ -57,17 +52,16 @@ public class Drivebase {
         thisRobot = thisRobotIn;
     }
 
-    public void drive(double vx, double vy, double vr, boolean fieldCentric){
-        if(fieldCentric){
+    public void drive(double vx, double vy, double vr, boolean fieldCentric) {
+        if (fieldCentric) {
             thisRobot.drivebase.swerveDrive.driveFieldOriented(new ChassisSpeeds(vx, vy, vr));
-        }else{  
+        } else {
             thisRobot.drivebase.swerveDrive.drive(new ChassisSpeeds(vx, vy, vr));
         }
     }
 
-
-    public void initPath(String pathNameIn){
-        //create a path object from a path file
+    public void initPath(String pathNameIn) {
+        // create a path object from a path file
         pathName = pathNameIn;
 
         try {
@@ -77,11 +71,11 @@ public class Drivebase {
             e.printStackTrace();
         }
 
-        //flip if you are on red
-        if (thisRobot.onRedAlliance){
+        // flip if you are on red
+        if (thisRobot.onRedAlliance) {
             path = path.flipPath();
         }
-        //turn that path into a trajectory object
+        // turn that path into a trajectory object
         try {
             traj = path.generateTrajectory(new ChassisSpeeds(), new Rotation2d(), RobotConfig.fromGUISettings());
         } catch (IOException | ParseException e) {
@@ -89,40 +83,41 @@ public class Drivebase {
             e.printStackTrace();
         }
 
-        //if we are a simulation set the robots pose to the starting pose of the path
-        if(Robot.isSimulation()){
+        // if we are a simulation set the robots pose to the starting pose of the path
+        if (Robot.isSimulation()) {
             swerveDrive.resetOdometry(path.getStartingHolonomicPose().get());
         }
 
-        //update a variable to keep track of the fact we loaded a new path but have not begun to follow it
+        // update a variable to keep track of the fact we loaded a new path but have not
+        // begun to follow it
         loadedPathHasStarted = false;
 
     }
 
-    public boolean followLoadedPath(){
-        //returns true if path is over
-        if (!loadedPathHasStarted){
+    public boolean followLoadedPath() {
+        // returns true if path is over
+        if (!loadedPathHasStarted) {
             timePathStarted = Timer.getFPGATimestamp();
             loadedPathHasStarted = true;
         }
-                //get the elapsed time, currentTime - timePathStarted
+        // get the elapsed time, currentTime - timePathStarted
         elapsedTime = Timer.getFPGATimestamp() - timePathStarted;
 
-        //sample the trajctory for the current goal state
+        // sample the trajctory for the current goal state
         if (elapsedTime > traj.getTotalTimeSeconds()) {
             return true;
         } else {
-            //get the goal chasisSpeeds from the trajectory and tell the robot to drive at that speed
+            // get the goal chasisSpeeds from the trajectory and tell the robot to drive at
+            // that speed
             trajGoalState = traj.sample(elapsedTime);
             swerveDrive.driveFieldOriented(trajGoalState.fieldSpeeds);
 
             trajGoalPosition.setRobotPose(trajGoalState.pose);
             SmartDashboard.putData("path planner goal postition", trajGoalPosition);
+            return false;
 
         }
 
-
-        return false;
     }
 
 }

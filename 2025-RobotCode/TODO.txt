@@ -1,4 +1,7 @@
 - ToDO
+    - all paths should be made on blue side of field and then we flip to red
+        - 0,0 origin is blue side, and its the standard
+        
     - add logic classes
         - Auto
         - state machine
