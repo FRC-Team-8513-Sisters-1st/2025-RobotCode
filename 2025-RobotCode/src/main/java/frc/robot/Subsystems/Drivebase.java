@@ -82,7 +82,7 @@ public class Drivebase {
 
         // turn that path into a trajectory object
         try {
-            traj = path.generateTrajectory(new ChassisSpeeds(), path.getInitialHeading(), RobotConfig.fromGUISettings());
+            traj = path.getIdealTrajectory(RobotConfig.fromGUISettings()).get();
         } catch (IOException | ParseException e) {
             System.out.println("Error in trajectory generation");
             e.printStackTrace();
