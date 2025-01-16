@@ -1,4 +1,5 @@
 - ToDo   
+    - Replace generate trajectory with getIdealTrajectory
     - Move PID constants into settings
     - Discuss controlability
         - buttons, controls, states
