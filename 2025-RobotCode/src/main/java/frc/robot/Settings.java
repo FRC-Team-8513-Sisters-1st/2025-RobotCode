@@ -1,5 +1,7 @@
 package frc.robot;
 
+import edu.wpi.first.math.controller.PIDController;
+
 public final class Settings {
   // drivebase settings
   public static double drivebaseMaxVelocityFPS = 17.1;
@@ -14,4 +16,9 @@ public final class Settings {
 
    // driver joystick settings
    public static int driverJoystickPort = 0;
+
+   // pid settings
+    public static PIDController xController = new PIDController(33, 0, 1);
+    public static PIDController yController = new PIDController(33, 0, 1);
+    public static PIDController rController = new PIDController(1, 0, 0);
 }

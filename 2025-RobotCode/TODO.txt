@@ -1,5 +1,4 @@
 - ToDo   
-    - Move PID constants into settings
     - Discuss controlability
         - buttons, controls, states
     - Create state machine
