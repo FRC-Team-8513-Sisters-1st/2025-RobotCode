@@ -1,0 +1,11 @@
+Driver
+- movement controls 
+- certain button that allows the co-pilot to control (which reef to go to and level to score on)
+- coral intake and score
+Copilot
+- which coral station (right or left)
+- proessor score
+- which of six reef things to score on
+- left or right of reef branches
+- which of 4 branches 
+- simultaneous algee take and coral score
