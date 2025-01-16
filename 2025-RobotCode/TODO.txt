@@ -3,9 +3,8 @@
     - Discuss controlability
         - buttons, controls, states
     - Create state machine
-        - layout each state 
-    - Advantage scope layout
-        - start putting drivebase things on there
+        - layout each state and transitions
+    - Generate path on fly
 
 - Real robot:
     Tune velocity PID
