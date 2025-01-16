@@ -1,4 +1,5 @@
 - ToDo   
+    - Move PID constants into settings
     - Discuss controlability
         - buttons, controls, states
     - Create state machine
@@ -11,7 +12,6 @@
     Tune path planning no feedback
     Tune path planning position PID
     
-
 - Auto
     - Plan out each path in pathplanner
     - Auto selector
