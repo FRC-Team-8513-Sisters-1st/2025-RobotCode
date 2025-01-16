@@ -1,23 +1,29 @@
 {
   "hubs": [
     {
-      "x": 372,
-      "y": 79,
-      "width": 1101,
-      "height": 651,
+      "x": 443,
+      "y": 104,
+      "width": 1108,
+      "height": 656,
       "state": {
         "sidebar": {
           "width": 300,
           "expanded": [
             "/SmartDashboard",
-            "/SmartDashboard/Field",
             "/SmartDashboard/Field/Robot",
             "/SmartDashboard/Field/OdometryPose",
-            "/SmartDashboard/swerve"
+            "/SmartDashboard/pathDesiredPos",
+            "/SmartDashboard/path planner goal postition",
+            "/SmartDashboard/swerve",
+            "/SmartDashboard/Field",
+            "/SmartDashboard/path planner goal postition/Robot",
+            "/SmartDashboard/swerve/measuredStates",
+            "/SmartDashboard/swerve/desiredChassisSpeeds",
+            "/SmartDashboard/swerve/measuredChassisSpeeds"
           ]
         },
         "tabs": {
-          "selected": 1,
+          "selected": 4,
           "tabs": [
             {
               "type": 0,
@@ -29,22 +35,23 @@
             },
             {
               "type": 2,
-              "title": "Odometry",
+              "title": "2DField",
               "controller": {
                 "sources": [
                   {
-                    "type": "robotLegacy",
-                    "logKey": "NT:/SmartDashboard/Field/Robot",
+                    "type": "ghostLegacy",
+                    "logKey": "NT:/SmartDashboard/Field/OdometryPose",
                     "logType": "NumberArray",
                     "visible": true,
                     "options": {
+                      "color": "#ff0000",
                       "format": "Pose2d",
                       "units": "degrees"
                     }
                   },
                   {
                     "type": "ghostLegacy",
-                    "logKey": "NT:/SmartDashboard/Field/OdometryPose",
+                    "logKey": "NT:/SmartDashboard/path planner goal postition/Robot",
                     "logType": "NumberArray",
                     "visible": true,
                     "options": {
@@ -65,17 +72,95 @@
               "controlsHeight": 200
             },
             {
+              "type": 1,
+              "title": "DBVelocities",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/SmartDashboard/swerve/desiredChassisSpeeds/0",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#2b66a2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/SmartDashboard/swerve/measuredChassisSpeeds/0",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#af2437",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/SmartDashboard/swerve/desiredChassisSpeeds/1",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e5b31b",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/SmartDashboard/swerve/measuredChassisSpeeds/1",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#80588e",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "rightUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "2li6amj0hfprckzk3cqxy4quzmh6xxiw",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
               "type": 3,
-              "title": "3D Field",
+              "title": "3DField",
               "controller": {
                 "sources": [
                   {
                     "type": "robotLegacy",
-                    "logKey": "NT:/SmartDashboard/Field/Robot",
+                    "logKey": "NT:/SmartDashboard/Field/OdometryPose",
                     "logType": "NumberArray",
                     "visible": true,
                     "options": {
                       "model": "2025 KitBot",
+                      "format": "Pose2d",
+                      "units": "degrees"
+                    }
+                  },
+                  {
+                    "type": "ghostLegacy",
+                    "logKey": "NT:/SmartDashboard/path planner goal postition/Robot",
+                    "logType": "NumberArray",
+                    "visible": true,
+                    "options": {
+                      "model": "2025 KitBot",
+                      "color": "#00ff00",
                       "format": "Pose2d",
                       "units": "degrees"
                     }
@@ -89,21 +174,21 @@
                 "cameraIndex": -1,
                 "orbitFov": 50,
                 "cameraPosition": [
-                  -8.74618120398501,
-                  9.816991900530773,
-                  0.3394657066793972
+                  11.03238848529596,
+                  5.036827027180685,
+                  3.3021320011508952
                 ],
                 "cameraTarget": [
-                  -3.2875641976565864,
-                  -2.2679679981017458,
-                  0.3216435256970027
+                  0.6997790127102432,
+                  -1.9416200615240173,
+                  -2.8977048300612993
                 ]
               },
               "controlsHeight": 200
             },
             {
               "type": 9,
-              "title": "Swerve",
+              "title": "ModuleStates",
               "controller": {
                 "sources": [
                   {

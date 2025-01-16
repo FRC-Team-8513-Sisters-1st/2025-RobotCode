@@ -1,27 +1,20 @@
-- ToDO
-    - all paths should be made on blue side of field and then we flip to red
-        - 0,0 origin is blue side, and its the standard
-    - slow down paths
-        - lets get paths working well at slow speeds before going too much faster
-    - add logic classes
-        - Auto
-        - state machine
-        - vision
-        
-    - Impliment path planning
-        - Test a 1m straight path
-            - tune for precision
-        - test 1m out and back
-            - tune for precision
-        - straight while turning
-        - driving in x and y 
+- ToDo   
     - Discuss controlability
+        - buttons, controls, states
     - Create state machine
+        - layout each state 
     - Advantage scope layout
+        - start putting drivebase things on there
+
+- Real robot:
+    Tune velocity PID
+    Tune path planning no feedback
+    Tune path planning position PID
+    
 
 - Auto
     - Plan out each path in pathplanner
     - Auto selector
 
 - Teleop
-    - How to drive this thing
+    - 
