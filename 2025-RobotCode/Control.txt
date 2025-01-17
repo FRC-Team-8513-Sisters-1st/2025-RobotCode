@@ -1,11 +1,19 @@
 Driver
 - movement controls 
-- certain button that allows the co-pilot to control (which reef to go to and level to score on)
+- certain button that drives to 
 - coral intake and score
+
 Copilot
-- which coral station (right or left)
-- proessor score
-- which of six reef things to score on
-- left or right of reef branches
-- which of 4 branches 
-- simultaneous algee take and coral score
+- 2 buttons: which coral station (right or left)
+- 2 buttons: close or far within that coral station
+- 1 buttons: processor score
+- 6 buttons: which of six reef segments to score on
+- 2 buttons: left or right of reef branches
+- 4 buttons: which of 4 levels
+- 2 buttons: intake/score alge
+- 2 butotns: intake/score coral
+- 2 buttons: climber up climber down
+
+When naming positions use: https://www.chiefdelphi.com/uploads/default/original/3X/a/d/ad69934106322e031222e09cfa394e921c802552.jpeg
+
+- simultaneous algee take and coral score- i dont think we need a button for this? It would be turn on alge intake while scoring coral
