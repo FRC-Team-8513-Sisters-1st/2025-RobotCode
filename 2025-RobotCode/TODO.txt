@@ -6,6 +6,7 @@
     - Create state machine
         - layout each state and transitions
     - Generate path on fly
+    - Simulate photon vision
 
 - Real robot:
     - Tune velocity PID
