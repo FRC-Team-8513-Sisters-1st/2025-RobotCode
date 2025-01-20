@@ -21,4 +21,20 @@ public final class Settings {
     public static PIDController xController = new PIDController(33, 0, 1);
     public static PIDController yController = new PIDController(33, 0, 1);
     public static PIDController rController = new PIDController(1, 0, 0);
+
+    // CANids
+    public static int algaeMotor1CANID = 1;
+    public static int algaeMotor2CANID = 2;
+    public static int algaeGroundMotor1CANID = 3;
+    public static int algaeGroundMotor2CANID = 4;
+    public static int climberMotor1CANID = 5;
+    public static int climberMotor2CANID = 6;
+    public static int elevatorMotor1CANID = 7;
+    public static int elevatorMotor2CANID = 8;
+    public static int coralMotor1CANID = 9;
+    public static int coralMotor2CANID = 10;
+
+
+
+
 }
