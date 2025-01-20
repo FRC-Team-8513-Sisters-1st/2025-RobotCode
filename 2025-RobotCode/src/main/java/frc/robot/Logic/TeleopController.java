@@ -9,6 +9,11 @@ public class TeleopController {
     Robot thisRobot;
     Joystick driverXboxController = new Joystick(Settings.driverJoystickPort);
 
+    Joystick operatorJoystick1 = new Joystick(Settings.operatorJoystick1Port);
+    Joystick operatorJoystick2 = new Joystick(Settings.operatorJoystick2Port);
+
+
+
     public TeleopController(Robot thisRobotIn){
         thisRobot = thisRobotIn;
     }
@@ -45,5 +50,6 @@ public class TeleopController {
         double rV = rInput * thisRobot.drivebase.swerveDrive.getMaximumChassisAngularVelocity();
 
         thisRobot.drivebase.drive(xV,yV,rV, true);
+
     }
 }

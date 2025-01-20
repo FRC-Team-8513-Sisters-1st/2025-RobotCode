@@ -16,6 +16,9 @@ public final class Settings {
 
    // driver joystick settings
    public static int driverJoystickPort = 0;
+   public static int operatorJoystick1Port = 0;
+   public static int operatorJoystick2Port = 0;
+
 
    // pid settings
     public static PIDController xController = new PIDController(33, 0, 1);
@@ -35,6 +38,37 @@ public final class Settings {
     public static int coralMotor2CANID = 10;
 
 
+    // controler 1 panel buttons
+    public static int buttonId_CoralIntake = 1;
+    public static int buttonId_CoralOutake = 2;
+    public static int buttonId_Coral4 = 3;
+    public static int buttonId_Coral3 = 4;
+    public static int buttonId_Coral2 = 5;
+    public static int buttonId_Coral1 = 6;
+    public static int buttonId_Algae3 = 7;
+    public static int buttonId_Algae2 = 8;
+    public static int buttonId_Processor = 9;
+    public static int buttonId_AlgaeIntake = 10;
+    public static int buttonId_AlgaeOutake = 11;
 
+        // controler 2 panel buttons
+    public static int buttonId_Close = 1;
+    public static int buttonId_Far = 2;
+    public static int buttonId_Drive = 3;
+    public static int buttonId_ab = 4;
+    public static int buttonId_cd = 5;
+    public static int buttonId_ef = 6;
+    public static int buttonId_gh = 7;
+    public static int buttonId_ij = 8;
+    public static int buttonId_kl = 9;
+
+    // driver button ids
+    public static int buttonId_Climb = 1;
+    public static int buttonId_ClimbDown = 2;
+    public static int buttonId_LeftFeederSt = 3;
+    public static int buttonId_RightFeederSt = 4;
+    public static int buttonId_RightBranch = 5;
+    public static int buttonId_LeftBranch = 6;
+    public static int buttonId_reorenting = 7;
 
 }
