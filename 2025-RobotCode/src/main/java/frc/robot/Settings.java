@@ -71,4 +71,22 @@ public final class Settings {
     public static int buttonId_LeftBranch = 6;
     public static int buttonId_reorenting = 7;
 
+    // auto poses
+    public static Pose2D leftCoralStationFar = new Pose2D();
+    public static Pose2D rightCoralStationFar = new Pose2D();
+    public static Pose2D leftCoralStationClose = new Pose2D();
+    public static Pose2D rightCoralStationClose = new Pose2D();
+    public static Pose2D CoralRightAB = new Pose2D();
+    public static Pose2D CoralLeftAB = new Pose2D();
+    public static Pose2D CoralRightCD = new Pose2D();
+    public static Pose2D CoralLeftCD = new Pose2D();
+    public static Pose2D CoralRightEF = new Pose2D();
+    public static Pose2D CoralLeftEF = new Pose2D();
+    public static Pose2D CoralRightGH = new Pose2D();
+    public static Pose2D CoralLeftGH = new Pose2D();
+    public static Pose2D CoralRightIJ = new Pose2D();
+    public static Pose2D CoralLeftIJ = new Pose2D();
+    public static Pose2D CoralRightKL = new Pose2D();
+    public static Pose2D CoralLeftKL = new Pose2D();
+
 }
