@@ -11,6 +11,7 @@ public class StateMachine {
 
     RobotStates robotState = RobotStates.driving;
     Pose2d coralScoreGoalPose;
+    Pose2d goalOperatorReefPose;
 
     public StateMachine(Robot thisRobotIn) {
 
@@ -30,70 +31,91 @@ public class StateMachine {
                 if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb)) {
                     robotState = RobotStates.climbDeep;
                 }
-                // specify the position and branch then set pose and state, L1
+
+                // store if operator hits reef button
                 if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_ab)) {
+                    goalOperatorReefPose = Settings.AB;
+                }
+                if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_cd)) {
+                    goalOperatorReefPose = Settings.CD;
+                }
+                if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_ef)) {
+                    goalOperatorReefPose = Settings.EF;
+                }
+                if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_gh)) {
+                    goalOperatorReefPose = Settings.GH;
+                }
+                if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_ij)) {
+                    goalOperatorReefPose = Settings.IJ;
+                }
+                if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_kl)) {
+                    goalOperatorReefPose = Settings.KL;
+                }
+
+                // driver selects branch and scores
+                if (goalOperatorReefPose == Settings.AB) {
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
                         coralScoreGoalPose = Settings.CoralRightAB;
-                        updateRobotState()
+                        updateRobotScoreState();
                     }
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
                         coralScoreGoalPose = Settings.CoralLeftAB;
-                        updateRobotState()
+                        updateRobotScoreState();
                     }                
                 }
 
-                if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_cd)) {
+                if (goalOperatorReefPose == Settings.CD) {
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
                         coralScoreGoalPose = Settings.CoralRightCD;
-                        updateRobotState()
+                        updateRobotScoreState();
                     }
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
                         coralScoreGoalPose = Settings.CoralLeftCD;
-                        updateRobotState()
+                        updateRobotScoreState();
                     }                
                 }
 
-                if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_ef)) {
+                if (goalOperatorReefPose == Settings.EF) {
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
                         coralScoreGoalPose = Settings.CoralRightEF;
-                        updateRobotState()
+                        updateRobotScoreState();
                     }
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
                         coralScoreGoalPose = Settings.CoralLeftEF;
-                        updateRobotState()
+                        updateRobotScoreState();
                     }                
                 }
 
-                if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_gh)) {
+                if (goalOperatorReefPose == Settings.GH) {
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
                         coralScoreGoalPose = Settings.CoralRightGH;
-                        updateRobotState()
+                        updateRobotScoreState();
                     }
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
                         coralScoreGoalPose = Settings.CoralLeftGH;
-                        updateRobotState()
+                        updateRobotScoreState();
                     }                
                 }
 
-                if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_ij)) {
+                if (goalOperatorReefPose == Settings.IJ) {
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
                         coralScoreGoalPose = Settings.CoralRightIJ;
-                        updateRobotState()
+                        updateRobotScoreState();
                     }
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
                         coralScoreGoalPose = Settings.CoralLeftIJ;
-                        updateRobotState()
+                        updateRobotScoreState();
                     }                
                 }
 
-                if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_kl)) {
+                if (goalOperatorReefPose == Settings.KL) {
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
                         coralScoreGoalPose = Settings.CoralRightKL;
-                        updateRobotState()
+                        updateRobotScoreState();
                     }
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
                         coralScoreGoalPose = Settings.CoralLeftKL;
-                        updateRobotState()
+                        updateRobotScoreState();
                     }                
                 }
 
@@ -101,8 +123,9 @@ public class StateMachine {
             default:
                 break;
         }
+    }
 
-    public void updateRobotState() {
+    public void updateRobotScoreState() {
             if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral1)) {
                 robotState = RobotStates.coralScore1;
             } else if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral2)) {
@@ -112,6 +135,5 @@ public class StateMachine {
             } else if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral4)) {
                 robotState = RobotStates.coralScore4;
             }
-    }
     }
 }

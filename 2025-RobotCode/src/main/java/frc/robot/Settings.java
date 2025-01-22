@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Pose2d;
 
 public final class Settings {
   // drivebase settings
@@ -72,21 +73,27 @@ public final class Settings {
     public static int buttonId_reorenting = 7;
 
     // auto poses
-    public static Pose2D leftCoralStationFar = new Pose2D();
-    public static Pose2D rightCoralStationFar = new Pose2D();
-    public static Pose2D leftCoralStationClose = new Pose2D();
-    public static Pose2D rightCoralStationClose = new Pose2D();
-    public static Pose2D CoralRightAB = new Pose2D();
-    public static Pose2D CoralLeftAB = new Pose2D();
-    public static Pose2D CoralRightCD = new Pose2D();
-    public static Pose2D CoralLeftCD = new Pose2D();
-    public static Pose2D CoralRightEF = new Pose2D();
-    public static Pose2D CoralLeftEF = new Pose2D();
-    public static Pose2D CoralRightGH = new Pose2D();
-    public static Pose2D CoralLeftGH = new Pose2D();
-    public static Pose2D CoralRightIJ = new Pose2D();
-    public static Pose2D CoralLeftIJ = new Pose2D();
-    public static Pose2D CoralRightKL = new Pose2D();
-    public static Pose2D CoralLeftKL = new Pose2D();
+    public static Pose2d leftCoralStationFar = new Pose2d();
+    public static Pose2d rightCoralStationFar = new Pose2d();
+    public static Pose2d leftCoralStationClose = new Pose2d();
+    public static Pose2d rightCoralStationClose = new Pose2d();
+    public static Pose2d CoralRightAB = new Pose2d();
+    public static Pose2d CoralLeftAB = new Pose2d();
+    public static Pose2d CoralRightCD = new Pose2d();
+    public static Pose2d CoralLeftCD = new Pose2d();
+    public static Pose2d CoralRightEF = new Pose2d();
+    public static Pose2d CoralLeftEF = new Pose2d();
+    public static Pose2d CoralRightGH = new Pose2d();
+    public static Pose2d CoralLeftGH = new Pose2d();
+    public static Pose2d CoralRightIJ = new Pose2d();
+    public static Pose2d CoralLeftIJ = new Pose2d();
+    public static Pose2d CoralRightKL = new Pose2d();
+    public static Pose2d CoralLeftKL = new Pose2d();
+    public static Pose2d AB = new Pose2d();
+    public static Pose2d CD = new Pose2d();
+    public static Pose2d EF = new Pose2d();
+    public static Pose2d GH = new Pose2d();
+    public static Pose2d IJ = new Pose2d();
+    public static Pose2d KL = new Pose2d();
 
 }
