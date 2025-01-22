@@ -69,55 +69,55 @@ public class StateMachine {
                 // driver selects l or r branch
                 if (goalOperatorReefPose == Settings.AB) {
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
-                        coralScoreGoalPose = Settings.CoralRightAB;
+                        coralScoreGoalPose = Settings.coralRightAB;
                     }
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
-                        coralScoreGoalPose = Settings.CoralLeftAB;
+                        coralScoreGoalPose = Settings.coralLeftAB;
                     }                
                 }
 
                 if (goalOperatorReefPose == Settings.CD) {
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
-                        coralScoreGoalPose = Settings.CoralRightCD;
+                        coralScoreGoalPose = Settings.coralRightCD;
                     }
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
-                        coralScoreGoalPose = Settings.CoralLeftCD;
+                        coralScoreGoalPose = Settings.coralLeftCD;
                     }                
                 }
 
                 if (goalOperatorReefPose == Settings.EF) {
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
-                        coralScoreGoalPose = Settings.CoralRightEF;
+                        coralScoreGoalPose = Settings.coralRightEF;
                     }
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
-                        coralScoreGoalPose = Settings.CoralLeftEF;
+                        coralScoreGoalPose = Settings.coralLeftEF;
                     }                
                 }
 
                 if (goalOperatorReefPose == Settings.GH) {
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
-                        coralScoreGoalPose = Settings.CoralRightGH;
+                        coralScoreGoalPose = Settings.coralRightGH;
                     }
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
-                        coralScoreGoalPose = Settings.CoralLeftGH;
+                        coralScoreGoalPose = Settings.coralLeftGH;
                     }                
                 }
 
                 if (goalOperatorReefPose == Settings.IJ) {
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
-                        coralScoreGoalPose = Settings.CoralRightIJ;
+                        coralScoreGoalPose = Settings.coralRightIJ;
                     }
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
-                        coralScoreGoalPose = Settings.CoralLeftIJ;
+                        coralScoreGoalPose = Settings.coralLeftIJ;
                     }                
                 }
 
                 if (goalOperatorReefPose == Settings.KL) {
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
-                        coralScoreGoalPose = Settings.CoralRightKL;
+                        coralScoreGoalPose = Settings.coralRightKL;
                     }
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
-                        coralScoreGoalPose = Settings.CoralLeftKL;
+                        coralScoreGoalPose = Settings.coralLeftKL;
                     }                
                 }
 

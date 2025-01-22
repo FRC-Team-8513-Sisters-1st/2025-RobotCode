@@ -77,23 +77,24 @@ public final class Settings {
     public static Pose2d rightCoralStationFar = new Pose2d();
     public static Pose2d leftCoralStationClose = new Pose2d();
     public static Pose2d rightCoralStationClose = new Pose2d();
-    public static Pose2d CoralRightAB = new Pose2d();
-    public static Pose2d CoralLeftAB = new Pose2d();
-    public static Pose2d CoralRightCD = new Pose2d();
-    public static Pose2d CoralLeftCD = new Pose2d();
-    public static Pose2d CoralRightEF = new Pose2d();
-    public static Pose2d CoralLeftEF = new Pose2d();
-    public static Pose2d CoralRightGH = new Pose2d();
-    public static Pose2d CoralLeftGH = new Pose2d();
-    public static Pose2d CoralRightIJ = new Pose2d();
-    public static Pose2d CoralLeftIJ = new Pose2d();
-    public static Pose2d CoralRightKL = new Pose2d();
-    public static Pose2d CoralLeftKL = new Pose2d();
+    public static Pose2d coralRightAB = new Pose2d();
+    public static Pose2d coralLeftAB = new Pose2d();
+    public static Pose2d coralRightCD = new Pose2d();
+    public static Pose2d coralLeftCD = new Pose2d();
+    public static Pose2d coralRightEF = new Pose2d();
+    public static Pose2d coralLeftEF = new Pose2d();
+    public static Pose2d coralRightGH = new Pose2d();
+    public static Pose2d coralLeftGH = new Pose2d();
+    public static Pose2d coralRightIJ = new Pose2d();
+    public static Pose2d coralLeftIJ = new Pose2d();
+    public static Pose2d coralRightKL = new Pose2d();
+    public static Pose2d coralLeftKL = new Pose2d();
     public static Pose2d AB = new Pose2d();
     public static Pose2d CD = new Pose2d();
     public static Pose2d EF = new Pose2d();
     public static Pose2d GH = new Pose2d();
     public static Pose2d IJ = new Pose2d();
     public static Pose2d KL = new Pose2d();
+    public static Pose2d reefZone = new Pose2d();
 
 }
