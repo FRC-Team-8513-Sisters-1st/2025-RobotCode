@@ -27,4 +27,7 @@ public final class Enums {
         coralScore4, coralIntakeFeederSt, coral1, coral2, coral3, coral4 
 
     }
+    public enum SideOfReef {
+        AB, CD, EF,GH, IJ, KL
+    }
 }

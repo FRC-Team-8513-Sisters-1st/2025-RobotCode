@@ -89,12 +89,7 @@ public final class Settings {
     public static Pose2d coralLeftIJ = new Pose2d();
     public static Pose2d coralRightKL = new Pose2d();
     public static Pose2d coralLeftKL = new Pose2d();
-    public static Pose2d AB = new Pose2d();
-    public static Pose2d CD = new Pose2d();
-    public static Pose2d EF = new Pose2d();
-    public static Pose2d GH = new Pose2d();
-    public static Pose2d IJ = new Pose2d();
-    public static Pose2d KL = new Pose2d();
+
     public static Pose2d reefZone = new Pose2d();
 
 }
