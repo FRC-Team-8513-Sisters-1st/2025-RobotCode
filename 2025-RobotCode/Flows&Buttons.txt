@@ -7,12 +7,12 @@
 - The robot will know when to begin coral outake when either the copilot (controller 1) presses the force outake button
  or it could be automated. <- WANT TO AVOID DROPPING THE CORAL ON THE GROUND
 - The combo of algae intake and coral outake will only be used in autonomous. To intake algae during teleop, the copilot 
- will still have to select side and level (specifically algae 3 or 4) the driver will have to click the RIGHT trigger to start
- the automatic movement.
+ will still have to select side and level (specifically algae 3 or 4 (controller 1)) the driver will have to click the RIGHT 
+ trigger to start the automatic movement.
 - if the robot is already intaking algae, copilot can force outake coral (controller 1). vice versa.
 - To automate the feeding station, the copilot can select either close or far (controller 2), this will be stored as a 
-  variable or enum then the driver uses the right or left bumper to choose which station to go to (relavtive to the driver
-  station), the pose will then be set and the robot will go to it, the coral intake will automatically turn on, on the way.
+ variable or enum then the driver uses the right or left bumper to choose which station to go to (relavtive to the driver
+ station), the pose will then be set and the robot will go to it, the coral intake will automatically turn on, on the way.
 - To automate scoring in the processor, the copilot will first press the processor button (controller 1) then when the 
-  driver is ready, they can press either the d-pad or the buttons on the back to set the pose and go to the processor. 
+ driver is ready, they can press either the d-pad or the buttons on the back to set the pose and go to the processor. 
  The algae outake will be turned on automatically.

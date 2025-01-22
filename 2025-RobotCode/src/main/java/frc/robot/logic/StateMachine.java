@@ -56,6 +56,20 @@ public class StateMachine {
                     operatorChosenSideOfReef = SideOfReef.KL;
                 }
 
+                // store which level operator choses
+                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral1)) {
+                    scoreCoralGoalLevel = ElevatorStates.L1; 
+                } 
+                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral2)) {
+                    scoreCoralGoalLevel = ElevatorStates.L2;
+                } 
+                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral3)) {
+                    scoreCoralGoalLevel = ElevatorStates.L3; 
+                }  
+                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral4)) {
+                    scoreCoralGoalLevel = ElevatorStates.L4; 
+                }
+
                 // driver selects l or r branch and co-pilot stored info is run
                 if (operatorChosenSideOfReef == SideOfReef.AB) {
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
@@ -123,30 +137,19 @@ public class StateMachine {
         }
     }
 
-    public void scoreCoralOnLevel() {
-        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral1)) {
-            scoreCoralGoalLevel = ElevatorStates.L1;
-            if (scoreCoralGoalLevel == ElevatorStates.L1 && isInReefZone == true) {
-                robotState = RobotStates.coralScore1;
-            } 
-        } 
-        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral2)) {
-            scoreCoralGoalLevel = ElevatorStates.L2;
-            if (scoreCoralGoalLevel == ElevatorStates.L2 && isInReefZone == true) {
-                robotState = RobotStates.coralScore2;
-            } 
-        } 
-        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral3)) {
-            scoreCoralGoalLevel = ElevatorStates.L3; 
-            if (scoreCoralGoalLevel == ElevatorStates.L3 && isInReefZone == true) {
-                robotState = RobotStates.coralScore3;
-            } 
-        }  
-        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral4)) {
-            scoreCoralGoalLevel = ElevatorStates.L4; 
-            if (scoreCoralGoalLevel == ElevatorStates.L4 && isInReefZone == true) {
-                robotState = RobotStates.coralScore4;
-            } 
-        } 
+    // scores on selected level 
+    public void scoreCoralOnLevel() { 
+        if (scoreCoralGoalLevel == ElevatorStates.L1 && isInReefZone == true) {
+            robotState = RobotStates.coralScore1;
+        }
+        if (scoreCoralGoalLevel == ElevatorStates.L2 && isInReefZone == true) {
+            robotState = RobotStates.coralScore2;
+        }
+        if (scoreCoralGoalLevel == ElevatorStates.L3 && isInReefZone == true) {
+            robotState = RobotStates.coralScore3;
+        }
+        if (scoreCoralGoalLevel == ElevatorStates.L4 && isInReefZone == true) {
+            robotState = RobotStates.coralScore4;
+        }
     }
 }
