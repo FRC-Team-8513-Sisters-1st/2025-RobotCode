@@ -22,7 +22,7 @@ public final class Enums {
         L3Limits, L4Limits 
     }
     public enum RobotStates {
-        climbDeep, preClimb, driving, algaeIntakeL3, algaeIntakeL2,
+        driving, preClimb, climbDeep, algaeIntakeL3, algaeIntakeL2,
         algaeIntakeGround, algaeScoreProcessor, coralScore1, coralScore2, coralScore3,
         coralScore4, coralIntakeFeederSt, coral1, coral2, coral3, coral4 
 

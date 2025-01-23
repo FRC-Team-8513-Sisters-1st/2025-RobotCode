@@ -58,7 +58,7 @@ public class StateMachine {
                 if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_processor)) {
                     goalProcessor = Settings.processor;
                 }
-                
+
                 if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb)) {
                     robotState = RobotStates.preClimb;
                     if (robotState == RobotStates.preClimb && thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb)){
