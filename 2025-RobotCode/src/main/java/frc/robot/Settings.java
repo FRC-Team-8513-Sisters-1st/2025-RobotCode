@@ -39,7 +39,7 @@ public final class Settings {
     public static int coralMotor2CANID = 10;
 
 
-    // controler 1 panel buttons
+    // controller 1 panel buttons
     public static int buttonId_CoralIntake = 1;
     public static int buttonId_CoralOutake = 2;
     public static int buttonId_Coral4 = 3;
@@ -48,11 +48,10 @@ public final class Settings {
     public static int buttonId_Coral1 = 6;
     public static int buttonId_Algae3 = 7;
     public static int buttonId_Algae2 = 8;
-    public static int buttonId_Processor = 9;
-    public static int buttonId_AlgaeIntake = 10;
-    public static int buttonId_AlgaeOutake = 11;
+    public static int buttonId_AlgaeIntake = 9;
+    public static int buttonId_AlgaeOutake = 10;
 
-        // controler 2 panel buttons
+        // controller 2 panel buttons
     public static int buttonId_Close = 1;
     public static int buttonId_Far = 2;
     public static int buttonId_Drive = 3;
@@ -71,6 +70,8 @@ public final class Settings {
     public static int buttonId_RightBranch = 5;
     public static int buttonId_LeftBranch = 6;
     public static int buttonId_reorenting = 7;
+    public static int buttonId_processor;
+
 
     // auto poses
     public static Pose2d leftCoralStationFar = new Pose2d();
@@ -89,6 +90,12 @@ public final class Settings {
     public static Pose2d coralLeftIJ = new Pose2d();
     public static Pose2d coralRightKL = new Pose2d();
     public static Pose2d coralLeftKL = new Pose2d();
+    public static Pose2d rightFarFeederStation = new Pose2d();
+    public static Pose2d leftFarFeederStation = new Pose2d();
+    public static Pose2d rightCloseFeederStation = new Pose2d();
+    public static Pose2d leftCloseFeederStation = new Pose2d();
+    public static Pose2d processor = new Pose2d();
+
 
     public static Pose2d reefZone = new Pose2d();
 
