@@ -60,9 +60,12 @@ public class StateMachine {
                 }
 
                 if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb)) {
-                    robotState = RobotStates.preClimb;
-                    if (robotState == RobotStates.preClimb && thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb)){
-                        robotState = RobotStates.climbDeep;
+                    climberStates = ClimberStates.stowed;
+                    if (climberStates == ClimberStates.stowed && thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb)){
+                        climberStates = ClimberStates.armOut;
+                        if (climberStates == ClimberStates.armOut && thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb)){
+                            climberStates = ClimberStates.armOut;
+                        }
                     }
                 }
 
@@ -247,6 +250,94 @@ public class StateMachine {
 
 
                 break;
+            case climbDeep:
+            climberStates = ClimberStates.climbing;
+            algaeGroundStates = AlgaeGroundStates.stowed;
+            algaeIntakeStates = AlgaeIntakeStates.stationary;
+            coralIntakeStates = CoralIntakeStates.stationary;                
+            elevatorStates = ElevatorStates.stowed;
+            drivebaseStates = DrivebaseStates.stowedLimits;
+
+            case algaeIntakeL3:
+            climberStates = ClimberStates.stowed;
+            algaeGroundStates = AlgaeGroundStates.stowed;
+            algaeIntakeStates = AlgaeIntakeStates.intake;
+            coralIntakeStates = CoralIntakeStates.stationary;                
+            elevatorStates = ElevatorStates.L4;
+            drivebaseStates = DrivebaseStates.L4Limits;
+
+            case algaeIntakeL2:
+            climberStates = ClimberStates.stowed;
+            algaeGroundStates = AlgaeGroundStates.stowed;
+            algaeIntakeStates = AlgaeIntakeStates.intake;
+            coralIntakeStates = CoralIntakeStates.stationary;                
+            elevatorStates = ElevatorStates.L3;
+            drivebaseStates = DrivebaseStates.L3Limits;
+
+            case coralScore1:
+            climberStates = ClimberStates.stowed;
+            algaeGroundStates = AlgaeGroundStates.stowed;
+            algaeIntakeStates = AlgaeIntakeStates.stationary;
+            coralIntakeStates = CoralIntakeStates.outake;                
+            elevatorStates = ElevatorStates.L1;
+            drivebaseStates = DrivebaseStates.L1Limits;
+
+            case coralScore2:
+            climberStates = ClimberStates.stowed;
+            algaeGroundStates = AlgaeGroundStates.stowed;
+            algaeIntakeStates = AlgaeIntakeStates.stationary;
+            coralIntakeStates = CoralIntakeStates.outake;                
+            elevatorStates = ElevatorStates.L2;
+            drivebaseStates = DrivebaseStates.L2Limits;
+
+            case coralScore3:
+            climberStates = ClimberStates.stowed;
+            algaeGroundStates = AlgaeGroundStates.stowed;
+            algaeIntakeStates = AlgaeIntakeStates.stationary;
+            coralIntakeStates = CoralIntakeStates.outake;                
+            elevatorStates = ElevatorStates.L3;
+            drivebaseStates = DrivebaseStates.L3Limits;
+
+            case coralScore4:
+            climberStates = ClimberStates.stowed;
+            algaeGroundStates = AlgaeGroundStates.stowed;
+            algaeIntakeStates = AlgaeIntakeStates.stationary;
+            coralIntakeStates = CoralIntakeStates.outake;                
+            elevatorStates = ElevatorStates.L4;
+            drivebaseStates = DrivebaseStates.L4Limits;
+
+            case coral1:
+            climberStates = ClimberStates.stowed;
+            algaeGroundStates = AlgaeGroundStates.stowed;
+            algaeIntakeStates = AlgaeIntakeStates.stationary;
+            coralIntakeStates = CoralIntakeStates.stationary;                
+            elevatorStates = ElevatorStates.L1;
+            drivebaseStates = DrivebaseStates.L1Limits;
+
+            case coral2:
+            climberStates = ClimberStates.stowed;
+            algaeGroundStates = AlgaeGroundStates.stowed;
+            algaeIntakeStates = AlgaeIntakeStates.stationary;
+            coralIntakeStates = CoralIntakeStates.stationary;                
+            elevatorStates = ElevatorStates.L2;
+            drivebaseStates = DrivebaseStates.L2Limits;
+
+            case coral3:
+            climberStates = ClimberStates.stowed;
+            algaeGroundStates = AlgaeGroundStates.stowed;
+            algaeIntakeStates = AlgaeIntakeStates.stationary;
+            coralIntakeStates = CoralIntakeStates.stationary;                
+            elevatorStates = ElevatorStates.L3;
+            drivebaseStates = DrivebaseStates.L3Limits;
+
+            case coral4:
+            climberStates = ClimberStates.stowed;
+            algaeGroundStates = AlgaeGroundStates.stowed;
+            algaeIntakeStates = AlgaeIntakeStates.stationary;
+            coralIntakeStates = CoralIntakeStates.stationary;                
+            elevatorStates = ElevatorStates.L4;
+            drivebaseStates = DrivebaseStates.L4Limits;
+
             default:
                 break;
         }
