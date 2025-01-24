@@ -33,6 +33,7 @@ public class StateMachine {
     FeederStation feederCloseOrFar;
     Pose2d goalFeederStation;
     Pose2d goalProcessor;
+    boolean buttonPressed = true;
 
     public StateMachine(Robot thisRobotIn) {
 
@@ -59,68 +60,24 @@ public class StateMachine {
                     goalProcessor = Settings.processor;
                 }
 
-                if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb)) {
+                if (climberStates == ClimberStates.stowed && !buttonPressed && thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb)){
+                    climberStates = ClimberStates.armOut;
+                    buttonPressed = false;
+                }
+                if (climberStates == ClimberStates.armOut && !buttonPressed && thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb)){
+                    climberStates = ClimberStates.climbing;
+                    buttonPressed = false;
+                }
+                if (climberStates == ClimberStates.climbing && !buttonPressed && thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb)){
                     climberStates = ClimberStates.stowed;
-                    if (climberStates == ClimberStates.stowed && thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb)){
-                        climberStates = ClimberStates.armOut;
-                        if (climberStates == ClimberStates.armOut && thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb)){
-                            climberStates = ClimberStates.armOut;
-                        }
-                    }
+                    buttonPressed = false;
                 }
 
-                // store if operator hits reef button
-                if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_ab)) {
-                    operatorChosenSideOfReef = SideOfReef.AB;
-                }
-                if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_cd)) {
-                    operatorChosenSideOfReef = SideOfReef.CD;
-                }
-                if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_ef)) {
-                    operatorChosenSideOfReef = SideOfReef.EF;
-                }
-                if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_gh)) {
-                    operatorChosenSideOfReef = SideOfReef.GH;
-                }
-                if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_ij)) {
-                    operatorChosenSideOfReef = SideOfReef.IJ;
-                }
-                if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_kl)) {
-                    operatorChosenSideOfReef = SideOfReef.KL;
-                }
+                copilotSideOfReef();
 
-                // store which level operator choses
-                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral1)) {
-                    scoreCoralGoalLevel = ElevatorStates.L1; 
-                } 
-                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral2)) {
-                    scoreCoralGoalLevel = ElevatorStates.L2;
-                } 
-                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral3)) {
-                    scoreCoralGoalLevel = ElevatorStates.L3; 
-                }  
-                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral4)) {
-                    scoreCoralGoalLevel = ElevatorStates.L4; 
-                }
+                copilotLevelToScore();
 
-                // store close or far for feeding station
-                if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Far)) {
-                    feederCloseOrFar = FeederStation.Far; 
-                } 
-                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Close)) {
-                    feederCloseOrFar = FeederStation.Close; 
-                } 
-
-                // driver selects l or r branch and co-pilot stored info is run
-                if (operatorChosenSideOfReef == SideOfReef.AB) {
-                    if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
-                        coralScoreGoalPose = Settings.coralRightAB;
-                        scoreCoralOnLevel();
-                    } else if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
-                        coralScoreGoalPose = Settings.coralLeftAB;
-                        scoreCoralOnLevel();
-                    }                
-                }
+                copilotCloseOrFar();
 
                 if (operatorChosenSideOfReef == SideOfReef.CD) {
                     if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
@@ -366,6 +323,54 @@ public class StateMachine {
         }
         if (scoreCoralGoalLevel == ElevatorStates.L4 && isInReefZone == true) {
             robotState = RobotStates.algaeIntakeL3;
+        }
+    }
+
+    // store if operator hits side of reef button
+    public void copilotSideOfReef () {
+        if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_ab)) {
+            operatorChosenSideOfReef = SideOfReef.AB;
+        }
+        if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_cd)) {
+            operatorChosenSideOfReef = SideOfReef.CD;
+        }
+        if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_ef)) {
+            operatorChosenSideOfReef = SideOfReef.EF;
+        }
+        if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_gh)) {
+            operatorChosenSideOfReef = SideOfReef.GH;
+        }
+        if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_ij)) {
+            operatorChosenSideOfReef = SideOfReef.IJ;
+        }
+        if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_kl)) {
+            operatorChosenSideOfReef = SideOfReef.KL;
+        }
+    }
+    
+    // store which level operator chooses
+    public void copilotLevelToScore () {
+        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral1)) {
+            scoreCoralGoalLevel = ElevatorStates.L1; 
+        } 
+        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral2)) {
+            scoreCoralGoalLevel = ElevatorStates.L2;
+        } 
+        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral3)) {
+            scoreCoralGoalLevel = ElevatorStates.L3; 
+        }  
+        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral4)) {
+            scoreCoralGoalLevel = ElevatorStates.L4; 
+        }
+    }
+
+    // store close or far for feeding station
+    public void copilotCloseOrFar () {
+        if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Far)) {
+            feederCloseOrFar = FeederStation.Far; 
+        } 
+        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Close)) {
+            feederCloseOrFar = FeederStation.Close; 
         }
     }
 }
