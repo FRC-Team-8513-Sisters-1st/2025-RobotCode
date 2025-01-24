@@ -7,7 +7,7 @@ import frc.robot.Robot;
 import frc.robot.Settings;
 import frc.robot.logic.Enums.CoralIntakeStates;
 
-public class Koral {
+public class Coral {
     Robot thisRobot;
 
     CoralIntakeStates state = CoralIntakeStates.stationary;
@@ -15,7 +15,7 @@ public class Koral {
     public SparkMax coralMotor1 = new SparkMax(Settings.coralMotor1CANID, MotorType.kBrushless);
     public SparkMax coralMotor2 = new SparkMax(Settings.coralMotor2CANID, MotorType.kBrushless);
 
-    public Koral(Robot thisRobotIn) {
+    public Coral(Robot thisRobotIn) {
         
         thisRobot = thisRobotIn;
     }
