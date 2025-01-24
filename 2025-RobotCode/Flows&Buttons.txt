@@ -1,13 +1,13 @@
 - for coral force intake (controller 1) and processor (controller 1) when the copilot presses the button the state will
  immediatly change
-X - to climb, the driver presses Y and toggles between climb, arm out, and stowed. 
+- to climb, the driver presses Y and toggles between climb, arm out, and stowed. 
  Possiblity to have the copilot have an extra joystick for troubleshooting during the climb, it would change angle of arm.
 - the copilot will select the side of reef (controller 2) to score on and the level (controller 1) using the button panel,
  these will be stored as variables and can be updated at any point
 - Once the driver presses either the right or left trigger, the goal pose will be set and the robot will go to the side of 
  the reef stored. Simulaneously, the elevator will begin to move to the directed state (L1, L2) once the robot is in the reef 
  zone. WE NEED TO MAKE A STATE WHERE ONLY THE ELEVATOR MOVES AND THE CORAL DOES NOT OUTAKE.
-X - The robot will know when to begin coral outake when either the copilot (controller 1) presses the force outake button
+- The robot will know when to begin coral outake when either the copilot (controller 1) presses the force outake button
  or it could be automated. <- WANT TO AVOID DROPPING THE CORAL ON THE GROUND
 - The combo of algae intake and coral outake will only be used in autonomous. To intake algae during teleop, the copilot 
  will still have to select side and level (specifically algae 3 or 4 (controller 1)) the driver will have to click the RIGHT 
@@ -16,8 +16,7 @@ X - The robot will know when to begin coral outake when either the copilot (cont
 - To automate the feeding station, the copilot can select either close or far (controller 2), this will be stored as a 
  variable or enum then the driver uses the right or left bumper to choose which station to go to (relavtive to the driver
  station), the pose will then be set and the robot will go to it, the coral intake will automatically turn on, on the way.
-X - To automate scoring in the processor, the driver can press either the d-pad or the buttons on the back to set the pose 
+- To automate scoring in the processor, the driver can press either the d-pad or the buttons on the back to set the pose 
 and go to the processor. then when the copilot is ready they can hit the force algae out button and score the algae.
 
- X = not done
- * remove processor button from the copilot button panel
+

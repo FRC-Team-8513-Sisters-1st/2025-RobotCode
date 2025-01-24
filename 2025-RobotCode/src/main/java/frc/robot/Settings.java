@@ -70,7 +70,7 @@ public final class Settings {
     public static int buttonId_RightBranch = 5;
     public static int buttonId_LeftBranch = 6;
     public static int buttonId_reorenting = 7;
-    public static int buttonId_processor;
+    public static int buttonId_processor = 8;
 
 
     // auto poses
