@@ -281,6 +281,14 @@ public class StateMachine {
             elevatorStates = ElevatorStates.L2;
             drivebaseStates = DrivebaseStates.L2Limits;
 
+            if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Drive)) {
+                robotState = RobotStates.driving;
+            }
+
+            if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_processor)) {
+                goalProcessor = Settings.processor;
+            }
+
             copilotCloseOrFar();
 
             operatorFeederStation();
@@ -297,6 +305,14 @@ public class StateMachine {
             coralIntakeStates = CoralIntakeStates.outake;                
             elevatorStates = ElevatorStates.L3;
             drivebaseStates = DrivebaseStates.L3Limits;
+
+            if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Drive)) {
+                robotState = RobotStates.driving;
+            }
+
+            if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_processor)) {
+                goalProcessor = Settings.processor;
+            }
 
             copilotCloseOrFar();
 
@@ -315,6 +331,14 @@ public class StateMachine {
             elevatorStates = ElevatorStates.L4;
             drivebaseStates = DrivebaseStates.L4Limits;
 
+            if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Drive)) {
+                robotState = RobotStates.driving;
+            }
+
+            if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_processor)) {
+                goalProcessor = Settings.processor;
+            }
+
             copilotCloseOrFar();
 
             operatorFeederStation();
@@ -331,6 +355,10 @@ public class StateMachine {
             coralIntakeStates = CoralIntakeStates.stationary;                
             elevatorStates = ElevatorStates.L1;
             drivebaseStates = DrivebaseStates.L1Limits;
+
+            if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Drive)) {
+                robotState = RobotStates.driving;
+            }
             
             scoreCoralOnLevelFromLevel();
 
@@ -344,6 +372,10 @@ public class StateMachine {
             coralIntakeStates = CoralIntakeStates.stationary;                
             elevatorStates = ElevatorStates.L2;
             drivebaseStates = DrivebaseStates.L2Limits;
+
+            if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Drive)) {
+                robotState = RobotStates.driving;
+            }
             
             scoreCoralOnLevelFromLevel();
 
@@ -357,6 +389,10 @@ public class StateMachine {
             coralIntakeStates = CoralIntakeStates.stationary;                
             elevatorStates = ElevatorStates.L3;
             drivebaseStates = DrivebaseStates.L3Limits;
+
+            if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Drive)) {
+                robotState = RobotStates.driving;
+            }
             
             scoreCoralOnLevelFromLevel();
 
@@ -371,7 +407,10 @@ public class StateMachine {
             elevatorStates = ElevatorStates.L4;
             drivebaseStates = DrivebaseStates.L4Limits;
 
-            
+            if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Drive)) {
+                robotState = RobotStates.driving;
+            }
+  
             scoreCoralOnLevelFromLevel();
 
             forceCoralAndAlgae();
@@ -398,7 +437,7 @@ public class StateMachine {
         }
     }
 
-    // score coral on any level from any level
+    // score coral on any level from any level bypassing copilot selecting side and level
     public void scoreCoralOnLevelFromLevel() {
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral1)) {
             robotState = RobotStates.coralScore1;
