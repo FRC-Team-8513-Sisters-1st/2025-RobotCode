@@ -8,7 +8,9 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.logic.Auto;
 import frc.robot.logic.AutoController;
 import frc.robot.logic.StateMachine;
@@ -51,11 +53,13 @@ public class Robot extends TimedRobot {
     updateAllianceFromDS();
     drivebase = new Drivebase(this);
     teleopController = new TeleopController(this);
+    autoController = new AutoController(this);
     
   }
 
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putNumber("Time", Timer.getFPGATimestamp());
   }
 
   @Override
