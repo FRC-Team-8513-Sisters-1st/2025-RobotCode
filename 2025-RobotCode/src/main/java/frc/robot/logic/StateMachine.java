@@ -233,6 +233,7 @@ public class StateMachine {
             }
 
             if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_processor)) {
+                robotState = RobotStates.driving;
                 goalProcessor = Settings.processor;
             }
 
@@ -261,8 +262,10 @@ public class StateMachine {
             }
 
             if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_processor)) {
+                robotState = RobotStates.driving;
                 goalProcessor = Settings.processor;
             }
+
 
             copilotCloseOrFar();
 
@@ -286,8 +289,10 @@ public class StateMachine {
             }
 
             if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_processor)) {
+                robotState = RobotStates.driving;
                 goalProcessor = Settings.processor;
             }
+
 
             copilotCloseOrFar();
 
@@ -311,8 +316,10 @@ public class StateMachine {
             }
 
             if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_processor)) {
+                robotState = RobotStates.driving;
                 goalProcessor = Settings.processor;
             }
+
 
             copilotCloseOrFar();
 
@@ -336,8 +343,10 @@ public class StateMachine {
             }
 
             if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_processor)) {
+                robotState = RobotStates.driving;
                 goalProcessor = Settings.processor;
             }
+
 
             copilotCloseOrFar();
 

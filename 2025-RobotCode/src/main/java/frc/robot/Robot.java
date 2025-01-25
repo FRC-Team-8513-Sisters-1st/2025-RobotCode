@@ -2,21 +2,45 @@ package frc.robot;
 
 import java.util.Optional;
 
+import com.reduxrobotics.canand.CanandDeviceDetails.Enums;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
+import frc.robot.logic.Auto;
+import frc.robot.logic.AutoController;
+import frc.robot.logic.StateMachine;
 import frc.robot.logic.TeleopController;
+import frc.robot.logic.Variables;
+import frc.robot.logic.Vision;
+import frc.robot.subsystems.Algae;
+import frc.robot.subsystems.AlgaeGround;
+import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Drivebase;
+import frc.robot.subsystems.Elevator;
 
 public class Robot extends TimedRobot {
 
   //subsystems
   public Drivebase drivebase;
+  public Algae algae;
+  public AlgaeGround algaeGround;
+  public Climber climber;
+  public Coral coral;
+  public Elevator elevator;
+
 
   //logic
   public TeleopController teleopController;
+  public AutoController autoController;
+  public StateMachine stateMachine;
+  public Enums enums;
+  public Auto auto;
+  public Variables variables;
+  public Vision vision;
 
   //variables
   public boolean onRedAlliance;
@@ -36,12 +60,14 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    autoController.autoInit();
     updateAllianceFromDS();
     drivebase.initPath("circle while turning");
   }
 
   @Override
   public void autonomousPeriodic() {
+    autoController.autoPeriodic();
     if(drivebase.followLoadedPath()) {
       drivebase.swerveDrive.lockPose();
     }
@@ -91,4 +117,5 @@ public class Robot extends TimedRobot {
       onRedAlliance = false;
     }
   }
+
 }

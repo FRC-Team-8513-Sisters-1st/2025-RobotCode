@@ -33,4 +33,7 @@ public final class Enums {
     public enum FeederStation {
         Close, Far
     }
+    public enum AutoRoutines {
+        DoNothing, Filler
+    }
 }
