@@ -26,14 +26,13 @@ public class StateMachine {
     ElevatorStates elevatorStates = ElevatorStates.stowed;
     DrivebaseStates drivebaseStates = DrivebaseStates.stowedLimits;
 
-    Pose2d coralScoreGoalPose;
-    SideOfReef operatorChosenSideOfReef;
     ElevatorStates scoreCoralGoalLevel;
     boolean isInReefZone = false;
     FeederStation feederCloseOrFar;
     Pose2d goalFeederStation;
     Pose2d goalProcessor;
-    boolean climberButtonPressed;
+    boolean elevatorButtonPressed;
+    SideOfReef operatorChosenSideOfReef;
 
     public StateMachine(Robot thisRobotIn) {
 
@@ -52,24 +51,29 @@ public class StateMachine {
                 elevatorStates = ElevatorStates.stowed;
                 drivebaseStates = DrivebaseStates.stowedLimits;
 
+                if (thisRobot.coralReady2Score == true) {
+                    scoreCoralOnLevel();
+                }
+                if (thisRobot.algaeReady2Score== true) {
+                    takeAlgaeOnLevel();
+                }
 
                 if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_processor)) {
                     goalProcessor = Settings.processor;
                 }
 
-                climberButtonPressed = thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb);
-
-                if (climberStates == ClimberStates.stowed && !climberButtonPressed && thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb)){
+                elevatorButtonPressed = thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb);
+                if (climberStates == ClimberStates.stowed && elevatorButtonPressed){
                     climberStates = ClimberStates.armOut;
-                    climberButtonPressed = false;
+                    elevatorButtonPressed = false;
                 }
-                if (climberStates == ClimberStates.armOut && !climberButtonPressed && thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb)){
+                if (climberStates == ClimberStates.armOut && elevatorButtonPressed){
                     climberStates = ClimberStates.climbing;
-                    climberButtonPressed = false;
+                    elevatorButtonPressed = false;
                 }
-                if (climberStates == ClimberStates.climbing && !climberButtonPressed && thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb)){
+                if (climberStates == ClimberStates.climbing && elevatorButtonPressed){
                     climberStates = ClimberStates.stowed;
-                    climberButtonPressed = false;
+                    elevatorButtonPressed = false;
                 }
 
                 copilotSideOfReef();
@@ -81,112 +85,6 @@ public class StateMachine {
                 forceCoralAndAlgae();
 
                 operatorFeederStation();
-
-                if (operatorChosenSideOfReef == SideOfReef.CD) {
-                    if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
-                        coralScoreGoalPose = Settings.coralRightCD;
-                        scoreCoralOnLevel();
-                    } else if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
-                        coralScoreGoalPose = Settings.coralLeftCD;
-                        scoreCoralOnLevel();
-                    }                
-                }
-
-                if (operatorChosenSideOfReef == SideOfReef.EF) {
-                    if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
-                        coralScoreGoalPose = Settings.coralRightEF;
-                        scoreCoralOnLevel();
-                    } else if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
-                        coralScoreGoalPose = Settings.coralLeftEF;
-                        scoreCoralOnLevel();
-                    }                
-                }
-
-                if (operatorChosenSideOfReef == SideOfReef.GH) {
-                    if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
-                        coralScoreGoalPose = Settings.coralRightGH;
-                        scoreCoralOnLevel();
-                    } else if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
-                        coralScoreGoalPose = Settings.coralLeftGH;
-                        scoreCoralOnLevel();
-                    }                
-                }
-
-                if (operatorChosenSideOfReef == SideOfReef.IJ) {
-                    if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
-                        coralScoreGoalPose = Settings.coralRightIJ;
-                        scoreCoralOnLevel();
-                    } else if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
-                        coralScoreGoalPose = Settings.coralLeftIJ;
-                        scoreCoralOnLevel();
-                    }                
-                }
-
-                if (operatorChosenSideOfReef == SideOfReef.KL) {
-                    if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
-                        coralScoreGoalPose = Settings.coralRightKL;
-                        scoreCoralOnLevel();
-                    } else if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
-                        coralScoreGoalPose = Settings.coralLeftKL;
-                        scoreCoralOnLevel();
-                    }                
-                }
-
-                // take algae
-                if (operatorChosenSideOfReef == SideOfReef.AB) {
-                    if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Algae2)) {
-                        coralScoreGoalPose = Settings.coralRightAB;
-                        takeAlgaeOnLevel();
-                    } else if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Algae3)) {
-                        coralScoreGoalPose = Settings.coralRightAB;
-                        takeAlgaeOnLevel();
-                    }
-                }
-                if (operatorChosenSideOfReef == SideOfReef.CD) {
-                    if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Algae2)) {
-                        coralScoreGoalPose = Settings.coralRightCD;
-                        takeAlgaeOnLevel();
-                    } else if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Algae3)) {
-                        coralScoreGoalPose = Settings.coralRightCD;
-                        takeAlgaeOnLevel();
-                    }
-                }
-                if (operatorChosenSideOfReef == SideOfReef.EF) {
-                    if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Algae2)) {
-                        coralScoreGoalPose = Settings.coralRightEF;
-                        takeAlgaeOnLevel();
-                    } else if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Algae3)) {
-                        coralScoreGoalPose = Settings.coralRightEF;
-                        takeAlgaeOnLevel();
-                    }
-                }
-                if (operatorChosenSideOfReef == SideOfReef.GH) {
-                    if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Algae2)) {
-                        coralScoreGoalPose = Settings.coralRightGH;
-                        takeAlgaeOnLevel();
-                    } else if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Algae3)) {
-                        coralScoreGoalPose = Settings.coralRightGH;
-                        takeAlgaeOnLevel();
-                    }
-                }
-                if (operatorChosenSideOfReef == SideOfReef.IJ) {
-                    if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Algae2)) {
-                        coralScoreGoalPose = Settings.coralRightIJ;
-                        takeAlgaeOnLevel();
-                    } else if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Algae3)) {
-                        coralScoreGoalPose = Settings.coralRightIJ;
-                        takeAlgaeOnLevel();
-                    }
-                }
-                if (operatorChosenSideOfReef == SideOfReef.KL) {
-                    if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Algae2)) {
-                        coralScoreGoalPose = Settings.coralRightKL;
-                        takeAlgaeOnLevel();
-                    } else if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Algae3)) {
-                        coralScoreGoalPose = Settings.coralRightKL;
-                        takeAlgaeOnLevel();
-                    }
-                }
 
 
                 break;
@@ -557,5 +455,11 @@ public class StateMachine {
                 coralIntakeStates = CoralIntakeStates.intake;
             }
         }
+    }
+    public boolean isRobotInReefZone() {
+        double x = thisRobot.drivebase.swerveDrive.getPose().minus(Settings.reefZone).getX();
+        double y = thisRobot.drivebase.swerveDrive.getPose().minus(Settings.reefZone).getY();
+        double distance = Math.sqrt(x*x+y*y);
+        return distance < Settings.minDistanceFromReefZoneMeter;
     }
 }

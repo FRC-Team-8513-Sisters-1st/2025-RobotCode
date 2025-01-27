@@ -2,8 +2,6 @@ package frc.robot;
 
 import java.util.Optional;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -38,6 +36,9 @@ public class Robot extends TimedRobot {
 
   //variables
   public boolean onRedAlliance;
+  public boolean coralReady2Score = false;
+  public boolean algaeReady2Score = false;
+
 
   public Robot() {
     updateAllianceFromDS();
@@ -56,6 +57,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("Time", Timer.getFPGATimestamp());
+    SmartDashboard.putBoolean("updateIsRobotInReefZone", stateMachine.isRobotInReefZone());
   }
 
   @Override
