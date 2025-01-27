@@ -2,8 +2,6 @@ package frc.robot;
 
 import java.util.Optional;
 
-import com.reduxrobotics.canand.CanandDeviceDetails.Enums;
-
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -11,11 +9,9 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.logic.Auto;
 import frc.robot.logic.AutoController;
 import frc.robot.logic.StateMachine;
 import frc.robot.logic.TeleopController;
-import frc.robot.logic.Variables;
 import frc.robot.logic.Vision;
 import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.AlgaeGround;
@@ -34,26 +30,26 @@ public class Robot extends TimedRobot {
   public Coral coral;
   public Elevator elevator;
 
-
   //logic
   public TeleopController teleopController;
   public AutoController autoController;
   public StateMachine stateMachine;
-  public Enums enums;
-  public Auto auto;
-  public Variables variables;
   public Vision vision;
 
   //variables
   public boolean onRedAlliance;
-
-  double rV = 3;
 
   public Robot() {
     updateAllianceFromDS();
     drivebase = new Drivebase(this);
     teleopController = new TeleopController(this);
     autoController = new AutoController(this);
+    stateMachine = new StateMachine(this);
+    vision = new Vision(this);
+    elevator = new Elevator(this);
+    coral = new Coral(this);
+    climber = new Climber(this);
+    algae = new Algae(this);
     
   }
 
@@ -64,23 +60,18 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    autoController.autoInit();
     updateAllianceFromDS();
-    drivebase.initPath("circle while turning");
+    autoController.autoInit();
   }
 
   @Override
   public void autonomousPeriodic() {
     autoController.autoPeriodic();
-    if(drivebase.followLoadedPath()) {
-      drivebase.swerveDrive.lockPose();
-    }
   }
 
   @Override
   public void teleopInit() {
     updateAllianceFromDS();
-    drivebase.swerveDrive.resetOdometry(new Pose2d(2, 2, new Rotation2d()));
   }
 
   @Override

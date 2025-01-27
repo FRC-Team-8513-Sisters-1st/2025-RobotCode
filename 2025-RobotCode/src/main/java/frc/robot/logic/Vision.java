@@ -6,8 +6,7 @@ public class Vision {
     Robot thisRobot;
 
     public Vision(Robot thisRobotIn) {
-        
-            thisRobot = thisRobotIn;
+        thisRobot = thisRobotIn;
     }
 
 }

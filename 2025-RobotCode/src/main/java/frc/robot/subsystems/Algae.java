@@ -11,7 +11,6 @@ import frc.robot.logic.Enums.AlgaeIntakeStates;
 public class Algae {
     Robot thisRobot;
 
-    
     AlgaeIntakeStates state = AlgaeIntakeStates.stationary;
 
     public SparkMax algaeMotor1 = new SparkMax(Settings.algaeMotor1CANID, MotorType.kBrushless);

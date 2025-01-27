@@ -1,6 +1,5 @@
 package frc.robot.logic;
 
-import frc.robot.logic.Enums.RobotStates;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
@@ -11,9 +10,6 @@ public class AutoController {
 
     Robot thisRobot;
     AutoRoutines autoRoutine = AutoRoutines.DoNothing;
-    String path1 = "";
-    StateMachine stateMachine;
-    RobotStates robotStates = RobotStates.driving;
     int autoStep = 0;
 
     public SendableChooser<String> autoSelector;
@@ -41,6 +37,7 @@ public class AutoController {
     }
 
     public void autoPeriodic() {
+        SmartDashboard.putNumber("autoStep", autoStep);
         switch(autoRoutine) {
             case DoNothing:
                     thisRobot.drivebase.swerveDrive.lockPose();
@@ -48,14 +45,19 @@ public class AutoController {
             case Filler:
                 switch (autoStep) {
                     case 0:
-                        thisRobot.drivebase.initPath("1m path");
+                        thisRobot.drivebase.initPath("circle while turning");
                         autoStep = 10;
+                        break;
                     case 10:
                         if (thisRobot.drivebase.followLoadedPath()) {
                             autoStep = 20;
                         }
+                        break;
                     case 20:
                         thisRobot.drivebase.swerveDrive.lockPose();
+                        break;
+                    default:
+                        break;
                 }
               break;
             default:

@@ -13,12 +13,12 @@ public final class Settings {
    // driver axis 
    public static int leftRightAxis = 0;
    public static int forwardBackwardsAxis = 1;
-   public static int rotAxis = 4; // 2 at home, 4 on xbox
+   public static int rotAxis = 4;
 
    // driver joystick settings
-   public static int driverJoystickPort = 0;
-   public static int operatorJoystick1Port = 0;
-   public static int operatorJoystick2Port = 0;
+   public static int driverJoystickPort = 1;
+   public static int operatorJoystick1Port = 2;
+   public static int operatorJoystick2Port = 3;
 
 
    // pid settings
@@ -27,16 +27,16 @@ public final class Settings {
     public static PIDController rController = new PIDController(1, 0, 0);
 
     // CANids
-    public static int algaeMotor1CANID = 1;
-    public static int algaeMotor2CANID = 2;
-    public static int algaeGroundMotor1CANID = 3;
-    public static int algaeGroundMotor2CANID = 4;
-    public static int climberMotor1CANID = 5;
-    public static int climberMotor2CANID = 6;
-    public static int elevatorMotor1CANID = 7;
-    public static int elevatorMotor2CANID = 8;
-    public static int coralMotor1CANID = 9;
-    public static int coralMotor2CANID = 10;
+    public static int algaeMotor1CANID = 11;
+    public static int algaeMotor2CANID = 12;
+    public static int algaeGroundMotor1CANID = 13;
+    public static int algaeGroundMotor2CANID = 14;
+    public static int climberMotor1CANID = 15;
+    public static int climberMotor2CANID = 16;
+    public static int elevatorMotor1CANID = 17;
+    public static int elevatorMotor2CANID = 18;
+    public static int coralMotor1CANID = 19;
+    public static int coralMotor2CANID = 20;
 
 
     // controller 1 panel buttons

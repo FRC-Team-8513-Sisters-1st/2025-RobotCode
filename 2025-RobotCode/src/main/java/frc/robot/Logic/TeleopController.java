@@ -12,8 +12,6 @@ public class TeleopController {
     Joystick operatorJoystick1 = new Joystick(Settings.operatorJoystick1Port);
     Joystick operatorJoystick2 = new Joystick(Settings.operatorJoystick2Port);
 
-
-
     public TeleopController(Robot thisRobotIn){
         thisRobot = thisRobotIn;
     }
