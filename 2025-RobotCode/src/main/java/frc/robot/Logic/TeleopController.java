@@ -85,55 +85,7 @@ public class TeleopController {
 
         }
         if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
-            thisRobot.coralReady2Score = true;
-            switch (operatorChosenSideOfReef) {
-                case AB:
-                    coralScoreGoalPose = Settings.coralRightAB;
-                    break;
-                case CD:
-                    coralScoreGoalPose = Settings.coralRightCD;
-                    break;
-                case EF:
-                    coralScoreGoalPose = Settings.coralRightEF;
-                    break;
-                case GH:
-                    coralScoreGoalPose = Settings.coralRightGH;
-                    break;
-                case IJ:
-                    coralScoreGoalPose = Settings.coralRightIJ;
-                    break;
-                case KL:
-                    coralScoreGoalPose = Settings.coralRightKL;
-                    break;
-            }
-        }
-        
-        // take algae
-        if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)
-                && operatorGoalAlgaeReefLevel == RobotStates.algaeIntakeL2) {
-            thisRobot.algaeReady2Score = true;
-            switch (operatorChosenSideOfReef) {
-                case AB:
-                    coralScoreGoalPose = Settings.coralRightAB;
-                    break;
-                case CD:
-                    coralScoreGoalPose = Settings.coralRightCD;
-                    break;
-                case EF:
-                    coralScoreGoalPose = Settings.coralRightEF;
-                    break;
-                case GH:
-                    coralScoreGoalPose = Settings.coralRightGH;
-                    break;
-                case IJ:
-                    coralScoreGoalPose = Settings.coralRightIJ;
-                    break;
-                case KL:
-                    coralScoreGoalPose = Settings.coralRightKL;
-                    break;
-            }
-            if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)
-                    && operatorGoalAlgaeReefLevel == RobotStates.algaeIntakeL3) {
+            if (operatorGoalAlgaeReefLevel == RobotStates.algaeIntakeL2) {
                 thisRobot.algaeReady2Score = true;
                 switch (operatorChosenSideOfReef) {
                     case AB:
@@ -154,9 +106,55 @@ public class TeleopController {
                     case KL:
                         coralScoreGoalPose = Settings.coralRightKL;
                         break;
+                }
+                if (operatorGoalAlgaeReefLevel == RobotStates.algaeIntakeL3) {
+                    thisRobot.algaeReady2Score = true;
+                    switch (operatorChosenSideOfReef) {
+                        case AB:
+                            coralScoreGoalPose = Settings.coralRightAB;
+                            break;
+                        case CD:
+                            coralScoreGoalPose = Settings.coralRightCD;
+                            break;
+                        case EF:
+                            coralScoreGoalPose = Settings.coralRightEF;
+                            break;
+                        case GH:
+                            coralScoreGoalPose = Settings.coralRightGH;
+                            break;
+                        case IJ:
+                            coralScoreGoalPose = Settings.coralRightIJ;
+                            break;
+                        case KL:
+                            coralScoreGoalPose = Settings.coralRightKL;
+                            break;
 
+                    }
+                }
+            } else {
+                thisRobot.coralReady2Score = true;
+                switch (operatorChosenSideOfReef) {
+                    case AB:
+                        coralScoreGoalPose = Settings.coralRightAB;
+                        break;
+                    case CD:
+                        coralScoreGoalPose = Settings.coralRightCD;
+                        break;
+                    case EF:
+                        coralScoreGoalPose = Settings.coralRightEF;
+                        break;
+                    case GH:
+                        coralScoreGoalPose = Settings.coralRightGH;
+                        break;
+                    case IJ:
+                        coralScoreGoalPose = Settings.coralRightIJ;
+                        break;
+                    case KL:
+                        coralScoreGoalPose = Settings.coralRightKL;
+                        break;
                 }
             }
+
         }
     }
 }

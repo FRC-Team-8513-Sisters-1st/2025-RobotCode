@@ -34,6 +34,8 @@ public class StateMachine {
     boolean elevatorButtonPressed;
     SideOfReef operatorChosenSideOfReef;
 
+    public TeleopController teleopController;
+
     public StateMachine(Robot thisRobotIn) {
 
         thisRobot = thisRobotIn;
@@ -56,6 +58,13 @@ public class StateMachine {
                 }
                 if (thisRobot.algaeReady2Score== true) {
                     takeAlgaeOnLevel();
+                }
+                
+                if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Algae2)) {
+                    teleopController.operatorGoalAlgaeReefLevel = RobotStates.algaeIntakeL2;
+                }
+                if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Algae3)) {
+                    teleopController.operatorGoalAlgaeReefLevel = RobotStates.algaeIntakeL3;
                 }
 
                 if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_processor)) {
