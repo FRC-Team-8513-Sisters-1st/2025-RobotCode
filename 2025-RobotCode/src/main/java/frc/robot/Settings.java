@@ -98,5 +98,6 @@ public final class Settings {
 
 
     public static Pose2d reefZone = new Pose2d();
+    public static double minDistanceFromReefZoneMeter = 1;
 
 }

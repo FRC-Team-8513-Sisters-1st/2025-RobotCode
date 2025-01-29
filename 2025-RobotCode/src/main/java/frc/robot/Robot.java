@@ -58,6 +58,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     SmartDashboard.putNumber("Time", Timer.getFPGATimestamp());
     SmartDashboard.putBoolean("updateIsRobotInReefZone", stateMachine.isRobotInReefZone());
+    vision.updatePhotonVision();
   }
 
   @Override
