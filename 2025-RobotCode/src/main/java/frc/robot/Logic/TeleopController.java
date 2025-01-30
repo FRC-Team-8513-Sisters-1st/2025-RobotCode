@@ -3,6 +3,7 @@ package frc.robot.logic;
 import frc.robot.Settings;
 import frc.robot.logic.Enums.RobotStates;
 import frc.robot.logic.Enums.SideOfReef;
+import frc.robot.subsystems.Drivebase;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Robot;
@@ -56,7 +57,11 @@ public class TeleopController {
         double yV = yInput * thisRobot.drivebase.swerveDrive.getMaximumChassisVelocity();
         double rV = rInput * thisRobot.drivebase.swerveDrive.getMaximumChassisAngularVelocity();
 
-        thisRobot.drivebase.drive(xV, yV, rV, true);
+        if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)) {
+            thisRobot.drivebase.attackPoint(Settings.rightCloseFeederStation);
+        } else {
+            thisRobot.drivebase.drive(xV, yV, rV, true);
+        }
 
         // setting Pose2d
 

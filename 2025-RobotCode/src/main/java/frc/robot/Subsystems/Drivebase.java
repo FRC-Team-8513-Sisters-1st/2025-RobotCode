@@ -9,6 +9,7 @@ import frc.robot.Robot;
 import frc.robot.Settings;
 import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import swervelib.telemetry.SwerveDriveTelemetry;
@@ -38,6 +39,7 @@ public class Drivebase {
     double timePathStarted;
     PathPlannerTrajectoryState trajGoalState;
     Field2d trajGoalPosition = new Field2d();
+    PathPlannerPath pathPlannerGoalPose;
 
     public Drivebase(Robot thisRobotIn) {
         double maximumSpeed = Units.feetToMeters(Settings.drivebaseMaxVelocityFPS);
@@ -126,6 +128,17 @@ public class Drivebase {
 
         }
 
+    }
+    
+    public boolean attackPoint(Pose2d goalPose ) {
+        double poseX = Settings.xController.calculate(swerveDrive.getPose().getX(), goalPose.getX());
+        double poseY = Settings.yController.calculate(swerveDrive.getPose().getY(), goalPose.getY());
+        double poseR = Settings.rController.calculate(swerveDrive.getPose().getRotation().minus(goalPose.getRotation()).getDegrees(), 0);
+        
+        swerveDrive.driveFieldOriented(new ChassisSpeeds(poseX, poseY, poseR));
+
+        return Settings.getDistanceBetweenTwoPoses(goalPose, swerveDrive.getPose()) < Settings.coralScoreThold;
+    
     }
 
 }

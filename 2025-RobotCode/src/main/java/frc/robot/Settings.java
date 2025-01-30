@@ -66,7 +66,7 @@ public final class Settings {
     public static int buttonId_Climb = 1;
     public static int buttonId_ClimbDown = 2;
     public static int buttonId_LeftFeederSt = 3;
-    public static int buttonId_RightFeederSt = 4;
+    public static int buttonId_RightFeederSt = 6;
     public static int buttonId_RightBranch = 5;
     public static int buttonId_LeftBranch = 6;
     public static int buttonId_reorenting = 7;
@@ -99,5 +99,13 @@ public final class Settings {
 
     public static Pose2d reefZone = new Pose2d();
     public static double minDistanceFromReefZoneMeter = 1;
+    
+    public static double coralScoreThold = 0.0254;
 
+    public static double getDistanceBetweenTwoPoses(Pose2d pose1, Pose2d pose2) {
+        double x = pose2.getX() - pose1.getX();
+        double y = pose2.getY() - pose1.getY();
+        double distance = Math.sqrt(x) + Math.sqrt(y);
+        return distance;
+    }
 }
