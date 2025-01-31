@@ -19,4 +19,9 @@
 - To automate scoring in the processor, the driver can press either the d-pad or the buttons on the back to set the pose 
 and go to the processor. then when the copilot is ready they can hit the force algae out button and score the algae.
 
+Vision Turns Off
+- the drive button (controller 2) is going to be an override button that will return the elevator to stowed, coral and algae mech
+ will turn off.
+- if vision systems break, if the copilot clicks and holds the coral out and selects a height for the elevator, then the elevator
+ will go to that state automatically.
 

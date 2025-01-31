@@ -4,10 +4,9 @@ import java.util.Optional;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import frc.robot.logic.AutoController;
+import frc.robot.logic.Dashboard;
 import frc.robot.logic.StateMachine;
 import frc.robot.logic.TeleopController;
 import frc.robot.logic.Vision;
@@ -33,6 +32,7 @@ public class Robot extends TimedRobot {
   public AutoController autoController;
   public StateMachine stateMachine;
   public Vision vision;
+  public Dashboard dashboard;
 
   //variables
   public boolean onRedAlliance;
@@ -51,14 +51,16 @@ public class Robot extends TimedRobot {
     coral = new Coral(this);
     climber = new Climber(this);
     algae = new Algae(this);
+    dashboard = new Dashboard(this);
+
     
   }
 
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("Time", Timer.getFPGATimestamp());
-    SmartDashboard.putBoolean("updateIsRobotInReefZone", stateMachine.isRobotInReefZone());
-    vision.updatePhotonVision();
+    dashboard.updateDashboard();
+    if (Robot.isReal()) {
+      vision.updatePhotonVision();}
   }
 
   @Override

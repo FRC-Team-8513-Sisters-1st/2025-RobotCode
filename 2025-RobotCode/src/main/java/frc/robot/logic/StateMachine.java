@@ -137,6 +137,7 @@ public class StateMachine {
 
             if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Drive)) {
                 robotState = RobotStates.driving;
+
             }
 
             if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_processor)) {
@@ -166,11 +167,13 @@ public class StateMachine {
 
             if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Drive)) {
                 robotState = RobotStates.driving;
+
             }
 
             if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_processor)) {
                 robotState = RobotStates.driving;
                 goalProcessor = Settings.processor;
+
             }
 
 
@@ -193,11 +196,13 @@ public class StateMachine {
 
             if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Drive)) {
                 robotState = RobotStates.driving;
+
             }
 
             if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_processor)) {
                 robotState = RobotStates.driving;
                 goalProcessor = Settings.processor;
+
             }
 
 
@@ -220,11 +225,13 @@ public class StateMachine {
 
             if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Drive)) {
                 robotState = RobotStates.driving;
+
             }
 
             if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_processor)) {
                 robotState = RobotStates.driving;
                 goalProcessor = Settings.processor;
+
             }
 
 
@@ -247,11 +254,13 @@ public class StateMachine {
 
             if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Drive)) {
                 robotState = RobotStates.driving;
+
             }
 
             if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_processor)) {
                 robotState = RobotStates.driving;
                 goalProcessor = Settings.processor;
+
             }
 
 
@@ -274,6 +283,7 @@ public class StateMachine {
 
             if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Drive)) {
                 robotState = RobotStates.driving;
+
             }
             
             scoreCoralOnLevelFromLevel();
@@ -291,6 +301,7 @@ public class StateMachine {
 
             if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Drive)) {
                 robotState = RobotStates.driving;
+
             }
             
             scoreCoralOnLevelFromLevel();
@@ -308,6 +319,7 @@ public class StateMachine {
 
             if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Drive)) {
                 robotState = RobotStates.driving;
+
             }
             
             scoreCoralOnLevelFromLevel();
@@ -325,6 +337,7 @@ public class StateMachine {
 
             if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Drive)) {
                 robotState = RobotStates.driving;
+
             }
   
             scoreCoralOnLevelFromLevel();
@@ -341,15 +354,19 @@ public class StateMachine {
     public void scoreCoralOnLevel() { 
         if (scoreCoralGoalLevel == ElevatorStates.L1 && isInReefZone == true) {
             robotState = RobotStates.coralScore1;
+
         }
         if (scoreCoralGoalLevel == ElevatorStates.L2 && isInReefZone == true) {
             robotState = RobotStates.coralScore2;
+
         }
         if (scoreCoralGoalLevel == ElevatorStates.L3 && isInReefZone == true) {
             robotState = RobotStates.coralScore3;
+
         }
         if (scoreCoralGoalLevel == ElevatorStates.L4 && isInReefZone == true) {
             robotState = RobotStates.coralScore4;
+
         }
     }
 
@@ -357,15 +374,19 @@ public class StateMachine {
     public void scoreCoralOnLevelFromLevel() {
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral1)) {
             robotState = RobotStates.coralScore1;
+
         }
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral2)) {
             robotState = RobotStates.coralScore2;
+
         }
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral3)) {
             robotState = RobotStates.coralScore3;
+
         }
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral4)) {
             robotState = RobotStates.coralScore4;
+
         }
     }
 
@@ -374,9 +395,11 @@ public class StateMachine {
     public void takeAlgaeOnLevel() {
         if (scoreCoralGoalLevel == ElevatorStates.L3 && isInReefZone == true) {
             robotState = RobotStates.algaeIntakeL2;
+
         }
         if (scoreCoralGoalLevel == ElevatorStates.L4 && isInReefZone == true) {
             robotState = RobotStates.algaeIntakeL3;
+
         }
     }
 
@@ -384,21 +407,27 @@ public class StateMachine {
     public void copilotSideOfReef () {
         if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_ab)) {
             operatorChosenSideOfReef = SideOfReef.AB;
+
         }
         if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_cd)) {
             operatorChosenSideOfReef = SideOfReef.CD;
+
         }
         if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_ef)) {
             operatorChosenSideOfReef = SideOfReef.EF;
+
         }
         if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_gh)) {
             operatorChosenSideOfReef = SideOfReef.GH;
+
         }
         if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_ij)) {
             operatorChosenSideOfReef = SideOfReef.IJ;
+
         }
         if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_kl)) {
             operatorChosenSideOfReef = SideOfReef.KL;
+
         }
     }
     
@@ -406,15 +435,19 @@ public class StateMachine {
     public void copilotLevelToScore () {
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral1)) {
             scoreCoralGoalLevel = ElevatorStates.L1; 
+
         } 
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral2)) {
             scoreCoralGoalLevel = ElevatorStates.L2;
+
         } 
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral3)) {
             scoreCoralGoalLevel = ElevatorStates.L3; 
+
         }  
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral4)) {
-            scoreCoralGoalLevel = ElevatorStates.L4; 
+            scoreCoralGoalLevel = ElevatorStates.L4;
+ 
         }
     }
 
@@ -422,9 +455,11 @@ public class StateMachine {
     public void copilotCloseOrFar () {
         if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Far)) {
             feederCloseOrFar = FeederStation.Far; 
+
         } 
         if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_Close)) {
             feederCloseOrFar = FeederStation.Close; 
+
         }
     }
 
@@ -432,15 +467,19 @@ public class StateMachine {
     public void forceCoralAndAlgae() {
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_AlgaeIntake)) {
             algaeIntakeStates = AlgaeIntakeStates.intake;
+
         } 
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_AlgaeOutake)) {
             algaeIntakeStates = AlgaeIntakeStates.outake;
+
         }
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralIntake)) {
             coralIntakeStates = CoralIntakeStates.intake;
+
         } 
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake)) {
             coralIntakeStates = CoralIntakeStates.outake;
+
         }
     }
 
@@ -450,18 +489,22 @@ public class StateMachine {
             if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightFeederSt)) {
                 goalFeederStation = Settings.rightFarFeederStation;
                 coralIntakeStates = CoralIntakeStates.intake;
+
             } else if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftFeederSt)) {
                 goalFeederStation = Settings.leftFarFeederStation;
                 coralIntakeStates = CoralIntakeStates.intake;
+
             }
         }
         if (feederCloseOrFar == FeederStation.Close) {
             if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightFeederSt)) {
                 goalFeederStation = Settings.rightCloseFeederStation;
                 coralIntakeStates = CoralIntakeStates.intake;
+
             } else if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftFeederSt)) {
                 goalFeederStation = Settings.leftCloseFeederStation;
                 coralIntakeStates = CoralIntakeStates.intake;
+
             }
         }
     }

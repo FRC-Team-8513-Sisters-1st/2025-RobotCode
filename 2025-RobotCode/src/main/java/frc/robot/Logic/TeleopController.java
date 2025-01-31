@@ -3,7 +3,6 @@ package frc.robot.logic;
 import frc.robot.Settings;
 import frc.robot.logic.Enums.RobotStates;
 import frc.robot.logic.Enums.SideOfReef;
-import frc.robot.subsystems.Drivebase;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Robot;

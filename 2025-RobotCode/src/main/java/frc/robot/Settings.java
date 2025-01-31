@@ -40,26 +40,28 @@ public final class Settings {
 
 
     // controller 1 panel buttons
-    public static int buttonId_CoralIntake = 1;
-    public static int buttonId_CoralOutake = 2;
-    public static int buttonId_Coral4 = 3;
-    public static int buttonId_Coral3 = 4;
-    public static int buttonId_Coral2 = 5;
-    public static int buttonId_Coral1 = 6;
+    public static int buttonId_CoralIntake = 8;
+    public static int buttonId_CoralOutake = 9;
+    public static int buttonId_Coral4 = 4;
+    public static int buttonId_Coral3 = 3;
+    public static int buttonId_Coral2 = 2;
+    public static int buttonId_Coral1 = 1;
     public static int buttonId_Algae3 = 7;
-    public static int buttonId_Algae2 = 8;
-    public static int buttonId_AlgaeIntake = 9;
-    public static int buttonId_AlgaeOutake = 10;
+    public static int buttonId_Algae2 = 5;
+    public static int buttonId_AlgaeIntake = 10;
+    public static int buttonId_AlgaeOutake = 11;
+    public static int buttonId_processor = 6;
+
 
         // controller 2 panel buttons
     public static int buttonId_Close = 1;
     public static int buttonId_Far = 2;
     public static int buttonId_Drive = 3;
-    public static int buttonId_ab = 4;
-    public static int buttonId_cd = 5;
-    public static int buttonId_ef = 6;
-    public static int buttonId_gh = 7;
-    public static int buttonId_ij = 8;
+    public static int buttonId_ab = 6;
+    public static int buttonId_cd = 9;
+    public static int buttonId_ef = 8;
+    public static int buttonId_gh = 5;
+    public static int buttonId_ij = 3;
     public static int buttonId_kl = 9;
 
     // driver button ids
@@ -70,7 +72,6 @@ public final class Settings {
     public static int buttonId_RightBranch = 5;
     public static int buttonId_LeftBranch = 6;
     public static int buttonId_reorenting = 7;
-    public static int buttonId_processor = 8;
 
 
     // auto poses
