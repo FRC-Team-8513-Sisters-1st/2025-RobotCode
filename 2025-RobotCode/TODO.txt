@@ -1,22 +1,17 @@
 - ToDo   
-    - Discuss controlability
-        - buttons, controls, states
-    - Create poses in settings for everywhere we would want to drive
-    - Finish class diagram
-    - Create state machine
-        - layout each state and transitions
+    - Turn off photon vision if in simulation
     - Generate path on fly
-    - Simulate photon vision
 
 - Real robot:
-    - Tune velocity PID
+    - figure out direction of each motor and setpoints
+    - tune elevator PID
+    - Tune DB velocity PID
     - Tune path planning no feedback
     - Tune path planning position PID
     - Photon vision
     
 - Auto
     - Plan out each path in pathplanner
-    - Auto selector
 
 - Teleop
     - Heading goal rather than rotation speed
