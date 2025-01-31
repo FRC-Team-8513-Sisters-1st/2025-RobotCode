@@ -1,4 +1,10 @@
-- ToDo   
+- ToDo
+    - use path planner to set all poses in settings
+    - put attackPose pose on smart dashbaord
+    - put selected goal coral on dashbord
+    - once button pannel is ready
+        - test all state changes
+        - test the updating of attack pose on smart dashbord
     - Turn off photon vision if in simulation
     - Generate path on fly
 
