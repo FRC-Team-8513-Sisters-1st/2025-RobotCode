@@ -9,6 +9,7 @@ public final class Settings {
 
   // joystick deadband
   public static double joystickDeadband = 0.01;
+  public static double triggerDeadband = 0.2; 
 
    // driver axis 
    public static int leftRightAxis = 0;
@@ -54,24 +55,23 @@ public final class Settings {
 
 
         // controller 2 panel buttons
-    public static int buttonId_Close = 1;
-    public static int buttonId_Far = 2;
-    public static int buttonId_Drive = 3;
+    public static int buttonId_Close = 4;
+    public static int buttonId_Far = 7;
+    public static int buttonId_Drive = 1;
     public static int buttonId_ab = 6;
     public static int buttonId_cd = 9;
     public static int buttonId_ef = 8;
     public static int buttonId_gh = 5;
     public static int buttonId_ij = 3;
-    public static int buttonId_kl = 9;
+    public static int buttonId_kl = 2;
 
     // driver button ids
-    public static int buttonId_Climb = 1;
-    public static int buttonId_ClimbDown = 2;
-    public static int buttonId_LeftFeederSt = 3;
-    public static int buttonId_RightFeederSt = 6;
+    public static int buttonId_Climb = 4;
+    public static int trigger_LeftFeederSt = 3;
+    public static int trigger_RightFeederSt = 6;
     public static int buttonId_RightBranch = 5;
     public static int buttonId_LeftBranch = 6;
-    public static int buttonId_reorenting = 7;
+    public static int buttonId_reorenting = 3;
 
 
     // auto poses

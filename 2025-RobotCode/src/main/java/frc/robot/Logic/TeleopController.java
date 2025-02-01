@@ -64,6 +64,13 @@ public class TeleopController {
 
         // setting Pose2d
 
+        thisRobot.stateMachine.forceCoralAndAlgae();
+        thisRobot.stateMachine.copilotSideOfReef();
+        thisRobot.stateMachine.copilotLevelToScore();
+        thisRobot.stateMachine.copilotCloseOrFar();
+        thisRobot.stateMachine.forceCoralAndAlgae();
+        thisRobot.stateMachine.operatorFeederStation();
+
         if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
             thisRobot.coralReady2Score = true;
             switch (operatorChosenSideOfReef) {

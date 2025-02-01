@@ -26,15 +26,13 @@ public class StateMachine {
     ElevatorStates elevatorStates = ElevatorStates.stowed;
     DrivebaseStates drivebaseStates = DrivebaseStates.stowedLimits;
 
-    ElevatorStates scoreCoralGoalLevel;
+    ElevatorStates scoreCoralGoalLevel = ElevatorStates.stowed;
     boolean isInReefZone = false;
-    FeederStation feederCloseOrFar;
-    Pose2d goalFeederStation;
-    Pose2d goalProcessor;
-    boolean elevatorButtonPressed;
-    SideOfReef operatorChosenSideOfReef;
-
-    public TeleopController teleopController;
+    FeederStation feederCloseOrFar = FeederStation.Close;
+    public Pose2d goalFeederStation = new Pose2d();
+    public Pose2d goalProcessor = new Pose2d();
+    boolean elevatorButtonPressed = false;
+    SideOfReef operatorChosenSideOfReef = SideOfReef.AB;
 
     public StateMachine(Robot thisRobotIn) {
 
@@ -61,10 +59,10 @@ public class StateMachine {
                 }
                 
                 if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Algae2)) {
-                    teleopController.operatorGoalAlgaeReefLevel = RobotStates.algaeIntakeL2;
+                    thisRobot.teleopController.operatorGoalAlgaeReefLevel = RobotStates.algaeIntakeL2;
                 }
                 if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Algae3)) {
-                    teleopController.operatorGoalAlgaeReefLevel = RobotStates.algaeIntakeL3;
+                    thisRobot.teleopController.operatorGoalAlgaeReefLevel = RobotStates.algaeIntakeL3;
                 }
 
                 if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_processor)) {
@@ -486,22 +484,22 @@ public class StateMachine {
     // go to feeder station and intake coral
     public void operatorFeederStation() {
         if (feederCloseOrFar == FeederStation.Far) {
-            if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightFeederSt)) {
+            if (thisRobot.teleopController.driverXboxController.getRawAxis(Settings.trigger_RightFeederSt > Settings.triggerDeadband)) {
                 goalFeederStation = Settings.rightFarFeederStation;
                 coralIntakeStates = CoralIntakeStates.intake;
 
-            } else if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftFeederSt)) {
+            } else if (thisRobot.teleopController.driverXboxController.getRawAxis(Settings.trigger_LeftFeederSt > Settings.triggerDeadband)) {
                 goalFeederStation = Settings.leftFarFeederStation;
                 coralIntakeStates = CoralIntakeStates.intake;
 
             }
         }
         if (feederCloseOrFar == FeederStation.Close) {
-            if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightFeederSt)) {
+            if (thisRobot.teleopController.driverXboxController.getRawAxis(Settings.trigger_RightFeederSt > Settings.triggerDeadband)) {
                 goalFeederStation = Settings.rightCloseFeederStation;
                 coralIntakeStates = CoralIntakeStates.intake;
 
-            } else if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftFeederSt)) {
+            } else if (thisRobot.teleopController.driverXboxController.getRawAxis(Settings.trigger_LeftFeederSt > Settings.triggerDeadband)) {
                 goalFeederStation = Settings.leftCloseFeederStation;
                 coralIntakeStates = CoralIntakeStates.intake;
 
