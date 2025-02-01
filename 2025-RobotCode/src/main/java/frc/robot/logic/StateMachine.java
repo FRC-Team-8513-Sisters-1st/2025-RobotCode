@@ -31,7 +31,7 @@ public class StateMachine {
     FeederStation feederCloseOrFar = FeederStation.Close;
     public Pose2d goalFeederStation = new Pose2d();
     public Pose2d goalProcessor = new Pose2d();
-    boolean elevatorButtonPressed = false;
+    boolean climberButtonPressed = false;
     SideOfReef operatorChosenSideOfReef = SideOfReef.AB;
 
     public StateMachine(Robot thisRobotIn) {
@@ -44,7 +44,6 @@ public class StateMachine {
         switch (robotState) {
             case driving:
                 //set all subsystem states
-                climberStates = ClimberStates.stowed;
                 algaeGroundStates = AlgaeGroundStates.stowed;
                 algaeIntakeStates = AlgaeIntakeStates.stationary;
                 coralIntakeStates = CoralIntakeStates.stationary;
@@ -69,18 +68,18 @@ public class StateMachine {
                     goalProcessor = Settings.processor;
                 }
 
-                elevatorButtonPressed = thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb);
-                if (climberStates == ClimberStates.stowed && elevatorButtonPressed){
+                climberButtonPressed = thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_Climb);
+                if (climberStates == ClimberStates.stowed && climberButtonPressed){
                     climberStates = ClimberStates.armOut;
-                    elevatorButtonPressed = false;
+                    climberButtonPressed = false;
                 }
-                if (climberStates == ClimberStates.armOut && elevatorButtonPressed){
+                if (climberStates == ClimberStates.armOut && climberButtonPressed){
                     climberStates = ClimberStates.climbing;
-                    elevatorButtonPressed = false;
+                    climberButtonPressed = false;
                 }
-                if (climberStates == ClimberStates.climbing && elevatorButtonPressed){
+                if (climberStates == ClimberStates.climbing && climberButtonPressed){
                     climberStates = ClimberStates.stowed;
-                    elevatorButtonPressed = false;
+                    climberButtonPressed = false;
                 }
 
                 copilotSideOfReef();
@@ -484,22 +483,22 @@ public class StateMachine {
     // go to feeder station and intake coral
     public void operatorFeederStation() {
         if (feederCloseOrFar == FeederStation.Far) {
-            if (thisRobot.teleopController.driverXboxController.getRawAxis(Settings.trigger_RightFeederSt > Settings.triggerDeadband)) {
+            if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftFeederSt)) {
                 goalFeederStation = Settings.rightFarFeederStation;
                 coralIntakeStates = CoralIntakeStates.intake;
 
-            } else if (thisRobot.teleopController.driverXboxController.getRawAxis(Settings.trigger_LeftFeederSt > Settings.triggerDeadband)) {
+            } else if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightFeederSt)) {
                 goalFeederStation = Settings.leftFarFeederStation;
                 coralIntakeStates = CoralIntakeStates.intake;
 
             }
         }
         if (feederCloseOrFar == FeederStation.Close) {
-            if (thisRobot.teleopController.driverXboxController.getRawAxis(Settings.trigger_RightFeederSt > Settings.triggerDeadband)) {
+            if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftFeederSt)) {
                 goalFeederStation = Settings.rightCloseFeederStation;
                 coralIntakeStates = CoralIntakeStates.intake;
 
-            } else if (thisRobot.teleopController.driverXboxController.getRawAxis(Settings.trigger_LeftFeederSt > Settings.triggerDeadband)) {
+            } else if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightFeederSt)) {
                 goalFeederStation = Settings.leftCloseFeederStation;
                 coralIntakeStates = CoralIntakeStates.intake;
 

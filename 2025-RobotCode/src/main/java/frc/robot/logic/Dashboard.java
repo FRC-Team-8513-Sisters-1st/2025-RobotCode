@@ -19,6 +19,7 @@ public class Dashboard {
     public void updateDashboard(){
         putPoseOnDashboard("goalFeederStation", thisRobot.stateMachine.goalFeederStation);
         putPoseOnDashboard("goalProcessor", thisRobot.stateMachine.goalProcessor);
+        putPoseOnDashboard("coralScoreGoalPose", thisRobot.teleopController.coralScoreGoalPose);
         SmartDashboard.putNumber("Time", Timer.getFPGATimestamp());
         SmartDashboard.putBoolean("updateIsRobotInReefZone", thisRobot.stateMachine.isRobotInReefZone());
         SmartDashboard.putString("robotState", thisRobot.stateMachine.robotState.name());
@@ -31,7 +32,7 @@ public class Dashboard {
         SmartDashboard.putString("scoreCoralGoalLevel", thisRobot.stateMachine.scoreCoralGoalLevel.name());
         SmartDashboard.putBoolean("isInReefZone", thisRobot.stateMachine.isInReefZone);
         SmartDashboard.putString("feederCloseOrFar", thisRobot.stateMachine.feederCloseOrFar.name());
-        SmartDashboard.putBoolean("elevatorButtonPressed", thisRobot.stateMachine.elevatorButtonPressed);
+        SmartDashboard.putBoolean("climberButtonPressed", thisRobot.stateMachine.climberButtonPressed);
         SmartDashboard.putString("operatorChosenSideOfReef", thisRobot.stateMachine.operatorChosenSideOfReef.name());
     }
 

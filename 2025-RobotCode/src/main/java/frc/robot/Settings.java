@@ -1,7 +1,11 @@
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.Radians;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 
 public final class Settings {
   // drivebase settings
@@ -67,38 +71,35 @@ public final class Settings {
 
     // driver button ids
     public static int buttonId_Climb = 4;
-    public static int trigger_LeftFeederSt = 3;
-    public static int trigger_RightFeederSt = 6;
-    public static int buttonId_RightBranch = 5;
-    public static int buttonId_LeftBranch = 6;
+    public static int buttonId_LeftFeederSt = 5;
+    public static int buttonId_RightFeederSt = 6;
+    public static int axisId_RightBranch = 3;
+    public static int axisId_LeftBranch = 2;
     public static int buttonId_reorenting = 3;
 
 
     // auto poses
-    public static Pose2d leftCoralStationFar = new Pose2d();
-    public static Pose2d rightCoralStationFar = new Pose2d();
-    public static Pose2d leftCoralStationClose = new Pose2d();
-    public static Pose2d rightCoralStationClose = new Pose2d();
-    public static Pose2d coralRightAB = new Pose2d();
-    public static Pose2d coralLeftAB = new Pose2d();
-    public static Pose2d coralRightCD = new Pose2d();
-    public static Pose2d coralLeftCD = new Pose2d();
-    public static Pose2d coralRightEF = new Pose2d();
-    public static Pose2d coralLeftEF = new Pose2d();
-    public static Pose2d coralRightGH = new Pose2d();
-    public static Pose2d coralLeftGH = new Pose2d();
-    public static Pose2d coralRightIJ = new Pose2d();
-    public static Pose2d coralLeftIJ = new Pose2d();
-    public static Pose2d coralRightKL = new Pose2d();
-    public static Pose2d coralLeftKL = new Pose2d();
-    public static Pose2d rightFarFeederStation = new Pose2d();
-    public static Pose2d leftFarFeederStation = new Pose2d();
-    public static Pose2d rightCloseFeederStation = new Pose2d();
-    public static Pose2d leftCloseFeederStation = new Pose2d();
-    public static Pose2d processor = new Pose2d();
+    // create offsets for the elevator and the distance from the reef
+    public static Pose2d coralRightAB = new Pose2d(3.081, 3.851, new Rotation2d(Radians.convertFrom(0, Degrees)));
+    public static Pose2d coralLeftAB = new Pose2d(3.069, 4.187, new Rotation2d(Radians.convertFrom(0, Degrees)));
+    public static Pose2d coralRightCD = new Pose2d(3.944, 2.748, new Rotation2d(Radians.convertFrom(60, Degrees)));
+    public static Pose2d coralLeftCD = new Pose2d(3.644, 2.916, new Rotation2d(Radians.convertFrom(60, Degrees)));
+    public static Pose2d coralRightEF = new Pose2d(5.287, 2.904, new Rotation2d(Radians.convertFrom(120, Degrees)));
+    public static Pose2d coralLeftEF = new Pose2d(5.059, 2.748, new Rotation2d(Radians.convertFrom(120, Degrees)));
+    public static Pose2d coralRightGH = new Pose2d(5.874, 4.175, new Rotation2d(Radians.convertFrom(180, Degrees)));
+    public static Pose2d coralLeftGH = new Pose2d(5.862, 3.863, new Rotation2d(Radians.convertFrom(180, Degrees)));
+    public static Pose2d coralRightIJ = new Pose2d(5.023, 5.314, new Rotation2d(Radians.convertFrom(-120, Degrees)));
+    public static Pose2d coralLeftIJ = new Pose2d(5.311, 5.134, new Rotation2d(Radians.convertFrom(-120, Degrees)));
+    public static Pose2d coralRightKL = new Pose2d(3.644, 5.098, new Rotation2d(Radians.convertFrom(-60, Degrees)));
+    public static Pose2d coralLeftKL = new Pose2d(3.956, 5.266, new Rotation2d(Radians.convertFrom(-60, Degrees)));
+    public static Pose2d rightFarFeederStation = new Pose2d(1.678, 0.746, new Rotation2d(Radians.convertFrom(-130, Degrees)));
+    public static Pose2d leftFarFeederStation = new Pose2d(1.690, 7.280, new Rotation2d(Radians.convertFrom(130, Degrees)));
+    public static Pose2d rightCloseFeederStation = new Pose2d(0.851, 1.370, new Rotation2d(Radians.convertFrom(-130, Degrees)));
+    public static Pose2d leftCloseFeederStation = new Pose2d(0.887, 6.740, new Rotation2d(Radians.convertFrom(130, Degrees)));
+    public static Pose2d processor = new Pose2d(6.006, 0.603, new Rotation2d(Radians.convertFrom(-90, Degrees)));
 
 
-    public static Pose2d reefZone = new Pose2d();
+    public static Pose2d reefZone = new Pose2d(4.495, 4.019, new Rotation2d(Radians.convertFrom(0, Degrees)));
     public static double minDistanceFromReefZoneMeter = 1;
     
     public static double coralScoreThold = 0.0254;

@@ -2,7 +2,6 @@ package frc.robot.logic;
 
 import frc.robot.Settings;
 import frc.robot.logic.Enums.RobotStates;
-import frc.robot.logic.Enums.SideOfReef;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Robot;
@@ -17,8 +16,7 @@ public class TeleopController {
 
     RobotStates robotState = RobotStates.driving;
 
-    SideOfReef operatorChosenSideOfReef;
-    Pose2d coralScoreGoalPose;
+    Pose2d coralScoreGoalPose = new Pose2d();
     RobotStates operatorGoalAlgaeReefLevel;
 
     public TeleopController(Robot thisRobotIn) {
@@ -70,10 +68,11 @@ public class TeleopController {
         thisRobot.stateMachine.copilotCloseOrFar();
         thisRobot.stateMachine.forceCoralAndAlgae();
         thisRobot.stateMachine.operatorFeederStation();
+        thisRobot.stateMachine.enumRobotState();
 
-        if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_LeftBranch)) {
+        if (thisRobot.teleopController.driverXboxController.getRawAxis(Settings.axisId_LeftBranch) > Settings.triggerDeadband) {
             thisRobot.coralReady2Score = true;
-            switch (operatorChosenSideOfReef) {
+            switch (thisRobot.stateMachine.operatorChosenSideOfReef) {
                 case AB:
                     coralScoreGoalPose = Settings.coralRightAB;
                     break;
@@ -95,10 +94,10 @@ public class TeleopController {
             }
 
         }
-        if (thisRobot.teleopController.driverXboxController.getRawButtonPressed(Settings.buttonId_RightBranch)) {
+        if (thisRobot.teleopController.driverXboxController.getRawAxis(Settings.axisId_RightBranch) > Settings.triggerDeadband) {
             if (operatorGoalAlgaeReefLevel == RobotStates.algaeIntakeL2) {
                 thisRobot.algaeReady2Score = true;
-                switch (operatorChosenSideOfReef) {
+                switch (thisRobot.stateMachine.operatorChosenSideOfReef) {
                     case AB:
                         coralScoreGoalPose = Settings.coralRightAB;
                         break;
@@ -120,7 +119,7 @@ public class TeleopController {
                 }
                 if (operatorGoalAlgaeReefLevel == RobotStates.algaeIntakeL3) {
                     thisRobot.algaeReady2Score = true;
-                    switch (operatorChosenSideOfReef) {
+                    switch (thisRobot.stateMachine.operatorChosenSideOfReef) {
                         case AB:
                             coralScoreGoalPose = Settings.coralRightAB;
                             break;
@@ -144,7 +143,7 @@ public class TeleopController {
                 }
             } else {
                 thisRobot.coralReady2Score = true;
-                switch (operatorChosenSideOfReef) {
+                switch (thisRobot.stateMachine.operatorChosenSideOfReef) {
                     case AB:
                         coralScoreGoalPose = Settings.coralRightAB;
                         break;
