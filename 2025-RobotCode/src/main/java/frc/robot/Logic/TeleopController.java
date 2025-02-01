@@ -70,7 +70,8 @@ public class TeleopController {
         thisRobot.stateMachine.operatorFeederStation();
         thisRobot.stateMachine.enumRobotState();
 
-        if (thisRobot.teleopController.driverXboxController.getRawAxis(Settings.axisId_LeftBranch) > Settings.triggerDeadband) {
+        if (thisRobot.teleopController.driverXboxController
+                .getRawAxis(Settings.axisId_LeftBranch) > Settings.triggerDeadband) {
             thisRobot.coralReady2Score = true;
             switch (thisRobot.stateMachine.operatorChosenSideOfReef) {
                 case AB:
@@ -94,7 +95,8 @@ public class TeleopController {
             }
 
         }
-        if (thisRobot.teleopController.driverXboxController.getRawAxis(Settings.axisId_RightBranch) > Settings.triggerDeadband) {
+        if (thisRobot.teleopController.driverXboxController
+                .getRawAxis(Settings.axisId_RightBranch) > Settings.triggerDeadband) {
             if (operatorGoalAlgaeReefLevel == RobotStates.algaeIntakeL2) {
                 thisRobot.algaeReady2Score = true;
                 switch (thisRobot.stateMachine.operatorChosenSideOfReef) {
