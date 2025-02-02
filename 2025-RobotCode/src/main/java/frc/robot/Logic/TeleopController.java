@@ -70,9 +70,31 @@ public class TeleopController {
         thisRobot.stateMachine.operatorFeederStation();
         thisRobot.stateMachine.enumRobotState();
 
-        if (thisRobot.teleopController.driverXboxController
-                .getRawAxis(Settings.axisId_LeftBranch) > Settings.triggerDeadband) {
+        double leftTriggerValue;
+        double rightTriggerValue;
+        
+        leftTriggerValue = thisRobot.teleopController.driverXboxController
+                .getRawAxis(Settings.axisId_LeftBranch);
+        if (leftTriggerValue > Settings.triggerDeadband) {
             thisRobot.coralReady2Score = true;
+            setCoralScoreGoalPose();  
+        }
+        
+        rightTriggerValue = thisRobot.teleopController.driverXboxController
+                .getRawAxis(Settings.axisId_RightBranch);
+        if (rightTriggerValue > Settings.triggerDeadband) {
+            if (operatorGoalAlgaeReefLevel == RobotStates.algaeIntakeL2) {
+                thisRobot.algaeReady2Score = true;
+            } else if (operatorGoalAlgaeReefLevel == RobotStates.algaeIntakeL3) {
+                thisRobot.algaeReady2Score = true;
+            } else {
+                thisRobot.coralReady2Score = true;
+            }
+
+            setCoralScoreGoalPose();
+        }
+
+        public void setCoralScoreGoalPose() {
             switch (thisRobot.stateMachine.operatorChosenSideOfReef) {
                 case AB:
                     coralScoreGoalPose = Settings.coralRightAB;
@@ -92,81 +114,6 @@ public class TeleopController {
                 case KL:
                     coralScoreGoalPose = Settings.coralRightKL;
                     break;
-            }
-
-        }
-        if (thisRobot.teleopController.driverXboxController
-                .getRawAxis(Settings.axisId_RightBranch) > Settings.triggerDeadband) {
-            if (operatorGoalAlgaeReefLevel == RobotStates.algaeIntakeL2) {
-                thisRobot.algaeReady2Score = true;
-                switch (thisRobot.stateMachine.operatorChosenSideOfReef) {
-                    case AB:
-                        coralScoreGoalPose = Settings.coralRightAB;
-                        break;
-                    case CD:
-                        coralScoreGoalPose = Settings.coralRightCD;
-                        break;
-                    case EF:
-                        coralScoreGoalPose = Settings.coralRightEF;
-                        break;
-                    case GH:
-                        coralScoreGoalPose = Settings.coralRightGH;
-                        break;
-                    case IJ:
-                        coralScoreGoalPose = Settings.coralRightIJ;
-                        break;
-                    case KL:
-                        coralScoreGoalPose = Settings.coralRightKL;
-                        break;
-                }
-                if (operatorGoalAlgaeReefLevel == RobotStates.algaeIntakeL3) {
-                    thisRobot.algaeReady2Score = true;
-                    switch (thisRobot.stateMachine.operatorChosenSideOfReef) {
-                        case AB:
-                            coralScoreGoalPose = Settings.coralRightAB;
-                            break;
-                        case CD:
-                            coralScoreGoalPose = Settings.coralRightCD;
-                            break;
-                        case EF:
-                            coralScoreGoalPose = Settings.coralRightEF;
-                            break;
-                        case GH:
-                            coralScoreGoalPose = Settings.coralRightGH;
-                            break;
-                        case IJ:
-                            coralScoreGoalPose = Settings.coralRightIJ;
-                            break;
-                        case KL:
-                            coralScoreGoalPose = Settings.coralRightKL;
-                            break;
-
-                    }
-                }
-            } else {
-                thisRobot.coralReady2Score = true;
-                switch (thisRobot.stateMachine.operatorChosenSideOfReef) {
-                    case AB:
-                        coralScoreGoalPose = Settings.coralRightAB;
-                        break;
-                    case CD:
-                        coralScoreGoalPose = Settings.coralRightCD;
-                        break;
-                    case EF:
-                        coralScoreGoalPose = Settings.coralRightEF;
-                        break;
-                    case GH:
-                        coralScoreGoalPose = Settings.coralRightGH;
-                        break;
-                    case IJ:
-                        coralScoreGoalPose = Settings.coralRightIJ;
-                        break;
-                    case KL:
-                        coralScoreGoalPose = Settings.coralRightKL;
-                        break;
-                }
-            }
-
         }
     }
 }
