@@ -77,7 +77,7 @@ public class TeleopController {
                 .getRawAxis(Settings.axisId_LeftBranch);
         if (leftTriggerValue > Settings.triggerDeadband) {
             thisRobot.coralReady2Score = true;
-            setCoralScoreGoalPose();  
+            setCoralScoreGoalPoseLeft();  
         }
         
         rightTriggerValue = thisRobot.teleopController.driverXboxController
@@ -91,10 +91,10 @@ public class TeleopController {
                 thisRobot.coralReady2Score = true;
             }
 
-            setCoralScoreGoalPose();
+            setCoralScoreGoalPoseRight();
         }
     }
-    public void setCoralScoreGoalPose() {
+    public void setCoralScoreGoalPoseRight() {
         switch (thisRobot.stateMachine.operatorChosenSideOfReef) {
             case AB:
                 coralScoreGoalPose = Settings.coralRightAB;
@@ -113,6 +113,28 @@ public class TeleopController {
                 break;
             case KL:
                 coralScoreGoalPose = Settings.coralRightKL;
+                break;
+        }
+    }
+    public void setCoralScoreGoalPoseLeft() {
+        switch (thisRobot.stateMachine.operatorChosenSideOfReef) {
+            case AB:
+                coralScoreGoalPose = Settings.coralLeftAB;
+                break;
+            case CD:
+                coralScoreGoalPose = Settings.coralLeftCD;
+                break;
+            case EF:
+                coralScoreGoalPose = Settings.coralLeftEF;
+                break;
+            case GH:
+                coralScoreGoalPose = Settings.coralLeftGH;
+                break;
+            case IJ:
+                coralScoreGoalPose = Settings.coralLeftIJ;
+                break;
+            case KL:
+                coralScoreGoalPose = Settings.coralLeftKL;
                 break;
         }
     }
