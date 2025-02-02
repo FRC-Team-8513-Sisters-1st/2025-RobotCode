@@ -93,27 +93,27 @@ public class TeleopController {
 
             setCoralScoreGoalPose();
         }
-
-        public void setCoralScoreGoalPose() {
-            switch (thisRobot.stateMachine.operatorChosenSideOfReef) {
-                case AB:
-                    coralScoreGoalPose = Settings.coralRightAB;
-                    break;
-                case CD:
-                    coralScoreGoalPose = Settings.coralRightCD;
-                    break;
-                case EF:
-                    coralScoreGoalPose = Settings.coralRightEF;
-                    break;
-                case GH:
-                    coralScoreGoalPose = Settings.coralRightGH;
-                    break;
-                case IJ:
-                    coralScoreGoalPose = Settings.coralRightIJ;
-                    break;
-                case KL:
-                    coralScoreGoalPose = Settings.coralRightKL;
-                    break;
+    }
+    public void setCoralScoreGoalPose() {
+        switch (thisRobot.stateMachine.operatorChosenSideOfReef) {
+            case AB:
+                coralScoreGoalPose = Settings.coralRightAB;
+                break;
+            case CD:
+                coralScoreGoalPose = Settings.coralRightCD;
+                break;
+            case EF:
+                coralScoreGoalPose = Settings.coralRightEF;
+                break;
+            case GH:
+                coralScoreGoalPose = Settings.coralRightGH;
+                break;
+            case IJ:
+                coralScoreGoalPose = Settings.coralRightIJ;
+                break;
+            case KL:
+                coralScoreGoalPose = Settings.coralRightKL;
+                break;
         }
     }
 }
