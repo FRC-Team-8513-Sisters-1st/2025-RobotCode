@@ -33,7 +33,7 @@ public class StateMachine {
     public Pose2d goalProcessor = new Pose2d();
     boolean climberButtonPressed = false;
     SideOfReef operatorChosenSideOfReef = SideOfReef.AB;
-    String lastButtonChosen = "";
+    String lastButtonChosen = "coral";
 
     public StateMachine(Robot thisRobotIn) {
 
