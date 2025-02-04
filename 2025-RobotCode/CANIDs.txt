@@ -1,0 +1,11 @@
+algaeMech - Can ID 62
+backRightTurn - Can ID 61
+backLeftTurn  Can ID 60
+leftElevator - Can Id 59
+rightElevator id 57
+frontRightTurn   Can ID 58
+frontLeftTurn ID 56
+backRightDrive Id 43
+frontRightDrive id 42
+backLeftDrive id 41
+frontLeftDrive id 40
