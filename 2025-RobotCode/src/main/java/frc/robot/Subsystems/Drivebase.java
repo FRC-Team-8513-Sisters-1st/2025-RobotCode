@@ -141,4 +141,8 @@ public class Drivebase {
     
     }
 
+    public void matchSimulatedOdomToPose(){
+        swerveDrive.addVisionMeasurement(swerveDrive.getSimulationDriveTrainPose().get(), Timer.getFPGATimestamp());
+    }
+
 }

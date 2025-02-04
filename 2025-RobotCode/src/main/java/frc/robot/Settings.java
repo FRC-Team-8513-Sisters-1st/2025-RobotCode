@@ -11,6 +11,9 @@ public final class Settings {
   // drivebase settings
   public static double drivebaseMaxVelocityFPS = 17.1;
 
+  //vision settings
+  public static boolean useVision = true;
+
   // joystick deadband
   public static double joystickDeadband = 0.01;
   public static double triggerDeadband = 0.2; 
@@ -26,7 +29,7 @@ public final class Settings {
    public static int operatorJoystick2Port = 3;
 
 
-   // pid settings
+    // pid settings
     public static PIDController xController = new PIDController(33, 0, 1);
     public static PIDController yController = new PIDController(33, 0, 1);
     public static PIDController rController = new PIDController(1, 0, 0);
@@ -57,8 +60,7 @@ public final class Settings {
     public static int buttonId_AlgaeOutake = 11;
     public static int buttonId_processor = 6;
 
-
-        // controller 2 panel buttons
+    // controller 2 panel buttons
     public static int buttonId_Close = 4;
     public static int buttonId_Far = 7;
     public static int buttonId_Drive = 1;
@@ -76,7 +78,6 @@ public final class Settings {
     public static int axisId_RightBranch = 3;
     public static int axisId_LeftBranch = 2;
     public static int buttonId_reorenting = 3;
-
 
     // auto poses
     // create offsets for the elevator and the distance from the reef
@@ -97,7 +98,6 @@ public final class Settings {
     public static Pose2d rightCloseFeederStation = new Pose2d(0.851, 1.370, new Rotation2d(Radians.convertFrom(-130, Degrees)));
     public static Pose2d leftCloseFeederStation = new Pose2d(0.887, 6.740, new Rotation2d(Radians.convertFrom(130, Degrees)));
     public static Pose2d processor = new Pose2d(6.006, 0.603, new Rotation2d(Radians.convertFrom(-90, Degrees)));
-
 
     public static Pose2d reefZone = new Pose2d(4.495, 4.019, new Rotation2d(Radians.convertFrom(0, Degrees)));
     public static double minDistanceFromReefZoneMeter = 1;

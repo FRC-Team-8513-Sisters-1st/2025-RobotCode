@@ -52,15 +52,19 @@ public class Robot extends TimedRobot {
     climber = new Climber(this);
     algae = new Algae(this);
     dashboard = new Dashboard(this);
-
     
   }
 
   @Override
   public void robotPeriodic() {
     dashboard.updateDashboard();
-    if (Robot.isReal()) {
-      vision.updatePhotonVision();}
+    if (Robot.isReal() && Settings.useVision) {
+      vision.updatePhotonVision();
+    } else {
+      if(Robot.isSimulation()){
+        drivebase.matchSimulatedOdomToPose();
+      }
+    }
   }
 
   @Override
@@ -82,7 +86,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     teleopController.driveTele();
-
   }
 
   @Override
