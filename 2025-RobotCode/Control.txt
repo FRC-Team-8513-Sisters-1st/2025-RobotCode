@@ -1,0 +1,25 @@
+Driver
+Climbing - Y
+Climb Down - A
+Left feeder station - left bumper
+Copilot left auto - left trigger
+Right feeder station- right bumper
+Copilot right auto - right trigger
+Reorienting - X
+
+Copilot
+- 2 buttons: Coral intake and outtake
+- 2 buttons: Algee intake and outtake
+- 2 buttons: close or far within that coral station
+- 1 buttons: processor score
+- 6 buttons: which of six reef segments to score on
+- 2 buttons: left or right of reef branches
+- 4 buttons: Coral which of 4 levels
+- 2 buttons: Algae which of 2 levels
+- 1 button: reset to Drive
+
+
+
+When naming positions use: https://www.chiefdelphi.com/uploads/default/original/3X/a/d/ad69934106322e031222e09cfa394e921c802552.jpeg
+
+- simultaneous algee take and coral score- i dont think we need a button for this? It would be turn on alge intake while scoring coral

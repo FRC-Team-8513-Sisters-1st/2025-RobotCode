@@ -1,53 +1,125 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
 
+import java.util.Optional;
+
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
+import frc.robot.logic.AutoController;
+import frc.robot.logic.Dashboard;
+import frc.robot.logic.StateMachine;
+import frc.robot.logic.TeleopController;
+import frc.robot.logic.Vision;
+import frc.robot.subsystems.Algae;
+import frc.robot.subsystems.AlgaeGround;
+import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Coral;
+import frc.robot.subsystems.Drivebase;
+import frc.robot.subsystems.Elevator;
 
-/**
- * The methods in this class are called automatically corresponding to each mode, as described in
- * the TimedRobot documentation. If you change the name of this class or the package after creating
- * this project, you must also update the Main.java file in the project.
- */
 public class Robot extends TimedRobot {
-  /**
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
-   */
-  public Robot() {}
+
+  //subsystems
+  public Drivebase drivebase;
+  public Algae algae;
+  public AlgaeGround algaeGround;
+  public Climber climber;
+  public Coral coral;
+  public Elevator elevator;
+
+  //logic
+  public TeleopController teleopController;
+  public AutoController autoController;
+  public StateMachine stateMachine;
+  public Vision vision;
+  public Dashboard dashboard;
+
+  //variables
+  public boolean onRedAlliance;
+  public boolean coralReady2Score = false;
+  public boolean algaeReady2Score = false;
+
+
+  public Robot() {
+    updateAllianceFromDS();
+    drivebase = new Drivebase(this);
+    teleopController = new TeleopController(this);
+    autoController = new AutoController(this);
+    stateMachine = new StateMachine(this);
+    vision = new Vision(this);
+    elevator = new Elevator(this);
+    coral = new Coral(this);
+    climber = new Climber(this);
+    algae = new Algae(this);
+    dashboard = new Dashboard(this);
+    
+  }
 
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+    dashboard.updateDashboard();
+    if (Robot.isReal() && Settings.useVision) {
+      vision.updatePhotonVision();
+    } else {
+      if(Robot.isSimulation()){
+        drivebase.matchSimulatedOdomToPose();
+      }
+    }
+  }
 
   @Override
-  public void autonomousInit() {}
+  public void autonomousInit() {
+    updateAllianceFromDS();
+    autoController.autoInit();
+  }
 
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    autoController.autoPeriodic();
+  }
 
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+    updateAllianceFromDS();
+  }
 
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    teleopController.driveTele();
+  }
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+  }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+  }
 
   @Override
-  public void testInit() {}
+  public void testInit() {
+  }
 
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+  }
 
   @Override
-  public void simulationInit() {}
+  public void simulationInit() {
+  }
 
   @Override
-  public void simulationPeriodic() {}
+  public void simulationPeriodic() {
+  }
+
+  public void updateAllianceFromDS() {
+    // checks driverstation for alliance and sets vaiable
+    Optional<Alliance> alliance = DriverStation.getAlliance();
+    if (alliance.isPresent() && alliance.get().equals(Alliance.Red)) {
+      onRedAlliance = true;
+    }else{
+      onRedAlliance = false;
+    }
+  }
+
 }
