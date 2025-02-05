@@ -103,6 +103,16 @@ public final class Settings {
     
     public static double coralScoreThold = 0.0254;
 
+    //elevator positions
+    public static double elevatorPoseStowed = 0;
+    public static double elevatorPoseL1 = 0;
+    public static double elevatorPoseL2 = 10;
+    public static double elevatorPoseL3 = 20;
+    public static double elevatorPoseL4 = 35;
+    public static double elevatorPoseC2 = 10;
+    public static double elevatorPoseC3 = 20;
+
+
     public static double getDistanceBetweenTwoPoses(Pose2d pose1, Pose2d pose2) {
         double x = pose2.getX() - pose1.getX();
         double y = pose2.getY() - pose1.getY();
