@@ -40,10 +40,9 @@ public final class Settings {
     public static int algaeGroundMotor2CANID = 14;
     public static int climberMotor1CANID = 15;
     public static int climberMotor2CANID = 16;
-    public static int elevatorMotor1CANID = 57; // right
-    public static int elevatorMotor2CANID = 59; // left
-    public static int coralMotor1CANID = 19;
-    public static int coralMotor2CANID = 20;
+    public static int elevatorMotor1CANID = 57; // e2
+    public static int elevatorMotor2CANID = 59; // e1
+    public static int coralMotor1CANID = 55;
 
 
     // controller 1 panel buttons

@@ -14,6 +14,7 @@ public class Elevator {
     Robot thisRobot;
 
     ElevatorStates state = ElevatorStates.stowed;
+    int storedElevatorState = 0; // 0 - stowed, 1 - L2, 2 - L3, 3 - L4
 
     public SparkMax elevatorMotor1 = new SparkMax(Settings.elevatorMotor1CANID, MotorType.kBrushless);
     public SparkMax elevatorMotor2 = new SparkMax(Settings.elevatorMotor2CANID, MotorType.kBrushless);
@@ -29,7 +30,8 @@ public class Elevator {
 
     private final TrapezoidProfile.Constraints m_constraints = new TrapezoidProfile.Constraints(elevatorMaxVelocity,
             elevatorMaxAcceleration);
-    private final ProfiledPIDController m_controller = new ProfiledPIDController(elevatorP, elevatorI, elevatorD, m_constraints, elevatorDt);
+    private final ProfiledPIDController m_controller = new ProfiledPIDController(elevatorP, elevatorI, elevatorD,
+            m_constraints, elevatorDt);
 
     public Elevator(Robot thisRobotIn) {
 
@@ -41,11 +43,12 @@ public class Elevator {
     }
 
     public void setMotorPower() {
+
         double yLeftValue = thisRobot.teleopController.driverXboxController.getRawAxis(yAxisLeft) * 0.2;
         if (Math.abs(yLeftValue) > 0.02) {
             elevatorMotor1.set(yLeftValue);
             elevatorMotor2.set(-yLeftValue);
-            State state  = new State(elevatorMotor1.getEncoder().getPosition(), 0);
+            State state = new State(elevatorMotor1.getEncoder().getPosition(), 0);
             m_controller.setGoal(state);
         } else {
             double power = m_controller.calculate(elevatorMotor1.getEncoder().getPosition());
@@ -53,21 +56,36 @@ public class Elevator {
             elevatorMotor2.set(-power);
         }
 
+        // stores elevator state
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral1)) {
-            State state  = new State(Settings.elevatorPosL1, 0);
-            m_controller.setGoal(state);
+            storedElevatorState = 0;
         }
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral2)) {
-            State state  = new State(Settings.elevatorPosL2, 0);
-            m_controller.setGoal(state);
+            storedElevatorState = 1;
         }
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral3)) {
-            State state  = new State(Settings.elevatorPosL3, 0);
-            m_controller.setGoal(state);
+            storedElevatorState = 2;
         }
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral4)) {
-            State state  = new State(Settings.elevatorPosL4, 0);
-            m_controller.setGoal(state);
+            storedElevatorState = 3;
+        }
+
+        // sets the elevator state if in reef zone
+        if (thisRobot.stateMachine.isRobotInReefZone() == true && storedElevatorState == 0) {
+            State elevatorGoalPIDState = new State(Settings.elevatorPosL1, 0);
+            m_controller.setGoal(elevatorGoalPIDState);
+        }
+        if (thisRobot.stateMachine.isRobotInReefZone() == true && storedElevatorState == 0) {
+            State elevatorGoalPIDState = new State(Settings.elevatorPosL2, 0);
+            m_controller.setGoal(elevatorGoalPIDState);
+        }
+        if (thisRobot.stateMachine.isRobotInReefZone() == true && storedElevatorState == 0) {
+            State elevatorGoalPIDState = new State(Settings.elevatorPosL3, 0);
+            m_controller.setGoal(elevatorGoalPIDState);
+        }
+        if (thisRobot.stateMachine.isRobotInReefZone() == true && storedElevatorState == 0) {
+            State elevatorGoalPIDState = new State(Settings.elevatorPosL4, 0);
+            m_controller.setGoal(elevatorGoalPIDState);
         }
 
     }

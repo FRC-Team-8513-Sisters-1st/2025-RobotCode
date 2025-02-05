@@ -27,7 +27,6 @@ public class StateMachine {
     DrivebaseStates drivebaseStates = DrivebaseStates.stowedLimits;
 
     ElevatorStates scoreCoralGoalLevel = ElevatorStates.stowed;
-    boolean isInReefZone = false;
     FeederStation feederCloseOrFar = FeederStation.Close;
     public Pose2d goalFeederStation = new Pose2d();
     public Pose2d goalProcessor = new Pose2d();
@@ -343,19 +342,19 @@ public class StateMachine {
 
     // scores coral on copilot selected level
     public void scoreCoralOnLevel() {
-        if (scoreCoralGoalLevel == ElevatorStates.L1 && isInReefZone == true) {
+        if (scoreCoralGoalLevel == ElevatorStates.L1 && isRobotInReefZone() == true) {
             robotState = RobotStates.coralScore1;
 
         }
-        if (scoreCoralGoalLevel == ElevatorStates.L2 && isInReefZone == true) {
+        if (scoreCoralGoalLevel == ElevatorStates.L2 && isRobotInReefZone() == true) {
             robotState = RobotStates.coralScore2;
 
         }
-        if (scoreCoralGoalLevel == ElevatorStates.L3 && isInReefZone == true) {
+        if (scoreCoralGoalLevel == ElevatorStates.L3 && isRobotInReefZone() == true) {
             robotState = RobotStates.coralScore3;
 
         }
-        if (scoreCoralGoalLevel == ElevatorStates.L4 && isInReefZone == true) {
+        if (scoreCoralGoalLevel == ElevatorStates.L4 && isRobotInReefZone() == true) {
             robotState = RobotStates.coralScore4;
 
         }
@@ -384,11 +383,11 @@ public class StateMachine {
 
     // takes algae from selected level
     public void takeAlgaeOnLevel() {
-        if (scoreCoralGoalLevel == ElevatorStates.L3 && isInReefZone == true) {
+        if (scoreCoralGoalLevel == ElevatorStates.L3 && isRobotInReefZone() == true) {
             robotState = RobotStates.algaeIntakeL2;
 
         }
-        if (scoreCoralGoalLevel == ElevatorStates.L4 && isInReefZone == true) {
+        if (scoreCoralGoalLevel == ElevatorStates.L4 && isRobotInReefZone() == true) {
             robotState = RobotStates.algaeIntakeL3;
 
         }

@@ -4,6 +4,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
 import frc.robot.Settings;
 import frc.robot.logic.Enums.AlgaeIntakeStates;
@@ -13,7 +14,6 @@ public class Algae {
 
     AlgaeIntakeStates algaeState = AlgaeIntakeStates.stationary;
     public SparkMax algaeMotor1 = new SparkMax(Settings.algaeMotor1CANID, MotorType.kBrushless);
-    public SparkMax algaeMotor2 = new SparkMax(Settings.algaeMotor2CANID, MotorType.kBrushless);
 
     public static int algaeYAxisLeft = 1;
     public static int algaeXAxisLeft = 1;
@@ -21,8 +21,14 @@ public class Algae {
     public static int algaeYAxisRight = 1;
     public static int algaeXAxisRight = 1;
     public static int algaeRAxisRight = 1;
+
     int currentLimit = 4;
     int currentLimitBrokenCount = 0;
+
+    double algaeOutTime = 0;
+    boolean algaeOutFirstTime = true;
+
+    int algaeSetState = 0;
 
     PIDController algaeController = new PIDController(0.01, 0, 0);
 
@@ -37,36 +43,45 @@ public class Algae {
     }
 
     public void setMotorPower() {
-        switch (algaeState) {
-            case intake:
-                algaeController.setSetpoint(algaeMotor1.getEncoder().getPosition());
-                algaeMotor1.set(0.5);
-                break;
-            case holdPosition:
-                double power = algaeController.calculate(algaeMotor1.getEncoder().getPosition());
-                algaeMotor1.set(power);
-                currentLimitBrokenCount = 0;
-                break;
-            case outake:
-                algaeMotor1.set(-1);
-                break;
-            case stationary:
-                algaeMotor1.set(0);
-                break;
+        if (algaeSetState == 0) {
+            algaeController.setSetpoint(algaeMotor1.getEncoder().getPosition());
+            algaeMotor1.set(0.75);
         }
+        if (algaeSetState == 1) {
+            double power = algaeController.calculate(algaeMotor1.getEncoder().getPosition());
+            algaeMotor1.set(power);
+            currentLimitBrokenCount = 0;
+        }
+        if (algaeSetState == 2) {
+            if (algaeOutFirstTime) {
+                algaeOutTime = Timer.getFPGATimestamp();
+                algaeOutFirstTime = false;
+            }
+            if (Timer.getFPGATimestamp() - algaeOutTime > 1) {
+                algaeSetState = 3;
+            }
+            algaeMotor1.set(-1);
+        }
+        if (algaeSetState == 3) {
+            algaeOutFirstTime = true;
+            algaeMotor1.set(0);
+        }
+
         if (algaeMotor1.getOutputCurrent() > currentLimit) {
             currentLimitBrokenCount++;
         }
-        if (algaeState == AlgaeIntakeStates.intake && currentLimitBrokenCount > 50) {
-            algaeState = AlgaeIntakeStates.holdPosition;
+
+        if (algaeSetState == 0 && currentLimitBrokenCount > 35) {
+            algaeSetState = 1;
         }
 
-        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(1)) {
-            // not sure how to switch to next enum
-            if (algaeState == AlgaeIntakeStates.stationary) {
-                algaeState = AlgaeIntakeStates.intake;
-            }
+        if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_AlgaeIntake)){
+            algaeSetState = 0;
         }
+
+        if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_AlgaeIntake)){
+            algaeSetState = 2;
+        }
+
     }
-
 }

@@ -30,7 +30,7 @@ public class Dashboard {
         SmartDashboard.putString("elevatorStates", thisRobot.stateMachine.elevatorStates.name());
         SmartDashboard.putString("drivebaseStates", thisRobot.stateMachine.drivebaseStates.name());
         SmartDashboard.putString("scoreCoralGoalLevel", thisRobot.stateMachine.scoreCoralGoalLevel.name());
-        SmartDashboard.putBoolean("isInReefZone", thisRobot.stateMachine.isInReefZone);
+        SmartDashboard.putBoolean("isInReefZone", thisRobot.stateMachine.isRobotInReefZone());
         SmartDashboard.putString("feederCloseOrFar", thisRobot.stateMachine.feederCloseOrFar.name());
         SmartDashboard.putBoolean("climberButtonPressed", thisRobot.stateMachine.climberButtonPressed);
         SmartDashboard.putString("operatorChosenSideOfReef", thisRobot.stateMachine.operatorChosenSideOfReef.name());

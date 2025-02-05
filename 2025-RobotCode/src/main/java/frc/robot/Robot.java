@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.logic.AutoController;
 import frc.robot.logic.Dashboard;
@@ -39,6 +40,12 @@ public class Robot extends TimedRobot {
   public boolean coralReady2Score = false;
   public boolean algaeReady2Score = false;
 
+  // controllers
+  Joystick controller1 = new Joystick(1);
+  Joystick buttonPannel1 = new Joystick(2);
+  Joystick buttonPannel2 = new Joystick(3);
+  public static int yAxisLeft = 1;
+  public static int yAxisRight = 1;
 
   public Robot() {
     updateAllianceFromDS();
