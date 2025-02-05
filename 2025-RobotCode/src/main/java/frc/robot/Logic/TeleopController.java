@@ -9,10 +9,10 @@ import frc.robot.Robot;
 public class TeleopController {
 
     Robot thisRobot;
-    Joystick driverXboxController = new Joystick(Settings.driverJoystickPort);
+    public Joystick driverXboxController = new Joystick(Settings.driverJoystickPort);
 
-    Joystick operatorJoystick1 = new Joystick(Settings.operatorJoystick1Port);
-    Joystick operatorJoystick2 = new Joystick(Settings.operatorJoystick2Port);
+    public Joystick operatorJoystick1 = new Joystick(Settings.operatorJoystick1Port);
+    public Joystick operatorJoystick2 = new Joystick(Settings.operatorJoystick2Port);
 
     RobotStates robotState = RobotStates.driving;
 
