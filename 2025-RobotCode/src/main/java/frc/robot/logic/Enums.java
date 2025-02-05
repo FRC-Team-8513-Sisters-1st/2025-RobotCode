@@ -8,7 +8,7 @@ public final class Enums {
         intake, holdingAlgae, outake, stowed
     }
     public enum AlgaeIntakeStates {
-        intake, stationary, outake
+        intake, holdPosition, outake, stationary
     }
     public enum CoralIntakeStates {
         intake, stationary, outake
