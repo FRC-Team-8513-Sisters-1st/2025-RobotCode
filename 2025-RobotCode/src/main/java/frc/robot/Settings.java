@@ -82,6 +82,7 @@ public final class Settings {
     // auto poses
     // create offsets for the elevator and the distance from the reef
     public static Pose2d testFromATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(1).get().toPose2d();
+    public static Pose2d abATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(18).get().toPose2d();
     public static Pose2d coralRightAB = new Pose2d(3.081, 3.851, new Rotation2d(Radians.convertFrom(0, Degrees)));
     public static Pose2d coralLeftAB = new Pose2d(3.069, 4.187, new Rotation2d(Radians.convertFrom(0, Degrees)));
     public static Pose2d coralRightCD = new Pose2d(3.944, 2.748, new Rotation2d(Radians.convertFrom(60, Degrees)));
@@ -90,8 +91,10 @@ public final class Settings {
     public static Pose2d coralLeftEF = new Pose2d(5.059, 2.748, new Rotation2d(Radians.convertFrom(120, Degrees)));
     public static Pose2d coralRightGH = new Pose2d(5.874, 4.175, new Rotation2d(Radians.convertFrom(180, Degrees)));
     public static Pose2d coralLeftGH = new Pose2d(5.862, 3.863, new Rotation2d(Radians.convertFrom(180, Degrees)));
+    public static Pose2d ijATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(20).get().toPose2d();
     public static Pose2d coralRightIJ = new Pose2d(5.023, 5.314, new Rotation2d(Radians.convertFrom(-120, Degrees)));
     public static Pose2d coralLeftIJ = new Pose2d(5.311, 5.134, new Rotation2d(Radians.convertFrom(-120, Degrees)));
+    public static Pose2d klATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(19).get().toPose2d();
     public static Pose2d coralRightKL = new Pose2d(3.644, 5.098, new Rotation2d(Radians.convertFrom(-60, Degrees)));
     public static Pose2d coralLeftKL = new Pose2d(3.956, 5.266, new Rotation2d(Radians.convertFrom(-60, Degrees)));
     public static Pose2d rightFarFeederStation = new Pose2d(1.678, 0.746, new Rotation2d(Radians.convertFrom(-130, Degrees)));
