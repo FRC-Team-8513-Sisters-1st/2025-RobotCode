@@ -10,3 +10,4 @@ frontRightDrive id 42
 backLeftDrive id 41
 frontLeftDrive id 40
 coral mech 55
+climber 45
