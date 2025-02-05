@@ -85,6 +85,9 @@ public final class Settings {
     public static Pose2d efATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(22).get().toPose2d();
     public static Pose2d ghATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(21).get().toPose2d();
     public static Pose2d processorATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(16).get().toPose2d();
+    public static Pose2d abATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(18).get().toPose2d();
+    public static Pose2d ijATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(20).get().toPose2d();
+    public static Pose2d klATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(19).get().toPose2d();
     public static Pose2d coralRightAB = new Pose2d(3.081, 3.851, new Rotation2d(Radians.convertFrom(0, Degrees)));
     public static Pose2d coralLeftAB = new Pose2d(3.069, 4.187, new Rotation2d(Radians.convertFrom(0, Degrees)));
     public static Pose2d coralRightCD = new Pose2d(3.944, 2.748, new Rotation2d(Radians.convertFrom(60, Degrees)));
