@@ -47,28 +47,28 @@ public final class Settings {
 
 
     // controller 1 panel buttons
-    public static int buttonId_CoralIntake = 8;
+    public static int buttonId_CoralIntake = 5;
     public static int buttonId_CoralOutake = 9;
-    public static int buttonId_Coral4 = 4;
-    public static int buttonId_Coral3 = 3;
-    public static int buttonId_Coral2 = 2;
-    public static int buttonId_Coral1 = 1;
-    public static int buttonId_Algae3 = 7;
-    public static int buttonId_Algae2 = 5;
-    public static int buttonId_AlgaeIntake = 10;
-    public static int buttonId_AlgaeOutake = 11;
-    public static int buttonId_processor = 6;
+    public static int buttonId_Coral4 = 6;
+    public static int buttonId_Coral3 = 7;
+    public static int buttonId_Coral2 = 8;
+    public static int buttonId_Coral1 = 4;
+    public static int buttonId_Algae3 = 1;
+    public static int buttonId_Algae2 = 2;
+    public static int buttonId_processor = 3;
 
     // controller 2 panel buttons
-    public static int buttonId_Close = 4;
-    public static int buttonId_Far = 7;
-    public static int buttonId_Drive = 1;
-    public static int buttonId_ab = 6;
-    public static int buttonId_cd = 9;
-    public static int buttonId_ef = 8;
-    public static int buttonId_gh = 5;
-    public static int buttonId_ij = 3;
-    public static int buttonId_kl = 2;
+    public static int buttonId_Close = 7;
+    public static int buttonId_Far = 6;
+    public static int buttonId_Drive = 5;
+    public static int buttonId_ab = 9;
+    public static int buttonId_cd = 10;
+    public static int buttonId_ef = 11;
+    public static int buttonId_gh = 3;
+    public static int buttonId_ij = 1;
+    public static int buttonId_kl = 8;
+    public static int buttonId_AlgaeIntake = 4;
+    public static int buttonId_AlgaeOutake = 2;
 
     // driver button ids
     public static int buttonId_Climb = 4;
@@ -104,13 +104,13 @@ public final class Settings {
     public static double coralScoreThold = 0.0254;
 
     //elevator positions
-    public static double elevatorPoseStowed = 0;
-    public static double elevatorPoseL1 = 0;
-    public static double elevatorPoseL2 = 10;
-    public static double elevatorPoseL3 = 20;
-    public static double elevatorPoseL4 = 35;
-    public static double elevatorPoseC2 = 10;
-    public static double elevatorPoseC3 = 20;
+    public static double elevatorPosStowed = 0;
+    public static double elevatorPosL1 = 0;
+    public static double elevatorPosL2 = 10;
+    public static double elevatorPosL3 = 20;
+    public static double elevatorPosL4 = 35;
+    public static double elevatorPosC2 = 10;
+    public static double elevatorPosC3 = 20;
 
 
     public static double getDistanceBetweenTwoPoses(Pose2d pose1, Pose2d pose2) {
