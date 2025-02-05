@@ -10,6 +10,7 @@
 
 - Real robot:
     - figure out direction of each motor and setpoints
+    - drivebase ratio and analog encoder offsets
     - tune elevator PID
     - Tune DB velocity PID
     - Tune path planning no feedback
