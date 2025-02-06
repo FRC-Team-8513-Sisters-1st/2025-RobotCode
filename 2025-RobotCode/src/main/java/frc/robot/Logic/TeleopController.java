@@ -3,6 +3,7 @@ package frc.robot.logic;
 import frc.robot.Settings;
 import frc.robot.logic.Enums.RobotStates;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Robot;
 
@@ -18,12 +19,22 @@ public class TeleopController {
 
     Pose2d coralScoreGoalPose = new Pose2d();
     RobotStates operatorGoalAlgaeReefLevel;
+    Pose2d laodedAutoPathPose = new Pose2d();
+    boolean pathToPoint = false;
 
     public TeleopController(Robot thisRobotIn) {
         thisRobot = thisRobotIn;
     }
 
+    public void teleInit(){
+        if(Robot.isSimulation() && thisRobot.drivebase.swerveDrive.getPose().getX() == 0 && thisRobot.drivebase.swerveDrive.getPose().getY() == 0){
+            thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(2,2, new Rotation2d()));
+        }
+    }
+
     public void driveTele() {
+        pathToPoint = false;
+        
         double xSpeedJoystick = -driverXboxController.getRawAxis(Settings.forwardBackwardsAxis); // forward back
         if (xSpeedJoystick < Settings.joystickDeadband && xSpeedJoystick > -Settings.joystickDeadband) {
             xSpeedJoystick = 0;
@@ -54,12 +65,6 @@ public class TeleopController {
         double yV = yInput * thisRobot.drivebase.swerveDrive.getMaximumChassisVelocity();
         double rV = rInput * thisRobot.drivebase.swerveDrive.getMaximumChassisAngularVelocity();
 
-        if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)) {
-            thisRobot.drivebase.attackPoint(Settings.rightCloseFeederStation);
-        } else {
-            thisRobot.drivebase.drive(xV, yV, rV, true);
-        }
-
         // setting Pose2d
 
         thisRobot.stateMachine.forceCoralAndAlgae();
@@ -77,7 +82,8 @@ public class TeleopController {
                 .getRawAxis(Settings.axisId_LeftBranch);
         if (leftTriggerValue > Settings.triggerDeadband) {
             thisRobot.coralReady2Score = true;
-            setCoralScoreGoalPoseLeft();  
+            pathToPoint = true;
+            setCoralScoreGoalPoseLeft();
         }
         
         rightTriggerValue = thisRobot.teleopController.driverXboxController
@@ -90,8 +96,15 @@ public class TeleopController {
             } else {
                 thisRobot.coralReady2Score = true;
             }
-
+            pathToPoint = true;
             setCoralScoreGoalPoseRight();
+        }
+
+
+        if (pathToPoint) {
+            thisRobot.drivebase.attackPoint(coralScoreGoalPose);
+        } else {
+            thisRobot.drivebase.drive(xV, yV, rV, true);
         }
     }
     public void setCoralScoreGoalPoseRight() {
@@ -137,5 +150,10 @@ public class TeleopController {
                 coralScoreGoalPose = Settings.coralLeftKL;
                 break;
         }
+
+    }
+
+    public void driveToCoralScoreGoalpose(){
+
     }
 }

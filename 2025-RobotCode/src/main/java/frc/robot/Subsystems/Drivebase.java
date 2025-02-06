@@ -10,6 +10,7 @@ import frc.robot.Settings;
 import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import swervelib.telemetry.SwerveDriveTelemetry;
@@ -19,7 +20,10 @@ import com.pathplanner.lib.trajectory.PathPlannerTrajectory;
 import com.pathplanner.lib.trajectory.PathPlannerTrajectoryState;
 import com.pathplanner.lib.util.FileVersionException;
 import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.path.GoalEndState;
+import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.pathfinding.Pathfinding;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -39,8 +43,12 @@ public class Drivebase {
     double timePathStarted;
     PathPlannerTrajectoryState trajGoalState;
     Field2d trajGoalPosition = new Field2d();
-    PathPlannerPath pathPlannerGoalPose;
 
+    Rotation2d trajGoalRotation = new Rotation2d();
+    PathConstraints constraints = new PathConstraints(
+        3.0, 4.0,
+        Units.degreesToRadians(540), Units.degreesToRadians(720));
+    
     public Drivebase(Robot thisRobotIn) {
         double maximumSpeed = Units.feetToMeters(Settings.drivebaseMaxVelocityFPS);
         File swerveJsonDirectory= new File(Filesystem.getDeployDirectory(), "swerve");
@@ -51,6 +59,7 @@ public class Drivebase {
         }
         SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
         thisRobot = thisRobotIn;
+        Pathfinding.ensureInitialized();
     }
 
     public void drive(double vx, double vy, double vr, boolean fieldCentric) {
@@ -143,6 +152,38 @@ public class Drivebase {
 
     public void matchSimulatedOdomToPose(){
         swerveDrive.addVisionMeasurement(swerveDrive.getSimulationDriveTrainPose().get(), Timer.getFPGATimestamp());
+    }
+
+    public void initPathToPoint(Pose2d goalPose){
+        Pathfinding.setGoalPosition(goalPose.getTranslation());
+        Pathfinding.setStartPosition(swerveDrive.getPose().getTranslation());
+
+        trajGoalRotation = goalPose.getRotation();
+
+    }
+
+    public void followOTFPath(){
+        if(Pathfinding.isNewPathAvailable()){
+            GoalEndState ges = new GoalEndState(0, trajGoalRotation);
+            path = Pathfinding.getCurrentPath(constraints, ges);
+
+            try {
+                traj = path.getIdealTrajectory(RobotConfig.fromGUISettings()).get();
+            } catch (IOException | ParseException e) {
+                System.out.println("Error in trajectory generation");
+                e.printStackTrace();
+            }
+    
+            // if we are a simulation set the robots pose to the starting pose of the path
+            if (Robot.isSimulation()) {
+                swerveDrive.resetOdometry(path.getStartingHolonomicPose().get());
+            }
+    
+            // update a variable to keep track of the fact we loaded a new path but have not
+            // begun to follow it
+            loadedPathHasStarted = false;
+        }
+        followLoadedPath();
     }
 
 }
