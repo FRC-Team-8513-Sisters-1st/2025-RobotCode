@@ -9,7 +9,11 @@ import frc.robot.Robot;
 import frc.robot.Settings;
 import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import swervelib.telemetry.SwerveDriveTelemetry;
@@ -40,6 +44,10 @@ public class Drivebase {
     PathPlannerTrajectoryState trajGoalState;
     Field2d trajGoalPosition = new Field2d();
     PathPlannerPath pathPlannerGoalPose;
+
+    Field2d targetField = new Field2d();
+    Field2d scoreLeftField = new Field2d();
+    Field2d scoreRightField = new Field2d();
 
     public Drivebase(Robot thisRobotIn) {
         double maximumSpeed = Units.feetToMeters(Settings.drivebaseMaxVelocityFPS);
@@ -143,6 +151,28 @@ public class Drivebase {
 
     public void matchSimulatedOdomToPose(){
         swerveDrive.addVisionMeasurement(swerveDrive.getSimulationDriveTrainPose().get(), Timer.getFPGATimestamp());
+    }
+
+    public void updateOffsetPose(int target) {
+        Pose2d tagPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(target).get()
+                .toPose2d();
+        double dx = 1; // meters
+        double yLeft = -0.25;
+        double yRight = 0.1;
+        targetField.setRobotPose(tagPose);
+        SmartDashboard.putData("targetField", targetField);
+
+        Transform2d tagToRobotScoreLeftTransform = new Transform2d(dx, yLeft, new Rotation2d(Math.PI));
+        Transform2d tagToRobotScoreRightTransform = new Transform2d(dx, yRight, new Rotation2d(Math.PI));
+
+        Pose2d scoreLeftGoalPose = tagPose.transformBy(tagToRobotScoreLeftTransform);
+        scoreLeftField.setRobotPose(scoreLeftGoalPose);
+        SmartDashboard.putData("leftGoalPose", scoreLeftField);
+
+        tagPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(target).get().toPose2d();
+        Pose2d scoreRightGoalsPOse = tagPose.transformBy(tagToRobotScoreRightTransform);
+        scoreRightField.setRobotPose(scoreRightGoalsPOse);
+        SmartDashboard.putData("rightGoalPose", scoreRightField);
     }
 
 }
