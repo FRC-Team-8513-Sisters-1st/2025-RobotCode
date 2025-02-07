@@ -1,4 +1,6 @@
 - ToDo
+    - use rotation joystick to have the robot face that angle 
+    - force elevator state somehow (hold button? double tap?)
     - use path planner to set all poses in settings
     - put attackPose pose on smart dashbaord
     - put selected goal coral on dashbord
