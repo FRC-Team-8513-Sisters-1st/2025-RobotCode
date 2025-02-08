@@ -28,7 +28,7 @@ public class Algae {
     double algaeOutTime = 0;
     boolean algaeOutFirstTime = true;
 
-    int algaeSetState = 0;
+    int algaeSetState = 3;
 
     PIDController algaeController = new PIDController(0.01, 0, 0);
 
@@ -79,7 +79,7 @@ public class Algae {
             algaeSetState = 0;
         }
 
-        if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_AlgaeIntake)){
+        if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_AlgaeOutake)){
             algaeSetState = 2;
         }
 

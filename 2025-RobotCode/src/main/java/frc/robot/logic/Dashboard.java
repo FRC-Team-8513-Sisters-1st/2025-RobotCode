@@ -34,6 +34,15 @@ public class Dashboard {
         SmartDashboard.putString("feederCloseOrFar", thisRobot.stateMachine.feederCloseOrFar.name());
         SmartDashboard.putBoolean("climberButtonPressed", thisRobot.stateMachine.climberButtonPressed);
         SmartDashboard.putString("operatorChosenSideOfReef", thisRobot.stateMachine.operatorChosenSideOfReef.name());
+        SmartDashboard.putNumber("elevator motor 1 power", thisRobot.elevator.elevatorMotor1.getAppliedOutput());
+        SmartDashboard.putNumber("elevator motor 2 power", thisRobot.elevator.elevatorMotor2.getAppliedOutput());
+        SmartDashboard.putNumber("elevator motor 1 pos", thisRobot.elevator.elevatorMotor1.getEncoder().getPosition());
+        SmartDashboard.putNumber("elevator motor 2 pos", thisRobot.elevator.elevatorMotor2.getEncoder().getPosition());
+        SmartDashboard.putNumber("elevatorGoalState", thisRobot.elevator.m_controller.getSetpoint().position);
+        SmartDashboard.putBoolean("isRobotinReefZone", thisRobot.stateMachine.isRobotInReefZone());
+        SmartDashboard.putNumber("storedElevatorState", thisRobot.elevator.storedElevatorState);
+
+
     }
 
     public void putPoseOnDashboard( String poseName, Pose2d pose2d) {

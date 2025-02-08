@@ -14,7 +14,7 @@ public final class Settings {
   public static double drivebaseMaxVelocityFPS = 17.1;
 
   //vision settings
-  public static boolean useVision = true;
+  public static boolean useVision = false;
 
   // joystick deadband
   public static double joystickDeadband = 0.01;
@@ -42,8 +42,8 @@ public final class Settings {
     public static int algaeGroundMotor2CANID = 14;
     public static int climberMotor1CANID = 15;
     public static int climberMotor2CANID = 16;
-    public static int elevatorMotor1CANID = 57; // e2
-    public static int elevatorMotor2CANID = 59; // e1
+    public static int elevatorMotor1CANID = 59; // e2
+    public static int elevatorMotor2CANID = 57; // e1
     public static int coralMotor1CANID = 55;
 
 
@@ -78,6 +78,7 @@ public final class Settings {
     public static int axisId_RightBranch = 3;
     public static int axisId_LeftBranch = 2;
     public static int buttonId_reorenting = 3;
+    public static int buttonId_resetOdo = 8;
 
     // auto poses
     // create offsets for the elevator and the distance from the reef
@@ -114,11 +115,11 @@ public final class Settings {
     //elevator positions
     public static double elevatorPosStowed = 0;
     public static double elevatorPosL1 = 0;
-    public static double elevatorPosL2 = 10;
-    public static double elevatorPosL3 = 20;
-    public static double elevatorPosL4 = 35;
-    public static double elevatorPosC2 = 10;
-    public static double elevatorPosC3 = 20;
+    public static double elevatorPosL2 = 7.00;
+    public static double elevatorPosL3 = 20.84;
+    public static double elevatorPosL4 = 41.4;
+    public static double elevatorPosA2 = 10;
+    public static double elevatorPosA3 = 20;
 
 
     public static double getDistanceBetweenTwoPoses(Pose2d pose1, Pose2d pose2) {

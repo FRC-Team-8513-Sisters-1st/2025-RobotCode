@@ -3,6 +3,7 @@ package frc.robot.logic;
 import frc.robot.Settings;
 import frc.robot.logic.Enums.RobotStates;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Robot;
 
@@ -24,6 +25,15 @@ public class TeleopController {
     }
 
     public void driveTele() {
+
+        thisRobot.algae.setMotorPower();
+        thisRobot.coral.setMotorPower();
+        thisRobot.elevator.setMotorPower();
+
+        if (driverXboxController.getRawButton(Settings.buttonId_resetOdo)) {
+            thisRobot.drivebase.swerveDrive.resetOdometry( new Pose2d(thisRobot.drivebase.swerveDrive.getPose().getX(), thisRobot.drivebase.swerveDrive.getPose().getY(), new Rotation2d()));
+        }
+
         double xSpeedJoystick = -driverXboxController.getRawAxis(Settings.forwardBackwardsAxis); // forward back
         if (xSpeedJoystick < Settings.joystickDeadband && xSpeedJoystick > -Settings.joystickDeadband) {
             xSpeedJoystick = 0;
