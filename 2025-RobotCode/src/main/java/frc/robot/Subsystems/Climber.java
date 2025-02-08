@@ -1,6 +1,9 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.Joystick;
+
 import com.revrobotics.spark.SparkMax;
 
 import frc.robot.Robot;
@@ -13,7 +16,8 @@ public class Climber {
     ClimberStates state = ClimberStates.stowed;
 
     public SparkMax climberMotor1 = new SparkMax(Settings.climberMotor1CANID, MotorType.kBrushless);
-    public SparkMax climberMotor2 = new SparkMax(Settings.climberMotor2CANID, MotorType.kBrushless);
+
+    Joystick tempJoystick = new Joystick(4);
 
     public Climber(Robot thisRobotIn) {
         
@@ -25,6 +29,8 @@ public class Climber {
     }
 
     public void setMotorPower() {
+
+        climberMotor1.set(tempJoystick.getRawAxis(1));
 
     }
 }

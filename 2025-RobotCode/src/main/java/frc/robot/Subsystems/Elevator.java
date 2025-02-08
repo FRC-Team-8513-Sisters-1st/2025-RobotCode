@@ -36,6 +36,7 @@ public class Elevator {
     public Elevator(Robot thisRobotIn) {
 
         thisRobot = thisRobotIn;
+        elevatorMotor1.getEncoder().setPosition(0);
     }
 
     public void setState(ElevatorStates state) {

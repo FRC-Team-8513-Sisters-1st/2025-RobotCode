@@ -40,8 +40,7 @@ public final class Settings {
     public static int algaeMotor1CANID = 62;
     public static int algaeGroundMotor1CANID = 13;
     public static int algaeGroundMotor2CANID = 14;
-    public static int climberMotor1CANID = 15;
-    public static int climberMotor2CANID = 16;
+    public static int climberMotor1CANID = 45;
     public static int elevatorMotor1CANID = 59; // e2
     public static int elevatorMotor2CANID = 57; // e1
     public static int coralMotor1CANID = 55;
