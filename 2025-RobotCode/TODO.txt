@@ -1,26 +1,23 @@
 - ToDo
-    - use rotation joystick to have the robot face that angle 
-    - force elevator state somehow (hold button? double tap?)
-    - use path planner to set all poses in settings
-    - put attackPose pose on smart dashbaord
-    - put selected goal coral on dashbord
-    - once button pannel is ready
-        - test all state changes
-        - test the updating of attack pose on smart dashbord
-    - Turn off photon vision if in simulation
-    - Generate path on fly
+    - due monday
+        - use rotation joystick to have the robot face that angle 
+        - slew rate on driver inputs
+    - due wednesday
+        - put attackPose pose on smart dashbaord
+        - attack pose on reef
+        - attack pose on feeder station
+        - Generate path on fly to reef/feeder
 
 - Real robot:
-    - figure out direction of each motor and setpoints
-    - drivebase ratio and analog encoder offsets
-    - tune elevator PID
+    - Tune drivebase odometry without vision
     - Tune DB velocity PID
     - Tune path planning no feedback
     - Tune path planning position PID
+    - Tune attack point pid
     - Photon vision
+        - add 4 cameras and update pose with both
     
 - Auto
-    - Plan out each path in pathplanner
+    - discuss how our auto builder will work
 
 - Teleop
-    - Heading goal rather than rotation speed
