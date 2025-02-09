@@ -6,6 +6,8 @@
         - put attackPose pose on smart dashbaord
         - attack pose on reef
         - attack pose on feeder station
+    - due week 0
+        - red/blue flipping
         - Generate path on fly to reef/feeder
 
 - Real robot:
