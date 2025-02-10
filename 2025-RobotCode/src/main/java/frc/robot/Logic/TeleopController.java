@@ -20,12 +20,7 @@ public class TeleopController {
     Pose2d coralScoreGoalPose = new Pose2d();
     RobotStates operatorGoalAlgaeReefLevel;
 
-    double xLV = thisRobot.drivebase.swerveDrive.getMaximumChassisVelocity();
-    double yLV = thisRobot.drivebase.swerveDrive.getMaximumChassisVelocity();
-
-    double PIDController = Math.atan(yLV/xLV);
-
-
+    Rotation2d goalHeading = new Rotation2d();
 
     public TeleopController(Robot thisRobotIn) {
         thisRobot = thisRobotIn;
@@ -72,14 +67,24 @@ public class TeleopController {
         double yV = yInput * thisRobot.drivebase.swerveDrive.getMaximumChassisVelocity();
         double rV = rInput * thisRobot.drivebase.swerveDrive.getMaximumChassisAngularVelocity();
 
+        double jX = driverXboxController.getRawAxis(Settings.rightJoystickX);
+        double jY = driverXboxController.getRawAxis(Settings.rightJoystickY);
+
+
+
+        if (Settings.headingJoystickControls) {
+            if (Math.sqrt(jX*jX + jY*jY) > 0.5) {
+                goalHeading = new Rotation2d(jX, -jY);
+                goalHeading = goalHeading.minus(Rotation2d.fromDegrees(90));
+            } 
+            rV = Settings.rJoystickController.calculate(thisRobot.drivebase.swerveDrive.getPose().getRotation().minus(goalHeading).getDegrees(), 0);
+        }
+
+
         if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)) {
             thisRobot.drivebase.attackPoint(Settings.rightCloseFeederStation);
         } else {
             thisRobot.drivebase.drive(xV, yV, rV, true);
-        }
-
-        if (PIDController < 0) {
-            PIDController = PIDController + 180;
         }
 
         // setting Pose2d

@@ -10,31 +10,35 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 
 public final class Settings {
-  // drivebase settings
-  public static double drivebaseMaxVelocityFPS = 17.1;
+    // drivebase settings
+    public static double drivebaseMaxVelocityFPS = 17.1;
 
-  //vision settings
-  public static boolean useVision = false;
+    // vision settings
+    public static boolean useVision = false;
 
-  // joystick deadband
-  public static double joystickDeadband = 0.01;
-  public static double triggerDeadband = 0.2; 
+    // joystick deadband
+    public static double joystickDeadband = 0.01;
+    public static double triggerDeadband = 0.2;
 
-   // driver axis 
-   public static int leftRightAxis = 0;
-   public static int forwardBackwardsAxis = 1;
-   public static int rotAxis = 4;
+    // driver axis
+    public static int leftRightAxis = 0;
+    public static int forwardBackwardsAxis = 1;
+    public static int rotAxis = 4;
 
-   // driver joystick settings
-   public static int driverJoystickPort = 1;
-   public static int operatorJoystick1Port = 2;
-   public static int operatorJoystick2Port = 3;
-
+    // driver joystick settings
+    public static int driverJoystickPort = 1;
+    public static int operatorJoystick1Port = 2;
+    public static int operatorJoystick2Port = 3;
 
     // pid settings
     public static PIDController xController = new PIDController(33, 0, 1);
     public static PIDController yController = new PIDController(33, 0, 1);
     public static PIDController rController = new PIDController(1, 0, 0);
+
+    public static PIDController rJoystickController = new PIDController(0.1, 0, 0);
+    public static int rightJoystickY = 5;
+    public static int rightJoystickX = 4;
+    public static boolean headingJoystickControls = true;
 
     // CANids
     public static int algaeMotor1CANID = 62;
@@ -44,7 +48,6 @@ public final class Settings {
     public static int elevatorMotor1CANID = 59; // e2
     public static int elevatorMotor2CANID = 57; // e1
     public static int coralMotor1CANID = 55;
-
 
     // controller 1 panel buttons
     public static int buttonId_CoralIntake = 5;
@@ -81,13 +84,20 @@ public final class Settings {
 
     // auto poses
     // create offsets for the elevator and the distance from the reef
-    public static Pose2d cdATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(17).get().toPose2d();
-    public static Pose2d efATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(22).get().toPose2d();
-    public static Pose2d ghATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(21).get().toPose2d();
-    public static Pose2d processorATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(16).get().toPose2d();
-    public static Pose2d abATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(18).get().toPose2d();
-    public static Pose2d ijATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(20).get().toPose2d();
-    public static Pose2d klATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(19).get().toPose2d();
+    public static Pose2d cdATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(17).get()
+            .toPose2d();
+    public static Pose2d efATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(22).get()
+            .toPose2d();
+    public static Pose2d ghATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(21).get()
+            .toPose2d();
+    public static Pose2d processorATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(16)
+            .get().toPose2d();
+    public static Pose2d abATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(18).get()
+            .toPose2d();
+    public static Pose2d ijATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(20).get()
+            .toPose2d();
+    public static Pose2d klATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(19).get()
+            .toPose2d();
     public static Pose2d coralRightAB = new Pose2d(3.081, 3.851, new Rotation2d(Radians.convertFrom(0, Degrees)));
     public static Pose2d coralLeftAB = new Pose2d(3.069, 4.187, new Rotation2d(Radians.convertFrom(0, Degrees)));
     public static Pose2d coralRightCD = new Pose2d(3.944, 2.748, new Rotation2d(Radians.convertFrom(60, Degrees)));
@@ -100,18 +110,22 @@ public final class Settings {
     public static Pose2d coralLeftIJ = new Pose2d(5.311, 5.134, new Rotation2d(Radians.convertFrom(-120, Degrees)));
     public static Pose2d coralRightKL = new Pose2d(3.644, 5.098, new Rotation2d(Radians.convertFrom(-60, Degrees)));
     public static Pose2d coralLeftKL = new Pose2d(3.956, 5.266, new Rotation2d(Radians.convertFrom(-60, Degrees)));
-    public static Pose2d rightFarFeederStation = new Pose2d(1.678, 0.746, new Rotation2d(Radians.convertFrom(-130, Degrees)));
-    public static Pose2d leftFarFeederStation = new Pose2d(1.690, 7.280, new Rotation2d(Radians.convertFrom(130, Degrees)));
-    public static Pose2d rightCloseFeederStation = new Pose2d(0.851, 1.370, new Rotation2d(Radians.convertFrom(-130, Degrees)));
-    public static Pose2d leftCloseFeederStation = new Pose2d(0.887, 6.740, new Rotation2d(Radians.convertFrom(130, Degrees)));
+    public static Pose2d rightFarFeederStation = new Pose2d(1.678, 0.746,
+            new Rotation2d(Radians.convertFrom(-130, Degrees)));
+    public static Pose2d leftFarFeederStation = new Pose2d(1.690, 7.280,
+            new Rotation2d(Radians.convertFrom(130, Degrees)));
+    public static Pose2d rightCloseFeederStation = new Pose2d(0.851, 1.370,
+            new Rotation2d(Radians.convertFrom(-130, Degrees)));
+    public static Pose2d leftCloseFeederStation = new Pose2d(0.887, 6.740,
+            new Rotation2d(Radians.convertFrom(130, Degrees)));
     public static Pose2d processor = new Pose2d(6.006, 0.603, new Rotation2d(Radians.convertFrom(-90, Degrees)));
 
     public static Pose2d reefZone = new Pose2d(4.495, 4.019, new Rotation2d(Radians.convertFrom(0, Degrees)));
     public static double minDistanceFromReefZoneMeter = 2;
-    
+
     public static double coralScoreThold = 0.0254;
 
-    //elevator positions
+    // elevator positions
     public static double elevatorPosStowed = 0;
     public static double elevatorPosL1 = 0;
     public static double elevatorPosL2 = 7.00;
@@ -119,7 +133,6 @@ public final class Settings {
     public static double elevatorPosL4 = 41.4;
     public static double elevatorPosA2 = 10;
     public static double elevatorPosA3 = 20;
-
 
     public static double getDistanceBetweenTwoPoses(Pose2d pose1, Pose2d pose2) {
         double x = pose2.getX() - pose1.getX();
