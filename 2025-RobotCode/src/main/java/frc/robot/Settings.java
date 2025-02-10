@@ -50,8 +50,8 @@ public final class Settings {
     public static int coralMotor1CANID = 55;
 
     // controller 1 panel buttons
-    public static int buttonId_CoralIntake = 5;
-    public static int buttonId_CoralOutake = 9;
+    public static int buttonId_CoralOutake = 5;
+    public static int buttonId_CoralIntake = 9;
     public static int buttonId_Coral4 = 6;
     public static int buttonId_Coral3 = 7;
     public static int buttonId_Coral2 = 8;
