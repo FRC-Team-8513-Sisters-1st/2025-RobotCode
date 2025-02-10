@@ -20,6 +20,13 @@ public class TeleopController {
     Pose2d coralScoreGoalPose = new Pose2d();
     RobotStates operatorGoalAlgaeReefLevel;
 
+    double xLV = thisRobot.drivebase.swerveDrive.getMaximumChassisVelocity();
+    double yLV = thisRobot.drivebase.swerveDrive.getMaximumChassisVelocity();
+
+    double PIDController = Math.atan(yLV/xLV);
+
+
+
     public TeleopController(Robot thisRobotIn) {
         thisRobot = thisRobotIn;
     }
@@ -71,6 +78,10 @@ public class TeleopController {
             thisRobot.drivebase.drive(xV, yV, rV, true);
         }
 
+        if (PIDController < 0) {
+            PIDController = PIDController + 180;
+        }
+
         // setting Pose2d
 
         thisRobot.stateMachine.forceCoralAndAlgae();
@@ -104,6 +115,7 @@ public class TeleopController {
 
             setCoralScoreGoalPoseRight();
         }
+
     }
     public void setCoralScoreGoalPoseRight() {
         switch (thisRobot.stateMachine.operatorChosenSideOfReef) {
