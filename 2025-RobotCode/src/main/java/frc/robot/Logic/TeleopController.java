@@ -39,8 +39,10 @@ public class TeleopController {
         thisRobot.climber.setMotorPower();
 
         if (driverXboxController.getRawButton(Settings.buttonId_resetOdo)) {
-            thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(thisRobot.drivebase.swerveDrive.getPose().getX(),
-                    thisRobot.drivebase.swerveDrive.getPose().getY(), new Rotation2d()));
+            //uncomment this when done testing odom
+            //thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(thisRobot.drivebase.swerveDrive.getPose().getX(),
+            //    thisRobot.drivebase.swerveDrive.getPose().getY(), new Rotation2d()));
+            thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(2,2, new Rotation2d()));
             goalHeading = new Rotation2d();
         }
 

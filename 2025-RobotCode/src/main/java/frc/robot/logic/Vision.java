@@ -14,6 +14,7 @@ import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
@@ -33,14 +34,14 @@ public class Vision {
 
     AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
 
-    Transform3d processorCamTransform = new Transform3d(new Translation3d(-21.483, 7.955, 26.681),
-            new Rotation3d(0, 0, 0));
-    Transform3d lowerRightReefCamTransorm = new Transform3d(new Translation3d(-21.733, 8.754, 0),
-            new Rotation3d(0, 0, -10));
-    Transform3d coralStationCamTransform = new Transform3d(new Translation3d(17.983, -16.955, -26.681),
-            new Rotation3d(0, 0, 0));
-    Transform3d lowerLeftReefCamTransform = new Transform3d(new Translation3d(18.139, 9.098, 10.522),
-            new Rotation3d(0, 0, 5));
+    Transform3d processorCamTransform = new Transform3d(new Translation3d(Units.inchesToMeters(4), Units.inchesToMeters(-11), Units.inchesToMeters(33)),
+            new Rotation3d(0, Units.degreesToRadians(-24), 0));
+    Transform3d lowerRightReefCamTransorm = new Transform3d(new Translation3d(Units.inchesToMeters(5), Units.inchesToMeters(-10.5), Units.inchesToMeters(10)),
+            new Rotation3d(0, 0, Units.degreesToRadians(20)));
+    Transform3d coralStationCamTransform = new Transform3d(new Translation3d(Units.inchesToMeters(2), Units.inchesToMeters(8.5), Units.inchesToMeters(38)),
+            new Rotation3d(0, Units.radiansToDegrees(-27), Units.degreesToRadians(180)));
+    Transform3d lowerLeftReefCamTransform = new Transform3d(new Translation3d(Units.inchesToMeters(5), Units.inchesToMeters(7), Units.inchesToMeters(10)),
+            new Rotation3d(0, Units.degreesToRadians(5), 0));
 
     PhotonPoseEstimator processorPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout,
             PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, processorCamTransform);

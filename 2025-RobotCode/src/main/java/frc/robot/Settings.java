@@ -14,7 +14,7 @@ public final class Settings {
     public static double drivebaseMaxVelocityFPS = 17.1;
 
     // vision settings
-    public static boolean useVision = false;
+    public static boolean useVision = true;
 
     // joystick deadband
     public static double joystickDeadband = 0.01;
@@ -31,9 +31,9 @@ public final class Settings {
     public static int operatorJoystick2Port = 3;
 
     // pid settings
-    public static PIDController xController = new PIDController(33, 0, 1);
-    public static PIDController yController = new PIDController(33, 0, 1);
-    public static PIDController rController = new PIDController(1, 0, 0);
+    public static PIDController xController = new PIDController(5, 0, 0.01);
+    public static PIDController yController = new PIDController(5, 0, 0.01);
+    public static PIDController rController = new PIDController(0.1, 0, 0);
 
     public static PIDController rJoystickController = new PIDController(0.1, 0, 0);
     public static int rightJoystickY = 5;
