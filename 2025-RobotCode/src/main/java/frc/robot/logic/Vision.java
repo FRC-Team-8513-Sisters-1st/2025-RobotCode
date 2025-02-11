@@ -22,10 +22,22 @@ import frc.robot.Robot;
 public class Vision {
     Robot thisRobot;
 
-    PhotonCamera cam = new PhotonCamera("testCamera");
+    PhotonCamera processorCam = new PhotonCamera("processorCam");
+    PhotonCamera lowerRightReefCam = new PhotonCamera("lowerRightReefCam");
+    PhotonCamera coralStationCam = new PhotonCamera("coralStationCam");
+    PhotonCamera lowerLeftReefCam = new PhotonCamera("lowerLeftReefCam");
+
     AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
-    Transform3d robotToCam = new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0, 0, 0));
-    PhotonPoseEstimator photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, robotToCam);
+
+    Transform3d processorCamTransform = new Transform3d(new Translation3d(-21.483, 7.955, 26.681), new Rotation3d(0, 0, 0));
+    Transform3d lowerRightReefCamTransorm = new Transform3d(new Translation3d(18.139, 9.098, 5), new Rotation3d(0, 0, 0));
+    Transform3d coralStationCamTransform = new Transform3d(new Translation3d(17.983, -16.955, -26.681), new Rotation3d(0, 0, 0));
+    Transform3d lowerLeftReefCamTransform = new Transform3d(new Translation3d(-21.733, 8.754, -10), new Rotation3d(0, 0, 0));
+
+    PhotonPoseEstimator processorPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, processorCamTransform);
+    PhotonPoseEstimator lowerRightPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, lowerRightReefCamTransorm);
+    PhotonPoseEstimator coralStationEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, coralStationCamTransform);
+    PhotonPoseEstimator lowerLeftPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, lowerLeftReefCamTransform);
 
     Field2d photonField2d = new Field2d();
     
@@ -34,15 +46,44 @@ public class Vision {
     }
 
     public void updatePhotonVision() {
-        List<PhotonPipelineResult> photonUpdate = cam.getAllUnreadResults();
-        if (photonUpdate.size() > 0) {
-            Optional<EstimatedRobotPose> optPhotonPose = photonPoseEstimator.update(photonUpdate.get(0));
+        List<PhotonPipelineResult> photonUpdateProcessorCam = processorCam.getAllUnreadResults();
+        if (photonUpdateProcessorCam.size() > 0) {
+            Optional<EstimatedRobotPose> optPhotonPose = processorPoseEstimator.update(photonUpdateProcessorCam.get(0));
             if (optPhotonPose.isPresent()) {
                 photonField2d.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
-                SmartDashboard.putData("photon pose", photonField2d);
+                SmartDashboard.putData("processorCam", photonField2d);
+                thisRobot.drivebase.swerveDrive.addVisionMeasurement(optPhotonPose.get().estimatedPose.toPose2d(), optPhotonPose.get().timestampSeconds);
+            }
+        }
+
+        List<PhotonPipelineResult> photonUpdateLowerRightReefCam = lowerRightReefCam.getAllUnreadResults();
+        if (photonUpdateLowerRightReefCam.size() > 0) {
+            Optional<EstimatedRobotPose> optPhotonPose = lowerRightPoseEstimator.update(photonUpdateLowerRightReefCam.get(0));
+            if (optPhotonPose.isPresent()) {
+                photonField2d.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
+                SmartDashboard.putData("lowerRightReefCam", photonField2d);
+                thisRobot.drivebase.swerveDrive.addVisionMeasurement(optPhotonPose.get().estimatedPose.toPose2d(), optPhotonPose.get().timestampSeconds);
+            }
+        }
+
+    List<PhotonPipelineResult> photonUpdateCoralStationCam = coralStationCam.getAllUnreadResults();
+        if (photonUpdateCoralStationCam.size() > 0) {
+            Optional<EstimatedRobotPose> optPhotonPose = coralStationEstimator.update(photonUpdateCoralStationCam.get(0));
+            if (optPhotonPose.isPresent()) {
+                photonField2d.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
+                SmartDashboard.putData("coralStationCam", photonField2d);
+                thisRobot.drivebase.swerveDrive.addVisionMeasurement(optPhotonPose.get().estimatedPose.toPose2d(), optPhotonPose.get().timestampSeconds);
+            }
+        }
+
+    List<PhotonPipelineResult> photonUpdateLowerLeftReefCam = lowerLeftReefCam.getAllUnreadResults();
+        if (photonUpdateLowerLeftReefCam.size() > 0) {
+            Optional<EstimatedRobotPose> optPhotonPose = lowerLeftPoseEstimator.update(photonUpdateLowerLeftReefCam.get(0));
+            if (optPhotonPose.isPresent()) {
+                photonField2d.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
+                SmartDashboard.putData("lowerLeftReefCam", photonField2d);
                 thisRobot.drivebase.swerveDrive.addVisionMeasurement(optPhotonPose.get().estimatedPose.toPose2d(), optPhotonPose.get().timestampSeconds);
             }
         }
     }
-
 }
