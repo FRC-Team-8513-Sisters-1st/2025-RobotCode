@@ -35,7 +35,9 @@ public class TeleopController {
 
         if (driverXboxController.getRawButton(Settings.buttonId_resetOdo)) {
             thisRobot.drivebase.swerveDrive.resetOdometry( new Pose2d(thisRobot.drivebase.swerveDrive.getPose().getX(), thisRobot.drivebase.swerveDrive.getPose().getY(), new Rotation2d()));
+            goalHeading = new Rotation2d();
         }
+
 
         double xSpeedJoystick = -driverXboxController.getRawAxis(Settings.forwardBackwardsAxis); // forward back
         if (xSpeedJoystick < Settings.joystickDeadband && xSpeedJoystick > -Settings.joystickDeadband) {

@@ -38,7 +38,7 @@ public final class Settings {
     public static PIDController rJoystickController = new PIDController(0.1, 0, 0);
     public static int rightJoystickY = 5;
     public static int rightJoystickX = 4;
-    public static boolean headingJoystickControls = true;
+    public static boolean headingJoystickControls = false;
 
     // CANids
     public static int algaeMotor1CANID = 62;
