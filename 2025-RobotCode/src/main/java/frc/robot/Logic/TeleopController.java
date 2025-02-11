@@ -2,6 +2,7 @@ package frc.robot.logic;
 
 import frc.robot.Settings;
 import frc.robot.logic.Enums.RobotStates;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Joystick;
@@ -22,6 +23,10 @@ public class TeleopController {
 
     Rotation2d goalHeading = new Rotation2d();
 
+    SlewRateLimiter xfilter = new SlewRateLimiter(4);
+    SlewRateLimiter yfilter = new SlewRateLimiter(4);
+    SlewRateLimiter rfilter = new SlewRateLimiter(4);
+
     public TeleopController(Robot thisRobotIn) {
         thisRobot = thisRobotIn;
     }
@@ -34,26 +39,29 @@ public class TeleopController {
         thisRobot.climber.setMotorPower();
 
         if (driverXboxController.getRawButton(Settings.buttonId_resetOdo)) {
-            thisRobot.drivebase.swerveDrive.resetOdometry( new Pose2d(thisRobot.drivebase.swerveDrive.getPose().getX(), thisRobot.drivebase.swerveDrive.getPose().getY(), new Rotation2d()));
+            thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(thisRobot.drivebase.swerveDrive.getPose().getX(),
+                    thisRobot.drivebase.swerveDrive.getPose().getY(), new Rotation2d()));
             goalHeading = new Rotation2d();
         }
-
 
         double xSpeedJoystick = -driverXboxController.getRawAxis(Settings.forwardBackwardsAxis); // forward back
         if (xSpeedJoystick < Settings.joystickDeadband && xSpeedJoystick > -Settings.joystickDeadband) {
             xSpeedJoystick = 0;
         }
+        xSpeedJoystick = xfilter.calculate(xSpeedJoystick);
 
         double ySpeedJoystick = -driverXboxController.getRawAxis(Settings.leftRightAxis); // left right
         if (ySpeedJoystick < Settings.joystickDeadband && ySpeedJoystick > -Settings.joystickDeadband) {
             ySpeedJoystick = 0;
-        }
 
+        }
+        ySpeedJoystick = yfilter.calculate(ySpeedJoystick);
         double rSpeedJoystick = -driverXboxController.getRawAxis(Settings.rotAxis); // left right 2 at home, 4 on xbox
         if (rSpeedJoystick < Settings.joystickDeadband && rSpeedJoystick > -Settings.joystickDeadband) {
             rSpeedJoystick = 0;
-        }
 
+        }
+        rSpeedJoystick = rfilter.calculate(rSpeedJoystick);
         // if we are on red, flip the joysticks
         if (thisRobot.onRedAlliance) {
             xSpeedJoystick = -xSpeedJoystick;
@@ -72,16 +80,14 @@ public class TeleopController {
         double jX = driverXboxController.getRawAxis(Settings.rightJoystickX);
         double jY = driverXboxController.getRawAxis(Settings.rightJoystickY);
 
-
-
         if (Settings.headingJoystickControls) {
-            if (Math.sqrt(jX*jX + jY*jY) > 0.5) {
+            if (Math.sqrt(jX * jX + jY * jY) > 0.5) {
                 goalHeading = new Rotation2d(jX, -jY);
                 goalHeading = goalHeading.minus(Rotation2d.fromDegrees(90));
-            } 
-            rV = Settings.rJoystickController.calculate(thisRobot.drivebase.swerveDrive.getPose().getRotation().minus(goalHeading).getDegrees(), 0);
+            }
+            rV = Settings.rJoystickController.calculate(
+                    thisRobot.drivebase.swerveDrive.getPose().getRotation().minus(goalHeading).getDegrees(), 0);
         }
-
 
         if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)) {
             thisRobot.drivebase.attackPoint(Settings.rightCloseFeederStation);
@@ -101,14 +107,14 @@ public class TeleopController {
 
         double leftTriggerValue;
         double rightTriggerValue;
-        
+
         leftTriggerValue = thisRobot.teleopController.driverXboxController
                 .getRawAxis(Settings.axisId_LeftBranch);
         if (leftTriggerValue > Settings.triggerDeadband) {
             thisRobot.coralReady2Score = true;
-            setCoralScoreGoalPoseLeft();  
+            setCoralScoreGoalPoseLeft();
         }
-        
+
         rightTriggerValue = thisRobot.teleopController.driverXboxController
                 .getRawAxis(Settings.axisId_RightBranch);
         if (rightTriggerValue > Settings.triggerDeadband) {
@@ -124,6 +130,7 @@ public class TeleopController {
         }
 
     }
+
     public void setCoralScoreGoalPoseRight() {
         switch (thisRobot.stateMachine.operatorChosenSideOfReef) {
             case AB:
@@ -146,6 +153,7 @@ public class TeleopController {
                 break;
         }
     }
+
     public void setCoralScoreGoalPoseLeft() {
         switch (thisRobot.stateMachine.operatorChosenSideOfReef) {
             case AB:

@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.Settings;
 
 public class Dashboard {
 
@@ -12,14 +13,16 @@ public class Dashboard {
     Field2d dashboardField2d = new Field2d();
 
     public Dashboard(Robot thisRobotIn) {
-        
+
         thisRobot = thisRobotIn;
     }
-    
-    public void updateDashboard(){
+
+    public void updateDashboard() {
         putPoseOnDashboard("goalFeederStation", thisRobot.stateMachine.goalFeederStation);
         putPoseOnDashboard("goalProcessor", thisRobot.stateMachine.goalProcessor);
         putPoseOnDashboard("coralScoreGoalPose", thisRobot.teleopController.coralScoreGoalPose);
+        putPoseOnDashboard("rightFarFeederStation", thisRobot.stateMachine.goalFeederStation);
+        putPoseOnDashboard("processor", thisRobot.stateMachine.goalFeederStation);
         SmartDashboard.putNumber("Time", Timer.getFPGATimestamp());
         SmartDashboard.putBoolean("updateIsRobotInReefZone", thisRobot.stateMachine.isRobotInReefZone());
         SmartDashboard.putString("robotState", thisRobot.stateMachine.robotState.name());
@@ -43,10 +46,9 @@ public class Dashboard {
         SmartDashboard.putNumber("storedElevatorState", thisRobot.elevator.storedElevatorState);
         SmartDashboard.putNumber("coral motor current", thisRobot.coral.coralMotor1.getOutputCurrent());
 
-
     }
 
-    public void putPoseOnDashboard( String poseName, Pose2d pose2d) {
+    public void putPoseOnDashboard(String poseName, Pose2d pose2d) {
         dashboardField2d.setRobotPose(pose2d);
         SmartDashboard.putData(poseName, dashboardField2d);
     }
