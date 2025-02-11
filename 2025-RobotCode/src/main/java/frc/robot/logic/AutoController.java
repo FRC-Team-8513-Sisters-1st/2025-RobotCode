@@ -51,7 +51,7 @@ public class AutoController {
                         break;
                     case 10:
                         if (thisRobot.drivebase.followLoadedPath()) {
-                            autoStep = 20;
+                            autoStep = 0;
                         }
                         break;
                     case 20:
@@ -69,7 +69,7 @@ public class AutoController {
                         break;
                     case 10:
                         if (thisRobot.drivebase.followLoadedPath()) {
-                            autoStep = 20;
+                            autoStep = 0;
                         }
                         break;
                     case 20:

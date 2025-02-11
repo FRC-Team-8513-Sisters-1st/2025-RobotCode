@@ -9,6 +9,7 @@
     - due week 0
         - red/blue flipping
         - Generate path on fly to reef/feeder
+        - turn off auto elevator
 
 - Real robot:
     - Tune drivebase odometry without vision
