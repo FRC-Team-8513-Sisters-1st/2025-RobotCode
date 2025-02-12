@@ -1,15 +1,16 @@
 - ToDo
     - due monday
-        - use rotation joystick to have the robot face that angle 
-        - slew rate on driver inputs
-    - due wednesday
         - put attackPose pose on smart dashbaord
+            - fix poses
         - attack pose on reef
-        - attack pose on feeder station
+        - attack pose on feeder station 
+            - be able to pick which side of feder station
+        - go to coral or algae height automatically
     - due week 0
         - red/blue flipping
         - Generate path on fly to reef/feeder
         - turn off auto elevator
+        - switch from pose to april tag offset when close
 
 - Real robot:
     - Tune drivebase odometry without vision

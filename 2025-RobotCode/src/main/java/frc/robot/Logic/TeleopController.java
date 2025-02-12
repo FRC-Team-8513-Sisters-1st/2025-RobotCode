@@ -90,13 +90,6 @@ public class TeleopController {
             rV = Settings.rJoystickController.calculate(
                     thisRobot.drivebase.swerveDrive.getPose().getRotation().minus(goalHeading).getDegrees(), 0);
         }
-
-        if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)) {
-            thisRobot.drivebase.attackPoint(Settings.rightCloseFeederStation);
-        } else {
-            thisRobot.drivebase.drive(xV, yV, rV, true);
-        }
-
         // setting Pose2d
 
         thisRobot.stateMachine.forceCoralAndAlgae();
@@ -129,6 +122,15 @@ public class TeleopController {
             }
 
             setCoralScoreGoalPoseRight();
+        }
+
+        //actually drive
+        if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)) {
+            thisRobot.drivebase.attackPoint(Settings.rightCloseFeederStation);
+        } else if(leftTriggerValue > Settings.triggerDeadband || rightTriggerValue > Settings.triggerDeadband) {
+            thisRobot.drivebase.attackPoint(coralScoreGoalPose);
+        } else {
+            thisRobot.drivebase.drive(xV, yV, rV, true);
         }
 
     }

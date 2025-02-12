@@ -10,6 +10,7 @@ public class Dashboard {
 
     Robot thisRobot;
     Field2d dashboardField2d = new Field2d();
+    Field2d coralGoaField2d = new Field2d();
 
     public Dashboard(Robot thisRobotIn) {
 
@@ -19,7 +20,8 @@ public class Dashboard {
     public void updateDashboard() {
         putPoseOnDashboard("goalFeederStation", thisRobot.stateMachine.goalFeederStation);
         putPoseOnDashboard("goalProcessor", thisRobot.stateMachine.goalProcessor);
-        putPoseOnDashboard("coralScoreGoalPose", thisRobot.teleopController.coralScoreGoalPose);
+        coralGoaField2d.setRobotPose(thisRobot.teleopController.coralScoreGoalPose);
+        SmartDashboard.putData("coralScoreGoalPose", coralGoaField2d);
         putPoseOnDashboard("rightFarFeederStation", thisRobot.stateMachine.goalFeederStation);
         putPoseOnDashboard("processor", thisRobot.stateMachine.goalFeederStation);
         SmartDashboard.putNumber("Time", Timer.getFPGATimestamp());

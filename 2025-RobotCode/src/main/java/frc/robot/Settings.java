@@ -115,7 +115,7 @@ public final class Settings {
     public static Pose2d leftFarFeederStation = new Pose2d(1.690, 7.280,
             new Rotation2d(Radians.convertFrom(130, Degrees)));
     public static Pose2d rightCloseFeederStation = new Pose2d(0.851, 1.370,
-            new Rotation2d(Radians.convertFrom(-130, Degrees)));
+            new Rotation2d(Radians.convertFrom(50, Degrees)));
     public static Pose2d leftCloseFeederStation = new Pose2d(0.887, 6.740,
             new Rotation2d(Radians.convertFrom(130, Degrees)));
     public static Pose2d processor = new Pose2d(6.006, 0.603, new Rotation2d(Radians.convertFrom(-90, Degrees)));
