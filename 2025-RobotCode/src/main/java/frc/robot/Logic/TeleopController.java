@@ -13,6 +13,7 @@ public class TeleopController {
 
     Robot thisRobot;
     public Joystick driverXboxController = new Joystick(Settings.driverJoystickPort);
+    public Joystick manualJoystick = new Joystick(4);
 
     public Joystick operatorJoystick1 = new Joystick(Settings.operatorJoystick1Port);
     public Joystick operatorJoystick2 = new Joystick(Settings.operatorJoystick2Port);

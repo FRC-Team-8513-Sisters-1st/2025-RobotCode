@@ -17,8 +17,6 @@ public class Climber {
 
     public SparkMax climberMotor1 = new SparkMax(Settings.climberMotor1CANID, MotorType.kBrushless);
 
-    Joystick tempJoystick = new Joystick(4);
-
     public Climber(Robot thisRobotIn) {
         
         thisRobot = thisRobotIn;
@@ -30,7 +28,7 @@ public class Climber {
 
     public void setMotorPower() {
 
-        climberMotor1.set(tempJoystick.getRawAxis(1));
+        climberMotor1.set(thisRobot.teleopController.manualJoystick.getRawAxis(1));
 
     }
 }

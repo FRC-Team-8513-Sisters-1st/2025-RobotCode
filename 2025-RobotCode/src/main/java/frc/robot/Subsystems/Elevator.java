@@ -15,7 +15,6 @@ public class Elevator {
 
     ElevatorStates state = ElevatorStates.stowed;
     public int storedElevatorState = 0; // 0 - stowed, 1 - L2, 2 - L3, 3 - L4
-
     public SparkMax elevatorMotor1 = new SparkMax(Settings.elevatorMotor1CANID, MotorType.kBrushless);
     public SparkMax elevatorMotor2 = new SparkMax(Settings.elevatorMotor2CANID, MotorType.kBrushless);
     public static int yAxisLeft = 1;
@@ -95,7 +94,7 @@ public class Elevator {
             m_controller.setGoal(elevatorGoalPIDState);
         }
 
-        double yLeftValue = 0; // make this copilot elevator controller
+        double yLeftValue = thisRobot.teleopController.manualJoystick.getRawAxis(5); // make this copilot elevator controller
         if (Math.abs(yLeftValue) > 0.02) {
             elevatorMotor1.set(yLeftValue);
             elevatorMotor2.set(-yLeftValue);
