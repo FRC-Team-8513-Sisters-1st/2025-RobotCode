@@ -11,6 +11,8 @@ public class Dashboard {
     Robot thisRobot;
     Field2d dashboardField2d = new Field2d();
     Field2d coralGoaField2d = new Field2d();
+    Field2d goalFeederStationField2d = new Field2d();
+    Field2d goalProcessorField2d = new Field2d();
 
     public Dashboard(Robot thisRobotIn) {
 
@@ -18,8 +20,10 @@ public class Dashboard {
     }
 
     public void updateDashboard() {
-        putPoseOnDashboard("goalFeederStation", thisRobot.stateMachine.goalFeederStation);
-        putPoseOnDashboard("goalProcessor", thisRobot.stateMachine.goalProcessor);
+        goalFeederStationField2d.setRobotPose(thisRobot.stateMachine.goalFeederStation);
+        SmartDashboard.putData("goalFeederStation", coralGoaField2d);
+        goalProcessorField2d.setRobotPose(thisRobot.stateMachine.goalProcessor);
+        SmartDashboard.putData("goalProcessor", goalProcessorField2d);
         coralGoaField2d.setRobotPose(thisRobot.teleopController.coralScoreGoalPose);
         SmartDashboard.putData("coralScoreGoalPose", coralGoaField2d);
         putPoseOnDashboard("rightFarFeederStation", thisRobot.stateMachine.goalFeederStation);

@@ -11,6 +11,7 @@
         - Generate path on fly to reef/feeder
         - turn off auto elevator
         - switch from pose to april tag offset when close
+        - max distance to trust april tag
     - due week 1
         - manual control and resets for elevator and other emchs
 

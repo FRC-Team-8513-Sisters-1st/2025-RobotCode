@@ -11,6 +11,7 @@ import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
@@ -45,13 +46,17 @@ public class Drivebase {
     Field2d trajGoalPosition = new Field2d();
     PathPlannerPath pathPlannerGoalPose;
 
+    SlewRateLimiter xAttackPointSR = new SlewRateLimiter(2);
+    SlewRateLimiter yAttackPointSR = new SlewRateLimiter(3);
+    SlewRateLimiter rAttackPointSR = new SlewRateLimiter(5);
+
     Field2d targetField = new Field2d();
     Field2d scoreLeftField = new Field2d();
     Field2d scoreRightField = new Field2d();
- 
+
     public Drivebase(Robot thisRobotIn) {
         double maximumSpeed = Units.feetToMeters(Settings.drivebaseMaxVelocityFPS);
-        File swerveJsonDirectory= new File(Filesystem.getDeployDirectory(), "swerve");
+        File swerveJsonDirectory = new File(Filesystem.getDeployDirectory(), "swerve");
         try {
             swerveDrive = new SwerveParser(swerveJsonDirectory).createSwerveDrive(maximumSpeed);
         } catch (IOException e) {
@@ -125,31 +130,34 @@ public class Drivebase {
             trajGoalPosition.setRobotPose(trajGoalState.pose);
             SmartDashboard.putData("path planner goal postition", trajGoalPosition);
 
-            double dvx = Settings.xController.calculate(swerveDrive.getPose().getX(), trajGoalState.pose.getX());
-            double dvy = Settings.yController.calculate(swerveDrive.getPose().getY(), trajGoalState.pose.getY());
-            double dvr = Settings.rController.calculate(swerveDrive.getPose().getRotation().minus(trajGoalState.pose.getRotation()).getDegrees(), 0);
-            
+            double dvx = Settings.xControllerAP.calculate(swerveDrive.getPose().getX(), trajGoalState.pose.getX());
+            double dvy = Settings.yControllerAP.calculate(swerveDrive.getPose().getY(), trajGoalState.pose.getY());
+            double dvr = Settings.rControllerAP.calculate(
+                    swerveDrive.getPose().getRotation().minus(trajGoalState.pose.getRotation()).getDegrees(), 0);
+
             swerveDrive.driveFieldOriented(trajGoalState.fieldSpeeds.plus(new ChassisSpeeds(dvx, dvy, dvr)));
 
             return false;
 
-
         }
 
     }
-    
-    public boolean attackPoint(Pose2d goalPose ) {
-        double poseX = Settings.xController.calculate(swerveDrive.getPose().getX(), goalPose.getX());
-        double poseY = Settings.yController.calculate(swerveDrive.getPose().getY(), goalPose.getY());
-        double poseR = Settings.rController.calculate(swerveDrive.getPose().getRotation().minus(goalPose.getRotation()).getDegrees(), 0);
-        
+
+    public boolean attackPoint(Pose2d goalPose, double speedMult) {
+        double poseX = Settings.xController.calculate(swerveDrive.getPose().getX(), goalPose.getX()) * speedMult;
+        double poseY = Settings.yController.calculate(swerveDrive.getPose().getY(), goalPose.getY()) * speedMult;
+        double poseR = Settings.rController
+                .calculate(swerveDrive.getPose().getRotation().minus(goalPose.getRotation()).getDegrees(), 0) * speedMult;
+       // poseX = xAttackPointSR.calculate(poseX);
+       // poseY = yAttackPointSR.calculate(poseY);
+        //poseR = rAttackPointSR.calculate(poseR);
         swerveDrive.driveFieldOriented(new ChassisSpeeds(poseX, poseY, poseR));
 
         return Settings.getDistanceBetweenTwoPoses(goalPose, swerveDrive.getPose()) < Settings.coralScoreThold;
-    
+
     }
 
-    public void matchSimulatedOdomToPose(){
+    public void matchSimulatedOdomToPose() {
         swerveDrive.addVisionMeasurement(swerveDrive.getSimulationDriveTrainPose().get(), Timer.getFPGATimestamp());
     }
 

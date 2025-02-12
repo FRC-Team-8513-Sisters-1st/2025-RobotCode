@@ -55,7 +55,7 @@ public class AutoController {
                         }
                         break;
                     case 20:
-                        thisRobot.drivebase.attackPoint(Settings.coralLeftCD);
+                        thisRobot.drivebase.attackPoint(Settings.coralLeftCD, 1);
                         break;
                     default:
                         break;
