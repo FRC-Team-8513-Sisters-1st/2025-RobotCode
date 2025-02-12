@@ -13,6 +13,11 @@ public class Dashboard {
     Field2d coralGoaField2d = new Field2d();
     Field2d goalFeederStationField2d = new Field2d();
     Field2d goalProcessorField2d = new Field2d();
+    Field2d rightFarFeederStationField2d = new Field2d();
+    Field2d rightCloseFeederStationField2d = new Field2d();
+    Field2d leftFarFeederStationField2d = new Field2d();
+    Field2d leftCloseFeederStationField2d = new Field2d();
+    Field2d processorField2d = new Field2d();
 
     public Dashboard(Robot thisRobotIn) {
 
@@ -21,13 +26,22 @@ public class Dashboard {
 
     public void updateDashboard() {
         goalFeederStationField2d.setRobotPose(thisRobot.stateMachine.goalFeederStation);
-        SmartDashboard.putData("goalFeederStation", coralGoaField2d);
+        SmartDashboard.putData("goalFeederStation", goalFeederStationField2d);
         goalProcessorField2d.setRobotPose(thisRobot.stateMachine.goalProcessor);
         SmartDashboard.putData("goalProcessor", goalProcessorField2d);
         coralGoaField2d.setRobotPose(thisRobot.teleopController.coralScoreGoalPose);
         SmartDashboard.putData("coralScoreGoalPose", coralGoaField2d);
-        putPoseOnDashboard("rightFarFeederStation", thisRobot.stateMachine.goalFeederStation);
-        putPoseOnDashboard("processor", thisRobot.stateMachine.goalFeederStation);
+        rightFarFeederStationField2d.setRobotPose(thisRobot.stateMachine.goalFeederStation);
+        SmartDashboard.putData("rightFarFeederStation", rightFarFeederStationField2d);
+        rightCloseFeederStationField2d.setRobotPose(thisRobot.stateMachine.goalFeederStation);
+        SmartDashboard.putData("rightCloseFeedeerStation", rightCloseFeederStationField2d);
+        leftFarFeederStationField2d.setRobotPose(thisRobot.stateMachine.goalFeederStation);
+        SmartDashboard.putData("leftFarFeederStation" , leftFarFeederStationField2d);
+        putPoseOnDashboard("leftCloseFeederStation", thisRobot.stateMachine.goalFeederStation);
+        leftCloseFeederStationField2d.setRobotPose(thisRobot.stateMachine.goalFeederStation);
+        SmartDashboard.putData("leftCloseFeederStation", leftCloseFeederStationField2d);
+        processorField2d.setRobotPose(thisRobot.stateMachine.goalFeederStation);
+        SmartDashboard.putData("processor", processorField2d);
         SmartDashboard.putNumber("Time", Timer.getFPGATimestamp());
         SmartDashboard.putBoolean("updateIsRobotInReefZone", thisRobot.stateMachine.isRobotInReefZone());
         SmartDashboard.putString("robotState", thisRobot.stateMachine.robotState.name());
@@ -51,6 +65,7 @@ public class Dashboard {
         SmartDashboard.putBoolean("isRobotinReefZone", thisRobot.stateMachine.isRobotInReefZone());
         SmartDashboard.putNumber("storedElevatorState", thisRobot.elevator.storedElevatorState);
         SmartDashboard.putNumber("coral motor current", thisRobot.coral.coralMotor1.getOutputCurrent());
+        SmartDashboard.putNumber("coralSensor", thisRobot.coral.coralMotor1.getAnalog().getVoltage());
 
     }
 
