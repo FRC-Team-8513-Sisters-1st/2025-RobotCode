@@ -12,6 +12,7 @@ import swervelib.SwerveDrive;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
@@ -23,6 +24,7 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.path.GoalEndState;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.pathfinding.LocalADStar;
 import com.pathplanner.lib.pathfinding.Pathfinding;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -44,14 +46,16 @@ public class Drivebase {
     PathPlannerTrajectoryState trajGoalState;
     Field2d trajGoalPosition = new Field2d();
 
+    LocalADStar pathGen = new LocalADStar();
     Rotation2d trajGoalRotation = new Rotation2d();
     PathConstraints constraints = new PathConstraints(
-        3.0, 4.0,
-        Units.degreesToRadians(540), Units.degreesToRadians(720));
-    
+            3.0, 4.0,
+            Units.degreesToRadians(540), Units.degreesToRadians(720));
+    boolean otfReady = false;
+
     public Drivebase(Robot thisRobotIn) {
         double maximumSpeed = Units.feetToMeters(Settings.drivebaseMaxVelocityFPS);
-        File swerveJsonDirectory= new File(Filesystem.getDeployDirectory(), "swerve");
+        File swerveJsonDirectory = new File(Filesystem.getDeployDirectory(), "swerve");
         try {
             swerveDrive = new SwerveParser(swerveJsonDirectory).createSwerveDrive(maximumSpeed);
         } catch (IOException e) {
@@ -128,62 +132,61 @@ public class Drivebase {
 
             double dvx = Settings.xController.calculate(swerveDrive.getPose().getX(), trajGoalState.pose.getX());
             double dvy = Settings.yController.calculate(swerveDrive.getPose().getY(), trajGoalState.pose.getY());
-            double dvr = Settings.rController.calculate(swerveDrive.getPose().getRotation().minus(trajGoalState.pose.getRotation()).getDegrees(), 0);
-            
+            double dvr = Settings.rController.calculate(
+                    swerveDrive.getPose().getRotation().minus(trajGoalState.pose.getRotation()).getDegrees(), 0);
+
             swerveDrive.driveFieldOriented(trajGoalState.fieldSpeeds.plus(new ChassisSpeeds(dvx, dvy, dvr)));
 
             return false;
 
-
         }
 
     }
-    
-    public boolean attackPoint(Pose2d goalPose ) {
+
+    public boolean attackPoint(Pose2d goalPose) {
         double poseX = Settings.xController.calculate(swerveDrive.getPose().getX(), goalPose.getX());
         double poseY = Settings.yController.calculate(swerveDrive.getPose().getY(), goalPose.getY());
-        double poseR = Settings.rController.calculate(swerveDrive.getPose().getRotation().minus(goalPose.getRotation()).getDegrees(), 0);
-        
+        double poseR = Settings.rController
+                .calculate(swerveDrive.getPose().getRotation().minus(goalPose.getRotation()).getDegrees(), 0);
+
         swerveDrive.driveFieldOriented(new ChassisSpeeds(poseX, poseY, poseR));
 
         return Settings.getDistanceBetweenTwoPoses(goalPose, swerveDrive.getPose()) < Settings.coralScoreThold;
-    
+
     }
 
-    public void matchSimulatedOdomToPose(){
+    public void matchSimulatedOdomToPose() {
         swerveDrive.addVisionMeasurement(swerveDrive.getSimulationDriveTrainPose().get(), Timer.getFPGATimestamp());
     }
 
-    public void initPathToPoint(Pose2d goalPose){
-        Pathfinding.setGoalPosition(goalPose.getTranslation());
-        Pathfinding.setStartPosition(swerveDrive.getPose().getTranslation());
+    public void initPathToPoint(Pose2d goalPose) {
+        pathGen.setGoalPosition(goalPose.getTranslation());
+        pathGen.setStartPosition(swerveDrive.getPose().getTranslation());
 
         trajGoalRotation = goalPose.getRotation();
-
+        otfReady = false;
     }
 
-    public void followOTFPath(){
-        if(Pathfinding.isNewPathAvailable()){
+    public void followOTFPath() {
+        if (pathGen.isNewPathAvailable()) {
             GoalEndState ges = new GoalEndState(0, trajGoalRotation);
-            path = Pathfinding.getCurrentPath(constraints, ges);
-
-            try {
-                traj = path.getIdealTrajectory(RobotConfig.fromGUISettings()).get();
-            } catch (IOException | ParseException e) {
-                System.out.println("Error in trajectory generation");
-                e.printStackTrace();
+            path = pathGen.getCurrentPath(constraints, ges);
+            if (path != null) {
+                try {
+                    traj = path.generateTrajectory(swerveDrive.getRobotVelocity(), swerveDrive.getPose().getRotation(),
+                            RobotConfig.fromGUISettings());
+                } catch (IOException | ParseException e) {
+                    System.out.println("Error in trajectory generation");
+                    e.printStackTrace();
+                }
+                // update a variable to keep track of the fact we loaded a new path but have not
+                // begun to follow it
+                loadedPathHasStarted = false;
+                otfReady = true;
             }
-    
-            // if we are a simulation set the robots pose to the starting pose of the path
-            if (Robot.isSimulation()) {
-                swerveDrive.resetOdometry(path.getStartingHolonomicPose().get());
-            }
-    
-            // update a variable to keep track of the fact we loaded a new path but have not
-            // begun to follow it
-            loadedPathHasStarted = false;
         }
-        followLoadedPath();
+        if (otfReady)
+            followLoadedPath();
     }
 
 }
