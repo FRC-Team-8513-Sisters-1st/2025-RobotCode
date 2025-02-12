@@ -111,7 +111,7 @@ public final class Settings {
                         .get()
                         .toPose2d();
         public static Pose2d coralRightAB = new Pose2d(3.081, 3.851, new Rotation2d(Radians.convertFrom(0, Degrees)));
-        public static Pose2d coralLeftAB = new Pose2d(3.069, 4.187, new Rotation2d(Radians.convertFrom(0, Degrees)));
+        public static Pose2d coralLeftAB = new Pose2d(3.069, 4.22, new Rotation2d(Radians.convertFrom(0, Degrees)));
         public static Pose2d coralRightCD = new Pose2d(3.944, 2.748, new Rotation2d(Radians.convertFrom(60, Degrees)));
         public static Pose2d coralLeftCD = new Pose2d(3.644, 2.916, new Rotation2d(Radians.convertFrom(60, Degrees)));
         public static Pose2d coralRightEF = new Pose2d(5.287, 2.904, new Rotation2d(Radians.convertFrom(120, Degrees)));
