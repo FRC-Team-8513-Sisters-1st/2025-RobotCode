@@ -11,6 +11,8 @@
         - Generate path on fly to reef/feeder
         - turn off auto elevator
         - switch from pose to april tag offset when close
+    - due week 1
+        - manual control and resets for elevator and other emchs
 
 - Real robot:
     - Tune drivebase odometry without vision
@@ -19,7 +21,7 @@
     - Tune path planning position PID
     - Tune attack point pid
     - Photon vision
-        - add 4 cameras and update pose with both
+        - update camera pos from CAD
     
 - Auto
     - discuss how our auto builder will work
