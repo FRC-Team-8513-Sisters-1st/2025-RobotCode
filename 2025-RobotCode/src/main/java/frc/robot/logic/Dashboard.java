@@ -64,6 +64,7 @@ public class Dashboard {
         SmartDashboard.putBoolean("isRobotinReefZone", thisRobot.stateMachine.isRobotInReefZone());
         SmartDashboard.putNumber("storedElevatorState", thisRobot.elevator.storedElevatorState);
         SmartDashboard.putNumber("coral motor current", thisRobot.coral.coralMotor1.getOutputCurrent());
+        SmartDashboard.putNumber("coralSensor", thisRobot.coral.coralMotor1.getAnalog().getVoltage());
 
     }
 
