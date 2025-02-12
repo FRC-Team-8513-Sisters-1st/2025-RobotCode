@@ -5,6 +5,7 @@ import frc.robot.logic.Enums.RobotStates;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Robot;
 
@@ -29,6 +30,11 @@ public class TeleopController {
 
     public TeleopController(Robot thisRobotIn) {
         thisRobot = thisRobotIn;
+    }
+
+    public void initTele(){
+        State state = new State(thisRobot.elevator.elevatorMotor1.getEncoder().getPosition(), 0);
+        thisRobot.elevator.m_controller.setGoal(state);
     }
 
     public void driveTele() {
