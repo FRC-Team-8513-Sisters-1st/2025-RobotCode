@@ -18,9 +18,9 @@ public class Coral {
     public SparkMax coralMotor1 = new SparkMax(Settings.coralMotor1CANID, MotorType.kBrushless);
 
     // sensor
-    public PIDController coralController = new PIDController(.1, 0, 0);
+    public PIDController coralController = new PIDController(.02, 0, 0);
     public boolean sensorFirstTime = true;
-    public int holdCoralPos = 4;
+    public double holdCoralPos = 3.5;
 
     public double currentBrokeTholdTime = 0;
 

@@ -59,7 +59,8 @@ public class Robot extends TimedRobot {
     climber = new Climber(this);
     algae = new Algae(this);
     dashboard = new Dashboard(this);
-    
+    System.out.println(Settings.abATPose.getX());
+    System.out.println(Settings.abATPose.getY());
   }
 
   @Override

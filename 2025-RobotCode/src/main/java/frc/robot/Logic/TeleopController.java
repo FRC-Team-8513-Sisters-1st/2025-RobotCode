@@ -1,6 +1,7 @@
 package frc.robot.logic;
 
 import frc.robot.Settings;
+import frc.robot.logic.Enums.FeederStation;
 import frc.robot.logic.Enums.RobotStates;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -131,10 +132,20 @@ public class TeleopController {
             setCoralScoreGoalPoseRight();
         }
 
-        //actually drive
-        if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)) {
+        // feeder stations
+        if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt) && thisRobot.stateMachine.feederCloseOrFar == FeederStation.Far) {
+            thisRobot.drivebase.attackPoint(Settings.rightFarFeederStation, 3);
+        } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt) && thisRobot.stateMachine.feederCloseOrFar == FeederStation.Close) {
             thisRobot.drivebase.attackPoint(Settings.rightCloseFeederStation, 3);
-        } else if(leftTriggerValue > Settings.triggerDeadband){
+        }
+        if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt) && thisRobot.stateMachine.feederCloseOrFar == FeederStation.Far) {
+            thisRobot.drivebase.attackPoint(Settings.leftFarFeederStation, 3);
+        } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt) && thisRobot.stateMachine.feederCloseOrFar == FeederStation.Close) {
+            thisRobot.drivebase.attackPoint(Settings.leftCloseFeederStation, 3);
+        }
+
+        //actually drive
+        if(leftTriggerValue > Settings.triggerDeadband){
             thisRobot.drivebase.attackPoint(coralScoreGoalPose, leftTriggerValue * 3);
         } else if (rightTriggerValue > Settings.triggerDeadband) {
             thisRobot.drivebase.attackPoint(coralScoreGoalPose, rightTriggerValue * 3);
