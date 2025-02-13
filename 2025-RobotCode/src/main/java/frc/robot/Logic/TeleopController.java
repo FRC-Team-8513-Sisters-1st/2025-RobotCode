@@ -139,7 +139,7 @@ public class TeleopController {
         } else if (rightTriggerValue > Settings.triggerDeadband) {
             thisRobot.drivebase.attackPoint(coralScoreGoalPose, rightTriggerValue * 3);
         } else {
-            thisRobot.drivebase.drive(xV, yV, rV, false);
+            thisRobot.drivebase.drive(xV, yV, rV, true);
         }
 
     }
