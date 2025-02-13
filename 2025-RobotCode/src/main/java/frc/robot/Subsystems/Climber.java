@@ -2,8 +2,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Joystick;
-
 import com.revrobotics.spark.SparkMax;
 
 import frc.robot.Robot;

@@ -37,11 +37,11 @@ public class Dashboard {
         SmartDashboard.putData("rightCloseFeedeerStation", rightCloseFeederStationField2d);
         leftFarFeederStationField2d.setRobotPose(thisRobot.stateMachine.goalFeederStation);
         SmartDashboard.putData("leftFarFeederStation" , leftFarFeederStationField2d);
-        putPoseOnDashboard("leftCloseFeederStation", thisRobot.stateMachine.goalFeederStation);
         leftCloseFeederStationField2d.setRobotPose(thisRobot.stateMachine.goalFeederStation);
         SmartDashboard.putData("leftCloseFeederStation", leftCloseFeederStationField2d);
         processorField2d.setRobotPose(thisRobot.stateMachine.goalFeederStation);
         SmartDashboard.putData("processor", processorField2d);
+        
         SmartDashboard.putNumber("Time", Timer.getFPGATimestamp());
         SmartDashboard.putBoolean("updateIsRobotInReefZone", thisRobot.stateMachine.isRobotInReefZone());
         SmartDashboard.putString("robotState", thisRobot.stateMachine.robotState.name());

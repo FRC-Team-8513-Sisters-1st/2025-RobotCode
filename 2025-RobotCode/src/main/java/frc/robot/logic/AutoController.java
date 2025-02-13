@@ -51,11 +51,11 @@ public class AutoController {
                         break;
                     case 10:
                         if (thisRobot.drivebase.followLoadedPath()) {
-                            autoStep = 0;
+                            autoStep = 20;
                         }
                         break;
                     case 20:
-                        thisRobot.drivebase.attackPoint(Settings.coralLeftCD, 1);
+                        thisRobot.drivebase.attackPoint(Settings.coralLeftCD, 3);
                         break;
                     default:
                         break;

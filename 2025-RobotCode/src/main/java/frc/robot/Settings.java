@@ -135,6 +135,7 @@ public final class Settings {
 
         public static Pose2d reefZone = new Pose2d(4.495, 4.019, new Rotation2d(Radians.convertFrom(0, Degrees)));
         public static double minDistanceFromReefZoneMeter = 2;
+        public static double maxATDist = 2;
 
         public static double coralScoreThold = 0.0254;
 

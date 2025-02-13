@@ -1,11 +1,10 @@
 - ToDo
     - due monday
-        - put attackPose pose on smart dashbaord
-            - fix poses
-        - attack pose on reef
-        - attack pose on feeder station 
-            - be able to pick which side of feder station
+        - tune reef poses
+        - be able to pick which side of feder station
         - go to coral or algae height automatically
+        - tune algae 3 height
+        
     - due week 0
         - red/blue flipping
         - Generate path on fly to reef/feeder

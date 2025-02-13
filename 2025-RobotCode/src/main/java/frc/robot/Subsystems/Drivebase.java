@@ -143,14 +143,17 @@ public class Drivebase {
 
     }
 
-    public boolean attackPoint(Pose2d goalPose, double speedMult) {
-        double poseX = Settings.xController.calculate(swerveDrive.getPose().getX(), goalPose.getX()) * speedMult;
-        double poseY = Settings.yController.calculate(swerveDrive.getPose().getY(), goalPose.getY()) * speedMult;
+    public boolean attackPoint(Pose2d goalPose, double maxSpeed) {
+        double poseX = Settings.xController.calculate(swerveDrive.getPose().getX(), goalPose.getX());
+        double poseY = Settings.yController.calculate(swerveDrive.getPose().getY(), goalPose.getY());
         double poseR = Settings.rController
-                .calculate(swerveDrive.getPose().getRotation().minus(goalPose.getRotation()).getDegrees(), 0) * speedMult;
-       // poseX = xAttackPointSR.calculate(poseX);
-       // poseY = yAttackPointSR.calculate(poseY);
-        //poseR = rAttackPointSR.calculate(poseR);
+                .calculate(swerveDrive.getPose().getRotation().minus(goalPose.getRotation()).getDegrees(), 0);
+
+        double oldMag = Math.sqrt(poseX * poseX + poseY * poseY);
+        double newMag = clamp(oldMag, maxSpeed);
+        
+        poseX = poseX * newMag/oldMag;
+        poseY = poseY * newMag/oldMag;
         swerveDrive.driveFieldOriented(new ChassisSpeeds(poseX, poseY, poseR));
 
         return Settings.getDistanceBetweenTwoPoses(goalPose, swerveDrive.getPose()) < Settings.coralScoreThold;
@@ -181,6 +184,18 @@ public class Drivebase {
         Pose2d scoreRightGoalsPOse = tagPose.transformBy(tagToRobotScoreRightTransform);
         scoreRightField.setRobotPose(scoreRightGoalsPOse);
         SmartDashboard.putData("rightGoalPose", scoreRightField);
+    }
+
+    public double clamp(double value, double max) {
+        if (value > 0 && value > max) {
+            return max;
+        }
+
+        if (value < 0 && value < -max) {
+            return -max;
+        }
+
+        return value;
     }
 
 }

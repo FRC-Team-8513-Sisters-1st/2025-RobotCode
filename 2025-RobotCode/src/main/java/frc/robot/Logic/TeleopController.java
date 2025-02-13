@@ -133,9 +133,11 @@ public class TeleopController {
 
         //actually drive
         if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)) {
-            thisRobot.drivebase.attackPoint(Settings.rightCloseFeederStation, 0.5);
-        } else if(leftTriggerValue > Settings.triggerDeadband || rightTriggerValue > Settings.triggerDeadband) {
-            thisRobot.drivebase.attackPoint(coralScoreGoalPose, 0.5);
+            thisRobot.drivebase.attackPoint(Settings.rightCloseFeederStation, 3);
+        } else if(leftTriggerValue > Settings.triggerDeadband){
+            thisRobot.drivebase.attackPoint(coralScoreGoalPose, leftTriggerValue * 3);
+        } else if (rightTriggerValue > Settings.triggerDeadband) {
+            thisRobot.drivebase.attackPoint(coralScoreGoalPose, rightTriggerValue * 3);
         } else {
             thisRobot.drivebase.drive(xV, yV, rV, true);
         }
