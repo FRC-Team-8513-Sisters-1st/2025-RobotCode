@@ -27,6 +27,8 @@ public class Elevator {
     private static double elevatorD = 0.0;
     private static double elevatorDt = 0.02;
 
+    public boolean autoElevatorOn = true;
+
     private final TrapezoidProfile.Constraints m_constraints = new TrapezoidProfile.Constraints(elevatorMaxVelocity,
             elevatorMaxAcceleration);
     public final ProfiledPIDController m_controller = new ProfiledPIDController(elevatorP, elevatorI, elevatorD,
@@ -45,33 +47,33 @@ public class Elevator {
     public void setMotorPower() {
 
         // stores elevator state
-        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral1)) {
+        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral1) && autoElevatorOn) {
             storedElevatorState = 0;
         }
-        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral2)) {
+        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral2) && autoElevatorOn) {
             storedElevatorState = 1;
         }
-        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral3)) {
+        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral3) && autoElevatorOn) {
             storedElevatorState = 2;
         }
-        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral4)) {
+        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral4) && autoElevatorOn) {
             storedElevatorState = 3;
         }
 
         // sets the elevator state if in reef zone
-        if (thisRobot.stateMachine.isRobotInReefZone() == true && storedElevatorState == 0) {
+        if (thisRobot.stateMachine.isRobotInReefZone() == true && storedElevatorState == 0  && autoElevatorOn) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL1, 0);
             m_controller.setGoal(elevatorGoalPIDState);
         }
-        if (thisRobot.stateMachine.isRobotInReefZone() == true && storedElevatorState == 1) {
+        if (thisRobot.stateMachine.isRobotInReefZone() == true && storedElevatorState == 1 && autoElevatorOn) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL2, 0);
             m_controller.setGoal(elevatorGoalPIDState);
         }
-        if (thisRobot.stateMachine.isRobotInReefZone() == true && storedElevatorState == 2) {
+        if (thisRobot.stateMachine.isRobotInReefZone() == true && storedElevatorState == 2 && autoElevatorOn) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL3, 0);
             m_controller.setGoal(elevatorGoalPIDState);
         }
-        if (thisRobot.stateMachine.isRobotInReefZone() == true && storedElevatorState == 3) {
+        if (thisRobot.stateMachine.isRobotInReefZone() == true && storedElevatorState == 3 && autoElevatorOn) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL4, 0);
             m_controller.setGoal(elevatorGoalPIDState);
         }

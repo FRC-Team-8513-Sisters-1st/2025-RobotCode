@@ -149,6 +149,10 @@ public class TeleopController {
             thisRobot.drivebase.drive(xV, yV, rV, true);
         }
 
+        if (thisRobot.teleopController.manualJoystick.getRawButtonPressed(1)) {
+            thisRobot.elevator.autoElevatorOn = false;
+        }
+
     }
 
     public void setCoralScoreGoalPoseRight() {
