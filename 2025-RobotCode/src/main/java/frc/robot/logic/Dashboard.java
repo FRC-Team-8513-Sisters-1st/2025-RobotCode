@@ -22,55 +22,62 @@ public class Dashboard {
     public Dashboard(Robot thisRobotIn) {
 
         thisRobot = thisRobotIn;
+
+        //fields only need to be put once, they auto update when you update the pose
+        SmartDashboard.putData("leftCloseFeederStation", leftCloseFeederStationField2d);
+        SmartDashboard.putData("goalFeederStation", goalFeederStationField2d);
+        SmartDashboard.putData("goalProcessor", goalProcessorField2d);
+        SmartDashboard.putData("coralScoreGoalPose", coralGoaField2d);
+        SmartDashboard.putData("rightFarFeederStation", rightFarFeederStationField2d);
+        SmartDashboard.putData("rightCloseFeedeerStation", rightCloseFeederStationField2d);
+        SmartDashboard.putData("leftFarFeederStation", leftFarFeederStationField2d);
+        SmartDashboard.putData("processor", processorField2d);
     }
 
     public void updateDashboard() {
+
+        // poses
         goalFeederStationField2d.setRobotPose(thisRobot.stateMachine.goalFeederStation);
-        SmartDashboard.putData("goalFeederStation", goalFeederStationField2d);
         goalProcessorField2d.setRobotPose(thisRobot.stateMachine.goalProcessor);
-        SmartDashboard.putData("goalProcessor", goalProcessorField2d);
         coralGoaField2d.setRobotPose(thisRobot.teleopController.coralScoreGoalPose);
-        SmartDashboard.putData("coralScoreGoalPose", coralGoaField2d);
         rightFarFeederStationField2d.setRobotPose(thisRobot.stateMachine.goalFeederStation);
-        SmartDashboard.putData("rightFarFeederStation", rightFarFeederStationField2d);
         rightCloseFeederStationField2d.setRobotPose(thisRobot.stateMachine.goalFeederStation);
-        SmartDashboard.putData("rightCloseFeedeerStation", rightCloseFeederStationField2d);
         leftFarFeederStationField2d.setRobotPose(thisRobot.stateMachine.goalFeederStation);
-        SmartDashboard.putData("leftFarFeederStation" , leftFarFeederStationField2d);
         leftCloseFeederStationField2d.setRobotPose(thisRobot.stateMachine.goalFeederStation);
-        SmartDashboard.putData("leftCloseFeederStation", leftCloseFeederStationField2d);
         processorField2d.setRobotPose(thisRobot.stateMachine.goalFeederStation);
-        SmartDashboard.putData("processor", processorField2d);
-        
+
+
+        // Robot statistics
         SmartDashboard.putNumber("Time", Timer.getFPGATimestamp());
-        SmartDashboard.putBoolean("updateIsRobotInReefZone", thisRobot.stateMachine.isRobotInReefZone());
         SmartDashboard.putString("robotState", thisRobot.stateMachine.robotState.name());
+
+        // subsystem states
         SmartDashboard.putString("climberStates", thisRobot.stateMachine.climberStates.name());
         SmartDashboard.putString("algaeGroundStates", thisRobot.stateMachine.algaeGroundStates.name());
         SmartDashboard.putString("algaeIntakeStates", thisRobot.stateMachine.algaeIntakeStates.name());
         SmartDashboard.putString("coralIntakeStates", thisRobot.stateMachine.coralIntakeStates.name());
         SmartDashboard.putString("elevatorStates", thisRobot.stateMachine.elevatorStates.name());
         SmartDashboard.putString("drivebaseStates", thisRobot.stateMachine.drivebaseStates.name());
+
+        // scoring variables
         SmartDashboard.putString("scoreCoralGoalLevel", thisRobot.stateMachine.scoreCoralGoalLevel.name());
         SmartDashboard.putBoolean("isInReefZone", thisRobot.stateMachine.isRobotInReefZone());
         SmartDashboard.putString("feederCloseOrFar", thisRobot.stateMachine.feederCloseOrFar.name());
         SmartDashboard.putBoolean("climberButtonPressed", thisRobot.stateMachine.climberButtonPressed);
         SmartDashboard.putString("operatorChosenSideOfReef", thisRobot.stateMachine.operatorChosenSideOfReef.name());
+
+        // elevator motor stats
         SmartDashboard.putNumber("elevator motor 1 power", thisRobot.elevator.elevatorMotor1.getAppliedOutput());
         SmartDashboard.putNumber("elevator motor 2 power", thisRobot.elevator.elevatorMotor2.getAppliedOutput());
         SmartDashboard.putNumber("elevator motor 1 pos", thisRobot.elevator.elevatorMotor1.getEncoder().getPosition());
         SmartDashboard.putNumber("elevator motor 2 pos", thisRobot.elevator.elevatorMotor2.getEncoder().getPosition());
         SmartDashboard.putNumber("elevatorGoalState", thisRobot.elevator.m_controller.getGoal().position);
         SmartDashboard.putNumber("elevatorPosition", thisRobot.elevator.elevatorMotor1.getEncoder().getPosition());
-        SmartDashboard.putBoolean("isRobotinReefZone", thisRobot.stateMachine.isRobotInReefZone());
         SmartDashboard.putNumber("storedElevatorState", thisRobot.elevator.storedElevatorState);
+
+        // coral mech stats
         SmartDashboard.putNumber("coral motor current", thisRobot.coral.coralMotor1.getOutputCurrent());
         SmartDashboard.putNumber("coralSensor", thisRobot.coral.coralMotor1.getAnalog().getVoltage());
 
-    }
-
-    public void putPoseOnDashboard(String poseName, Pose2d pose2d) {
-        dashboardField2d.setRobotPose(pose2d);
-        SmartDashboard.putData(poseName, dashboardField2d);
     }
 }
