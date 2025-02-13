@@ -22,6 +22,7 @@
     - Photon vision
         - update camera pos from CAD
     - figure out way to turn auto elevator off
+    - test elevator manual control
 - Auto
     - discuss how our auto builder will work
 

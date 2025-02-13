@@ -100,6 +100,7 @@ public class Elevator {
             elevatorMotor2.set(-yLeftValue);
             State state = new State(elevatorMotor1.getEncoder().getPosition(), 0);
             m_controller.setGoal(state);
+            m_controller.reset(state);
         } else {
             double power = m_controller.calculate(elevatorMotor1.getEncoder().getPosition());
             elevatorMotor1.set(power);
