@@ -110,7 +110,7 @@ public final class Settings {
         public static Pose2d klATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(19)
                         .get()
                         .toPose2d();
-        public static Pose2d coralRightAB = new Pose2d(3.081, 3.851, new Rotation2d(Radians.convertFrom(0, Degrees)));
+        public static Pose2d coralRightAB = new Pose2d(3.16, 3.88, new Rotation2d(Radians.convertFrom(0, Degrees)));
         public static Pose2d coralLeftAB = new Pose2d(3.069, 4.22, new Rotation2d(Radians.convertFrom(0, Degrees)));
         public static Pose2d coralRightCD = new Pose2d(3.88, 2.76, new Rotation2d(Radians.convertFrom(60, Degrees)));
         public static Pose2d coralLeftCD = new Pose2d(3.66, 2.96, new Rotation2d(Radians.convertFrom(60, Degrees)));

@@ -3,8 +3,6 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
 
 import com.revrobotics.spark.SparkMax;
 
@@ -20,9 +18,9 @@ public class Coral {
     public SparkMax coralMotor1 = new SparkMax(Settings.coralMotor1CANID, MotorType.kBrushless);
 
     // sensor
-    public PIDController coralController = new PIDController(1, 0, 0);
+    public PIDController coralController = new PIDController(.1, 0, 0);
     public boolean sensorFirstTime = true;
-    public int holdCoralPos = 10;
+    public int holdCoralPos = 4;
 
     public double currentBrokeTholdTime = 0;
 
