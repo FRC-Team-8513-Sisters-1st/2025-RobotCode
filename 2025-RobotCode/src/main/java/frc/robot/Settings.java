@@ -120,7 +120,7 @@ public final class Settings {
         public static Pose2d coralLeftGH = new Pose2d(5.862, 3.863, new Rotation2d(Radians.convertFrom(180, Degrees)));
         public static Pose2d coralRightIJ = new Pose2d(5.023, 5.314,
                         new Rotation2d(Radians.convertFrom(-120, Degrees)));
-        public static Pose2d coralLeftIJ = new Pose2d(5.311, 5.134, new Rotation2d(Radians.convertFrom(-120, Degrees)));
+        public static Pose2d coralLeftIJ = new Pose2d(5.35, 5.08, new Rotation2d(Radians.convertFrom(-120, Degrees)));
         public static Pose2d coralRightKL = new Pose2d(3.66, 5.10, new Rotation2d(Radians.convertFrom(-60, Degrees)));
         public static Pose2d coralLeftKL = new Pose2d(4, 5.29, new Rotation2d(Radians.convertFrom(-60, Degrees)));
         public static Pose2d rightFarFeederStation = new Pose2d(1.678, 0.746,
