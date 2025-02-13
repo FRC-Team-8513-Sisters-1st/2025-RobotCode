@@ -51,11 +51,17 @@ public class Coral {
                 }
                 double motorPower = coralController.calculate(coralMotor1.getEncoder().getPosition());
                 coralMotor1.set(motorPower);
+                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralIntake)) {
+                    double lessenIntake = 0.5;
+                    coralController.setSetpoint(coralController.getSetpoint() - lessenIntake);
+                }
+
                 break;
             case outake:
                 coralMotor1.set(1);
                 if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake)) {
                     state = CoralIntakeStates.stationary;
+                    coralController.setSetpoint(coralMotor1.getEncoder().getPosition());
                 }
 
                 // sensor 
@@ -67,7 +73,6 @@ public class Coral {
                 } else if (coralMotor1.getAnalog().getVoltage() < Settings.sensorThold) {
                     sensorFirstTime = true;
                 }
-
                 break;
             default:
                 break;
