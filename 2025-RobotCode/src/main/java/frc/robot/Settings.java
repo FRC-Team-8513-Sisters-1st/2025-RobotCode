@@ -43,7 +43,7 @@ public final class Settings {
         public static PIDController rJoystickController = new PIDController(0.1, 0, 0);
         public static int rightJoystickY = 5;
         public static int rightJoystickX = 4;
-        public static boolean headingJoystickControls = true;
+        public static boolean headingJoystickControls = false;
 
         // CANids
         public static int algaeMotor1CANID = 62;
@@ -112,17 +112,17 @@ public final class Settings {
                         .toPose2d();
         public static Pose2d coralRightAB = new Pose2d(3.081, 3.851, new Rotation2d(Radians.convertFrom(0, Degrees)));
         public static Pose2d coralLeftAB = new Pose2d(3.069, 4.22, new Rotation2d(Radians.convertFrom(0, Degrees)));
-        public static Pose2d coralRightCD = new Pose2d(3.944, 2.748, new Rotation2d(Radians.convertFrom(60, Degrees)));
-        public static Pose2d coralLeftCD = new Pose2d(3.644, 2.916, new Rotation2d(Radians.convertFrom(60, Degrees)));
+        public static Pose2d coralRightCD = new Pose2d(3.88, 2.76, new Rotation2d(Radians.convertFrom(60, Degrees)));
+        public static Pose2d coralLeftCD = new Pose2d(3.66, 2.96, new Rotation2d(Radians.convertFrom(60, Degrees)));
         public static Pose2d coralRightEF = new Pose2d(5.287, 2.904, new Rotation2d(Radians.convertFrom(120, Degrees)));
         public static Pose2d coralLeftEF = new Pose2d(5.059, 2.748, new Rotation2d(Radians.convertFrom(120, Degrees)));
         public static Pose2d coralRightGH = new Pose2d(5.874, 4.175, new Rotation2d(Radians.convertFrom(180, Degrees)));
         public static Pose2d coralLeftGH = new Pose2d(5.862, 3.863, new Rotation2d(Radians.convertFrom(180, Degrees)));
         public static Pose2d coralRightIJ = new Pose2d(5.023, 5.314,
                         new Rotation2d(Radians.convertFrom(-120, Degrees)));
-        public static Pose2d coralLeftIJ = new Pose2d(5.311, 5.134, new Rotation2d(Radians.convertFrom(-120, Degrees)));
-        public static Pose2d coralRightKL = new Pose2d(3.644, 5.098, new Rotation2d(Radians.convertFrom(-60, Degrees)));
-        public static Pose2d coralLeftKL = new Pose2d(3.956, 5.266, new Rotation2d(Radians.convertFrom(-60, Degrees)));
+        public static Pose2d coralLeftIJ = new Pose2d(5.35, 5.08, new Rotation2d(Radians.convertFrom(-120, Degrees)));
+        public static Pose2d coralRightKL = new Pose2d(3.66, 5.10, new Rotation2d(Radians.convertFrom(-60, Degrees)));
+        public static Pose2d coralLeftKL = new Pose2d(4, 5.29, new Rotation2d(Radians.convertFrom(-60, Degrees)));
         public static Pose2d rightFarFeederStation = new Pose2d(1.678, 0.746,
                         new Rotation2d(Radians.convertFrom(-130, Degrees)));
         public static Pose2d leftFarFeederStation = new Pose2d(1.690, 7.280,
@@ -135,7 +135,7 @@ public final class Settings {
 
         public static Pose2d reefZone = new Pose2d(4.495, 4.019, new Rotation2d(Radians.convertFrom(0, Degrees)));
         public static double minDistanceFromReefZoneMeter = 2;
-        public static double maxATDist = 2;
+        public static double maxATDist = 2.5;
 
         public static double coralScoreThold = 0.0254;
 

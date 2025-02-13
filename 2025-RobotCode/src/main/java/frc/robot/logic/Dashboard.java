@@ -52,6 +52,7 @@ public class Dashboard {
         SmartDashboard.putString("robotState", thisRobot.stateMachine.robotState.name());
 
         // subsystem states
+        
         SmartDashboard.putString("climberStates", thisRobot.stateMachine.climberStates.name());
         SmartDashboard.putString("algaeGroundStates", thisRobot.stateMachine.algaeGroundStates.name());
         SmartDashboard.putString("algaeIntakeStates", thisRobot.stateMachine.algaeIntakeStates.name());
