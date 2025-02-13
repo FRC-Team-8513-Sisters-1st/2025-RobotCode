@@ -45,7 +45,6 @@ public class Dashboard {
         leftCloseFeederStationField2d.setRobotPose(thisRobot.stateMachine.goalFeederStation);
         processorField2d.setRobotPose(thisRobot.stateMachine.goalFeederStation);
 
-
         // Robot statistics
         SmartDashboard.putNumber("Time", Timer.getFPGATimestamp());
         SmartDashboard.putString("robotState", thisRobot.stateMachine.robotState.name());

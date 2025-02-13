@@ -21,7 +21,7 @@
     - Tune attack point pid
     - Photon vision
         - update camera pos from CAD
-    
+    - figure out way to turn auto elevator off
 - Auto
     - discuss how our auto builder will work
 
