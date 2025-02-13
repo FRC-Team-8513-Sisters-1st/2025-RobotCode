@@ -2,7 +2,9 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
 
 import com.revrobotics.spark.SparkMax;
 
@@ -16,6 +18,11 @@ public class Coral {
     CoralIntakeStates state = CoralIntakeStates.stationary;
 
     public SparkMax coralMotor1 = new SparkMax(Settings.coralMotor1CANID, MotorType.kBrushless);
+
+    // sensor
+    public PIDController coralController = new PIDController(1, 0, 0);
+    public boolean sensorFirstTime = true;
+    public int holdCoralPos = 10;
 
     public double currentBrokeTholdTime = 0;
 
@@ -41,33 +48,29 @@ public class Coral {
 
         switch (state) {
             case stationary:
-                if (thisRobot.teleopController.operatorJoystick1.getRawButton(Settings.buttonId_CoralIntake)) {
-                    coralMotor1.set(-0.25);
-                } else {
-                    coralMotor1.set(0);
-                }
                 if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake)) {
                     state = CoralIntakeStates.outake;
                 }
+                double motorPower = coralController.calculate(coralMotor1.getEncoder().getPosition());
+                coralMotor1.set(motorPower);
                 break;
             case outake:
-            coralMotor1.set(0.75);
-            if (coralMotor1.getOutputCurrent() > 8 && firstTime) {
-                firstTime = false;
-                currentBrokeTholdTime = Timer.getFPGATimestamp();
-            } if (coralMotor1.getOutputCurrent() < 8) {
-                firstTime = true;
-                currentBrokeTholdTime = Timer.getFPGATimestamp();
-            }
+                coralMotor1.set(1);
+                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake)) {
+                    state = CoralIntakeStates.stationary;
+                }
 
-            if (Timer.getFPGATimestamp() - currentBrokeTholdTime > 0.12) {
-                state = CoralIntakeStates.stationary;
-            }
+                // sensor 
+                if (coralMotor1.getAnalog().getVoltage() > Settings.sensorThold && sensorFirstTime) {
+                    coralMotor1.getEncoder().setPosition(0);
+                    coralController.setSetpoint(holdCoralPos);
+                    sensorFirstTime = false;
+                    state = CoralIntakeStates.stationary;
+                } else if (coralMotor1.getAnalog().getVoltage() < Settings.sensorThold) {
+                    sensorFirstTime = true;
+                }
 
-            if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake)) {
-                state = CoralIntakeStates.stationary;
-            }
-            break;
+                break;
             default:
                 break;
         }
