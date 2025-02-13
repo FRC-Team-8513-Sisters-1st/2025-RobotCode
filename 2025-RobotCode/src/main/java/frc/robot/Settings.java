@@ -148,6 +148,9 @@ public final class Settings {
         public static double elevatorPosA2 = 10;
         public static double elevatorPosA3 = 20;
 
+        // coral sensor
+        public static double sensorThold = 1;
+
         public static double getDistanceBetweenTwoPoses(Pose2d pose1, Pose2d pose2) {
                 double x = pose2.getX() - pose1.getX();
                 double y = pose2.getY() - pose1.getY();
