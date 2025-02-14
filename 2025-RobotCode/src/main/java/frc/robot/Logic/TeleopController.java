@@ -46,11 +46,6 @@ public class TeleopController {
 
     public void driveTele() {
 
-        thisRobot.algae.setMotorPower();
-        thisRobot.coral.setMotorPower();
-        thisRobot.elevator.setMotorPower();
-        thisRobot.climber.setMotorPower();
-
         updatChosenSideOfReefFromCopilot();
         elevatorSetLeve();
         forceCoralandAlgae();
@@ -160,6 +155,11 @@ public class TeleopController {
         } else {
             thisRobot.drivebase.drive(xV, yV, rV, true);
         }
+
+        thisRobot.algae.setMotorPower();
+        thisRobot.coral.setMotorPower();
+        thisRobot.elevator.setMotorPower();
+        thisRobot.climber.setMotorPower();
 
         if (thisRobot.teleopController.manualJoystick.getRawButtonPressed(1)) {
             thisRobot.elevator.autoElevatorOn = !thisRobot.elevator.autoElevatorOn;
@@ -277,33 +277,33 @@ public class TeleopController {
 
         // force elevator height
         if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_forceElevator)
-                && thisRobot.teleopController.operatorJoystick1.getRawButton(Settings.buttonId_Coral1)) {
+               && thisRobot.elevator.state == ElevatorStates.L1) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL1, 0);
             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
         }
         if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_forceElevator)
-                && thisRobot.teleopController.operatorJoystick1.getRawButton(Settings.buttonId_Coral2)) {
+        && thisRobot.elevator.state == ElevatorStates.L2) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL2, 0);
             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
         }
         if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_forceElevator)
-                && thisRobot.teleopController.operatorJoystick1.getRawButton(Settings.buttonId_Coral3)) {
+        && thisRobot.elevator.state == ElevatorStates.L3) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL3, 0);
             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
         }
         if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_forceElevator)
-                && thisRobot.teleopController.operatorJoystick1.getRawButton(Settings.buttonId_Coral4)) {
+        && thisRobot.elevator.state == ElevatorStates.L4) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL4, 0);
             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
         }
         // force to processor and all algae states
         if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_forceElevator)
-                && thisRobot.teleopController.operatorJoystick1.getRawButton(Settings.buttonId_Algae2)) {
+        && thisRobot.elevator.state == ElevatorStates.L2a) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosA2, 0);
             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
         }
         if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_forceElevator)
-                && thisRobot.teleopController.operatorJoystick1.getRawButton(Settings.buttonId_Algae3)) {
+        && thisRobot.elevator.state == ElevatorStates.L3a) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosA3, 0);
             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
         }
