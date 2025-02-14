@@ -113,8 +113,8 @@ public final class Settings {
                         .toPose2d();
 
         // offsets reef
-        public static Transform2d tagToLeft = new Transform2d(-0.5,0.19, new Rotation2d());
-        public static Transform2d tagToRight = new Transform2d(-0.5,-0.15, new Rotation2d());
+        public static Transform2d tagToLeft = new Transform2d(0.5,-0.19, new Rotation2d(Math.PI));
+        public static Transform2d tagToRight = new Transform2d(0.5,0.15, new Rotation2d(Math.PI));
 
         // reef poses
         public static Pose2d coralRightAB = abATPose.plus(tagToRight);
@@ -132,7 +132,7 @@ public final class Settings {
         
         // feeder stations
         public static Pose2d rightFarFeederStation = new Pose2d(1.678, 0.746,
-                        new Rotation2d(Radians.convertFrom(-130, Degrees)));
+                        new Rotation2d(Radians.convertFrom(50, Degrees)));
         public static Pose2d leftFarFeederStation = new Pose2d(1.690, 7.280,
                         new Rotation2d(Radians.convertFrom(130, Degrees)));
         public static Pose2d rightCloseFeederStation = new Pose2d(1.24, 0.95,
@@ -142,7 +142,7 @@ public final class Settings {
         public static Pose2d processor = new Pose2d(6.006, 0.603, new Rotation2d(Radians.convertFrom(-90, Degrees)));
 
         public static Pose2d reefZone = new Pose2d(4.495, 4.019, new Rotation2d(Radians.convertFrom(0, Degrees)));
-        public static double minDistanceFromReefZoneMeter = 2;
+        public static double minDistanceFromReefZoneMeter = 2.5;
         public static double maxATDist = 2.5;
 
         public static double coralScoreThold = 0.0254;
