@@ -69,7 +69,7 @@ public final class Settings {
         // controller 2 panel buttons
         public static int buttonId_Close = 7;
         public static int buttonId_Far = 6;
-        public static int buttonId_Drive = 5;
+        public static int buttonId_forceElevator = 5;
         public static int buttonId_ab = 9;
         public static int buttonId_cd = 10;
         public static int buttonId_ef = 11;
@@ -113,8 +113,8 @@ public final class Settings {
                         .toPose2d();
 
         // offsets reef
-        public static Transform2d tagToLeft = new Transform2d(0.5,-0.235, new Rotation2d(Math.PI));
-        public static Transform2d tagToRight = new Transform2d(0.5,0.1, new Rotation2d(Math.PI));
+        public static Transform2d tagToLeft = new Transform2d(0.5, -0.235, new Rotation2d(Math.PI));
+        public static Transform2d tagToRight = new Transform2d(0.5, 0.1, new Rotation2d(Math.PI));
 
         // reef poses
         public static Pose2d coralRightAB = abATPose.plus(tagToRight);
@@ -129,7 +129,7 @@ public final class Settings {
         public static Pose2d coralLeftIJ = ijATPose.plus(tagToLeft);
         public static Pose2d coralRightKL = klATPose.plus(tagToRight);
         public static Pose2d coralLeftKL = klATPose.plus(tagToLeft);
-        
+
         // feeder stations
         public static Pose2d rightFarFeederStation = new Pose2d(1.678, 0.746,
                         new Rotation2d(Radians.convertFrom(50, Degrees)));

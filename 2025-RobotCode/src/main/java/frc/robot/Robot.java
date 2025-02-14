@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.logic.AutoController;
 import frc.robot.logic.Dashboard;
-import frc.robot.logic.StateMachine;
 import frc.robot.logic.TeleopController;
 import frc.robot.logic.Vision;
 import frc.robot.subsystems.Algae;
@@ -31,7 +30,6 @@ public class Robot extends TimedRobot {
   //logic
   public TeleopController teleopController;
   public AutoController autoController;
-  public StateMachine stateMachine;
   public Vision vision;
   public Dashboard dashboard;
 
@@ -52,7 +50,6 @@ public class Robot extends TimedRobot {
     drivebase = new Drivebase(this);
     teleopController = new TeleopController(this);
     autoController = new AutoController(this);
-    stateMachine = new StateMachine(this);
     vision = new Vision(this);
     elevator = new Elevator(this);
     coral = new Coral(this);

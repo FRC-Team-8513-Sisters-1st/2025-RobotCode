@@ -146,9 +146,9 @@ public class Drivebase {
 
         double oldMag = Math.sqrt(poseX * poseX + poseY * poseY);
         double newMag = clamp(oldMag, maxSpeed);
-        
-        poseX = poseX * newMag/oldMag;
-        poseY = poseY * newMag/oldMag;
+
+        poseX = poseX * newMag / oldMag;
+        poseY = poseY * newMag / oldMag;
         swerveDrive.driveFieldOriented(new ChassisSpeeds(poseX, poseY, poseR));
         thisRobot.dashboard.attackPoitnField2d.setRobotPose(goalPose);
         return Settings.getDistanceBetweenTwoPoses(goalPose, swerveDrive.getPose()) < Settings.coralScoreThold;
@@ -191,6 +191,13 @@ public class Drivebase {
         }
 
         return value;
+    }
+
+    public boolean isRobotInReefZone() {
+        double x = thisRobot.drivebase.swerveDrive.getPose().minus(Settings.reefZone).getX();
+        double y = thisRobot.drivebase.swerveDrive.getPose().minus(Settings.reefZone).getY();
+        double distance = Math.sqrt(x * x + y * y);
+        return distance < Settings.minDistanceFromReefZoneMeter;
     }
 
 }
