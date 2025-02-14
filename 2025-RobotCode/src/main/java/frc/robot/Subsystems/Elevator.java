@@ -71,6 +71,10 @@ public class Elevator {
             State elevatorGoalPIDState = new State(Settings.elevatorPosA3, 0);
             m_controller.setGoal(elevatorGoalPIDState);
         }
+        if (state == ElevatorStates.scoreProcessor) {
+            State elevatorGoalPIDState = new State(Settings.elevatorPosL2, 0);
+            m_controller.setGoal(elevatorGoalPIDState);
+        }
 
         double yLeftValue = thisRobot.teleopController.manualJoystick.getRawAxis(5); // make this copilot elevator
                                                                                      // controller

@@ -271,6 +271,9 @@ public class TeleopController {
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Algae3)) {
             thisRobot.elevator.state = ElevatorStates.L3a;
         }
+        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_processor)) {
+            thisRobot.elevator.state = ElevatorStates.scoreProcessor;
+        }
     }
 
     public void forceCoralandAlgae() {
@@ -305,6 +308,11 @@ public class TeleopController {
         if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_forceElevator)
         && thisRobot.elevator.state == ElevatorStates.L3a) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosA3, 0);
+            thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
+        }
+        if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_processor)
+        && thisRobot.elevator.state == ElevatorStates.scoreProcessor) {
+            State elevatorGoalPIDState = new State(Settings.elevatorPosL2, 0);
             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
         }
     }
