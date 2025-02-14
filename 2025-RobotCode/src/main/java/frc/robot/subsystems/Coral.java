@@ -20,7 +20,8 @@ public class Coral {
     // sensor
     public PIDController coralController = new PIDController(.02, 0, 0);
     public boolean sensorFirstTime = true;
-    public double holdCoralPos = 3.5;
+    public double holdCoralPos = 3
+    ;
 
     public double currentBrokeTholdTime = 0;
 
