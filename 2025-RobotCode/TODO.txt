@@ -7,7 +7,7 @@
         - tune reef poses
         - AP processor on driver button
         - tune algae 3 height
-        - algae controller buttons
+        - algae controller buttons dont work
         - test auto elevator
 
         - red/blue flipping

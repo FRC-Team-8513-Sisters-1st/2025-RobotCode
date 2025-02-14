@@ -15,6 +15,7 @@ public class Elevator {
 
     ElevatorStates state = ElevatorStates.stowed;
     public int storedElevatorState = 0; // 0 - stowed, 1 - L2, 2 - L3, 3 - L4
+    public int storedAlgaeState = 2; // 2 - algae 2, 3 - algae 3
     public SparkMax elevatorMotor1 = new SparkMax(Settings.elevatorMotor1CANID, MotorType.kBrushless);
     public SparkMax elevatorMotor2 = new SparkMax(Settings.elevatorMotor2CANID, MotorType.kBrushless);
     public static int yAxisLeft = 1;
@@ -59,6 +60,14 @@ public class Elevator {
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral4) && autoElevatorOn) {
             storedElevatorState = 3;
         }
+        // algae
+        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Algae2) && autoElevatorOn) {
+            storedAlgaeState = 2;
+        }
+        if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Algae3) && autoElevatorOn) {
+            storedAlgaeState = 3;
+        }
+
 
         // sets the elevator state if in reef zone
         if (thisRobot.stateMachine.isRobotInReefZone() == true && storedElevatorState == 0  && autoElevatorOn) {
@@ -69,12 +78,21 @@ public class Elevator {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL2, 0);
             m_controller.setGoal(elevatorGoalPIDState);
         }
-        if (thisRobot.stateMachine.isRobotInReefZone() == true && storedElevatorState == 2 && autoElevatorOn) {
+        if (thisRobot.stateMachine.isRobotInReefZone() == true &&storedElevatorState == 2 && autoElevatorOn) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL3, 0);
             m_controller.setGoal(elevatorGoalPIDState);
         }
         if (thisRobot.stateMachine.isRobotInReefZone() == true && storedElevatorState == 3 && autoElevatorOn) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL4, 0);
+            m_controller.setGoal(elevatorGoalPIDState);
+        }
+        // algae state if in reef zone 
+        if (thisRobot.stateMachine.isRobotInReefZone() == true && storedAlgaeState == 2  && autoElevatorOn) {
+            State elevatorGoalPIDState = new State(Settings.elevatorPosA2, 0);
+            m_controller.setGoal(elevatorGoalPIDState);
+        }
+        if (thisRobot.stateMachine.isRobotInReefZone() == true && storedAlgaeState == 3 && autoElevatorOn) {
+            State elevatorGoalPIDState = new State(Settings.elevatorPosA3, 0);
             m_controller.setGoal(elevatorGoalPIDState);
         }
 
@@ -93,6 +111,15 @@ public class Elevator {
         }
         if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_Drive) && thisRobot.teleopController.operatorJoystick1.getRawButton(Settings.buttonId_Coral4)) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL4, 0);
+            m_controller.setGoal(elevatorGoalPIDState);
+        }
+        // force to processor and all algae states
+        if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_Drive) && thisRobot.teleopController.operatorJoystick1.getRawButton(Settings.buttonId_Algae2)) {
+            State elevatorGoalPIDState = new State(Settings.elevatorPosA2, 0);
+            m_controller.setGoal(elevatorGoalPIDState);
+        }
+        if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_Drive) && thisRobot.teleopController.operatorJoystick1.getRawButton(Settings.buttonId_Algae3)) {
+            State elevatorGoalPIDState = new State(Settings.elevatorPosA3, 0);
             m_controller.setGoal(elevatorGoalPIDState);
         }
 

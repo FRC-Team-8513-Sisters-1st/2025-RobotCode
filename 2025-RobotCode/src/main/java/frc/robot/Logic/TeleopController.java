@@ -3,6 +3,7 @@ package frc.robot.logic;
 import frc.robot.Settings;
 import frc.robot.logic.Enums.FeederStation;
 import frc.robot.logic.Enums.RobotStates;
+
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -36,7 +37,7 @@ public class TeleopController {
 
     public void initTele(){
         State state = new State(thisRobot.elevator.elevatorMotor1.getEncoder().getPosition(), 0);
-        thisRobot.elevator.m_controller.setGoal(state);
+        thisRobot.elevator.m_controller.reset(state);
     }
 
     public void driveTele() {
@@ -115,6 +116,7 @@ public class TeleopController {
                 .getRawAxis(Settings.axisId_LeftBranch);
         if (leftTriggerValue > Settings.triggerDeadband) {
             thisRobot.coralReady2Score = true;
+            thisRobot.algaeReady2Score = false;
             setCoralScoreGoalPoseLeft();
         }
 
@@ -123,10 +125,13 @@ public class TeleopController {
         if (rightTriggerValue > Settings.triggerDeadband) {
             if (operatorGoalAlgaeReefLevel == RobotStates.algaeIntakeL2) {
                 thisRobot.algaeReady2Score = true;
+                thisRobot.coralReady2Score = false;
             } else if (operatorGoalAlgaeReefLevel == RobotStates.algaeIntakeL3) {
                 thisRobot.algaeReady2Score = true;
+                thisRobot.coralReady2Score = false;
             } else {
                 thisRobot.coralReady2Score = true;
+                thisRobot.algaeReady2Score = false;
             }
 
             setCoralScoreGoalPoseRight();
@@ -150,7 +155,7 @@ public class TeleopController {
         }
 
         if (thisRobot.teleopController.manualJoystick.getRawButtonPressed(1)) {
-            thisRobot.elevator.autoElevatorOn = false;
+            thisRobot.elevator.autoElevatorOn =! thisRobot.elevator.autoElevatorOn;
         }
 
     }

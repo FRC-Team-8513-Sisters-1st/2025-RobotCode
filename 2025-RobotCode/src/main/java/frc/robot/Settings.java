@@ -153,8 +153,8 @@ public final class Settings {
         public static double elevatorPosL2 = 7.00;
         public static double elevatorPosL3 = 20.84;
         public static double elevatorPosL4 = 41.4;
-        public static double elevatorPosA2 = 10;
-        public static double elevatorPosA3 = 20;
+        public static double elevatorPosA2 = 23.43;
+        public static double elevatorPosA3 = 34.57;
 
         // coral sensor
         public static double sensorThold = 1;
