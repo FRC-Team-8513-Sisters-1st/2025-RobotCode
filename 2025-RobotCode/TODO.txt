@@ -1,14 +1,6 @@
 - ToDo
     - due week 0
         - clean up dashbaords and save layouts in GH
-        - profile AT PID
-
-        - turn off auto elevator
-        - tune reef poses
-        - AP processor on driver button
-        - tune algae 3 height
-        - algae controller buttons dont work
-        - test auto elevator
 
         - red/blue flipping
         - autos
@@ -18,7 +10,6 @@
         - manual control and resets for elevator and other emchs
         - auto scoring when close to reef and lt or rt held
         - auto elevator back down after score
-        - 
 
 - Real Robot:
     - Tune drivebase odometry without vision
