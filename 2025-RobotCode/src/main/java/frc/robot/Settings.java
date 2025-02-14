@@ -113,8 +113,8 @@ public final class Settings {
                         .toPose2d();
 
         // offsets reef
-        public static Transform2d tagToLeft = new Transform2d(0.5,-0.19, new Rotation2d(Math.PI));
-        public static Transform2d tagToRight = new Transform2d(0.5,0.15, new Rotation2d(Math.PI));
+        public static Transform2d tagToLeft = new Transform2d(0.5,-0.235, new Rotation2d(Math.PI));
+        public static Transform2d tagToRight = new Transform2d(0.5,0.1, new Rotation2d(Math.PI));
 
         // reef poses
         public static Pose2d coralRightAB = abATPose.plus(tagToRight);

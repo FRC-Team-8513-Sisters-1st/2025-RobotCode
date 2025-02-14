@@ -1,7 +1,10 @@
 - ToDo
     - due week 0
+        - AT pose on dashbord
         - clean up dashbaords and save layouts in GH
         - import 3d model of robot into AS
+        - profile AT PID
+
         - turn off auto elevator
         - tune reef poses
         - tune algae 3 height
