@@ -46,7 +46,7 @@ public class Elevator {
     public void setMotorPower() {
 
         // sets the elevator state if in reef zone
-        if (thisRobot.drivebase.isRobotInReefZone() && state == ElevatorStates.L1 && autoElevatorOn) {
+        if (state == ElevatorStates.L1 && autoElevatorOn) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL1, 0);
             m_controller.setGoal(elevatorGoalPIDState);
         }
