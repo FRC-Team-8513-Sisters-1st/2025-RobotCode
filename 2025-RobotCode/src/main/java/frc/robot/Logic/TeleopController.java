@@ -132,25 +132,25 @@ public class TeleopController {
             setCoralScoreGoalPoseRight();
         }
 
-        // feeder stations
+        //actually drive + feeder st
         if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt) && thisRobot.stateMachine.feederCloseOrFar == FeederStation.Far) {
             thisRobot.drivebase.attackPoint(Settings.rightFarFeederStation, 3);
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt) && thisRobot.stateMachine.feederCloseOrFar == FeederStation.Close) {
             thisRobot.drivebase.attackPoint(Settings.rightCloseFeederStation, 3);
-        }
-        if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt) && thisRobot.stateMachine.feederCloseOrFar == FeederStation.Far) {
+        } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt) && thisRobot.stateMachine.feederCloseOrFar == FeederStation.Far) {
             thisRobot.drivebase.attackPoint(Settings.leftFarFeederStation, 3);
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt) && thisRobot.stateMachine.feederCloseOrFar == FeederStation.Close) {
             thisRobot.drivebase.attackPoint(Settings.leftCloseFeederStation, 3);
-        }
-
-        //actually drive
-        if(leftTriggerValue > Settings.triggerDeadband){
+        } else if(leftTriggerValue > Settings.triggerDeadband){
             thisRobot.drivebase.attackPoint(coralScoreGoalPose, leftTriggerValue * 3);
         } else if (rightTriggerValue > Settings.triggerDeadband) {
             thisRobot.drivebase.attackPoint(coralScoreGoalPose, rightTriggerValue * 3);
         } else {
             thisRobot.drivebase.drive(xV, yV, rV, true);
+        }
+
+        if (thisRobot.teleopController.manualJoystick.getRawButtonPressed(1)) {
+            thisRobot.elevator.autoElevatorOn = false;
         }
 
     }

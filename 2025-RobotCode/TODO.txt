@@ -21,7 +21,10 @@
     - Tune attack point pid
     - Photon vision
         - update camera pos from CAD
-    - figure out way to turn auto elevator off
+    - test autoElevatorOn
+    - test elevator manual control
+    - test L3 algae (also if button works)
+    - auto scoring
 - Auto
     - discuss how our auto builder will work
 

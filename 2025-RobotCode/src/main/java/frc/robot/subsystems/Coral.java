@@ -52,6 +52,7 @@ public class Coral {
                 }
                 double motorPower = coralController.calculate(coralMotor1.getEncoder().getPosition());
                 coralMotor1.set(motorPower);
+
                 if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralIntake)) {
                     double lessenIntake = 0.5;
                     coralController.setSetpoint(coralController.getSetpoint() - lessenIntake);
