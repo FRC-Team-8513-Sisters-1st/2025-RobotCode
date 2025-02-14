@@ -7,11 +7,11 @@
 
         - turn off auto elevator
         - tune reef poses
+        - AP processor on driver button
         - tune algae 3 height
         - test auto elevator
 
         - red/blue flipping
-        - Generate path on fly to reef/feeder
         - autos
 
     - due week 1
@@ -19,6 +19,7 @@
         - manual control and resets for elevator and other emchs
         - auto scoring when close to reef and lt or rt held
         - auto elevator back down after score
+        - 
 
 - Real Robot:
     - Tune drivebase odometry without vision
