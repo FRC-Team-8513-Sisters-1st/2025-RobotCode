@@ -17,6 +17,7 @@ public class Dashboard {
     Field2d leftFarFeederStationField2d = new Field2d();
     Field2d leftCloseFeederStationField2d = new Field2d();
     Field2d processorField2d = new Field2d();
+    public Field2d attackPoitnField2d = new Field2d();
 
     public Dashboard(Robot thisRobotIn) {
 
@@ -31,6 +32,7 @@ public class Dashboard {
         SmartDashboard.putData("rightCloseFeedeerStation", rightCloseFeederStationField2d);
         SmartDashboard.putData("leftFarFeederStation", leftFarFeederStationField2d);
         SmartDashboard.putData("processor", processorField2d);
+        SmartDashboard.putData("attackPointPose", attackPoitnField2d);
     }
 
     public void updateDashboard() {

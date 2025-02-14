@@ -11,7 +11,6 @@ import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
-import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
@@ -45,10 +44,6 @@ public class Drivebase {
     PathPlannerTrajectoryState trajGoalState;
     Field2d trajGoalPosition = new Field2d();
     PathPlannerPath pathPlannerGoalPose;
-
-    SlewRateLimiter xAttackPointSR = new SlewRateLimiter(2);
-    SlewRateLimiter yAttackPointSR = new SlewRateLimiter(3);
-    SlewRateLimiter rAttackPointSR = new SlewRateLimiter(5);
 
     Field2d targetField = new Field2d();
     Field2d scoreLeftField = new Field2d();
@@ -155,7 +150,7 @@ public class Drivebase {
         poseX = poseX * newMag/oldMag;
         poseY = poseY * newMag/oldMag;
         swerveDrive.driveFieldOriented(new ChassisSpeeds(poseX, poseY, poseR));
-
+        thisRobot.dashboard.attackPoitnField2d.setRobotPose(goalPose);
         return Settings.getDistanceBetweenTwoPoses(goalPose, swerveDrive.getPose()) < Settings.coralScoreThold;
 
     }
