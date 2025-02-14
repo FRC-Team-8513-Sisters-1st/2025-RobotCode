@@ -51,6 +51,10 @@ public class TeleopController {
         thisRobot.elevator.setMotorPower();
         thisRobot.climber.setMotorPower();
 
+        updatChosenSideOfReefFromCopilot();
+        elevatorSetLeve();
+        forceCoralandAlgae();
+
         if (driverXboxController.getRawButton(Settings.buttonId_resetOdo)) {
             // uncomment this when done testing odom
             // thisRobot.drivebase.swerveDrive.resetOdometry(new
