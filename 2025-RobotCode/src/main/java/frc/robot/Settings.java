@@ -6,9 +6,11 @@ import static edu.wpi.first.units.Units.Radians;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 
 public final class Settings {
         // drivebase settings
@@ -31,15 +33,46 @@ public final class Settings {
         public static int operatorJoystick1Port = 2;
         public static int operatorJoystick2Port = 3;
 
-        // pid path follow settings
-        public static PIDController xController = new PIDController(5, 0, 0.01);
-        public static PIDController yController = new PIDController(5, 0, 0.01);
-        public static PIDController rController = new PIDController(0.1, 0, 0);
-
         // pid settings
-        public static PIDController xControllerAP = new PIDController(0.1, 0.005, 0.01);
-        public static PIDController yControllerAP = new PIDController(0.1, 0.005, 0.01);
-        public static PIDController rControllerAP = new PIDController(0.1, 0, 0);
+        public static double maxVelocityAP = 6;
+        public static double maxAccelerationAP = 4;
+        private static double attackPointDriveP = 5;
+        private static double attackPointDriveI = 0.01;
+        private static double attackPointDriveD = 0.01;
+        private static double attackPointDt = 0.02;
+
+        // rotation
+        public static double maxVelocityRotateAP = 360;
+        public static double maxAccelerationRotateAP = 720;
+        private static double attackPointRotateP = 0.1;
+        private static double attackPointRotateI = 0;
+        private static double attackPointRotateD = 0;
+
+        private static final TrapezoidProfile.Constraints attackPointConstraints = new TrapezoidProfile.Constraints(
+                        maxVelocityAP,
+                        maxAccelerationAP);
+        public static final  ProfiledPIDController xControllerAP = new ProfiledPIDController(attackPointDriveP,
+                        attackPointDriveI,
+                        attackPointDriveD,
+                        attackPointConstraints, attackPointDriveD);
+        public static final ProfiledPIDController yControllerAP = new ProfiledPIDController(attackPointDriveP,
+                        attackPointDriveI,
+                        attackPointRotateD,
+                        attackPointConstraints, attackPointDt);
+
+        // rotation
+        private static final TrapezoidProfile.Constraints attackPointDriveConstraints = new TrapezoidProfile.Constraints(
+                        maxVelocityRotateAP,
+                        maxAccelerationRotateAP);
+        public static final ProfiledPIDController rControllerAP = new ProfiledPIDController(attackPointRotateP,
+                        attackPointRotateI,
+                        attackPointRotateD,
+                        attackPointDriveConstraints, attackPointDt);
+
+        // pid path follow settings
+        public static PIDController xController = new PIDController(0.1, 0.005, 0.01);
+        public static PIDController yController = new PIDController(0.1, 0.005, 0.01);
+        public static PIDController rController = new PIDController(0.1, 0, 0);
 
         public static PIDController rJoystickController = new PIDController(0.1, 0, 0);
         public static int rightJoystickY = 5;

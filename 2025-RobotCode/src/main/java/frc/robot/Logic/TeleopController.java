@@ -1,6 +1,7 @@
 package frc.robot.logic;
 
 import frc.robot.Settings;
+import frc.robot.logic.Enums.CoralIntakeStates;
 import frc.robot.logic.Enums.ElevatorStates;
 import frc.robot.logic.Enums.FeederStation;
 import frc.robot.logic.Enums.RobotStates;
@@ -42,6 +43,8 @@ public class TeleopController {
     public void initTele() {
         State state = new State(thisRobot.elevator.elevatorMotor1.getEncoder().getPosition(), 0);
         thisRobot.elevator.m_controller.reset(state);
+        thisRobot.coral.coralController.setSetpoint(thisRobot.coral.coralMotor1.getEncoder().getPosition());
+        thisRobot.coral.state = CoralIntakeStates.stationary;
     }
 
     public void driveTele() {
@@ -134,26 +137,43 @@ public class TeleopController {
         }
 
         readCopilotJoystickAndUdateCloseOrFar();
-
+        boolean aping = false;
         // actually drive + feeder st
         if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)
                 && feederCloseOrFar == FeederStation.Far) {
             thisRobot.drivebase.attackPoint(Settings.rightFarFeederStation, 3);
+            aping = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)
                 && feederCloseOrFar == FeederStation.Close) {
             thisRobot.drivebase.attackPoint(Settings.rightCloseFeederStation, 3);
+            aping = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt)
                 && feederCloseOrFar == FeederStation.Far) {
             thisRobot.drivebase.attackPoint(Settings.leftFarFeederStation, 3);
+            aping = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt)
                 && feederCloseOrFar == FeederStation.Close) {
             thisRobot.drivebase.attackPoint(Settings.leftCloseFeederStation, 3);
+            aping = true;
         } else if (leftTriggerValue > Settings.triggerDeadband) {
             thisRobot.drivebase.attackPoint(coralScoreGoalPose, leftTriggerValue * 3);
+            aping = true;
         } else if (rightTriggerValue > Settings.triggerDeadband) {
             thisRobot.drivebase.attackPoint(coralScoreGoalPose, rightTriggerValue * 3);
+            aping = true;
         } else {
             thisRobot.drivebase.drive(xV, yV, rV, true);
+
+        }
+
+        if (aping == false) {
+            State goalXState = new State(thisRobot.drivebase.swerveDrive.getPose().getX(), thisRobot.drivebase.swerveDrive.getFieldVelocity().vxMetersPerSecond);
+            State goalYState = new State(thisRobot.drivebase.swerveDrive.getPose().getY(), thisRobot.drivebase.swerveDrive.getFieldVelocity().vyMetersPerSecond);
+            State goalRState = new State(thisRobot.drivebase.swerveDrive.getPose().getRotation().getDegrees(), thisRobot.drivebase.swerveDrive.getFieldVelocity().omegaRadiansPerSecond*180/3.14);
+
+            Settings.xControllerAP.reset(goalXState);
+            Settings.yControllerAP.reset(goalYState);
+            Settings.rControllerAP.reset(goalRState);
         }
 
         thisRobot.algae.setMotorPower();
@@ -279,33 +299,38 @@ public class TeleopController {
     public void forceCoralandAlgae() {
 
         // force elevator height
+<<<<<<< Updated upstream
         if (thisRobot.elevator.state == ElevatorStates.L1) {
+=======
+        if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_forceElevator)
+                && thisRobot.elevator.state == ElevatorStates.L1) {
+>>>>>>> Stashed changes
             State elevatorGoalPIDState = new State(Settings.elevatorPosL1, 0);
             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
         }
         if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_forceElevator)
-        && thisRobot.elevator.state == ElevatorStates.L2) {
+                && thisRobot.elevator.state == ElevatorStates.L2) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL2, 0);
             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
         }
         if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_forceElevator)
-        && thisRobot.elevator.state == ElevatorStates.L3) {
+                && thisRobot.elevator.state == ElevatorStates.L3) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL3, 0);
             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
         }
         if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_forceElevator)
-        && thisRobot.elevator.state == ElevatorStates.L4) {
+                && thisRobot.elevator.state == ElevatorStates.L4) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL4, 0);
             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
         }
         // force to processor and all algae states
         if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_forceElevator)
-        && thisRobot.elevator.state == ElevatorStates.L2a) {
+                && thisRobot.elevator.state == ElevatorStates.L2a) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosA2, 0);
             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
         }
         if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_forceElevator)
-        && thisRobot.elevator.state == ElevatorStates.L3a) {
+                && thisRobot.elevator.state == ElevatorStates.L3a) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosA3, 0);
             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
         }

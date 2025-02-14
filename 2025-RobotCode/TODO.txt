@@ -1,6 +1,18 @@
 - ToDo
     - due week 0
         - clean up dashbaords and save layouts in GH
+<<<<<<< Updated upstream
+=======
+        - profile AT PID
+        
+
+        - turn off auto elevator
+        - tune reef poses
+        - AP processor on driver button
+        - tune algae 3 height
+        - algae controller buttons dont work
+        - test auto elevator
+>>>>>>> Stashed changes
 
         - red/blue flipping
         - autos

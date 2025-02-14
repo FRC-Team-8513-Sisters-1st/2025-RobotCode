@@ -15,6 +15,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import edu.wpi.first.math.util.Units;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
@@ -125,9 +126,9 @@ public class Drivebase {
             trajGoalPosition.setRobotPose(trajGoalState.pose);
             SmartDashboard.putData("path planner goal postition", trajGoalPosition);
 
-            double dvx = Settings.xControllerAP.calculate(swerveDrive.getPose().getX(), trajGoalState.pose.getX());
-            double dvy = Settings.yControllerAP.calculate(swerveDrive.getPose().getY(), trajGoalState.pose.getY());
-            double dvr = Settings.rControllerAP.calculate(
+            double dvx = Settings.xController.calculate(swerveDrive.getPose().getX(), trajGoalState.pose.getX());
+            double dvy = Settings.yController.calculate(swerveDrive.getPose().getY(), trajGoalState.pose.getY());
+            double dvr = Settings.rController.calculate(
                     swerveDrive.getPose().getRotation().minus(trajGoalState.pose.getRotation()).getDegrees(), 0);
 
             swerveDrive.driveFieldOriented(trajGoalState.fieldSpeeds.plus(new ChassisSpeeds(dvx, dvy, dvr)));
@@ -139,17 +140,19 @@ public class Drivebase {
     }
 
     public boolean attackPoint(Pose2d goalPose, double maxSpeed) {
-        double poseX = Settings.xController.calculate(swerveDrive.getPose().getX(), goalPose.getX());
-        double poseY = Settings.yController.calculate(swerveDrive.getPose().getY(), goalPose.getY());
-        double poseR = Settings.rController
-                .calculate(swerveDrive.getPose().getRotation().minus(goalPose.getRotation()).getDegrees(), 0);
+        State goalXState = new State(goalPose.getX(), 0);
+        State goalYState = new State(goalPose.getY(), 0);
+        State goalRState = new State(goalPose.getRotation().getDegrees(), 0);
 
-        double oldMag = Math.sqrt(poseX * poseX + poseY * poseY);
+        double xVelocity = Settings.xControllerAP.calculate(thisRobot.drivebase.swerveDrive.getPose().getX(), goalXState);
+        double yVelocity = Settings.yControllerAP.calculate(thisRobot.drivebase.swerveDrive.getPose().getY(), goalYState);
+        double rVelocity = Settings.rControllerAP.calculate(thisRobot.drivebase.swerveDrive.getPose().getRotation().getDegrees(), goalRState);
+        double oldMag = Math.sqrt(xVelocity * xVelocity + yVelocity * yVelocity);
         double newMag = clamp(oldMag, maxSpeed);
 
-        poseX = poseX * newMag / oldMag;
-        poseY = poseY * newMag / oldMag;
-        swerveDrive.driveFieldOriented(new ChassisSpeeds(poseX, poseY, poseR));
+       // xVelocity = xVelocity * newMag / oldMag;
+        //yVelocity = yVelocity * newMag / oldMag;
+        swerveDrive.driveFieldOriented(new ChassisSpeeds(xVelocity, yVelocity, rVelocity));
         thisRobot.dashboard.attackPoitnField2d.setRobotPose(goalPose);
         return Settings.getDistanceBetweenTwoPoses(goalPose, swerveDrive.getPose()) < Settings.coralScoreThold;
 

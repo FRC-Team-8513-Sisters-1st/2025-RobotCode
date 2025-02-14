@@ -13,7 +13,7 @@ import frc.robot.logic.Enums.CoralIntakeStates;
 public class Coral {
     Robot thisRobot;
 
-    CoralIntakeStates state = CoralIntakeStates.stationary;
+    public CoralIntakeStates state = CoralIntakeStates.stationary;
 
     public SparkMax coralMotor1 = new SparkMax(Settings.coralMotor1CANID, MotorType.kBrushless);
 
@@ -60,7 +60,7 @@ public class Coral {
 
                 break;
             case outake:
-                coralMotor1.set(1);
+                coralMotor1.set(0.75);
                 if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake)) {
                     state = CoralIntakeStates.stationary;
                     coralController.setSetpoint(coralMotor1.getEncoder().getPosition());
