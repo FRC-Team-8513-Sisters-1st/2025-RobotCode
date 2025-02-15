@@ -54,7 +54,7 @@ public final class Settings {
         public static final  ProfiledPIDController xControllerAP = new ProfiledPIDController(attackPointDriveP,
                         attackPointDriveI,
                         attackPointDriveD,
-                        attackPointConstraints, attackPointDriveD);
+                        attackPointConstraints, attackPointDt);
         public static final ProfiledPIDController yControllerAP = new ProfiledPIDController(attackPointDriveP,
                         attackPointDriveI,
                         attackPointRotateD,

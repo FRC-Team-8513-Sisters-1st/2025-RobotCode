@@ -150,8 +150,8 @@ public class Drivebase {
         double oldMag = Math.sqrt(xVelocity * xVelocity + yVelocity * yVelocity);
         double newMag = clamp(oldMag, maxSpeed);
 
-       // xVelocity = xVelocity * newMag / oldMag;
-        //yVelocity = yVelocity * newMag / oldMag;
+        xVelocity = xVelocity * newMag / oldMag;
+        yVelocity = yVelocity * newMag / oldMag;
         swerveDrive.driveFieldOriented(new ChassisSpeeds(xVelocity, yVelocity, rVelocity));
         thisRobot.dashboard.attackPoitnField2d.setRobotPose(goalPose);
         return Settings.getDistanceBetweenTwoPoses(goalPose, swerveDrive.getPose()) < Settings.coralScoreThold;
