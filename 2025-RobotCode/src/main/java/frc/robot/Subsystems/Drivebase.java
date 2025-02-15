@@ -140,13 +140,20 @@ public class Drivebase {
     }
 
     public boolean attackPoint(Pose2d goalPose, double maxSpeed) {
+        if (thisRobot.onRedAlliance) {
+            goalPose = flipPoseToRed(goalPose);
+        }
+
         State goalXState = new State(goalPose.getX(), 0);
         State goalYState = new State(goalPose.getY(), 0);
-        State goalRState = new State(goalPose.getRotation().getDegrees(), 0);
+        State goalRState = new State(0,0);
 
-        double xVelocity = Settings.xControllerAP.calculate(thisRobot.drivebase.swerveDrive.getPose().getX(), goalXState);
-        double yVelocity = Settings.yControllerAP.calculate(thisRobot.drivebase.swerveDrive.getPose().getY(), goalYState);
-        double rVelocity = Settings.rControllerAP.calculate(thisRobot.drivebase.swerveDrive.getPose().getRotation().getDegrees(), goalRState);
+        double xVelocity = Settings.xControllerAP.calculate(thisRobot.drivebase.swerveDrive.getPose().getX(),
+                goalXState);
+        double yVelocity = Settings.yControllerAP.calculate(thisRobot.drivebase.swerveDrive.getPose().getY(),
+                goalYState);
+        double rVelocity = Settings.rControllerAP
+                .calculate(thisRobot.drivebase.swerveDrive.getPose().getRotation().minus(goalPose.getRotation()).getDegrees(), goalRState);
         double oldMag = Math.sqrt(xVelocity * xVelocity + yVelocity * yVelocity);
         double newMag = clamp(oldMag, maxSpeed);
 
@@ -197,10 +204,26 @@ public class Drivebase {
     }
 
     public boolean isRobotInReefZone() {
-        double x = thisRobot.drivebase.swerveDrive.getPose().minus(Settings.reefZone).getX();
-        double y = thisRobot.drivebase.swerveDrive.getPose().minus(Settings.reefZone).getY();
-        double distance = Math.sqrt(x * x + y * y);
-        return distance < Settings.minDistanceFromReefZoneMeter;
+        if (thisRobot.onRedAlliance) {
+            double x = thisRobot.drivebase.swerveDrive.getPose().minus(Settings.reefZoneRed).getX();
+            double y = thisRobot.drivebase.swerveDrive.getPose().minus(Settings.reefZoneRed).getY();
+            double distance = Math.sqrt(x * x + y * y);
+            return distance < Settings.minDistanceFromReefZoneMeter;
+        } else {
+            double x = thisRobot.drivebase.swerveDrive.getPose().minus(Settings.reefZoneBlue).getX();
+            double y = thisRobot.drivebase.swerveDrive.getPose().minus(Settings.reefZoneBlue).getY();
+            double distance = Math.sqrt(x * x + y * y);
+            return distance < Settings.minDistanceFromReefZoneMeter;
+        }
     }
 
+    public Pose2d flipPoseToRed(Pose2d goalPose) {
+        double goalXPos = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getFieldLength()
+                - goalPose.getX();;
+        double goalYPos = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getFieldWidth()
+                - goalPose.getY();
+        Rotation2d goalRPos = goalPose.getRotation().rotateBy(new Rotation2d(Math.PI));
+
+        return new Pose2d(goalXPos, goalYPos, goalRPos);
+    }
 }

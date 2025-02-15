@@ -51,7 +51,7 @@ public final class Settings {
         private static final TrapezoidProfile.Constraints attackPointConstraints = new TrapezoidProfile.Constraints(
                         maxVelocityAP,
                         maxAccelerationAP);
-        public static final  ProfiledPIDController xControllerAP = new ProfiledPIDController(attackPointDriveP,
+        public static final ProfiledPIDController xControllerAP = new ProfiledPIDController(attackPointDriveP,
                         attackPointDriveI,
                         attackPointDriveD,
                         attackPointConstraints, attackPointDt);
@@ -87,6 +87,7 @@ public final class Settings {
         public static int elevatorMotor1CANID = 59; // e2
         public static int elevatorMotor2CANID = 57; // e1
         public static int coralMotor1CANID = 55;
+        public static int funnelMotor1 = 21;
 
         // controller 1 panel buttons
         public static int buttonId_CoralOutake = 5;
@@ -120,9 +121,10 @@ public final class Settings {
         public static int axisId_LeftBranch = 2;
         public static int buttonId_reorenting = 3;
         public static int buttonId_resetOdo = 8;
+        public static int buttonId_processorAP = 2;
 
         // auto poses
-        // get aprilTag pose
+        // get aprilTag pose on blue
         public static Pose2d cdATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(17)
                         .get()
                         .toPose2d();
@@ -145,6 +147,7 @@ public final class Settings {
                         .get()
                         .toPose2d();
 
+
         // offsets reef
         public static Transform2d tagToLeft = new Transform2d(0.5, -0.235, new Rotation2d(Math.PI));
         public static Transform2d tagToRight = new Transform2d(0.5, 0.1, new Rotation2d(Math.PI));
@@ -162,6 +165,8 @@ public final class Settings {
         public static Pose2d coralLeftIJ = ijATPose.plus(tagToLeft);
         public static Pose2d coralRightKL = klATPose.plus(tagToRight);
         public static Pose2d coralLeftKL = klATPose.plus(tagToLeft);
+         
+        public static Pose2d processorAP = processorATPose.plus(tagToRight);
 
         // feeder stations
         public static Pose2d rightFarFeederStation = new Pose2d(1.678, 0.746,
@@ -174,7 +179,8 @@ public final class Settings {
                         new Rotation2d(Radians.convertFrom(-50, Degrees)));
         public static Pose2d processor = new Pose2d(6.006, 0.603, new Rotation2d(Radians.convertFrom(-90, Degrees)));
 
-        public static Pose2d reefZone = new Pose2d(4.495, 4.019, new Rotation2d(Radians.convertFrom(0, Degrees)));
+        public static Pose2d reefZoneBlue = new Pose2d(4.495, 4.019, new Rotation2d(Radians.convertFrom(0, Degrees)));
+        public static Pose2d reefZoneRed = new Pose2d(13.091, 4.043, new Rotation2d(Radians.convertFrom(0, Degrees)));
         public static double minDistanceFromReefZoneMeter = 2.5;
         public static double maxATDist = 2.5;
 

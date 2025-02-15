@@ -7,9 +7,6 @@ import frc.robot.logic.Enums.FeederStation;
 import frc.robot.logic.Enums.RobotStates;
 import frc.robot.logic.Enums.SideOfReef;
 
-import static edu.wpi.first.units.Units.DegreesPerSecond;
-import static edu.wpi.first.units.Units.RadiansPerSecond;
-
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -30,6 +27,9 @@ public class TeleopController {
     public SideOfReef operatorChosenSideOfReef = SideOfReef.AB;
 
     RobotStates robotState = RobotStates.driving;
+
+    public boolean firstAPButtonPressed = false;
+    public Pose2d teleopGoalPose = new Pose2d();
 
     Pose2d coralScoreGoalPose = new Pose2d();
     RobotStates operatorGoalAlgaeReefLevel;
@@ -145,42 +145,54 @@ public class TeleopController {
         // actually drive + feeder st
         if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)
                 && feederCloseOrFar == FeederStation.Far) {
-            thisRobot.drivebase.attackPoint(Settings.rightFarFeederStation, 3);
+            teleopGoalPose = Settings.rightFarFeederStation;
             aping = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)
                 && feederCloseOrFar == FeederStation.Close) {
-            thisRobot.drivebase.attackPoint(Settings.rightCloseFeederStation, 3);
+            teleopGoalPose = Settings.rightCloseFeederStation;
             aping = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt)
                 && feederCloseOrFar == FeederStation.Far) {
-            thisRobot.drivebase.attackPoint(Settings.leftFarFeederStation, 3);
+            teleopGoalPose = Settings.leftFarFeederStation;
             aping = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt)
                 && feederCloseOrFar == FeederStation.Close) {
-            thisRobot.drivebase.attackPoint(Settings.leftCloseFeederStation, 3);
+            teleopGoalPose = Settings.leftCloseFeederStation;
+            aping = true;
+        } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_processorAP)) {
+            teleopGoalPose = Settings.processorAP;
             aping = true;
         } else if (leftTriggerValue > Settings.triggerDeadband) {
-            thisRobot.drivebase.attackPoint(coralScoreGoalPose, leftTriggerValue * 3);
+            teleopGoalPose = coralScoreGoalPose;
             aping = true;
         } else if (rightTriggerValue > Settings.triggerDeadband) {
-            thisRobot.drivebase.attackPoint(coralScoreGoalPose, rightTriggerValue * 3);
+            teleopGoalPose = coralScoreGoalPose;
             aping = true;
         } else {
             thisRobot.drivebase.drive(xV, yV, rV, true);
+            firstAPButtonPressed = true;
 
         }
 
-        if (aping == false) {
+        if (firstAPButtonPressed) {
+            if (thisRobot.onRedAlliance) {
+                teleopGoalPose = thisRobot.drivebase.flipPoseToRed(teleopGoalPose);
+            }
+            // State goalRState = new State(thisRobot.drivebase.swerveDrive.getPose().getRotation()
+            // .minus(teleopGoalPose.getRotation()).getDegrees(), thisRobot.drivebase.swerveDrive.getFieldVelocity().omegaRadiansPerSecond * 180/Math.PI);
             State goalXState = new State(thisRobot.drivebase.swerveDrive.getPose().getX(),
                     thisRobot.drivebase.swerveDrive.getFieldVelocity().vxMetersPerSecond);
             State goalYState = new State(thisRobot.drivebase.swerveDrive.getPose().getY(),
                     thisRobot.drivebase.swerveDrive.getFieldVelocity().vyMetersPerSecond);
-            State goalRState = new State(thisRobot.drivebase.swerveDrive.getPose().getRotation().getDegrees(),
-                    DegreesPerSecond.convertFrom(thisRobot.drivebase.swerveDrive.getFieldVelocity().omegaRadiansPerSecond, RadiansPerSecond));
 
             Settings.xControllerAP.reset(goalXState);
             Settings.yControllerAP.reset(goalYState);
-            Settings.rControllerAP.reset(goalRState);
+            Settings.rControllerAP.reset(new State(0,0));
+            firstAPButtonPressed = false;
+        }
+
+        if (aping) {
+            thisRobot.drivebase.attackPoint(teleopGoalPose, 3);
         }
 
         thisRobot.algae.setMotorPower();

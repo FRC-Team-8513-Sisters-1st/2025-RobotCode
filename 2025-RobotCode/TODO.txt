@@ -1,17 +1,17 @@
 - ToDo
     - due week 0
         - clean up dashbaords and save layouts in GH
-        - red/blue flipping
         - manually made few autos
         - auto scoring when close to reef and lt or rt held
-        - AP processor
         - fix feeder station poses
+        - AP rot PID goalZero
 
     - due week 1
         - auto create any auto
         - manual control and resets for elevator and other emchs
         - auto elevator back down after score
         - auto path to attack point then AP
+        - update to ne field
 
 - Real Robot:
     - Tune drivebase odometry without vision
