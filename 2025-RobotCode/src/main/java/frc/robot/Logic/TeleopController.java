@@ -58,11 +58,16 @@ public class TeleopController {
         forceCoralandAlgae();
 
         if (driverXboxController.getRawButton(Settings.buttonId_resetOdo)) {
-            // uncomment this when done testing odom
-            // thisRobot.drivebase.swerveDrive.resetOdometry(new
-            // Pose2d(thisRobot.drivebase.swerveDrive.getPose().getX(),
-            // thisRobot.drivebase.swerveDrive.getPose().getY(), new Rotation2d()));
-            thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(2, 2, new Rotation2d()));
+
+            thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(thisRobot.drivebase.swerveDrive.getPose().getX(),
+                    thisRobot.drivebase.swerveDrive.getPose().getY(), new Rotation2d()));
+            if(Robot.isSimulation()){
+                if(thisRobot.onRedAlliance){
+                    thisRobot.drivebase.swerveDrive.resetOdometry(thisRobot.drivebase.flipPoseToRed(new Pose2d(2, 2, new Rotation2d())));
+                } else {
+                    thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(2, 2, new Rotation2d()));
+                }
+            }        
             goalHeading = new Rotation2d();
         }
 
