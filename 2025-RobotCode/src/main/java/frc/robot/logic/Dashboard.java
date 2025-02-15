@@ -38,6 +38,7 @@ public class Dashboard {
         // coral mech stats
         SmartDashboard.putNumber("coral motor current", thisRobot.coral.coralMotor1.getOutputCurrent());
         SmartDashboard.putNumber("coralSensor", thisRobot.coral.coralMotor1.getAnalog().getVoltage());
+        SmartDashboard.putString("coralState", thisRobot.coral.state.name());
 
     }
 }

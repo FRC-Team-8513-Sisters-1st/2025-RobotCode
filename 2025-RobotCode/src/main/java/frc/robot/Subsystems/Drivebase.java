@@ -226,4 +226,18 @@ public class Drivebase {
 
         return new Pose2d(goalXPos, goalYPos, goalRPos);
     }
+
+    public void resetAPPIDControllers( Pose2d goalPose) {
+        if (thisRobot.onRedAlliance) {
+            goalPose = thisRobot.drivebase.flipPoseToRed(goalPose);
+        }
+        State goalXState = new State(thisRobot.drivebase.swerveDrive.getPose().getX(),
+                thisRobot.drivebase.swerveDrive.getFieldVelocity().vxMetersPerSecond);
+        State goalYState = new State(thisRobot.drivebase.swerveDrive.getPose().getY(),
+                thisRobot.drivebase.swerveDrive.getFieldVelocity().vyMetersPerSecond);
+
+        Settings.xControllerAP.reset(goalXState);
+        Settings.yControllerAP.reset(goalYState);
+        Settings.rControllerAP.reset(new State(0,0));
+    }
 }

@@ -34,6 +34,6 @@ public final class Enums {
         Close, Far
     }
     public enum AutoRoutines {
-        DoNothing, FillerJustPath, SamplePathThenAP, TestingPath
+        DoNothing, FillerJustPath, SamplePathThenAP, TestingPath, midGHL2Right
     }
 }

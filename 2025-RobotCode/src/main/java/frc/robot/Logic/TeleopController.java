@@ -175,19 +175,7 @@ public class TeleopController {
         }
 
         if (firstAPButtonPressed) {
-            if (thisRobot.onRedAlliance) {
-                teleopGoalPose = thisRobot.drivebase.flipPoseToRed(teleopGoalPose);
-            }
-            // State goalRState = new State(thisRobot.drivebase.swerveDrive.getPose().getRotation()
-            // .minus(teleopGoalPose.getRotation()).getDegrees(), thisRobot.drivebase.swerveDrive.getFieldVelocity().omegaRadiansPerSecond * 180/Math.PI);
-            State goalXState = new State(thisRobot.drivebase.swerveDrive.getPose().getX(),
-                    thisRobot.drivebase.swerveDrive.getFieldVelocity().vxMetersPerSecond);
-            State goalYState = new State(thisRobot.drivebase.swerveDrive.getPose().getY(),
-                    thisRobot.drivebase.swerveDrive.getFieldVelocity().vyMetersPerSecond);
-
-            Settings.xControllerAP.reset(goalXState);
-            Settings.yControllerAP.reset(goalYState);
-            Settings.rControllerAP.reset(new State(0,0));
+            thisRobot.drivebase.resetAPPIDControllers(teleopGoalPose);
             firstAPButtonPressed = false;
         }
 
