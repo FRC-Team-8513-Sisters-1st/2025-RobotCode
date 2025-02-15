@@ -3,8 +3,6 @@
         - clean up dashbaords and save layouts in GH
         - manually made few autos
         - auto scoring when close to reef and lt or rt held
-        - fix feeder station poses
-        - AP rot PID goalZero
 
     - due week 1
         - auto create any auto

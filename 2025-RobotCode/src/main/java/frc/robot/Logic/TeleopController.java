@@ -145,19 +145,19 @@ public class TeleopController {
         // actually drive + feeder st
         if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)
                 && feederCloseOrFar == FeederStation.Far) {
-            teleopGoalPose = Settings.rightFarFeederStation;
+            teleopGoalPose = Settings.rightFarFeederStationAP;
             aping = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)
                 && feederCloseOrFar == FeederStation.Close) {
-            teleopGoalPose = Settings.rightCloseFeederStation;
+            teleopGoalPose = Settings.rightCloseFeederStationAP;
             aping = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt)
                 && feederCloseOrFar == FeederStation.Far) {
-            teleopGoalPose = Settings.leftFarFeederStation;
+            teleopGoalPose = Settings.leftFarFeederStationAP;
             aping = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt)
                 && feederCloseOrFar == FeederStation.Close) {
-            teleopGoalPose = Settings.leftCloseFeederStation;
+            teleopGoalPose = Settings.leftCloseFeederStationAP;
             aping = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_processorAP)) {
             teleopGoalPose = Settings.processorAP;

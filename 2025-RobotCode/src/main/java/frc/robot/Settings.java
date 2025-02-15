@@ -101,8 +101,8 @@ public final class Settings {
         public static int buttonId_processor = 3;
 
         // controller 2 panel buttons
-        public static int buttonId_Close = 7;
-        public static int buttonId_Far = 6;
+        public static int buttonId_Close = 6;
+        public static int buttonId_Far = 7;
         public static int buttonId_forceElevator = 5;
         public static int buttonId_ab = 9;
         public static int buttonId_cd = 10;
@@ -146,11 +146,19 @@ public final class Settings {
         public static Pose2d klATPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(19)
                         .get()
                         .toPose2d();
-
+        public static Pose2d rightFeederStationPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape)
+                        .getTagPose(12).get().toPose2d();
+        public static Pose2d leftFeederStationPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape)
+                        .getTagPose(13).get().toPose2d();
 
         // offsets reef
         public static Transform2d tagToLeft = new Transform2d(0.5, -0.235, new Rotation2d(Math.PI));
         public static Transform2d tagToRight = new Transform2d(0.5, 0.1, new Rotation2d(Math.PI));
+
+        // offset pocessor
+        public static Transform2d closeFeederStation = new Transform2d(0.5, -0.5, new Rotation2d());
+        public static Transform2d farFeederStation = new Transform2d(0.5, 0.5, new Rotation2d());
+
 
         // reef poses
         public static Pose2d coralRightAB = abATPose.plus(tagToRight);
@@ -165,26 +173,19 @@ public final class Settings {
         public static Pose2d coralLeftIJ = ijATPose.plus(tagToLeft);
         public static Pose2d coralRightKL = klATPose.plus(tagToRight);
         public static Pose2d coralLeftKL = klATPose.plus(tagToLeft);
-         
-        public static Pose2d processorAP = processorATPose.plus(tagToRight);
 
-        // feeder stations
-        public static Pose2d rightFarFeederStation = new Pose2d(1.678, 0.746,
-                        new Rotation2d(Radians.convertFrom(50, Degrees)));
-        public static Pose2d leftFarFeederStation = new Pose2d(1.690, 7.280,
-                        new Rotation2d(Radians.convertFrom(-50, Degrees)));
-        public static Pose2d rightCloseFeederStation = new Pose2d(1.3, 1,
-                        new Rotation2d(Radians.convertFrom(50, Degrees)));
-        public static Pose2d leftCloseFeederStation = new Pose2d(0.887, 6.740,
-                        new Rotation2d(Radians.convertFrom(-50, Degrees)));
-        public static Pose2d processor = new Pose2d(6.006, 0.603, new Rotation2d(Radians.convertFrom(-90, Degrees)));
+        public static Pose2d processorAP = processorATPose.plus(tagToRight);
+        public static Pose2d rightCloseFeederStationAP = rightFeederStationPose.plus(closeFeederStation);
+        public static Pose2d rightFarFeederStationAP = rightFeederStationPose.plus(farFeederStation);
+        public static Pose2d leftFarFeederStationAP = leftFeederStationPose.plus(farFeederStation);
+        public static Pose2d leftCloseFeederStationAP = leftFeederStationPose.plus(closeFeederStation);
 
         public static Pose2d reefZoneBlue = new Pose2d(4.495, 4.019, new Rotation2d(Radians.convertFrom(0, Degrees)));
         public static Pose2d reefZoneRed = new Pose2d(13.091, 4.043, new Rotation2d(Radians.convertFrom(0, Degrees)));
         public static double minDistanceFromReefZoneMeter = 2.5;
         public static double maxATDist = 2.5;
 
-        public static double coralScoreThold = 0.0254;
+        public static double coralScoreThold = 0.01;
 
         // elevator positions
         public static double elevatorPosStowed = 0;
