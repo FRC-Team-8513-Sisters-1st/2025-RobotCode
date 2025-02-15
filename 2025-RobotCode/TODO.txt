@@ -4,6 +4,7 @@
         - red/blue flipping
         - manually made few autos
         - auto scoring when close to reef and lt or rt held
+        - AP processor
 
     - due week 1
         - auto create any auto
