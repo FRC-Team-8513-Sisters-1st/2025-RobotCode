@@ -1,27 +1,15 @@
 - ToDo
     - due week 0
         - clean up dashbaords and save layouts in GH
-<<<<<<< Updated upstream
-=======
-        - profile AT PID
-        
-
-        - turn off auto elevator
-        - tune reef poses
-        - AP processor on driver button
-        - tune algae 3 height
-        - algae controller buttons dont work
-        - test auto elevator
->>>>>>> Stashed changes
-
         - red/blue flipping
-        - autos
+        - manually made few autos
+        - auto scoring when close to reef and lt or rt held
 
     - due week 1
-        - autos
+        - auto create any auto
         - manual control and resets for elevator and other emchs
-        - auto scoring when close to reef and lt or rt held
         - auto elevator back down after score
+        - auto path to attack point then AP
 
 - Real Robot:
     - Tune drivebase odometry without vision
