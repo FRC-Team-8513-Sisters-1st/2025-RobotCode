@@ -6,6 +6,10 @@ import frc.robot.logic.Enums.ElevatorStates;
 import frc.robot.logic.Enums.FeederStation;
 import frc.robot.logic.Enums.RobotStates;
 import frc.robot.logic.Enums.SideOfReef;
+
+import static edu.wpi.first.units.Units.DegreesPerSecond;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
+
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -167,9 +171,12 @@ public class TeleopController {
         }
 
         if (aping == false) {
-            State goalXState = new State(thisRobot.drivebase.swerveDrive.getPose().getX(), thisRobot.drivebase.swerveDrive.getFieldVelocity().vxMetersPerSecond);
-            State goalYState = new State(thisRobot.drivebase.swerveDrive.getPose().getY(), thisRobot.drivebase.swerveDrive.getFieldVelocity().vyMetersPerSecond);
-            State goalRState = new State(thisRobot.drivebase.swerveDrive.getPose().getRotation().getDegrees(), thisRobot.drivebase.swerveDrive.getFieldVelocity().omegaRadiansPerSecond*180/3.14);
+            State goalXState = new State(thisRobot.drivebase.swerveDrive.getPose().getX(),
+                    thisRobot.drivebase.swerveDrive.getFieldVelocity().vxMetersPerSecond);
+            State goalYState = new State(thisRobot.drivebase.swerveDrive.getPose().getY(),
+                    thisRobot.drivebase.swerveDrive.getFieldVelocity().vyMetersPerSecond);
+            State goalRState = new State(thisRobot.drivebase.swerveDrive.getPose().getRotation().getDegrees(),
+                    DegreesPerSecond.convertFrom(thisRobot.drivebase.swerveDrive.getFieldVelocity().omegaRadiansPerSecond, RadiansPerSecond));
 
             Settings.xControllerAP.reset(goalXState);
             Settings.yControllerAP.reset(goalYState);
@@ -299,12 +306,8 @@ public class TeleopController {
     public void forceCoralandAlgae() {
 
         // force elevator height
-<<<<<<< Updated upstream
-        if (thisRobot.elevator.state == ElevatorStates.L1) {
-=======
         if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_forceElevator)
                 && thisRobot.elevator.state == ElevatorStates.L1) {
->>>>>>> Stashed changes
             State elevatorGoalPIDState = new State(Settings.elevatorPosL1, 0);
             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
         }
@@ -335,7 +338,7 @@ public class TeleopController {
             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
         }
         if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_processor)
-        && thisRobot.elevator.state == ElevatorStates.scoreProcessor) {
+                && thisRobot.elevator.state == ElevatorStates.scoreProcessor) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL2, 0);
             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
         }
