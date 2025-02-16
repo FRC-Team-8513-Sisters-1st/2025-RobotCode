@@ -83,7 +83,7 @@ public class AutoController {
                         break;
                 }
                 break;
-            case midGHL2Right:
+            case mid_GH3R:
                 switch (autoStep) {
                     case 0:
                         if (firstAutoBeingRun) {

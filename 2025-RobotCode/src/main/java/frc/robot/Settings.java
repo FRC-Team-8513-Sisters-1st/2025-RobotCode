@@ -159,7 +159,6 @@ public final class Settings {
         public static Transform2d closeFeederStation = new Transform2d(0.5, -0.5, new Rotation2d());
         public static Transform2d farFeederStation = new Transform2d(0.5, 0.5, new Rotation2d());
 
-
         // reef poses
         public static Pose2d coralRightAB = abATPose.plus(tagToRight);
         public static Pose2d coralLeftAB = abATPose.plus(tagToLeft);
@@ -204,11 +203,10 @@ public final class Settings {
         public static Pose2d autoRIghtStartPose = new Pose2d(7.229, 1.538, new Rotation2d(Math.PI));
         public static Pose2d autoLeftStartPose = new Pose2d(7.229, 6.453, new Rotation2d(Math.PI));
 
-
         public static double getDistanceBetweenTwoPoses(Pose2d pose1, Pose2d pose2) {
                 double x = pose2.getX() - pose1.getX();
                 double y = pose2.getY() - pose1.getY();
-                double distance = Math.sqrt(x) + Math.sqrt(y);
+                double distance = Math.sqrt(x * x + y * y);
                 return distance;
         }
 }
