@@ -2,6 +2,7 @@
     - due week 0
         - clean up dashbaords and save layouts in GH
         - manually made few autos
+        - climber states
         - auto scoring when close to reef and lt or rt held
 
     - due week 1

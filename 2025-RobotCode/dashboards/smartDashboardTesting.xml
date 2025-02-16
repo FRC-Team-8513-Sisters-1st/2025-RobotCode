@@ -1,74 +1,81 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="coral motor current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="290" y="20"/>
+	<widget field="Path Name" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="201" y="43"/>
 	</widget>
-	<widget field="storedElevatorState" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="368" y="257"/>
+	<widget field="Climber Motor Pos" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="670" y="48"/>
 	</widget>
-	<widget field="isRobotinReefZone" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="364" y="81"/>
+	<widget field="Climber Current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="679" y="25"/>
+	</widget>
+	<widget field="Climber State" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="690" y="4"/>
+	</widget>
+	<widget field="Algae Motor Goal Pos" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="490" y="262"/>
+	</widget>
+	<widget field="Algae Motor Pos" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="514" y="239"/>
+	</widget>
+	<widget field="Algae Current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="524" y="219"/>
+	</widget>
+	<widget field="Algae State" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="532" y="199"/>
+	</widget>
+	<widget field="coral motor pos" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="312" y="247"/>
+	</widget>
+	<widget field="Auto Elevator On" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="64" y="337"/>
+	</widget>
+	<widget field="Operator Chosen Side Of Feeder" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="384" y="23"/>
+	</widget>
+	<widget field="Operator Chosen Side Of Reef" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="396" y="3"/>
+	</widget>
+	<widget field="FirstAutoRun" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="193" y="22"/>
+	</widget>
+	<widget field="AutoMode" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="205" y="2"/>
+	</widget>
+	<widget field="AutoStep" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="208" y="63"/>
+	</widget>
+	<widget field="isOnRed" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="-2" y="144"/>
+	</widget>
+	<widget field="coralState" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="339" y="200"/>
+	</widget>
+	<widget field="coralSensor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="330" y="224"/>
+		<height>19</height>
+	</widget>
+	<widget field="elevatorState" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="82" y="194"/>
+	</widget>
+	<widget field="elevatorPosition" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="71" y="216"/>
 	</widget>
 	<widget field="elevatorGoalState" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="368" y="232"/>
-	</widget>
-	<widget field="elevator motor 2 pos" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="366" y="194"/>
+		<location x="62" y="239"/>
 	</widget>
 	<widget field="elevator motor 1 pos" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="366" y="170"/>
-		<height>23</height>
+		<location x="47" y="261"/>
+		<height>19</height>
 	</widget>
 	<widget field="elevator motor 2 power" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="364" y="145"/>
+		<location x="32" y="307"/>
 	</widget>
 	<widget field="elevator motor 1 power" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="364" y="120"/>
-	</widget>
-	<widget field="operatorChosenSideOfReef" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="284"/>
-	</widget>
-	<widget field="climberButtonPressed" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="264"/>
-	</widget>
-	<widget field="feederCloseOrFar" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="244"/>
-	</widget>
-	<widget field="isInReefZone" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="224"/>
-	</widget>
-	<widget field="scoreCoralGoalLevel" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="204"/>
-	</widget>
-	<widget field="drivebaseStates" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="184"/>
-	</widget>
-	<widget field="elevatorStates" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="164"/>
-	</widget>
-	<widget field="coralIntakeStates" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="-2" y="143"/>
-	</widget>
-	<widget field="algaeIntakeStates" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="124"/>
-	</widget>
-	<widget field="algaeGroundStates" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="80"/>
-	</widget>
-	<widget field="climberStates" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="60"/>
-	</widget>
-	<widget field="robotState" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="21" y="40"/>
-	</widget>
-	<widget field="updateIsRobotInReefZone" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="21" y="20"/>
-	</widget>
-	<widget field="AutoRoutine" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="104"/>
+		<location x="32" y="285"/>
 	</widget>
 	<widget field="Auton Selector" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="287" y="89"/>
+		<location x="5" y="24"/>
 	</widget>
 	<widget field="Time" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="0"/>
@@ -76,4 +83,20 @@
 </dashboard>
 <live-window>
 </live-window>
+	<hidden field="Swerve Drive"/>
+	<hidden field="elevator motor 2 pos"/>
+	<hidden field="photonPose CoralStation"/>
+	<hidden field="Motors"/>
+	<hidden field="JSON"/>
+	<hidden field="processor"/>
+	<hidden field="Encoders"/>
+	<hidden field="coralScoreGoalPose"/>
+	<hidden field="IMU"/>
+	<hidden field="Field"/>
+	<hidden field="photonPose Lower Left"/>
+	<hidden field="photonPose Processor"/>
+	<hidden field="photonPose Lower Right"/>
+	<hidden field="Path Planner Goal Pose"/>
+	<hidden field="goalFeederStation"/>
+	<hidden field="attackPointPose"/>
 </xml>

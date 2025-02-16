@@ -11,9 +11,9 @@ import frc.robot.logic.Enums.ElevatorStates;
 public class AutoController {
 
     Robot thisRobot;
-    AutoRoutines autoRoutine = AutoRoutines.DoNothing;
-    int autoStep = 0;
-    boolean firstAutoBeingRun = true;
+    public AutoRoutines autoRoutine = AutoRoutines.DoNothing;
+    public int autoStep = 0;
+    public boolean firstAutoBeingRun = true;
 
     public SendableChooser<String> autoSelector;
 
@@ -35,12 +35,14 @@ public class AutoController {
 
     public void autoInit() {
         autoRoutine = AutoRoutines.valueOf(autoSelector.getSelected());
-        SmartDashboard.putString("AutoRoutine", autoRoutine.toString());
         autoStep = 0;
     }
 
+    public void autoDis(){
+        autoRoutine = AutoRoutines.valueOf(autoSelector.getSelected());
+    }
+
     public void autoPeriodic() {
-        SmartDashboard.putNumber("autoStep", autoStep);
         switch (autoRoutine) {
             case DoNothing:
                 thisRobot.drivebase.swerveDrive.lockPose();

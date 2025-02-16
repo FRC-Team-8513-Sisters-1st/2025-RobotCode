@@ -53,10 +53,18 @@ public class Vision {
     PhotonPoseEstimator lowerLeftPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout,
             PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, lowerLeftReefCamTransform);
 
-    Field2d photonField2d = new Field2d();
+    Field2d photonField2d_processor = new Field2d();
+    Field2d photonField2d_coralStation = new Field2d();
+    Field2d photonField2d_lowerLeft = new Field2d();
+    Field2d photonField2d_lowerRight = new Field2d();
 
     public Vision(Robot thisRobotIn) {
         thisRobot = thisRobotIn;
+        SmartDashboard.putData("photonPose Processor", photonField2d_processor);
+        SmartDashboard.putData("photonPose CoralStation", photonField2d_coralStation);
+        SmartDashboard.putData("photonPose Lower Left", photonField2d_lowerLeft);
+        SmartDashboard.putData("photonPose Lower Right", photonField2d_lowerRight);
+
     }
 
     public void updatePhotonVision() {
@@ -65,8 +73,7 @@ public class Vision {
         if (photonUpdateProcessorCam.size() > 0) {
             Optional<EstimatedRobotPose> optPhotonPose = processorPoseEstimator.update(photonUpdateProcessorCam.get(0));
             if (optPhotonPose.isPresent()) {
-                photonField2d.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
-                SmartDashboard.putData("processorCam", photonField2d);
+                photonField2d_processor.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
                 double tag0Dist = photonUpdateProcessorCam.get(0).getBestTarget().bestCameraToTarget.getTranslation().getNorm();
                 if (useProcessorCam && tag0Dist < Settings.maxATDist) {
                     thisRobot.drivebase.swerveDrive.addVisionMeasurement(optPhotonPose.get().estimatedPose.toPose2d(),
@@ -80,8 +87,7 @@ public class Vision {
             Optional<EstimatedRobotPose> optPhotonPose = lowerRightPoseEstimator
                     .update(photonUpdateLowerRightReefCam.get(0));
             if (optPhotonPose.isPresent()) {
-                photonField2d.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
-                SmartDashboard.putData("lowerRightReefCam", photonField2d);
+                photonField2d_lowerRight.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
                 double tag0Dist = photonUpdateLowerRightReefCam.get(0).getBestTarget().bestCameraToTarget.getTranslation().getNorm();
                 if (useLowerRightReefCamm && tag0Dist < Settings.maxATDist) {
                     thisRobot.drivebase.swerveDrive.addVisionMeasurement(optPhotonPose.get().estimatedPose.toPose2d(),
@@ -96,8 +102,7 @@ public class Vision {
             Optional<EstimatedRobotPose> optPhotonPose = coralStationEstimator
                     .update(photonUpdateCoralStationCam.get(0));
             if (optPhotonPose.isPresent()) {
-                photonField2d.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
-                SmartDashboard.putData("coralStationCam", photonField2d);
+                photonField2d_coralStation.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
                 double tag0Dist = photonUpdateCoralStationCam.get(0).getBestTarget().bestCameraToTarget.getTranslation().getNorm();
                 if (useCoralStationCam && tag0Dist < Settings.maxATDist) {
                     thisRobot.drivebase.swerveDrive.addVisionMeasurement(optPhotonPose.get().estimatedPose.toPose2d(),
@@ -111,8 +116,7 @@ public class Vision {
             Optional<EstimatedRobotPose> optPhotonPose = lowerLeftPoseEstimator
                     .update(photonUpdateLowerLeftReefCam.get(0));
             if (optPhotonPose.isPresent()) {
-                photonField2d.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
-                SmartDashboard.putData("lowerLeftReefCam", photonField2d);
+                photonField2d_lowerLeft.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
                 double tag0Dist = photonUpdateLowerLeftReefCam.get(0).getBestTarget().bestCameraToTarget.getTranslation().getNorm();
                 if (useLowerLeftReefCam && tag0Dist < Settings.maxATDist) {
                     thisRobot.drivebase.swerveDrive.addVisionMeasurement(optPhotonPose.get().estimatedPose.toPose2d(),

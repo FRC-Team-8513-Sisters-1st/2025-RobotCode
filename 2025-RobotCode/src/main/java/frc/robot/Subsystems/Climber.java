@@ -11,7 +11,7 @@ import frc.robot.logic.Enums.ClimberStates;
 public class Climber {
     Robot thisRobot;
 
-    ClimberStates state = ClimberStates.stowed;
+    public ClimberStates state = ClimberStates.stowed;
 
     public SparkMax climberMotor1 = new SparkMax(Settings.climberMotor1CANID, MotorType.kBrushless);
 
