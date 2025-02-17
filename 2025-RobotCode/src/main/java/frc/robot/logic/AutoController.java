@@ -102,7 +102,7 @@ public class AutoController {
                         if (thisRobot.drivebase.attackPoint(Settings.coralRightGH, 2)) {
                             autoStep = 10;
                         }
-                        thisRobot.elevator.state = ElevatorStates.L2;
+                        thisRobot.elevator.state = ElevatorStates.L3;
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.state = CoralIntakeStates.stationary;
                         thisRobot.coral.setMotorPower();
@@ -117,6 +117,40 @@ public class AutoController {
                         break;
                 }
                 break;
+                case processor_EF2L:
+                switch (autoStep) {
+                    case 0:
+                        if (firstAutoBeingRun) {
+                            firstAutoBeingRun = false;
+                            if (Robot.isSimulation()) {
+                                if (thisRobot.onRedAlliance) {
+                                    thisRobot.drivebase.swerveDrive.resetOdometry(
+                                            thisRobot.drivebase.flipPoseToRed(Settings.autoProcessorStartPose));
+                                } else {
+                                    thisRobot.drivebase.swerveDrive.resetOdometry(Settings.autoProcessorStartPose);
+                                }
+                            }
+                            thisRobot.drivebase.resetAPPIDControllers(Settings.coralLeftEF);
+                        }
+
+                        if (thisRobot.drivebase.attackPoint(Settings.coralLeftEF, 2)) {
+                            autoStep = 10;
+                        }
+                        thisRobot.elevator.state = ElevatorStates.L2;
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.state = CoralIntakeStates.stationary;
+                        thisRobot.coral.setMotorPower();
+                        break;
+                    case 10:
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.state = CoralIntakeStates.outake;
+                        thisRobot.coral.setMotorPower();
+                        thisRobot.drivebase.swerveDrive.lockPose();
+                        break;
+                    default:
+                        break;
+                }
+                break;        
             default:
                 break;
         }

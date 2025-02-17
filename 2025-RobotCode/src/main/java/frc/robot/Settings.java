@@ -185,7 +185,7 @@ public final class Settings {
         public static double minDistanceFromReefZoneMeter = 3;
         public static double maxATDist = 3;
 
-        public static double coralScoreThold = 0.5;
+        public static double coralScoreThold = 0.02;
 
         // elevator positions
         public static double elevatorPosStowed = 0;
@@ -201,8 +201,8 @@ public final class Settings {
 
         // auto start poses
         public static Pose2d autoMidStartPose = new Pose2d(7.229, 3.899, new Rotation2d(Math.PI));
-        public static Pose2d autoRIghtStartPose = new Pose2d(7.229, 1.538, new Rotation2d(Math.PI));
-        public static Pose2d autoLeftStartPose = new Pose2d(7.229, 6.453, new Rotation2d(Math.PI));
+        public static Pose2d autoProcessorStartPose = new Pose2d(7.229, 1.538, new Rotation2d(Math.PI));
+        public static Pose2d autoFarStartPose = new Pose2d(7.229, 6.453, new Rotation2d(Math.PI));
 
         public static double getDistanceBetweenTwoPoses(Pose2d pose1, Pose2d pose2) {
                 double x = pose2.getX() - pose1.getX();

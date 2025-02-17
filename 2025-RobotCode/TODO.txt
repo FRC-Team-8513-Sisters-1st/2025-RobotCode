@@ -1,10 +1,7 @@
 - ToDo
     - due week 0
-        - add blue side of field check before flipping to red
-        - clean up dashbaords and save layouts in GH
         - manually made few autos
             - go over naming scheme to decide which ones we will make
-        - climber states
         - auto scoring when close to reef and lt or rt held
         - speed up elevator but have it stow slowly in L1
         - rename starting poses in auto to processor, mid, and far
@@ -15,6 +12,7 @@
         - auto create any auto
             - if not, then more manually made autos
         - auto elevator back down after score
+        - climber states
 
 - Real Robot:
     - Tune drivebase odometry without vision
