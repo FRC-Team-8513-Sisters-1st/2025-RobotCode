@@ -193,10 +193,14 @@ public class Drivebase {
 
     public Pose2d flipPoseToRed(Pose2d goalPose) {
         double goalXPos = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getFieldLength()
-                - goalPose.getX();;
+                - goalPose.getX();
         double goalYPos = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getFieldWidth()
                 - goalPose.getY();
         Rotation2d goalRPos = goalPose.getRotation().rotateBy(new Rotation2d(Math.PI));
+
+        if (goalXPos <= AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getFieldLength()/2) {
+            return goalPose;
+        }
 
         return new Pose2d(goalXPos, goalYPos, goalRPos);
     }
