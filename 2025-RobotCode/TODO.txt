@@ -6,6 +6,7 @@
             - go over naming scheme to decide which ones we will make
         - climber states
         - auto scoring when close to reef and lt or rt held
+        - speed up elevator but have it stow slowly in L1
 
     - due week 1
         - auto path to attack point then AP
