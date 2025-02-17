@@ -7,6 +7,7 @@
         - climber states
         - auto scoring when close to reef and lt or rt held
         - speed up elevator but have it stow slowly in L1
+        - rename starting poses in auto to processor, mid, and far
 
     - due week 1
         - auto path to attack point then AP
