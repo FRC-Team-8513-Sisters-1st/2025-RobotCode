@@ -2,15 +2,16 @@
     - due week 0
         - clean up dashbaords and save layouts in GH
         - manually made few autos
+            - go over naming scheme to decide which ones we will make
         - climber states
         - auto scoring when close to reef and lt or rt held
 
     - due week 1
-        - auto create any auto
-        - manual control and resets for elevator and other emchs
-        - auto elevator back down after score
         - auto path to attack point then AP
-        - update to ne field
+        - manual control and resets for elevator and other emchs
+        - auto create any auto
+            - if not, then more manually made autos
+        - auto elevator back down after score
 
 - Real Robot:
     - Tune drivebase odometry without vision
@@ -18,9 +19,3 @@
     - Tune path planning no feedback
     - Tune path planning position PID
     - Tune attack point PID
-    - auto scoring
-
-- Auto
-    - discuss how our auto builder will work
-
-- Teleop
