@@ -1,5 +1,6 @@
 - ToDo
     - due week 0
+        - look at individual camera poses
         - manually made few autos
             - go over naming scheme to decide which ones we will make
         - auto scoring when close to reef and lt or rt held

@@ -28,7 +28,6 @@ public class TeleopController {
 
     RobotStates robotState = RobotStates.driving;
 
-    public boolean firstAPButtonPressed = false;
     public boolean firstOTFPath = false;
     public Pose2d teleopGoalPose = new Pose2d();
 
@@ -50,7 +49,7 @@ public class TeleopController {
         thisRobot.elevator.m_controller.reset(state);
         thisRobot.coral.coralController.setSetpoint(thisRobot.coral.coralMotor1.getEncoder().getPosition());
         thisRobot.coral.state = CoralIntakeStates.stationary;
-        if(thisRobot.drivebase.swerveDrive.getPose().getX() == 0) {
+        if(thisRobot.drivebase.swerveDrive.getPose().getX() == 0 && Robot.isSimulation()) {
             thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(2,2, new Rotation2d()));
         }
     }
@@ -151,7 +150,6 @@ public class TeleopController {
 
         readCopilotJoystickAndUdateCloseOrFar();
      
-        boolean aping = false;
         boolean followPath = false;
 
         // actually drive + feeder st
@@ -179,7 +177,6 @@ public class TeleopController {
             teleopGoalPose = coralScoreGoalPose;
         } else{
             thisRobot.drivebase.drive(xV, yV, rV, true);
-            firstAPButtonPressed = true;
             firstOTFPath = true;
 
         }
@@ -189,15 +186,6 @@ public class TeleopController {
                 thisRobot.drivebase.initPathToPoint(teleopGoalPose);
                 firstOTFPath = false;
             } 
-        }
-
-
-        if (firstAPButtonPressed) {
-            thisRobot.drivebase.resetAPPIDControllers(teleopGoalPose);
-            firstAPButtonPressed = false;
-        }
-
-        if (aping) {
             thisRobot.drivebase.fromOTFSwitchToAP();
         }
 

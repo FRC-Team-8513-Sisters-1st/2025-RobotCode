@@ -258,7 +258,7 @@ public class Drivebase {
         if (Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(), otfGoalPose) < Settings.otfToAPThold) {
             thisRobot.drivebase.attackPoint(otfGoalPose, 3);
         } else {
-            followLoadedPath();
+            followOTFPath();
             resetAPPIDControllers(otfGoalPose);
         }
     }
