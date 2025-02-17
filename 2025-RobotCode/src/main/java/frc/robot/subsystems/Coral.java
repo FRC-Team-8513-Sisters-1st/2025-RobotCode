@@ -19,13 +19,11 @@ public class Coral {
     public SparkMax funnelMotor1 = new SparkMax(Settings.funnelMotor1, MotorType.kBrushless);
 
     // sensor
-    public PIDController coralController = new PIDController(.02, 0, 0);
-    public boolean sensorFirstTime = true;
-    public double holdCoralPos = 10;
+    public PIDController coralController = new PIDController(.1, 0, 0);
+    public boolean sensorFirstTime = false;
+    public double holdCoralPos = 15;
 
     public double currentBrokeTholdTime = 0;
-
-    public boolean firstTime = true;
 
     public Coral(Robot thisRobotIn) {
 
@@ -55,14 +53,14 @@ public class Coral {
                 coralMotor1.set(motorPower);
 
                 if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralIntake)) {
-                    double lessenIntake = 0.5;
+                    double lessenIntake = 1;
                     coralController.setSetpoint(coralController.getSetpoint() - lessenIntake);
                 }
 
                 break;
             case outake:
                 coralMotor1.set(0.75);
-                funnelMotor1.set(1);
+                funnelMotor1.set(0.2);
                 if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake)) {
                     state = CoralIntakeStates.stationary;
                     coralController.setSetpoint(coralMotor1.getEncoder().getPosition());
