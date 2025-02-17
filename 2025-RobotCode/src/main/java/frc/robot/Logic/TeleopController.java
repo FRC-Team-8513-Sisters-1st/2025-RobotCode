@@ -29,6 +29,7 @@ public class TeleopController {
     RobotStates robotState = RobotStates.driving;
 
     public boolean firstAPButtonPressed = false;
+    public boolean firstOTFPath = false;
     public Pose2d teleopGoalPose = new Pose2d();
 
     Pose2d coralScoreGoalPose = new Pose2d();
@@ -149,47 +150,59 @@ public class TeleopController {
         }
 
         readCopilotJoystickAndUdateCloseOrFar();
+     
         boolean aping = false;
+        boolean followPath = false;
+
         // actually drive + feeder st
         if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)
                 && feederCloseOrFar == FeederStation.Far) {
             teleopGoalPose = Settings.rightFarFeederStationAP;
-            aping = true;
+            followPath = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)
                 && feederCloseOrFar == FeederStation.Close) {
             teleopGoalPose = Settings.rightCloseFeederStationAP;
-            aping = true;
+            followPath = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt)
                 && feederCloseOrFar == FeederStation.Far) {
             teleopGoalPose = Settings.leftFarFeederStationAP;
-            aping = true;
+            followPath = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt)
                 && feederCloseOrFar == FeederStation.Close) {
             teleopGoalPose = Settings.leftCloseFeederStationAP;
-            aping = true;
+            followPath = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_processorAP)) {
             teleopGoalPose = Settings.processorAP;
-            aping = true;
-        } else if (leftTriggerValue > Settings.triggerDeadband) {
+            followPath = true;
+        } else if (rightTriggerValue > Settings.triggerDeadband || leftTriggerValue > Settings.triggerDeadband) {
+            followPath = true;
             teleopGoalPose = coralScoreGoalPose;
-            aping = true;
-        } else if (rightTriggerValue > Settings.triggerDeadband) {
-            teleopGoalPose = coralScoreGoalPose;
-            aping = true;
-        } else {
+        } else{
             thisRobot.drivebase.drive(xV, yV, rV, true);
             firstAPButtonPressed = true;
+            firstOTFPath = true;
 
         }
 
+        if(followPath){
+            if(firstOTFPath){
+                thisRobot.drivebase.initPathToPoint(teleopGoalPose);
+                firstOTFPath = false;
+            }
+            if(thisRobot.drivebase.followOTFPathWithAP()){
+                thisRobot.drivebase.swerveDrive.lockPose();
+            }
+            
+        }
+
+
         if (firstAPButtonPressed) {
-            // thisRobot.drivebase.resetAPPIDControllers(teleopGoalPose);
-            thisRobot.drivebase.initPathToPoint(teleopGoalPose);
+            thisRobot.drivebase.resetAPPIDControllers(teleopGoalPose);
             firstAPButtonPressed = false;
         }
 
         if (aping) {
-            thisRobot.drivebase.followOTFPath();
+            thisRobot.drivebase.attackPoint(teleopGoalPose, 3);
         }
 
         thisRobot.algae.setMotorPower();
