@@ -4,6 +4,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 
+import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkMax;
 
 import frc.robot.Robot;
@@ -16,12 +17,12 @@ public class Coral {
     public CoralIntakeStates state = CoralIntakeStates.stationary;
 
     public SparkMax coralMotor1 = new SparkMax(Settings.coralMotor1CANID, MotorType.kBrushless);
+    public SparkMax funnelMotor1 = new SparkMax(21, MotorType.kBrushless);
 
     // sensor
-    public PIDController coralController = new PIDController(.02, 0, 0);
-    public boolean sensorFirstTime = true;
-    public double holdCoralPos = 3
-    ;
+    public PIDController coralController = new PIDController(.1, 0, 0);
+    public boolean sensorFirstTime = false;
+    public double holdCoralPos = 15;
 
     public double currentBrokeTholdTime = 0;
 
@@ -47,6 +48,7 @@ public class Coral {
 
         switch (state) {
             case stationary:
+                funnelMotor1.set(0);
                 if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake)) {
                     state = CoralIntakeStates.outake;
                 }
@@ -60,13 +62,14 @@ public class Coral {
 
                 break;
             case outake:
+                funnelMotor1.set(0.2);
                 coralMotor1.set(0.75);
                 if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake)) {
                     state = CoralIntakeStates.stationary;
                     coralController.setSetpoint(coralMotor1.getEncoder().getPosition());
                 }
 
-                // sensor 
+                // sensor
                 if (coralMotor1.getAnalog().getVoltage() > Settings.sensorThold && sensorFirstTime) {
                     coralMotor1.getEncoder().setPosition(0);
                     coralController.setSetpoint(holdCoralPos);
