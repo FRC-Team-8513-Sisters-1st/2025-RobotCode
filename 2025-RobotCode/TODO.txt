@@ -1,5 +1,6 @@
 - ToDo
     - due week 0
+        - add blue side of field check before flipping to red
         - clean up dashbaords and save layouts in GH
         - manually made few autos
             - go over naming scheme to decide which ones we will make
