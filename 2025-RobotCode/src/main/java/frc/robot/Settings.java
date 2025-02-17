@@ -34,8 +34,8 @@ public final class Settings {
         public static int operatorJoystick2Port = 3;
 
         // pid settings
-        public static double maxVelocityAP = 6;
-        public static double maxAccelerationAP = 4;
+        public static double maxVelocityAP = 3.5;
+        public static double maxAccelerationAP = 3.5;
         private static double attackPointDriveP = 5;
         private static double attackPointDriveI = 0.01;
         private static double attackPointDriveD = 0.01;
@@ -186,6 +186,7 @@ public final class Settings {
         public static double maxATDist = 3;
 
         public static double coralScoreThold = 0.02;
+        public static double pathToAPDistThold = 0.25;
 
         // elevator positions
         public static double elevatorPosStowed = 0;

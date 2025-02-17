@@ -49,6 +49,9 @@ public class TeleopController {
         thisRobot.elevator.m_controller.reset(state);
         thisRobot.coral.coralController.setSetpoint(thisRobot.coral.coralMotor1.getEncoder().getPosition());
         thisRobot.coral.state = CoralIntakeStates.stationary;
+        if(thisRobot.drivebase.swerveDrive.getPose().getX() == 0) {
+            thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(2,2, new Rotation2d()));
+        }
     }
 
     public void driveTele() {
@@ -180,12 +183,13 @@ public class TeleopController {
         }
 
         if (firstAPButtonPressed) {
-            thisRobot.drivebase.resetAPPIDControllers(teleopGoalPose);
+            // thisRobot.drivebase.resetAPPIDControllers(teleopGoalPose);
+            thisRobot.drivebase.initPathToPoint(teleopGoalPose);
             firstAPButtonPressed = false;
         }
 
         if (aping) {
-            thisRobot.drivebase.attackPoint(teleopGoalPose, 3);
+            thisRobot.drivebase.followOTFPath();
         }
 
         thisRobot.algae.setMotorPower();

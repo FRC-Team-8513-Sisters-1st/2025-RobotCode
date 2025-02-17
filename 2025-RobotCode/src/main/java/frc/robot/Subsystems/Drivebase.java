@@ -23,7 +23,11 @@ import com.pathplanner.lib.trajectory.PathPlannerTrajectory;
 import com.pathplanner.lib.trajectory.PathPlannerTrajectoryState;
 import com.pathplanner.lib.util.FileVersionException;
 import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.path.GoalEndState;
+import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.pathfinding.LocalADStar;
+import com.pathplanner.lib.pathfinding.Pathfinder;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -43,7 +47,15 @@ public class Drivebase {
     double timePathStarted;
     PathPlannerTrajectoryState trajGoalState;
     Field2d trajGoalPosition = new Field2d();
-    PathPlannerPath pathPlannerGoalPose;
+    public PathPlannerPath pathPlannerGoalPose;
+
+    Pathfinder generatePath = new LocalADStar();
+    Rotation2d trajGoalRotation = new Rotation2d();
+    PathConstraints oTFConstraints = new PathConstraints(
+            Settings.maxVelocityAP, Settings.maxAccelerationAP,
+            Units.degreesToRadians(360), Units.degreesToRadians(360));
+    boolean otfReady = false;
+    public Pose2d otfGoalPose = new Pose2d();
 
     public Drivebase(Robot thisRobotIn) {
         double maximumSpeed = Units.feetToMeters(Settings.drivebaseMaxVelocityFPS);
@@ -68,7 +80,6 @@ public class Drivebase {
     }
 
     public void initPath(String pathNameIn) {
-        // create a path object from a path file
         pathName = pathNameIn;
 
         try {
@@ -78,12 +89,10 @@ public class Drivebase {
             e.printStackTrace();
         }
 
-        // flip if you are on red
         if (thisRobot.onRedAlliance) {
             path = path.flipPath();
         }
 
-        // turn that path into a trajectory object
         try {
             traj = path.getIdealTrajectory(RobotConfig.fromGUISettings()).get();
         } catch (IOException | ParseException e) {
@@ -91,32 +100,26 @@ public class Drivebase {
             e.printStackTrace();
         }
 
-        // if we are a simulation set the robots pose to the starting pose of the path
         if (Robot.isSimulation()) {
             swerveDrive.resetOdometry(path.getStartingHolonomicPose().get());
         }
 
-        // update a variable to keep track of the fact we loaded a new path but have not
-        // begun to follow it
         loadedPathHasStarted = false;
 
     }
 
     public boolean followLoadedPath() {
-        // returns true if path is over
         if (!loadedPathHasStarted) {
             timePathStarted = Timer.getFPGATimestamp();
             loadedPathHasStarted = true;
         }
-        // get the elapsed time, currentTime - timePathStarted
+
         elapsedTime = Timer.getFPGATimestamp() - timePathStarted;
 
-        // sample the trajctory for the current goal state
         if (elapsedTime > traj.getTotalTimeSeconds()) {
             return true;
         } else {
-            // get the goal chasisSpeeds from the trajectory and tell the robot to drive at
-            // that speed
+           
             trajGoalState = traj.sample(elapsedTime);
             swerveDrive.driveFieldOriented(trajGoalState.fieldSpeeds);
 
@@ -217,5 +220,46 @@ public class Drivebase {
         Settings.xControllerAP.reset(goalXState);
         Settings.yControllerAP.reset(goalYState);
         Settings.rControllerAP.reset(new State(0,0));
+    }
+
+    public void initPathToPoint(Pose2d goalPose) {
+        generatePath.setGoalPosition(goalPose.getTranslation());
+        generatePath.setStartPosition(swerveDrive.getPose().getTranslation());
+
+        trajGoalRotation = goalPose.getRotation();
+        otfReady = false;
+        otfGoalPose = new Pose2d(goalPose.getX(), goalPose.getY(), trajGoalRotation);
+    }
+
+    public boolean followOTFPath() {
+        if (generatePath.isNewPathAvailable()) {
+            GoalEndState ges = new GoalEndState(0, trajGoalRotation);
+            path = generatePath.getCurrentPath(oTFConstraints, ges);
+            if (path != null) {
+                try {
+                    traj = path.generateTrajectory(swerveDrive.getRobotVelocity(), swerveDrive.getPose().getRotation(),
+                            RobotConfig.fromGUISettings());
+                } catch (IOException | ParseException e) {
+                    System.out.println("Error in trajectory generation");
+                    e.printStackTrace();
+                }
+                
+                loadedPathHasStarted = false;
+                otfReady = true;
+            }
+        }
+        if (otfReady)
+            return followLoadedPath();
+        return false;
+    }
+
+    public boolean followOTFPathWithAP() {
+        if(Settings.getDistanceBetweenTwoPoses(otfGoalPose, swerveDrive.getPose()) > Settings.pathToAPDistThold){
+            followOTFPath();
+            resetAPPIDControllers(otfGoalPose);
+            return false;
+        } else {
+            return attackPoint(otfGoalPose, 3);
+        }
     }
 }

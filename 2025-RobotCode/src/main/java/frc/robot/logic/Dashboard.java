@@ -12,6 +12,8 @@ public class Dashboard {
     Field2d goalFeederStationField2d = new Field2d();
     Field2d processorField2d = new Field2d();
     public Field2d attackPoitnField2d = new Field2d();
+    public Field2d pathPlannerGoalField2d = new Field2d();
+    public Field2d otfGoalField2d = new Field2d();
 
     public Dashboard(Robot thisRobotIn) {
 
@@ -19,6 +21,8 @@ public class Dashboard {
 
         // fields only need to be put once, they auto update when you update the pose
         SmartDashboard.putData("attackPointPose", attackPoitnField2d);
+        SmartDashboard.putData("pathPlannerGoalPose", pathPlannerGoalField2d);
+        SmartDashboard.putData("otfGoalPose", otfGoalField2d);
     }
 
     public void updateDashboard() {
@@ -63,5 +67,6 @@ public class Dashboard {
         
         //drivebase
         SmartDashboard.putString("Path Name", thisRobot.drivebase.pathName);
+        pathPlannerGoalField2d.setRobotPose(thisRobot.drivebase.otfGoalPose);
     }
 }
