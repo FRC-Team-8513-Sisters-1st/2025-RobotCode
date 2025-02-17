@@ -299,12 +299,8 @@ public class TeleopController {
     public void forceCoralandAlgae() {
 
         // force elevator height
-<<<<<<< Updated upstream
-        if (thisRobot.elevator.state == ElevatorStates.L1) {
-=======
         if (thisRobot.teleopController.operatorJoystick2.getRawButton(Settings.buttonId_forceElevator)
                 && thisRobot.elevator.state == ElevatorStates.L1) {
->>>>>>> Stashed changes
             State elevatorGoalPIDState = new State(Settings.elevatorPosL1, 0);
             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
         }
