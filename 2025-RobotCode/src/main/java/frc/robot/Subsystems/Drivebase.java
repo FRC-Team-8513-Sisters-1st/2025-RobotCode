@@ -119,7 +119,7 @@ public class Drivebase {
         if (elapsedTime > traj.getTotalTimeSeconds()) {
             return true;
         } else {
-           
+
             trajGoalState = traj.sample(elapsedTime);
             swerveDrive.driveFieldOriented(trajGoalState.fieldSpeeds);
 
@@ -135,7 +135,6 @@ public class Drivebase {
             return false;
 
         }
-
     }
 
     public boolean attackPoint(Pose2d goalPose, double maxSpeed) {
@@ -145,14 +144,15 @@ public class Drivebase {
 
         State goalXState = new State(goalPose.getX(), 0);
         State goalYState = new State(goalPose.getY(), 0);
-        State goalRState = new State(0,0);
+        State goalRState = new State(0, 0);
 
         double xVelocity = Settings.xControllerAP.calculate(thisRobot.drivebase.swerveDrive.getPose().getX(),
                 goalXState);
         double yVelocity = Settings.yControllerAP.calculate(thisRobot.drivebase.swerveDrive.getPose().getY(),
                 goalYState);
         double rVelocity = Settings.rControllerAP
-                .calculate(thisRobot.drivebase.swerveDrive.getPose().getRotation().minus(goalPose.getRotation()).getDegrees(), goalRState);
+                .calculate(thisRobot.drivebase.swerveDrive.getPose().getRotation().minus(goalPose.getRotation())
+                        .getDegrees(), goalRState);
         double oldMag = Math.sqrt(xVelocity * xVelocity + yVelocity * yVelocity);
         double newMag = clamp(oldMag, maxSpeed);
 
@@ -201,14 +201,14 @@ public class Drivebase {
                 - goalPose.getY();
         Rotation2d goalRPos = goalPose.getRotation().rotateBy(new Rotation2d(Math.PI));
 
-        if (goalXPos <= AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getFieldLength()/2) {
+        if (goalXPos <= AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getFieldLength() / 2) {
             return goalPose;
         }
 
         return new Pose2d(goalXPos, goalYPos, goalRPos);
     }
 
-    public void resetAPPIDControllers( Pose2d goalPose) {
+    public void resetAPPIDControllers(Pose2d goalPose) {
         if (thisRobot.onRedAlliance) {
             goalPose = thisRobot.drivebase.flipPoseToRed(goalPose);
         }
@@ -219,7 +219,7 @@ public class Drivebase {
 
         Settings.xControllerAP.reset(goalXState);
         Settings.yControllerAP.reset(goalYState);
-        Settings.rControllerAP.reset(new State(0,0));
+        Settings.rControllerAP.reset(new State(0, 0));
     }
 
     public void initPathToPoint(Pose2d goalPose) {
@@ -243,23 +243,23 @@ public class Drivebase {
                     System.out.println("Error in trajectory generation");
                     e.printStackTrace();
                 }
-                
+
                 loadedPathHasStarted = false;
                 otfReady = true;
             }
         }
+
         if (otfReady)
             return followLoadedPath();
         return false;
     }
 
-    public boolean followOTFPathWithAP() {
-        if(Settings.getDistanceBetweenTwoPoses(otfGoalPose, swerveDrive.getPose()) > Settings.pathToAPDistThold){
-            followOTFPath();
-            resetAPPIDControllers(otfGoalPose);
-            return false;
+    public void fromOTFSwitchToAP() {
+        if (Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(), otfGoalPose) < Settings.otfToAPThold) {
+            thisRobot.drivebase.attackPoint(otfGoalPose, 3);
         } else {
-            return attackPoint(otfGoalPose, 3);
+            followLoadedPath();
+            resetAPPIDControllers(otfGoalPose);
         }
     }
 }

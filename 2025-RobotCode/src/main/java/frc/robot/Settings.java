@@ -187,6 +187,7 @@ public final class Settings {
 
         public static double coralScoreThold = 0.02;
         public static double pathToAPDistThold = 0.25;
+        public static double otfToAPThold = 0.5;
 
         // elevator positions
         public static double elevatorPosStowed = 0;

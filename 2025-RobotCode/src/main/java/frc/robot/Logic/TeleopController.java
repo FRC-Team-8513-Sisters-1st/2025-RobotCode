@@ -188,11 +188,7 @@ public class TeleopController {
             if(firstOTFPath){
                 thisRobot.drivebase.initPathToPoint(teleopGoalPose);
                 firstOTFPath = false;
-            }
-            if(thisRobot.drivebase.followOTFPathWithAP()){
-                thisRobot.drivebase.swerveDrive.lockPose();
-            }
-            
+            } 
         }
 
 
@@ -202,7 +198,7 @@ public class TeleopController {
         }
 
         if (aping) {
-            thisRobot.drivebase.attackPoint(teleopGoalPose, 3);
+            thisRobot.drivebase.fromOTFSwitchToAP();
         }
 
         thisRobot.algae.setMotorPower();
