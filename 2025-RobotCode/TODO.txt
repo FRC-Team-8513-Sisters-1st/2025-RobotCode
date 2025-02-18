@@ -1,18 +1,20 @@
 - ToDo
     - due week 0
         - look at individual camera poses
-        - manually made few autos
-            - go over naming scheme to decide which ones we will make
-        - auto scoring when close to reef and lt or rt held
-        - speed up elevator but have it stow slowly in L1
-        - rename starting poses in auto to processor, mid, and far
+        - do real robot tuning
+
+        In simulation
+            - manually made few autos
+                - go over naming scheme to decide which ones we will make
+            - auto scoring when close to reef and lt or rt held
+            
 
     - due week 1
-        - auto path to attack point then AP
         - manual control and resets for elevator and other emchs
-        - auto create any auto
-            - if not, then more manually made autos
-        - auto elevator back down after score
+        - custom any auto
+
+        - if holding RT or LT and scores for > 0.5 s
+            - auto elevator back down after score
         - climber states
 
 - Real Robot:
@@ -21,3 +23,4 @@
     - Tune path planning no feedback
     - Tune path planning position PID
     - Tune attack point PID
+    - speed up elevator
