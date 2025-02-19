@@ -10,6 +10,7 @@ import frc.robot.logic.Enums.SideOfReef;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Robot;
@@ -191,6 +192,7 @@ public class TeleopController {
         } else{
             thisRobot.drivebase.drive(xV, yV, rV, true);
             firstOTFPath = true;
+            thisRobot.drivebase.generatePath.setGoalPosition(new Translation2d(1,1));
 
         }
 

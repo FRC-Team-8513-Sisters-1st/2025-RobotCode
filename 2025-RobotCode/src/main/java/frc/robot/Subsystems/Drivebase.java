@@ -51,7 +51,7 @@ public class Drivebase {
     public Pose2d newTeleopGoalPose = new Pose2d();
     Pose2d apGoalPose = new Pose2d();
 
-    Pathfinder generatePath = new LocalADStar();
+    public Pathfinder generatePath = new LocalADStar();
     Rotation2d trajGoalRotation = new Rotation2d();
     PathConstraints oTFConstraints = new PathConstraints(
             Settings.maxVelocityAP, Settings.maxAccelerationAP,
