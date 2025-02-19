@@ -37,7 +37,7 @@ public final class Settings {
         public static double maxVelocityAP = 3.5;
         public static double maxAccelerationAP = 3.5;
         private static double attackPointDriveP = 5;
-        private static double attackPointDriveI = 0.01;
+        private static double attackPointDriveI = 0.1;
         private static double attackPointDriveD = 0.01;
         private static double attackPointDt = 0.02;
 
@@ -152,13 +152,18 @@ public final class Settings {
                         .getTagPose(13).get().toPose2d();
 
         // offsets reef
-        public static Transform2d tagToLeft = new Transform2d(0.55, -0.235, new Rotation2d(Math.PI));
-        public static Transform2d tagToRight = new Transform2d(0.55, 0.1, new Rotation2d(Math.PI));
+        public static Transform2d tagToLeft = new Transform2d(0.45, -0.235, new Rotation2d(Math.PI));
+        public static Transform2d tagToRight = new Transform2d(0.45, 0.1, new Rotation2d(Math.PI));
 
         // offset pocessor
         public static Transform2d tagToProcessor = new Transform2d(0.4,0.1, new Rotation2d(Math.PI));
-        public static Transform2d closeFeederStation = new Transform2d(0.5, -0.5, new Rotation2d());
-        public static Transform2d farFeederStation = new Transform2d(0.5, 0.5, new Rotation2d());
+        public static Transform2d closeFeederStation = new Transform2d(0.5, -0.25, new Rotation2d());
+        public static Transform2d farFeederStation = new Transform2d(0.5, -0.25, new Rotation2d());
+
+        // astar tranforms
+        public static Transform2d astarReefPoseOffset = new Transform2d(-0.4, 0, new Rotation2d());
+        public static Transform2d astarProcesserPoseOffset = new Transform2d(-1, 0, new Rotation2d());
+        public static Transform2d astarFeederStPoseOffset = new Transform2d(0.4, 0, new Rotation2d());
 
         // reef poses
         public static Pose2d coralRightAB = abATPose.plus(tagToRight);

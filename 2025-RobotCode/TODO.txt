@@ -1,15 +1,15 @@
 - ToDo
     - due week 0
-        - look at individual camera poses
-        - do real robot tuning
-
         In simulation
             - manually made few autos
-                - go over naming scheme to decide which ones we will make
-            - auto scoring when close to reef and lt or rt held
-            
+            - check elevator pos b4 auto scoring
+            - get distance to goal pose instead of mid of reef
+                - go over naming scheme to decide which ones we will make            
 
     - due week 1
+        - elevator jam detection
+        - update auto elveator detection
+        - if copilot changes goal, reinitialize path
         - manual control and resets for elevator and other emchs
         - custom any auto
 

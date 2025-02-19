@@ -48,6 +48,8 @@ public class Drivebase {
     PathPlannerTrajectoryState trajGoalState;
     Field2d trajGoalPosition = new Field2d();
     public PathPlannerPath pathPlannerGoalPose;
+    public Pose2d newTeleopGoalPose = new Pose2d();
+    Pose2d apGoalPose = new Pose2d();
 
     Pathfinder generatePath = new LocalADStar();
     Rotation2d trajGoalRotation = new Rotation2d();
@@ -233,7 +235,7 @@ public class Drivebase {
 
     public boolean followOTFPath() {
         if (generatePath.isNewPathAvailable()) {
-            GoalEndState ges = new GoalEndState(0, trajGoalRotation);
+            GoalEndState ges = new GoalEndState(1, trajGoalRotation);
             path = generatePath.getCurrentPath(oTFConstraints, ges);
             if (path != null) {
                 try {
@@ -254,12 +256,17 @@ public class Drivebase {
         return false;
     }
 
+    public void initAstarAndAP(Pose2d otfPose, Pose2d apPose){
+            apGoalPose = new Pose2d(apPose.getX(), apPose.getY(), apPose.getRotation());
+            initPathToPoint(otfPose);
+    }
+
+
     public void fromOTFSwitchToAP() {
-        if (Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(), otfGoalPose) < Settings.otfToAPThold) {
-            thisRobot.drivebase.attackPoint(otfGoalPose, 3);
+        if (followOTFPath()) {
+            thisRobot.drivebase.attackPoint(apGoalPose, 3);
         } else {
-            followOTFPath();
-            resetAPPIDControllers(otfGoalPose);
+            resetAPPIDControllers(apGoalPose);
         }
     }
 }
