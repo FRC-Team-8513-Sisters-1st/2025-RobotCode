@@ -37,7 +37,7 @@ public final class Enums {
         DoNothing, 
         mid_GH3R, 
         processor_EF2L, 
-        processor_EF4L_RCFS_EF4R_RCFS_KL4L, 
+        processor_EF2L_RCFS_AB2L_RCFS_AB2R, 
         far_KL3L_RFFS_CD3L_RFFS_AB2L,
         mid_GH4L_RCFS_EF4L_RCFS_CD4L,
         customAuto

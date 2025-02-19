@@ -183,16 +183,13 @@ public class TeleopController {
             followPath = true;
             teleopGoalPose = coralScoreGoalPose;
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarReefPoseOffset);
-            double velocityX = thisRobot.drivebase.swerveDrive.getFieldVelocity().vxMetersPerSecond;
-            double velocityY = thisRobot.drivebase.swerveDrive.getFieldVelocity().vxMetersPerSecond;
-            double velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
-            if (Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(), coralScoreGoalPose) < Settings.coralScoreThold && velocity < 0.04) {
+            if (Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(), coralScoreGoalPose) < Settings.coralScoreThold && thisRobot.drivebase.getRobotVelopcity() < 0.04) {
                 thisRobot.coral.state = CoralIntakeStates.outake;
             }
         } else{
             thisRobot.drivebase.drive(xV, yV, rV, true);
             firstOTFPath = true;
-            thisRobot.drivebase.generatePath.setGoalPosition(new Translation2d(1,1));
+            thisRobot.drivebase.generatePath.setGoalPosition(thisRobot.drivebase.swerveDrive.getPose().getTranslation());
 
         }
 

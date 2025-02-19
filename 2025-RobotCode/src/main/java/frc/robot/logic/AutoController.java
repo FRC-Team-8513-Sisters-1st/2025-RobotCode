@@ -29,12 +29,8 @@ public class AutoController {
             ElevatorStates.L1, ElevatorStates.L4 };
 
     // auto variables
-    Pose2d processor_EF4L_RCFS_EF4R_RCFS_KL4LStartPose = Settings.autoProcessorStartPose;
-    Pose2d[] processor_EF4L_RCFS_EF4R_RCFS_KL4LAutoPoses = { Settings.coralLeftEF, Settings.rightCloseFeederStationAP,
-            Settings.coralRightEF,
-            Settings.rightCloseFeederStationAP, Settings.coralLeftKL };
-    ElevatorStates[] processor_EF4L_RCFS_EF4R_RCFS_KL4LElevatorStates = { ElevatorStates.L4, ElevatorStates.L1,
-            ElevatorStates.L4,
+    ElevatorStates[] processor_EF2L_RCFS_AB2L_RCFS_AB2RElevatorStates = { ElevatorStates.L2, ElevatorStates.L1,
+            ElevatorStates.L2,
             ElevatorStates.L1, ElevatorStates.L4 };
 
     Pose2d far_KL3L_RFFS_CD3L_RFFS_AB2LStartPose = Settings.autoFarStartPose;
@@ -149,26 +145,25 @@ public class AutoController {
                         break;
                 }
                 break;
-            case processor_EF4L_RCFS_EF4R_RCFS_KL4L:
+            case processor_EF2L_RCFS_AB2L_RCFS_AB2R:
                 switch (autoStep) {
                     case 0:
                         firstAutoBeingRun = false;
                         if (Robot.isSimulation()) {
                             if (thisRobot.onRedAlliance) {
                                 thisRobot.drivebase.swerveDrive.resetOdometry(
-                                        thisRobot.drivebase.flipPoseToRed(processor_EF4L_RCFS_EF4R_RCFS_KL4LStartPose));
+                                        thisRobot.drivebase.flipPoseToRed(Settings.autoProcessorStartPose));
                             } else {
                                 thisRobot.drivebase.swerveDrive
-                                        .resetOdometry(processor_EF4L_RCFS_EF4R_RCFS_KL4LStartPose);
+                                        .resetOdometry(Settings.autoProcessorStartPose);
                             }
                         }
-                        thisRobot.drivebase.initAstarAndAP(Settings.coralLeftEF,
-                                Settings.coralLeftEF.transformBy(Settings.astarReefPoseOffset));
+                        thisRobot.drivebase.initAstarAndAP(Settings.coralLeftEF.transformBy(Settings.astarReefPoseOffset), Settings.coralLeftEF);
                         thisRobot.coral.state = CoralIntakeStates.stationary;
-                        thisRobot.elevator.state = processor_EF4L_RCFS_EF4R_RCFS_KL4LElevatorStates[0];
+                        thisRobot.elevator.state = processor_EF2L_RCFS_AB2L_RCFS_AB2RElevatorStates[0];
                         autoStep = 5;
                     case 5:
-                        if (thisRobot.drivebase.followOTFPath()) {
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 10;
                             thisRobot.coral.state = CoralIntakeStates.outake;
                             timeStepStarted = Timer.getFPGATimestamp();
@@ -182,27 +177,28 @@ public class AutoController {
                         thisRobot.drivebase.swerveDrive.lockPose();
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
                             thisRobot.coral.setMotorPower();
-                            thisRobot.drivebase.initAstarAndAP(Settings.rightCloseFeederStationAP,
-                                    Settings.rightCloseFeederStationAP.transformBy(Settings.astarFeederStPoseOffset));
+                            thisRobot.drivebase.initAstarAndAP(Settings.rightCloseFeederStationAP.transformBy(Settings.astarFeederStPoseOffset) ,Settings.rightCloseFeederStationAP);
                             autoStep = 20;
-                            thisRobot.elevator.state = processor_EF4L_RCFS_EF4R_RCFS_KL4LElevatorStates[1];
                             thisRobot.coral.state = CoralIntakeStates.outake;
+                            timeStepStarted = Timer.getFPGATimestamp();
                         }
                         break;
                     case 20:
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
-                        if (thisRobot.drivebase.followOTFPath()) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.25) {
+                            thisRobot.elevator.state = processor_EF2L_RCFS_AB2L_RCFS_AB2RElevatorStates[1];
+                        }
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 25;
-                            thisRobot.elevator.state = processor_EF4L_RCFS_EF4R_RCFS_KL4LElevatorStates[2];
-                            thisRobot.drivebase.initAstarAndAP(Settings.coralRightEF,
-                                    Settings.coralRightEF.transformBy(Settings.astarReefPoseOffset));
+                            thisRobot.elevator.state = processor_EF2L_RCFS_AB2L_RCFS_AB2RElevatorStates[2];
+                            thisRobot.drivebase.initAstarAndAP(Settings.coralLeftAB.transformBy(Settings.astarReefPoseOffset), Settings.coralLeftAB);
                         }
                         break;
                     case 25:
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
-                        if (thisRobot.drivebase.followOTFPath()) {
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 30;
                             timeStepStarted = Timer.getFPGATimestamp();
                             thisRobot.coral.state = CoralIntakeStates.outake;
@@ -213,26 +209,27 @@ public class AutoController {
                         thisRobot.drivebase.swerveDrive.lockPose();
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
                             thisRobot.coral.setMotorPower();
-                            thisRobot.drivebase.initAstarAndAP(Settings.rightFarFeederStationAP,
-                            Settings.rightFarFeederStationAP.transformBy(Settings.astarFeederStPoseOffset));
-                            autoStep = 20;
-                            thisRobot.elevator.state = processor_EF4L_RCFS_EF4R_RCFS_KL4LElevatorStates[3];
+                            thisRobot.drivebase.initAstarAndAP(Settings.rightFarFeederStationAP.transformBy(Settings.astarFeederStPoseOffset), Settings.rightFarFeederStationAP);
+                            timeStepStarted = Timer.getFPGATimestamp();
+                            autoStep = 35;
                         }
                         break;
                     case 35:
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
-                        if (thisRobot.drivebase.followOTFPath()) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.25) {
+                            thisRobot.elevator.state = processor_EF2L_RCFS_AB2L_RCFS_AB2RElevatorStates[3];
+                        }
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 40;
-                            thisRobot.elevator.state = processor_EF4L_RCFS_EF4R_RCFS_KL4LElevatorStates[4];
-                            thisRobot.drivebase.initAstarAndAP( Settings.coralLeftKL,
-                            Settings.coralLeftKL.transformBy(Settings.astarReefPoseOffset));
+                            thisRobot.elevator.state = processor_EF2L_RCFS_AB2L_RCFS_AB2RElevatorStates[4];
+                            thisRobot.drivebase.initAstarAndAP(Settings.coralRightAB.transformBy(Settings.astarReefPoseOffset), Settings.coralRightAB);
                         }
                         break;
                     case 40:
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
-                        if (thisRobot.drivebase.followOTFPath()) {
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 45;
                             thisRobot.coral.state = CoralIntakeStates.outake;
                         }
@@ -245,25 +242,26 @@ public class AutoController {
                     default:
                         break;
                 }
-            case far_KL3L_RFFS_CD3L_RFFS_AB2L:
+                break;
+                case far_KL3L_RFFS_CD3L_RFFS_AB2L:
                 switch (autoStep) {
                     case 0:
                         firstAutoBeingRun = false;
                         if (Robot.isSimulation()) {
                             if (thisRobot.onRedAlliance) {
                                 thisRobot.drivebase.swerveDrive.resetOdometry(
-                                        thisRobot.drivebase.flipPoseToRed(far_KL3L_RFFS_CD3L_RFFS_AB2LStartPose));
+                                        thisRobot.drivebase.flipPoseToRed(Settings.autoProcessorStartPose));
                             } else {
                                 thisRobot.drivebase.swerveDrive
-                                        .resetOdometry(far_KL3L_RFFS_CD3L_RFFS_AB2LStartPose);
+                                        .resetOdometry(Settings.autoProcessorStartPose);
                             }
                         }
-                        thisRobot.drivebase.initPathToPoint(far_KL3L_RFFS_CD3L_RFFS_AB2LAutoPoses[0]);
+                        thisRobot.drivebase.initAstarAndAP(Settings.coralLeftEF.transformBy(Settings.astarReefPoseOffset), Settings.coralLeftEF);
                         thisRobot.coral.state = CoralIntakeStates.stationary;
-                        thisRobot.elevator.state = far_KL3L_RFFS_CD3L_RFFS_AB2LElevatorStates[0];
+                        thisRobot.elevator.state = processor_EF2L_RCFS_AB2L_RCFS_AB2RElevatorStates[0];
                         autoStep = 5;
                     case 5:
-                        if (thisRobot.drivebase.followOTFPath()) {
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 10;
                             thisRobot.coral.state = CoralIntakeStates.outake;
                             timeStepStarted = Timer.getFPGATimestamp();
@@ -277,25 +275,28 @@ public class AutoController {
                         thisRobot.drivebase.swerveDrive.lockPose();
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
                             thisRobot.coral.setMotorPower();
-                            thisRobot.drivebase.initPathToPoint(far_KL3L_RFFS_CD3L_RFFS_AB2LAutoPoses[1]);
+                            thisRobot.drivebase.initAstarAndAP(Settings.rightCloseFeederStationAP.transformBy(Settings.astarFeederStPoseOffset) ,Settings.rightCloseFeederStationAP);
                             autoStep = 20;
-                            thisRobot.elevator.state = far_KL3L_RFFS_CD3L_RFFS_AB2LElevatorStates[1];
                             thisRobot.coral.state = CoralIntakeStates.outake;
+                            timeStepStarted = Timer.getFPGATimestamp();
                         }
                         break;
                     case 20:
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
-                        if (thisRobot.drivebase.followOTFPath()) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.25) {
+                            thisRobot.elevator.state = processor_EF2L_RCFS_AB2L_RCFS_AB2RElevatorStates[1];
+                        }
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 25;
-                            thisRobot.elevator.state = far_KL3L_RFFS_CD3L_RFFS_AB2LElevatorStates[2];
-                            thisRobot.drivebase.initPathToPoint(far_KL3L_RFFS_CD3L_RFFS_AB2LAutoPoses[2]);
+                            thisRobot.elevator.state = processor_EF2L_RCFS_AB2L_RCFS_AB2RElevatorStates[2];
+                            thisRobot.drivebase.initAstarAndAP(Settings.coralLeftAB.transformBy(Settings.astarReefPoseOffset), Settings.coralLeftAB);
                         }
                         break;
                     case 25:
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
-                        if (thisRobot.drivebase.followOTFPath()) {
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 30;
                             timeStepStarted = Timer.getFPGATimestamp();
                             thisRobot.coral.state = CoralIntakeStates.outake;
@@ -306,24 +307,27 @@ public class AutoController {
                         thisRobot.drivebase.swerveDrive.lockPose();
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
                             thisRobot.coral.setMotorPower();
-                            thisRobot.drivebase.initPathToPoint(far_KL3L_RFFS_CD3L_RFFS_AB2LAutoPoses[3]);
-                            autoStep = 20;
-                            thisRobot.elevator.state = far_KL3L_RFFS_CD3L_RFFS_AB2LElevatorStates[3];
+                            thisRobot.drivebase.initAstarAndAP(Settings.rightFarFeederStationAP.transformBy(Settings.astarFeederStPoseOffset), Settings.rightFarFeederStationAP);
+                            timeStepStarted = Timer.getFPGATimestamp();
+                            autoStep = 35;
                         }
                         break;
                     case 35:
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
-                        if (thisRobot.drivebase.followOTFPath()) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.25) {
+                            thisRobot.elevator.state = processor_EF2L_RCFS_AB2L_RCFS_AB2RElevatorStates[3];
+                        }
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 40;
-                            thisRobot.elevator.state = far_KL3L_RFFS_CD3L_RFFS_AB2LElevatorStates[4];
-                            thisRobot.drivebase.initPathToPoint(far_KL3L_RFFS_CD3L_RFFS_AB2LAutoPoses[4]);
+                            thisRobot.elevator.state = processor_EF2L_RCFS_AB2L_RCFS_AB2RElevatorStates[4];
+                            thisRobot.drivebase.initAstarAndAP(Settings.coralRightAB.transformBy(Settings.astarReefPoseOffset), Settings.coralRightAB);
                         }
                         break;
                     case 40:
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
-                        if (thisRobot.drivebase.followOTFPath()) {
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 45;
                             thisRobot.coral.state = CoralIntakeStates.outake;
                         }
@@ -336,6 +340,7 @@ public class AutoController {
                     default:
                         break;
                 }
+                break;
             case mid_GH4L_RCFS_EF4L_RCFS_CD4L:
                 switch (autoStep) {
                     case 0:

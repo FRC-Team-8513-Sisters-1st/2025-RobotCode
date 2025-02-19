@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 import edu.wpi.first.wpilibj.Filesystem;
 import frc.robot.Robot;
 import frc.robot.Settings;
+import frc.robot.logic.Dashboard;
 import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
@@ -54,7 +55,7 @@ public class Drivebase {
     public Pathfinder generatePath = new LocalADStar();
     Rotation2d trajGoalRotation = new Rotation2d();
     PathConstraints oTFConstraints = new PathConstraints(
-            Settings.maxVelocityAP, Settings.maxAccelerationAP,
+            3.4, 4,
             Units.degreesToRadians(360), Units.degreesToRadians(360));
     boolean otfReady = false;
     public Pose2d otfGoalPose = new Pose2d();
@@ -225,6 +226,9 @@ public class Drivebase {
     }
 
     public void initPathToPoint(Pose2d goalPose) {
+        Settings.xController.reset();
+        Settings.yController.reset();
+        Settings.rController.reset();
         generatePath.setGoalPosition(goalPose.getTranslation());
         generatePath.setStartPosition(swerveDrive.getPose().getTranslation());
 
@@ -256,17 +260,28 @@ public class Drivebase {
         return false;
     }
 
-    public void initAstarAndAP(Pose2d otfPose, Pose2d apPose){
-            apGoalPose = new Pose2d(apPose.getX(), apPose.getY(), apPose.getRotation());
-            initPathToPoint(otfPose);
+    public void initAstarAndAP(Pose2d otfPose, Pose2d apPose) {
+        thisRobot.dashboard.otfGoalField2d.setRobotPose(apPose);
+        apGoalPose = new Pose2d(apPose.getX(), apPose.getY(), apPose.getRotation());
+        initPathToPoint(otfPose);
     }
 
-
-    public void fromOTFSwitchToAP() {
-        if (followOTFPath()) {
-            thisRobot.drivebase.attackPoint(apGoalPose, 3);
+    public boolean fromOTFSwitchToAP() {
+        boolean pathDone = followOTFPath();
+        if (pathDone) {
+            return pathDone && thisRobot.drivebase.attackPoint(apGoalPose, 3);
         } else {
             resetAPPIDControllers(apGoalPose);
         }
+        return false;
+    }
+
+    public double getRobotVelopcity() {
+        double velocityX = thisRobot.drivebase.swerveDrive.getFieldVelocity().vxMetersPerSecond;
+        double velocityY = thisRobot.drivebase.swerveDrive.getFieldVelocity().vxMetersPerSecond;
+        double velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+
+        return velocity;
+        
     }
 }

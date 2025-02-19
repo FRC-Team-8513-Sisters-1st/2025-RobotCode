@@ -2,6 +2,8 @@ package frc.robot;
 
 import java.util.Optional;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Joystick;
@@ -56,6 +58,11 @@ public class Robot extends TimedRobot {
     climber = new Climber(this);
     algae = new Algae(this);
     dashboard = new Dashboard(this);
+
+    Pose2d tempPose = new Pose2d(15, 2, new Rotation2d());
+    System.out.println(tempPose.getX() +":"+  tempPose.getY()  +":"+ tempPose.getRotation().getDegrees());
+    Pose2d flippedTemp = drivebase.flipPoseToRed(tempPose);
+    System.out.println(flippedTemp.getX() +":"+  flippedTemp.getY()  +":"+ flippedTemp.getRotation().getDegrees());
   }
 
   @Override

@@ -21,13 +21,14 @@ public class Coral {
     // sensor
     public PIDController coralController = new PIDController(.1, 0, 0);
     public boolean sensorFirstTime = false;
-    public double holdCoralPos = 15;
+    public double holdCoralPos = 16;
 
     public double currentBrokeTholdTime = 0;
 
     public Coral(Robot thisRobotIn) {
 
         thisRobot = thisRobotIn;
+        coralMotor1.getEncoder().setPosition(0);
     }
 
     public void setState(CoralIntakeStates state) {

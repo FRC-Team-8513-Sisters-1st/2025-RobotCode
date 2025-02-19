@@ -34,8 +34,8 @@ public final class Settings {
         public static int operatorJoystick2Port = 3;
 
         // pid settings
-        public static double maxVelocityAP = 3.5;
-        public static double maxAccelerationAP = 3.5;
+        public static double maxVelocityAP = 3;
+        public static double maxAccelerationAP = 3;
         private static double attackPointDriveP = 5;
         private static double attackPointDriveI = 0.1;
         private static double attackPointDriveD = 0.01;
@@ -43,7 +43,7 @@ public final class Settings {
 
         // rotation
         public static double maxVelocityRotateAP = 360;
-        public static double maxAccelerationRotateAP = 720;
+        public static double maxAccelerationRotateAP = 360;
         private static double attackPointRotateP = 0.1;
         private static double attackPointRotateI = 0;
         private static double attackPointRotateD = 0;
@@ -70,8 +70,8 @@ public final class Settings {
                         attackPointDriveConstraints, attackPointDt);
 
         // pid path follow settings
-        public static PIDController xController = new PIDController(0.1, 0.005, 0.01);
-        public static PIDController yController = new PIDController(0.1, 0.005, 0.01);
+        public static PIDController xController = new PIDController(0.2, 0.005, 0.01);
+        public static PIDController yController = new PIDController(0.2, 0.005, 0.01);
         public static PIDController rController = new PIDController(0.1, 0, 0);
 
         public static PIDController rJoystickController = new PIDController(0.1, 0, 0);
@@ -163,7 +163,7 @@ public final class Settings {
         // astar tranforms
         public static Transform2d astarReefPoseOffset = new Transform2d(-0.4, 0, new Rotation2d());
         public static Transform2d astarProcesserPoseOffset = new Transform2d(-1, 0, new Rotation2d());
-        public static Transform2d astarFeederStPoseOffset = new Transform2d(0.4, 0, new Rotation2d());
+        public static Transform2d astarFeederStPoseOffset = new Transform2d(0.425, 0, new Rotation2d());
 
         // reef poses
         public static Pose2d coralRightAB = abATPose.plus(tagToRight);
@@ -189,7 +189,7 @@ public final class Settings {
         public static Pose2d reefZoneBlue = new Pose2d(4.495, 4.019, new Rotation2d(Radians.convertFrom(0, Degrees)));
         public static Pose2d reefZoneRed = new Pose2d(13.091, 4.043, new Rotation2d(Radians.convertFrom(0, Degrees)));
         public static double minDistanceFromReefZoneMeter = 3;
-        public static double maxATDist = 3;
+        public static double maxATDist = 2.5;
 
         public static double coralScoreThold = 0.02;
         public static double otfToAPThold = 0.25;

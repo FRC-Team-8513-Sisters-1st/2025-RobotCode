@@ -1,10 +1,9 @@
 - ToDo
     - due week 0
         In simulation
-            - manually made few autos
+            - copy auto that works to make other autos        
             - check elevator pos b4 auto scoring
             - get distance to goal pose instead of mid of reef
-                - go over naming scheme to decide which ones we will make            
 
     - due week 1
         - elevator jam detection
