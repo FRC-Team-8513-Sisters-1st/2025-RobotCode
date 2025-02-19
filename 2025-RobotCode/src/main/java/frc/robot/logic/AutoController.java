@@ -166,7 +166,6 @@ public class AutoController {
                         thisRobot.coral.state = CoralIntakeStates.stationary;
                         thisRobot.elevator.state = processor_EF4L_RCFS_EF4R_RCFS_KL4LElevatorStates[0];
                         autoStep = 5;
-                        // intentially no break
                     case 5:
                         if (thisRobot.drivebase.followOTFPath()) {
                             autoStep = 10;
@@ -177,7 +176,6 @@ public class AutoController {
                         thisRobot.coral.setMotorPower();
                         break;
                     case 10:
-                        // score l2
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
@@ -189,9 +187,7 @@ public class AutoController {
                             thisRobot.coral.state = CoralIntakeStates.outake;
                         }
                         break;
-                    // no break to run 15 and 20 back to back
                     case 20:
-                        // follow path to left far fs
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.followOTFPath()) {
@@ -201,7 +197,6 @@ public class AutoController {
                         }
                         break;
                     case 25:
-                        // follow path to coral right kl
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.followOTFPath()) {
@@ -211,7 +206,6 @@ public class AutoController {
                         }
                         break;
                     case 30:
-                        // lock pose and score
                         thisRobot.elevator.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
@@ -222,7 +216,6 @@ public class AutoController {
                         }
                         break;
                     case 35:
-                        // ap to fs
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.followOTFPath()) {
@@ -232,7 +225,6 @@ public class AutoController {
                         }
                         break;
                     case 40:
-                        // ap to IK4r
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.followOTFPath()) {
@@ -241,7 +233,6 @@ public class AutoController {
                         }
                         break;
                     case 45:
-                        // ap to IK4r
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
@@ -266,7 +257,6 @@ public class AutoController {
                         thisRobot.coral.state = CoralIntakeStates.stationary;
                         thisRobot.elevator.state = far_KL3L_RFFS_CD3L_RFFS_AB2LElevatorStates[0];
                         autoStep = 5;
-                        // intentially no break
                     case 5:
                         if (thisRobot.drivebase.followOTFPath()) {
                             autoStep = 10;
@@ -277,7 +267,6 @@ public class AutoController {
                         thisRobot.coral.setMotorPower();
                         break;
                     case 10:
-                        // score l2
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
@@ -289,9 +278,7 @@ public class AutoController {
                             thisRobot.coral.state = CoralIntakeStates.outake;
                         }
                         break;
-                    // no break to run 15 and 20 back to back
                     case 20:
-                        // follow path to left far fs
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.followOTFPath()) {
@@ -301,7 +288,6 @@ public class AutoController {
                         }
                         break;
                     case 25:
-                        // follow path to coral right kl
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.followOTFPath()) {
@@ -311,7 +297,6 @@ public class AutoController {
                         }
                         break;
                     case 30:
-                        // lock pose and score
                         thisRobot.elevator.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
@@ -322,7 +307,6 @@ public class AutoController {
                         }
                         break;
                     case 35:
-                        // ap to fs
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.followOTFPath()) {
@@ -332,7 +316,6 @@ public class AutoController {
                         }
                         break;
                     case 40:
-                        // ap to IK4r
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.followOTFPath()) {
@@ -341,7 +324,6 @@ public class AutoController {
                         }
                         break;
                     case 45:
-                        // ap to IK4r
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
@@ -366,7 +348,6 @@ public class AutoController {
                         thisRobot.coral.state = CoralIntakeStates.stationary;
                         thisRobot.elevator.state = mid_GH4L_RCFS_EF4L_RCFS_CD4LElevatorStates[0];
                         autoStep = 5;
-                        // intentially no break
                     case 5:
                         if (thisRobot.drivebase.followOTFPath()) {
                             autoStep = 10;
@@ -377,7 +358,6 @@ public class AutoController {
                         thisRobot.coral.setMotorPower();
                         break;
                     case 10:
-                        // score l2
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
@@ -389,9 +369,7 @@ public class AutoController {
                             thisRobot.coral.state = CoralIntakeStates.outake;
                         }
                         break;
-                    // no break to run 15 and 20 back to back
                     case 20:
-                        // follow path to left far fs
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.followOTFPath()) {
@@ -401,7 +379,6 @@ public class AutoController {
                         }
                         break;
                     case 25:
-                        // follow path to coral right kl
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.followOTFPath()) {
@@ -411,7 +388,6 @@ public class AutoController {
                         }
                         break;
                     case 30:
-                        // lock pose and score
                         thisRobot.elevator.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
@@ -422,7 +398,6 @@ public class AutoController {
                         }
                         break;
                     case 35:
-                        // ap to fs
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.followOTFPath()) {
@@ -432,7 +407,6 @@ public class AutoController {
                         }
                         break;
                     case 40:
-                        // ap to IK4r
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.followOTFPath()) {
@@ -441,7 +415,6 @@ public class AutoController {
                         }
                         break;
                     case 45:
-                        // ap to IK4r
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
@@ -479,7 +452,6 @@ public class AutoController {
                         break;
 
                     case 10:
-                        // score l2
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
@@ -493,9 +465,7 @@ public class AutoController {
                         }
                         break;
 
-                    // no break to run 15 and 20 back to back
                     case 20:
-                        // follow path to left far fs
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
 
@@ -506,7 +476,6 @@ public class AutoController {
                         }
                         break;
                     case 25:
-                        // follow path to coral right kl
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.followOTFPath()) {
@@ -517,7 +486,6 @@ public class AutoController {
                         break;
 
                     case 30:
-                        // lock pose and score
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
@@ -530,7 +498,6 @@ public class AutoController {
                         }
                         break;
                     case 35:
-                        // ap to fs
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.followOTFPath()) {
@@ -541,7 +508,6 @@ public class AutoController {
                         break;
 
                     case 40:
-                        // ap to IK4r
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.followOTFPath()) {
@@ -551,7 +517,6 @@ public class AutoController {
                         break;
 
                     case 45:
-                        // ap to IK4r
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
