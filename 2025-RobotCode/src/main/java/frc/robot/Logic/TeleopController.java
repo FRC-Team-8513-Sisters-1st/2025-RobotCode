@@ -30,6 +30,7 @@ public class TeleopController {
 
     public boolean firstOTFPath = false;
     public Pose2d teleopGoalPose = new Pose2d();
+    public Pose2d teleopGoalPoseAstar = new Pose2d();
 
     Pose2d coralScoreGoalPose = new Pose2d();
     RobotStates operatorGoalAlgaeReefLevel;
@@ -156,25 +157,37 @@ public class TeleopController {
         if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)
                 && feederCloseOrFar == FeederStation.Far) {
             teleopGoalPose = Settings.rightFarFeederStationAP;
+            teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarFeederStPoseOffset);
             followPath = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)
                 && feederCloseOrFar == FeederStation.Close) {
             teleopGoalPose = Settings.rightCloseFeederStationAP;
+            teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarFeederStPoseOffset);
             followPath = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt)
                 && feederCloseOrFar == FeederStation.Far) {
             teleopGoalPose = Settings.leftFarFeederStationAP;
+            teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarFeederStPoseOffset);
             followPath = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt)
                 && feederCloseOrFar == FeederStation.Close) {
             teleopGoalPose = Settings.leftCloseFeederStationAP;
+            teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarFeederStPoseOffset);
             followPath = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_processorAP)) {
             teleopGoalPose = Settings.processorAP;
+            teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarProcesserPoseOffset);
             followPath = true;
         } else if (rightTriggerValue > Settings.triggerDeadband || leftTriggerValue > Settings.triggerDeadband) {
             followPath = true;
             teleopGoalPose = coralScoreGoalPose;
+            teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarReefPoseOffset);
+            double velocityX = thisRobot.drivebase.swerveDrive.getFieldVelocity().vxMetersPerSecond;
+            double velocityY = thisRobot.drivebase.swerveDrive.getFieldVelocity().vxMetersPerSecond;
+            double velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+            if (Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(), coralScoreGoalPose) < Settings.coralScoreThold && velocity < 0.04) {
+                thisRobot.coral.state = CoralIntakeStates.outake;
+            }
         } else{
             thisRobot.drivebase.drive(xV, yV, rV, true);
             firstOTFPath = true;
@@ -183,9 +196,9 @@ public class TeleopController {
 
         if(followPath){
             if(firstOTFPath){
-                thisRobot.drivebase.initPathToPoint(teleopGoalPose);
+                thisRobot.drivebase.initAstarAndAP(teleopGoalPoseAstar, teleopGoalPose);
                 firstOTFPath = false;
-            } 
+            }
             thisRobot.drivebase.fromOTFSwitchToAP();
         }
 
