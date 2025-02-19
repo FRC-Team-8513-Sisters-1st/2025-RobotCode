@@ -34,6 +34,14 @@ public final class Enums {
         Close, Far
     }
     public enum AutoRoutines {
-        DoNothing, FillerJustPath, SamplePathThenAP, TestingPath, mid_GH3R, processor_EF2L, processor_EF4L_RCFS_EF4R_RCFS_KL4L, mid_CD3RA_processor_EF4AR_processor
+        DoNothing, 
+        FillerJustPath, 
+        SamplePathThenAP, 
+        TestingPath, 
+        mid_GH3R, 
+        processor_EF2L, 
+        processor_EF4L_RCFS_EF4R_RCFS_KL4L, 
+        far_KL3L_RFFS_CD3L_RFFS_AB2L,
+        mid_GH4L_RCFS_EF4L_RCFS_CD4L
     }
 }
