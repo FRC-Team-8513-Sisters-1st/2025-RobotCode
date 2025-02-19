@@ -21,6 +21,13 @@ public class AutoController {
 
     double timeStepStarted = 0;
 
+    // custom auto
+    Pose2d customAutoStartPose = Settings.autoProcessorStartPose;
+    Pose2d[] customAutoPoses = { Settings.coralLeftEF, Settings.rightCloseFeederStationAP, Settings.coralRightEF,
+            Settings.rightCloseFeederStationAP, Settings.coralLeftKL };
+    ElevatorStates[] customElevatorStates = { ElevatorStates.L4, ElevatorStates.L1, ElevatorStates.L4,
+            ElevatorStates.L1, ElevatorStates.L4 };
+
     // auto variables
     Pose2d processor_EF4L_RCFS_EF4R_RCFS_KL4LStartPose = Settings.autoProcessorStartPose;
     Pose2d[] processor_EF4L_RCFS_EF4R_RCFS_KL4LAutoPoses = { Settings.coralLeftEF, Settings.rightCloseFeederStationAP,
@@ -73,42 +80,6 @@ public class AutoController {
         switch (autoRoutine) {
             case DoNothing:
                 thisRobot.drivebase.swerveDrive.lockPose();
-                break;
-            case SamplePathThenAP:
-                switch (autoStep) {
-                    case 0:
-                        thisRobot.drivebase.initPath("circle while turning");
-                        autoStep = 10;
-                        break;
-                    case 10:
-                        if (thisRobot.drivebase.followLoadedPath()) {
-                            autoStep = 20;
-                        }
-                        break;
-                    case 20:
-                        thisRobot.drivebase.attackPoint(Settings.coralLeftCD, 3);
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case FillerJustPath:
-                switch (autoStep) {
-                    case 0:
-                        thisRobot.drivebase.initPath("circle while turning");
-                        autoStep = 10;
-                        break;
-                    case 10:
-                        if (thisRobot.drivebase.followLoadedPath()) {
-                            autoStep = 0;
-                        }
-                        break;
-                    case 20:
-                        thisRobot.drivebase.swerveDrive.lockPose();
-                        break;
-                    default:
-                        break;
-                }
                 break;
             case mid_GH3R:
                 switch (autoStep) {
@@ -475,6 +446,117 @@ public class AutoController {
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
                         break;
+                    default:
+                        break;
+                }
+                case customAuto:
+                switch (autoStep) {
+                    case 0:
+
+                        firstAutoBeingRun = false;
+                        if (Robot.isSimulation()) {
+                            if (thisRobot.onRedAlliance) {
+                                thisRobot.drivebase.swerveDrive.resetOdometry(
+                                        thisRobot.drivebase.flipPoseToRed(customAutoStartPose));
+                            } else {
+                                thisRobot.drivebase.swerveDrive.resetOdometry(customAutoStartPose);
+                            }
+                        }
+                        thisRobot.drivebase.initPathToPoint(customAutoPoses[0]);
+                        thisRobot.coral.state = CoralIntakeStates.stationary;
+                        thisRobot.elevator.state = customElevatorStates[0];
+                        autoStep = 5;
+                        // intentially no break
+                    case 5:
+                        if (thisRobot.drivebase.followOTFPath()) {
+                            autoStep = 10;
+                            thisRobot.coral.state = CoralIntakeStates.outake;
+                            timeStepStarted = Timer.getFPGATimestamp();
+                        }
+
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        break;
+
+                    case 10:
+                        // score l2
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        thisRobot.drivebase.swerveDrive.lockPose();
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
+                            thisRobot.coral.setMotorPower();
+                            thisRobot.drivebase.initPathToPoint(customAutoPoses[1]);
+                            autoStep = 20;
+                            thisRobot.elevator.state = customElevatorStates[1];
+                            thisRobot.coral.state = CoralIntakeStates.outake;
+
+                        }
+                        break;
+
+                    // no break to run 15 and 20 back to back
+                    case 20:
+                        // follow path to left far fs
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+
+                        if (thisRobot.drivebase.followOTFPath()) {
+                            autoStep = 25;
+                            thisRobot.elevator.state = customElevatorStates[2];
+                            thisRobot.drivebase.initPathToPoint(customAutoPoses[2]);
+                        }
+                        break;
+                    case 25:
+                        // follow path to coral right kl
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        if (thisRobot.drivebase.followOTFPath()) {
+                            autoStep = 30;
+                            timeStepStarted = Timer.getFPGATimestamp();
+                            thisRobot.coral.state = CoralIntakeStates.outake;
+                        }
+                        break;
+
+                    case 30:
+                        // lock pose and score
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        thisRobot.drivebase.swerveDrive.lockPose();
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
+                            autoStep = 35;
+                            thisRobot.elevator.state = customElevatorStates[3];
+                            thisRobot.elevator.setMotorPower();
+                            thisRobot.coral.state = CoralIntakeStates.outake;
+                            thisRobot.drivebase.initPathToPoint(customAutoPoses[3]);
+                        }
+                        break;
+                    case 35:
+                        // ap to fs
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        if (thisRobot.drivebase.followOTFPath()) {
+                            autoStep = 40;
+                            thisRobot.elevator.state = customElevatorStates[4];
+                            thisRobot.drivebase.initPathToPoint(customAutoPoses[4]);
+                        }
+                        break;
+
+                    case 40:
+                        // ap to IK4r
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        if (thisRobot.drivebase.followOTFPath()) {
+                            autoStep = 45;
+                            thisRobot.coral.state = CoralIntakeStates.outake;
+                        }
+                        break;
+
+                    case 45:
+                        // ap to IK4r
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        thisRobot.drivebase.swerveDrive.lockPose();
+                        break;
+
                     default:
                         break;
                 }
