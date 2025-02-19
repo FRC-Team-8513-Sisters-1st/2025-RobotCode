@@ -170,7 +170,8 @@ public final class Settings {
         public static Pose2d coralLeftAB = abATPose.plus(tagToLeft);
         public static Pose2d coralRightCD = cdATPose.plus(tagToRight);
         public static Pose2d coralLeftCD = cdATPose.plus(tagToLeft);
-        public static Pose2d coralRightEF = efATPose.plus(tagToRight);
+        public static Pose2d 
+        coralRightEF = efATPose.plus(tagToRight);
         public static Pose2d coralLeftEF = efATPose.plus(tagToLeft);
         public static Pose2d coralRightGH = ghATPose.plus(tagToRight);
         public static Pose2d coralLeftGH = ghATPose.plus(tagToLeft);
