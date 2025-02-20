@@ -70,8 +70,8 @@ public final class Settings {
                         attackPointDriveConstraints, attackPointDt);
 
         // pid path follow settings
-        public static PIDController xController = new PIDController(0.2, 0.005, 0.01);
-        public static PIDController yController = new PIDController(0.2, 0.005, 0.01);
+        public static PIDController xController = new PIDController(3.5, 0.05, 0.01);
+        public static PIDController yController = new PIDController(3.5, 0.05, 0.01);
         public static PIDController rController = new PIDController(0.1, 0, 0);
 
         public static PIDController rJoystickController = new PIDController(0.1, 0, 0);

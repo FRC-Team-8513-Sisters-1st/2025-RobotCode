@@ -189,7 +189,7 @@ public class TeleopController {
         } else{
             thisRobot.drivebase.drive(xV, yV, rV, true);
             firstOTFPath = true;
-            thisRobot.drivebase.generatePath.setGoalPosition(thisRobot.drivebase.swerveDrive.getPose().getTranslation());
+            thisRobot.drivebase.generatePath.setStartPosition(thisRobot.drivebase.swerveDrive.getPose().getTranslation());
 
         }
 

@@ -59,6 +59,8 @@ public class Drivebase {
             Units.degreesToRadians(360), Units.degreesToRadians(360));
     boolean otfReady = false;
     public Pose2d otfGoalPose = new Pose2d();
+    int nullPathCount = 0;
+    boolean otfPathDone = true;
 
     public Drivebase(Robot thisRobotIn) {
         double maximumSpeed = Units.feetToMeters(Settings.drivebaseMaxVelocityFPS);
@@ -234,12 +236,13 @@ public class Drivebase {
 
         trajGoalRotation = goalPose.getRotation();
         otfReady = false;
+        otfPathDone = false;
         otfGoalPose = new Pose2d(goalPose.getX(), goalPose.getY(), trajGoalRotation);
     }
 
     public boolean followOTFPath() {
         if (generatePath.isNewPathAvailable()) {
-            GoalEndState ges = new GoalEndState(1, trajGoalRotation);
+            GoalEndState ges = new GoalEndState(0, trajGoalRotation);
             path = generatePath.getCurrentPath(oTFConstraints, ges);
             if (path != null) {
                 try {
@@ -252,11 +255,25 @@ public class Drivebase {
 
                 loadedPathHasStarted = false;
                 otfReady = true;
+                nullPathCount = 0;
+            } else {
+                nullPathCount++;
             }
         }
+        if(nullPathCount > 3){
+            otfPathDone = true;
+            return true;
+        }
 
-        if (otfReady)
-            return followLoadedPath();
+        if (otfReady){
+            boolean pathState = followLoadedPath();
+            if(pathState){
+                otfPathDone = true;
+                return true;
+            }
+        } else{
+            nullPathCount++;
+        }
         return false;
     }
 
