@@ -36,13 +36,7 @@ public class Coral {
     }
 
     public void setMotorPower() {
-        if (thisRobot.teleopController.operatorJoystick1.getRawButton(Settings.buttonId_CoralIntake)) {
-            coralMotor1.set(-0.25);
-        } else if (thisRobot.teleopController.operatorJoystick1.getRawButton(Settings.buttonId_CoralOutake)) {
-            coralMotor1.set(0.75);
-        } else {
-            coralMotor1.set(0);
-        }
+
 
         switch (state) {
             case stationary:

@@ -39,7 +39,7 @@ public final class Enums {
         processor_EF2L, 
         processor_EF2L_RCFS_AB2L_RCFS_AB2R, 
         far_KL3L_RFFS_CD3L_RFFS_CD4R,
-        mid_GH4L_RCFS_EF4L_RCFS_CD4L,
+        mid_EF4R_RCFS_CD4R_RCFS_CD4L,
         customAuto
     }
 }

@@ -152,12 +152,12 @@ public final class Settings {
                         .getTagPose(13).get().toPose2d();
 
         // offsets reef
-        public static Transform2d tagToLeft = new Transform2d(0.45, -0.235, new Rotation2d(Math.PI));
-        public static Transform2d tagToRight = new Transform2d(0.45, 0.1, new Rotation2d(Math.PI));
+        public static Transform2d tagToLeft = new Transform2d(0.475, -0.227, new Rotation2d(Math.PI));
+        public static Transform2d tagToRight = new Transform2d(0.475, 0.1, new Rotation2d(Math.PI));
 
         // offset pocessor
         public static Transform2d tagToProcessor = new Transform2d(0.4,0.1, new Rotation2d(Math.PI));
-        public static Transform2d closeFeederStation = new Transform2d(0.5, -0.4, new Rotation2d());
+        public static Transform2d closeFeederStation = new Transform2d(0.5, -0.1, new Rotation2d());
         public static Transform2d farFeederStation = new Transform2d(0.5, 0.4, new Rotation2d());
 
         // astar tranforms
@@ -198,7 +198,7 @@ public final class Settings {
         public static double elevatorPosStowed = 0;
         public static double elevatorPosL1 = 0;
         public static double elevatorPosL2 = 7.00;
-        public static double elevatorPosL3 = 20.84;
+        public static double elevatorPosL3 = 20;
         public static double elevatorPosL4 = 41.4;
         public static double elevatorPosA2 = 23.43;
         public static double elevatorPosA3 = 34.57;

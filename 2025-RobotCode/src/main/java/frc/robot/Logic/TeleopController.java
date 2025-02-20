@@ -183,7 +183,8 @@ public class TeleopController {
             teleopGoalPose = coralScoreGoalPose;
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarReefPoseOffset);
             if (Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(), coralScoreGoalPose) < Settings.coralScoreThold && thisRobot.drivebase.getRobotVelopcity() < 0.04 && thisRobot.elevator.elevatorAtSetpoint()) {
-                thisRobot.coral.state = CoralIntakeStates.outake;
+               // disabled auto score
+            thisRobot.coral.state = CoralIntakeStates.outake;
             }
         } else{
             thisRobot.drivebase.drive(xV, yV, rV, true);

@@ -75,7 +75,7 @@ public class Vision {
             if (optPhotonPose.isPresent()) {
                 photonField2d_processor.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
                 double tag0Dist = photonUpdateProcessorCam.get(0).getBestTarget().bestCameraToTarget.getTranslation().getNorm();
-                if (useProcessorCam && tag0Dist < Settings.maxATDist) {
+                if (useProcessorCam && tag0Dist < 1.6) {
                     thisRobot.drivebase.swerveDrive.addVisionMeasurement(optPhotonPose.get().estimatedPose.toPose2d(),
                             optPhotonPose.get().timestampSeconds);
                 }
