@@ -90,4 +90,8 @@ public class Elevator {
             elevatorMotor2.set(-power);
         }
     }
+
+    public boolean getElevatorError(){
+        return Math.abs(elevatorMotor1.getEncoder().getPosition() - m_controller.getGoal().position) < 0.2;
+    }
 }

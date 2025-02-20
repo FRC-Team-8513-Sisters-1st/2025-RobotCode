@@ -3,17 +3,16 @@
         In simulation
             - copy auto that works to make other autos        
             - check elevator pos b4 auto scoring
-            - get distance to goal pose instead of mid of reef
 
     - due week 1
+        - make generic "ready to auto score" function
+        - improve elevator auto up
         - elevator jam detection
-        - update auto elveator detection
         - if copilot changes goal, reinitialize path
         - manual control and resets for elevator and other emchs
         - custom any auto
 
-        - if holding RT or LT and scores for > 0.5 s
-            - auto elevator back down after score
+        - add backup and elevator auto down after auto score with 
         - climber states
 
 - Real Robot:
