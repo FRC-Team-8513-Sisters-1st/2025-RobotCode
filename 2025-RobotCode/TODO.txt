@@ -5,6 +5,7 @@
             - check elevator pos b4 auto scoring
 
     - due week 1
+        - feeder station poses rename from close far to left right
         - make generic "ready to auto score" function
         - improve elevator auto up
         - elevator jam detection
