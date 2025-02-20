@@ -180,7 +180,7 @@ public final class Settings {
         public static Pose2d coralRightKL = klATPose.plus(tagToRight);
         public static Pose2d coralLeftKL = klATPose.plus(tagToLeft);
 
-        public static Pose2d processorAP = processorATPose.plus(tagToRight);
+        public static Pose2d processorAP = processorATPose.plus(tagToProcessor);
         public static Pose2d rightCloseFeederStationAP = rightFeederStationPose.plus(closeFeederStation);
         public static Pose2d rightFarFeederStationAP = rightFeederStationPose.plus(farFeederStation);
         public static Pose2d leftFarFeederStationAP = leftFeederStationPose.plus(farFeederStation);
