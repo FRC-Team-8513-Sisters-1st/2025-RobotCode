@@ -157,8 +157,8 @@ public final class Settings {
 
         // offset pocessor
         public static Transform2d tagToProcessor = new Transform2d(0.4,0.1, new Rotation2d(Math.PI));
-        public static Transform2d closeFeederStation = new Transform2d(0.5, -0.25, new Rotation2d());
-        public static Transform2d farFeederStation = new Transform2d(0.5, -0.25, new Rotation2d());
+        public static Transform2d closeFeederStation = new Transform2d(0.5, -0.4, new Rotation2d());
+        public static Transform2d farFeederStation = new Transform2d(0.5, 0.4, new Rotation2d());
 
         // astar tranforms
         public static Transform2d astarReefPoseOffset = new Transform2d(-0.4, 0, new Rotation2d());
