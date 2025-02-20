@@ -7,7 +7,6 @@ import org.json.simple.parser.ParseException;
 import edu.wpi.first.wpilibj.Filesystem;
 import frc.robot.Robot;
 import frc.robot.Settings;
-import frc.robot.logic.Dashboard;
 import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;

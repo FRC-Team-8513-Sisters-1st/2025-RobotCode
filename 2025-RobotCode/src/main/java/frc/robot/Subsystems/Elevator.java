@@ -91,7 +91,7 @@ public class Elevator {
         }
     }
 
-    public boolean getElevatorError(){
+    public boolean elevatorAtSetpoint(){
         return Math.abs(elevatorMotor1.getEncoder().getPosition() - m_controller.getGoal().position) < 0.2;
     }
 }
