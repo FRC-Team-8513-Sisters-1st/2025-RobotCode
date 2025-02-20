@@ -1,22 +1,21 @@
 - ToDo
     - due week 0
         In simulation
-            - copy auto that works to make other autos        
-            - check elevator pos b4 auto scoring
+            - copy auto that works to make other autos
 
     - due week 1
         - feeder station poses rename from close far to left right
         - make generic "ready to auto score" function
         - improve elevator auto up
-        - elevator jam detection
         - if copilot changes goal, reinitialize path
-        - manual control and resets for elevator and other emchs
+        
+        - manual control and resets for elevator and other mechs
         - custom any auto
-
         - add backup and elevator auto down after auto score with 
         - climber states
+        - elevator jam detection
 
-- Real Robot:
+- Tuning:
     - Tune drivebase odometry without vision
     - Tune DB velocity PID
     - Tune path planning no feedback
