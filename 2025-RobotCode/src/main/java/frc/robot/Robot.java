@@ -59,10 +59,6 @@ public class Robot extends TimedRobot {
     algae = new Algae(this);
     dashboard = new Dashboard(this);
 
-    Pose2d tempPose = new Pose2d(15, 2, new Rotation2d());
-    System.out.println(tempPose.getX() +":"+  tempPose.getY()  +":"+ tempPose.getRotation().getDegrees());
-    Pose2d flippedTemp = drivebase.flipPoseToRed(tempPose);
-    System.out.println(flippedTemp.getX() +":"+  flippedTemp.getY()  +":"+ flippedTemp.getRotation().getDegrees());
   }
 
   @Override

@@ -45,12 +45,20 @@ public class AutoController {
     }
 
     public void autoInit() {
-        autoRoutine = AutoRoutines.valueOf(autoSelector.getSelected());
+        updateAutoRoutine();
         autoStep = 0;
     }
 
     public void autoDis() {
-        autoRoutine = AutoRoutines.valueOf(autoSelector.getSelected());
+        updateAutoRoutine();
+    }
+
+    public void updateAutoRoutine(){
+        try {
+            autoRoutine = AutoRoutines.valueOf(autoSelector.getSelected());
+        } catch (Exception e) {
+            autoRoutine = AutoRoutines.DoNothing;
+        }
     }
 
     public void autoPeriodic() {
@@ -320,7 +328,7 @@ public class AutoController {
                             thisRobot.elevator.state = ElevatorStates.L4;
                             thisRobot.drivebase.initAstarAndAP(
                                     Settings.coralRightCD.transformBy(Settings.astarReefPoseOffset),
-                                    Settings.coralRightAB);
+                                    Settings.coralRightCD);
                         }
                         break;
                     case 40:
