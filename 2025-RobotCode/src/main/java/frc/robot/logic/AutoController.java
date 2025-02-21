@@ -23,8 +23,8 @@ public class AutoController {
 
     // custom auto
     Pose2d customAutoStartPose = Settings.autoProcessorStartPose;
-    Pose2d[] customAutoPoses = { Settings.coralLeftEF, Settings.rightCloseFeederStationAP, Settings.coralRightEF,
-            Settings.rightCloseFeederStationAP, Settings.coralLeftKL };
+    Pose2d[] customAutoPoses = { Settings.coralLeftEF, Settings.rightCloseFeederStationAP, Settings.coralRightCD,
+            Settings.rightCloseFeederStationAP, Settings.coralLeftAB };
     ElevatorStates[] customElevatorStates = { ElevatorStates.L4, ElevatorStates.L1, ElevatorStates.L4,
             ElevatorStates.L1, ElevatorStates.L4 };
 
@@ -468,13 +468,13 @@ public class AutoController {
                                 thisRobot.drivebase.swerveDrive.resetOdometry(customAutoStartPose);
                             }
                         }
-                        thisRobot.drivebase.initPathToPoint(customAutoPoses[0]);
+                        thisRobot.drivebase.initAstarAndAP(customAutoPoses[0].transformBy(Settings.astarReefPoseOffset), customAutoPoses[0]);
                         thisRobot.coral.state = CoralIntakeStates.stationary;
                         thisRobot.elevator.state = customElevatorStates[0];
                         autoStep = 5;
                         // intentially no break
                     case 5:
-                        if (thisRobot.drivebase.followOTFPath()) {
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 10;
                             thisRobot.coral.state = CoralIntakeStates.outake;
                             timeStepStarted = Timer.getFPGATimestamp();
@@ -488,9 +488,9 @@ public class AutoController {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
                             thisRobot.coral.setMotorPower();
-                            thisRobot.drivebase.initPathToPoint(customAutoPoses[1]);
+                            thisRobot.drivebase.initAstarAndAP(customAutoPoses[1].transformBy(Settings.astarFeederStPoseOffset), customAutoPoses[1]);
                             autoStep = 20;
                             thisRobot.elevator.state = customElevatorStates[1];
                             thisRobot.coral.state = CoralIntakeStates.outake;
@@ -502,16 +502,16 @@ public class AutoController {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
 
-                        if (thisRobot.drivebase.followOTFPath()) {
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 25;
                             thisRobot.elevator.state = customElevatorStates[2];
-                            thisRobot.drivebase.initPathToPoint(customAutoPoses[2]);
+                            thisRobot.drivebase.initAstarAndAP(customAutoPoses[2].transformBy(Settings.astarReefPoseOffset), customAutoPoses[2]);
                         }
                         break;
                     case 25:
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
-                        if (thisRobot.drivebase.followOTFPath()) {
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 30;
                             timeStepStarted = Timer.getFPGATimestamp();
                             thisRobot.coral.state = CoralIntakeStates.outake;
@@ -522,28 +522,30 @@ public class AutoController {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
                             autoStep = 35;
                             thisRobot.elevator.state = customElevatorStates[3];
                             thisRobot.elevator.setMotorPower();
                             thisRobot.coral.state = CoralIntakeStates.outake;
-                            thisRobot.drivebase.initPathToPoint(customAutoPoses[3]);
+                            thisRobot.drivebase.initAstarAndAP(customAutoPoses[3].transformBy(Settings.astarFeederStPoseOffset), customAutoPoses[3]);
+                        
                         }
                         break;
                     case 35:
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
-                        if (thisRobot.drivebase.followOTFPath()) {
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 40;
                             thisRobot.elevator.state = customElevatorStates[4];
-                            thisRobot.drivebase.initPathToPoint(customAutoPoses[4]);
+                            thisRobot.drivebase.initAstarAndAP(customAutoPoses[4].transformBy(Settings.astarReefPoseOffset), customAutoPoses[4]);
+                        
                         }
                         break;
 
                     case 40:
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
-                        if (thisRobot.drivebase.followOTFPath()) {
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 45;
                             thisRobot.coral.state = CoralIntakeStates.outake;
                         }
