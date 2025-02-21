@@ -1,11 +1,11 @@
-package frc.robot.logic;
+package frc.robot.Logic;
 
 import frc.robot.Settings;
-import frc.robot.logic.Enums.CoralIntakeStates;
-import frc.robot.logic.Enums.ElevatorStates;
-import frc.robot.logic.Enums.FeederStation;
-import frc.robot.logic.Enums.RobotStates;
-import frc.robot.logic.Enums.SideOfReef;
+import frc.robot.Logic.Enums.CoralIntakeStates;
+import frc.robot.Logic.Enums.ElevatorStates;
+import frc.robot.Logic.Enums.FeederStation;
+import frc.robot.Logic.Enums.RobotStates;
+import frc.robot.Logic.Enums.SideOfReef;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;

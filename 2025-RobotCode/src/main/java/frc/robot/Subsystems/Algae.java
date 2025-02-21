@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.Subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
@@ -7,7 +7,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
 import frc.robot.Settings;
-import frc.robot.logic.Enums.AlgaeIntakeStates;
+import frc.robot.Logic.Enums.AlgaeIntakeStates;
 
 public class Algae {
     Robot thisRobot;

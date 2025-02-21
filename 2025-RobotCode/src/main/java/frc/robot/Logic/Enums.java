@@ -1,4 +1,4 @@
- package frc.robot.logic;
+ package frc.robot.Logic;
 
 public final class Enums {
     public enum ClimberStates {

@@ -5,16 +5,16 @@ import java.util.Optional;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
-import frc.robot.logic.AutoController;
-import frc.robot.logic.Dashboard;
-import frc.robot.logic.TeleopController;
-import frc.robot.logic.Vision;
-import frc.robot.subsystems.Algae;
-import frc.robot.subsystems.AlgaeGround;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.Coral;
-import frc.robot.subsystems.Drivebase;
-import frc.robot.subsystems.Elevator;
+import frc.robot.Logic.AutoController;
+import frc.robot.Logic.Dashboard;
+import frc.robot.Logic.TeleopController;
+import frc.robot.Logic.Vision;
+import frc.robot.Subsystems.Algae;
+import frc.robot.Subsystems.AlgaeGround;
+import frc.robot.Subsystems.Climber;
+import frc.robot.Subsystems.Coral;
+import frc.robot.Subsystems.Drivebase;
+import frc.robot.Subsystems.Elevator;
 
 public class Robot extends TimedRobot {
 

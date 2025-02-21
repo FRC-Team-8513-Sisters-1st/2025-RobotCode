@@ -1,4 +1,4 @@
-package frc.robot.logic;
+package frc.robot.Logic;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.Timer;
@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Settings;
-import frc.robot.logic.Enums.AutoRoutines;
-import frc.robot.logic.Enums.CoralIntakeStates;
-import frc.robot.logic.Enums.ElevatorStates;
+import frc.robot.Logic.Enums.AutoRoutines;
+import frc.robot.Logic.Enums.CoralIntakeStates;
+import frc.robot.Logic.Enums.ElevatorStates;
 
 public class AutoController {
 

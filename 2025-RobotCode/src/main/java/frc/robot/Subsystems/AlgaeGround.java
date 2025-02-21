@@ -1,11 +1,11 @@
-package frc.robot.subsystems;
+package frc.robot.Subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 
 import frc.robot.Robot;
 import frc.robot.Settings;
-import frc.robot.logic.Enums.AlgaeGroundStates;
+import frc.robot.Logic.Enums.AlgaeGroundStates;
 
 public class AlgaeGround {
     Robot thisRobot;
