@@ -277,6 +277,9 @@ public class Drivebase {
     }
 
     public void initAstarAndAP(Pose2d otfPose, Pose2d apPose) {
+        if (thisRobot.onRedAlliance) {
+            otfPose = flipPoseToRed(otfPose);
+        }
         thisRobot.dashboard.otfGoalField2d.setRobotPose(apPose);
         apGoalPose = new Pose2d(apPose.getX(), apPose.getY(), apPose.getRotation());
         initPathToPoint(otfPose);
