@@ -60,6 +60,7 @@ public class TeleopController {
         updatChosenSideOfReefFromCopilot();
         elevatorSetLeve();
         forceCoralandAlgae();
+        readCopilotJoystickAndUdateCloseOrFar();
 
         if (driverXboxController.getRawButton(Settings.buttonId_resetOdo)) {
 
@@ -93,6 +94,7 @@ public class TeleopController {
 
         }
         rSpeedJoystick = rfilter.calculate(rSpeedJoystick);
+
         // if we are on red, flip the joysticks
         if (thisRobot.onRedAlliance) {
             xSpeedJoystick = -xSpeedJoystick;
@@ -135,12 +137,10 @@ public class TeleopController {
         if (rightTriggerValue > Settings.triggerDeadband) {
             setCoralScoreGoalPoseRight();
         }
-
-        readCopilotJoystickAndUdateCloseOrFar();
      
         boolean followPath = false;
 
-        // actually drive + feeder st
+        // determine if we should go to point or manulaly drive
         if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)
                 && feederCloseOrFar == FeederStation.Far) {
             teleopGoalPose = Settings.rightFarFeederStationAP;
