@@ -1,19 +1,28 @@
 - ToDo
-    - due week 0
-        In simulation
-            - copy auto that works to make other autos
+    - at MO
+        - calibrate navX
+        - calibrate cameras to field (exposure/brightness)
+        - if time
+            - recalibrate cameras 
+            - lower elevator current limit
+        - calibrate poses on reef
+        - calibrate poses on feeder station
+        - calibrate pose on processor
+
 
     - due week 1
-        - feeder station poses rename from close far to left right
         - make generic "ready to auto score" function
         - improve elevator auto up
         - if copilot changes goal, reinitialize path
-        
-        - manual control and resets for elevator and other mechs
         - custom any auto
+        
+        - on path on fly, if start pose in reef zone, attak point backwards, then path to goal
+        - manual control and resets for elevator (joystick 4)
+        - manual control for algae and coral mech (joystick 4 or more buttons)
+
         - add backup and elevator auto down after auto score with 
         - climber states
-        - elevator jam detection
+        - elevator jam detection 
 
 - Tuning:
     - Tune drivebase odometry without vision
