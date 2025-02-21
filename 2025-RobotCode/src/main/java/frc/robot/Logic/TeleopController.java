@@ -50,8 +50,8 @@ public class TeleopController {
         thisRobot.elevator.m_controller.reset(state);
         thisRobot.coral.coralController.setSetpoint(thisRobot.coral.coralMotor1.getEncoder().getPosition());
         thisRobot.coral.state = CoralIntakeStates.stationary;
-        if(thisRobot.drivebase.swerveDrive.getPose().getX() == 0 && Robot.isSimulation()) {
-            thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(2,2, new Rotation2d()));
+        if (thisRobot.drivebase.swerveDrive.getPose().getX() == 0 && Robot.isSimulation()) {
+            thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(2, 2, new Rotation2d()));
         }
     }
 
@@ -66,13 +66,14 @@ public class TeleopController {
 
             thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(thisRobot.drivebase.swerveDrive.getPose().getX(),
                     thisRobot.drivebase.swerveDrive.getPose().getY(), new Rotation2d()));
-            if(Robot.isSimulation()){
-                if(thisRobot.onRedAlliance){
-                    thisRobot.drivebase.swerveDrive.resetOdometry(thisRobot.drivebase.flipPoseToRed(new Pose2d(2, 2, new Rotation2d())));
+            if (Robot.isSimulation()) {
+                if (thisRobot.onRedAlliance) {
+                    thisRobot.drivebase.swerveDrive
+                            .resetOdometry(thisRobot.drivebase.flipPoseToRed(new Pose2d(2, 2, new Rotation2d())));
                 } else {
                     thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(2, 2, new Rotation2d()));
                 }
-            }        
+            }
             goalHeading = new Rotation2d();
         }
 
@@ -137,7 +138,7 @@ public class TeleopController {
         if (rightTriggerValue > Settings.triggerDeadband) {
             setCoralScoreGoalPoseRight();
         }
-     
+
         boolean followPath = false;
 
         // determine if we should go to point or manulaly drive
@@ -169,19 +170,22 @@ public class TeleopController {
             followPath = true;
             teleopGoalPose = coralScoreGoalPose;
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarReefPoseOffset);
-            if (Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(), coralScoreGoalPose) < Settings.coralScoreThold && thisRobot.drivebase.getRobotVelopcity() < 0.04 && thisRobot.elevator.elevatorAtSetpoint()) {
-               // disabled auto score
-            thisRobot.coral.state = CoralIntakeStates.outake;
+            if (Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(),
+                    coralScoreGoalPose) < Settings.coralScoreThold && thisRobot.drivebase.getRobotVelopcity() < 0.04
+                    && thisRobot.elevator.elevatorAtSetpoint()) {
+                // disabled auto score
+                thisRobot.coral.state = CoralIntakeStates.outake;
             }
-        } else{
+        } else {
             thisRobot.drivebase.drive(xV, yV, rV, true);
             firstOTFPath = true;
-            thisRobot.drivebase.generatePath.setStartPosition(thisRobot.drivebase.swerveDrive.getPose().getTranslation());
+            thisRobot.drivebase.generatePath
+                    .setStartPosition(thisRobot.drivebase.swerveDrive.getPose().getTranslation());
 
         }
 
-        if(followPath){
-            if(firstOTFPath){
+        if (followPath) {
+            if (firstOTFPath) {
                 thisRobot.drivebase.initAstarAndAP(teleopGoalPoseAstar, teleopGoalPose);
                 firstOTFPath = false;
             }
