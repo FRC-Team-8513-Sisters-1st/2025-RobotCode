@@ -1,4 +1,4 @@
-package frc.robot.logic;
+package frc.robot.Logic;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;

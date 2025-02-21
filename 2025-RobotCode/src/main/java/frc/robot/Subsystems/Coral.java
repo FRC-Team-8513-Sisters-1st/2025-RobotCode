@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.Subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
@@ -8,7 +8,7 @@ import com.revrobotics.spark.SparkMax;
 
 import frc.robot.Robot;
 import frc.robot.Settings;
-import frc.robot.logic.Enums.CoralIntakeStates;
+import frc.robot.Logic.Enums.CoralIntakeStates;
 
 public class Coral {
     Robot thisRobot;

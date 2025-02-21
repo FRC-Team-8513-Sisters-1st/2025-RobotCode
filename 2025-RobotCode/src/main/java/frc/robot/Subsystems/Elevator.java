@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.Subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
@@ -8,7 +8,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import frc.robot.Robot;
 import frc.robot.Settings;
-import frc.robot.logic.Enums.ElevatorStates;
+import frc.robot.Logic.Enums.ElevatorStates;
 
 public class Elevator {
     Robot thisRobot;

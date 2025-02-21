@@ -1,4 +1,4 @@
-package frc.robot.logic;
+package frc.robot.Logic;
 
 import java.util.List;
 import java.util.Optional;
