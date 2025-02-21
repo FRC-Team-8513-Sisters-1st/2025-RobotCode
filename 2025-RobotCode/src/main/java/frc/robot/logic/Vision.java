@@ -90,7 +90,8 @@ public class Vision {
             if (optPhotonPose.isPresent()) {
                 photonField2d_lowerRight.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
                 double tag0Dist = photonUpdateLowerRightReefCam.get(0).getBestTarget().bestCameraToTarget.getTranslation().getNorm();
-                if (useLowerRightReefCamm && tag0Dist < Settings.maxATDist) {
+                double poseAmbaguitiy = optPhotonPose.get().targetsUsed.get(0).getPoseAmbiguity();
+                if (useLowerRightReefCamm && tag0Dist < Settings.maxATDist && poseAmbaguitiy < 0.2) {
                     thisRobot.drivebase.swerveDrive.addVisionMeasurement(optPhotonPose.get().estimatedPose.toPose2d(),
                             optPhotonPose.get().timestampSeconds);
 
@@ -105,7 +106,8 @@ public class Vision {
             if (optPhotonPose.isPresent()) {
                 photonField2d_coralStation.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
                 double tag0Dist = photonUpdateCoralStationCam.get(0).getBestTarget().bestCameraToTarget.getTranslation().getNorm();
-                if (useCoralStationCam && tag0Dist < Settings.maxATDist) {
+                double poseAmbaguitiy = optPhotonPose.get().targetsUsed.get(0).getPoseAmbiguity();
+                if (useCoralStationCam && tag0Dist < Settings.maxATDist && poseAmbaguitiy < 0.2) {
                     thisRobot.drivebase.swerveDrive.addVisionMeasurement(optPhotonPose.get().estimatedPose.toPose2d(),
                             optPhotonPose.get().timestampSeconds);
                 }
@@ -119,7 +121,8 @@ public class Vision {
             if (optPhotonPose.isPresent()) {
                 photonField2d_lowerLeft.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
                 double tag0Dist = photonUpdateLowerLeftReefCam.get(0).getBestTarget().bestCameraToTarget.getTranslation().getNorm();
-                if (useLowerLeftReefCam && tag0Dist < Settings.maxATDist) {
+                double poseAmbaguitiy = optPhotonPose.get().targetsUsed.get(0).getPoseAmbiguity();
+                if (useLowerLeftReefCam && tag0Dist < Settings.maxATDist && poseAmbaguitiy < 0.2) {
                     thisRobot.drivebase.swerveDrive.addVisionMeasurement(optPhotonPose.get().estimatedPose.toPose2d(),
                             optPhotonPose.get().timestampSeconds);
                 }
