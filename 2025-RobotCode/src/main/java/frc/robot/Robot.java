@@ -34,8 +34,6 @@ public class Robot extends TimedRobot {
 
   //variables
   public boolean onRedAlliance;
-  public boolean coralReady2Score = false;
-  public boolean algaeReady2Score = false;
 
   public Robot() {
     updateAllianceFromDS();

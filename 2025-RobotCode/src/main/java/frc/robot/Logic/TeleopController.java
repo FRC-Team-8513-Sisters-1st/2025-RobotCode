@@ -127,25 +127,12 @@ public class TeleopController {
         leftTriggerValue = thisRobot.teleopController.driverXboxController
                 .getRawAxis(Settings.axisId_LeftBranch);
         if (leftTriggerValue > Settings.triggerDeadband) {
-            thisRobot.coralReady2Score = true;
-            thisRobot.algaeReady2Score = false;
             setCoralScoreGoalPoseLeft();
         }
 
         rightTriggerValue = thisRobot.teleopController.driverXboxController
                 .getRawAxis(Settings.axisId_RightBranch);
         if (rightTriggerValue > Settings.triggerDeadband) {
-            if (operatorGoalAlgaeReefLevel == RobotStates.algaeIntakeL2) {
-                thisRobot.algaeReady2Score = true;
-                thisRobot.coralReady2Score = false;
-            } else if (operatorGoalAlgaeReefLevel == RobotStates.algaeIntakeL3) {
-                thisRobot.algaeReady2Score = true;
-                thisRobot.coralReady2Score = false;
-            } else {
-                thisRobot.coralReady2Score = true;
-                thisRobot.algaeReady2Score = false;
-            }
-
             setCoralScoreGoalPoseRight();
         }
 
