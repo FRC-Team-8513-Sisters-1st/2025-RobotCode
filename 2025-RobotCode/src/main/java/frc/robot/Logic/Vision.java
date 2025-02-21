@@ -24,7 +24,7 @@ public class Vision {
     Robot thisRobot;
 
     boolean useProcessorCam = true;
-    boolean useLowerRightReefCamm = true;
+    boolean useLowerRightReefCam = true;
     boolean useCoralStationCam = true;
     boolean useLowerLeftReefCam = true;
 
@@ -68,63 +68,24 @@ public class Vision {
     }
 
     public void updatePhotonVision() {
-        List<PhotonPipelineResult> photonUpdateProcessorCam = processorCam.getAllUnreadResults();
+        integrateCamera(useProcessorCam, processorCam, processorPoseEstimator, photonField2d_processor, 1.6);
+        integrateCamera(useLowerRightReefCam, lowerRightReefCam, lowerRightPoseEstimator, photonField2d_lowerRight, Settings.maxATDist);
+        integrateCamera(useLowerLeftReefCam, lowerLeftReefCam, lowerLeftPoseEstimator, photonField2d_lowerLeft, Settings.maxATDist);
+        integrateCamera(useCoralStationCam, coralStationCam, coralStationEstimator, photonField2d_coralStation, Settings.maxATDist);
+    }
+
+    public void integrateCamera(boolean useCamera, PhotonCamera camera, PhotonPoseEstimator estimator, Field2d photonField, double maxDistance) {
+        List<PhotonPipelineResult> cameraPipeline = camera.getAllUnreadResults();
         
-        if (photonUpdateProcessorCam.size() > 0) {
-            Optional<EstimatedRobotPose> optPhotonPose = processorPoseEstimator.update(photonUpdateProcessorCam.get(0));
-            if (optPhotonPose.isPresent()) {
-                photonField2d_processor.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
-                double tag0Dist = photonUpdateProcessorCam.get(0).getBestTarget().bestCameraToTarget.getTranslation().getNorm();
-                double poseAmbaguitiy = optPhotonPose.get().targetsUsed.get(0).getPoseAmbiguity();
-                if (useProcessorCam && tag0Dist < 1.6 && poseAmbaguitiy < 0.2) {
-                    thisRobot.drivebase.swerveDrive.addVisionMeasurement(optPhotonPose.get().estimatedPose.toPose2d(),
-                            optPhotonPose.get().timestampSeconds);
-                }
-            }
-        }
-
-        List<PhotonPipelineResult> photonUpdateLowerRightReefCam = lowerRightReefCam.getAllUnreadResults();
-        if (photonUpdateLowerRightReefCam.size() > 0) {
-            Optional<EstimatedRobotPose> optPhotonPose = lowerRightPoseEstimator
-                    .update(photonUpdateLowerRightReefCam.get(0));
-            if (optPhotonPose.isPresent()) {
-                photonField2d_lowerRight.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
-                double tag0Dist = photonUpdateLowerRightReefCam.get(0).getBestTarget().bestCameraToTarget.getTranslation().getNorm();
-                double poseAmbaguitiy = optPhotonPose.get().targetsUsed.get(0).getPoseAmbiguity();
-                if (useLowerRightReefCamm && tag0Dist < Settings.maxATDist && poseAmbaguitiy < 0.2) {
-                    thisRobot.drivebase.swerveDrive.addVisionMeasurement(optPhotonPose.get().estimatedPose.toPose2d(),
-                            optPhotonPose.get().timestampSeconds);
-
-                }
-            }
-        }
-
-        List<PhotonPipelineResult> photonUpdateCoralStationCam = coralStationCam.getAllUnreadResults();
-        if (photonUpdateCoralStationCam.size() > 0) {
-            Optional<EstimatedRobotPose> optPhotonPose = coralStationEstimator
-                    .update(photonUpdateCoralStationCam.get(0));
-            if (optPhotonPose.isPresent()) {
-                photonField2d_coralStation.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
-                double tag0Dist = photonUpdateCoralStationCam.get(0).getBestTarget().bestCameraToTarget.getTranslation().getNorm();
-                double poseAmbaguitiy = optPhotonPose.get().targetsUsed.get(0).getPoseAmbiguity();
-                if (useCoralStationCam && tag0Dist < Settings.maxATDist && poseAmbaguitiy < 0.2) {
-                    thisRobot.drivebase.swerveDrive.addVisionMeasurement(optPhotonPose.get().estimatedPose.toPose2d(),
-                            optPhotonPose.get().timestampSeconds);
-                }
-            }
-        }
-
-        List<PhotonPipelineResult> photonUpdateLowerLeftReefCam = lowerLeftReefCam.getAllUnreadResults();
-        if (photonUpdateLowerLeftReefCam.size() > 0) {
-            Optional<EstimatedRobotPose> optPhotonPose = lowerLeftPoseEstimator
-                    .update(photonUpdateLowerLeftReefCam.get(0));
-            if (optPhotonPose.isPresent()) {
-                photonField2d_lowerLeft.setRobotPose(optPhotonPose.get().estimatedPose.toPose2d());
-                double tag0Dist = photonUpdateLowerLeftReefCam.get(0).getBestTarget().bestCameraToTarget.getTranslation().getNorm();
-                double poseAmbaguitiy = optPhotonPose.get().targetsUsed.get(0).getPoseAmbiguity();
-                if (useLowerLeftReefCam && tag0Dist < Settings.maxATDist && poseAmbaguitiy < 0.2) {
-                    thisRobot.drivebase.swerveDrive.addVisionMeasurement(optPhotonPose.get().estimatedPose.toPose2d(),
-                            optPhotonPose.get().timestampSeconds);
+        if (cameraPipeline.size() > 0) {
+            Optional<EstimatedRobotPose> photonPose = estimator.update(cameraPipeline.get(0));
+            if (photonPose.isPresent()) {
+                photonField.setRobotPose(photonPose.get().estimatedPose.toPose2d());
+                double tag0Dist = cameraPipeline.get(0).getBestTarget().bestCameraToTarget.getTranslation().getNorm();
+                double poseAmbaguitiy = photonPose.get().targetsUsed.get(0).getPoseAmbiguity();
+                if (useCamera && tag0Dist < maxDistance && poseAmbaguitiy < 0.2) {
+                    thisRobot.drivebase.swerveDrive.addVisionMeasurement(photonPose.get().estimatedPose.toPose2d(),
+                            photonPose.get().timestampSeconds);
                 }
             }
         }
