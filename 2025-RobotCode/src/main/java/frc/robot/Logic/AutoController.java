@@ -202,6 +202,11 @@ public class AutoController {
                         }
                         break;
                     case 25:
+                    if (thisRobot.coral.state == CoralIntakeStates.outake) {
+                        thisRobot.elevator.state = ElevatorStates.L1;
+                        thisRobot.coral.state = CoralIntakeStates.outake;
+                        autoStep = 30;
+                    } else {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
@@ -209,6 +214,7 @@ public class AutoController {
                             timeStepStarted = Timer.getFPGATimestamp();
                             thisRobot.coral.state = CoralIntakeStates.outake;
                         }
+                    }
                         break;
                     case 30:
                         thisRobot.elevator.setMotorPower();
@@ -237,12 +243,19 @@ public class AutoController {
                         }
                         break;
                     case 40:
+                    if (thisRobot.coral.state == CoralIntakeStates.outake) {
+                        thisRobot.elevator.state = ElevatorStates.L1;
+                        thisRobot.coral.state = CoralIntakeStates.outake;
+                        autoStep = 45;
+                    } else {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 45;
+                            timeStepStarted = Timer.getFPGATimestamp();
                             thisRobot.coral.state = CoralIntakeStates.outake;
                         }
+                    }
                         break;
                     case 45:
                         thisRobot.elevator.setMotorPower();
@@ -309,12 +322,18 @@ public class AutoController {
                         }
                         break;
                     case 25:
-                        thisRobot.elevator.setMotorPower();
-                        thisRobot.coral.setMotorPower();
-                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
-                            autoStep = 30;
-                            timeStepStarted = Timer.getFPGATimestamp();
+                        if (thisRobot.coral.state == CoralIntakeStates.outake) {
+                            thisRobot.elevator.state = ElevatorStates.L1;
                             thisRobot.coral.state = CoralIntakeStates.outake;
+                            autoStep = 30;
+                        } else {
+                            thisRobot.elevator.setMotorPower();
+                            thisRobot.coral.setMotorPower();
+                            if (thisRobot.drivebase.fromOTFSwitchToAP()) {
+                                autoStep = 30;
+                                timeStepStarted = Timer.getFPGATimestamp();
+                                thisRobot.coral.state = CoralIntakeStates.outake;
+                            }
                         }
                         break;
                     case 30:
@@ -344,13 +363,19 @@ public class AutoController {
                         }
                         break;
                     case 40:
+                    if (thisRobot.coral.state == CoralIntakeStates.outake) {
+                        thisRobot.elevator.state = ElevatorStates.L1;
+                        thisRobot.coral.state = CoralIntakeStates.outake;
+                        autoStep = 45;
+                    } else {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 45;
+                            timeStepStarted = Timer.getFPGATimestamp();
                             thisRobot.coral.state = CoralIntakeStates.outake;
                         }
-                        break;
+                    }
                     case 45:
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
@@ -416,6 +441,11 @@ public class AutoController {
                         }
                         break;
                     case 25:
+                    if (thisRobot.coral.state == CoralIntakeStates.outake) {
+                        thisRobot.elevator.state = ElevatorStates.L1;
+                        thisRobot.coral.state = CoralIntakeStates.outake;
+                        autoStep = 30;
+                    } else {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
@@ -423,6 +453,7 @@ public class AutoController {
                             timeStepStarted = Timer.getFPGATimestamp();
                             thisRobot.coral.state = CoralIntakeStates.outake;
                         }
+                    }
                         break;
                     case 30:
                         thisRobot.elevator.setMotorPower();
@@ -451,12 +482,19 @@ public class AutoController {
                         }
                         break;
                     case 40:
+                    if (thisRobot.coral.state == CoralIntakeStates.outake) {
+                        thisRobot.elevator.state = ElevatorStates.L1;
+                        thisRobot.coral.state = CoralIntakeStates.outake;
+                        autoStep = 45;
+                    } else {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 45;
+                            timeStepStarted = Timer.getFPGATimestamp();
                             thisRobot.coral.state = CoralIntakeStates.outake;
                         }
+                    }
                         break;
                     case 45:
                         thisRobot.elevator.setMotorPower();
