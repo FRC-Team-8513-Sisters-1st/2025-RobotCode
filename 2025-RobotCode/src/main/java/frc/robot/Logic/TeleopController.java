@@ -122,8 +122,8 @@ public class TeleopController {
             rV = Settings.rJoystickController.calculate(
                     thisRobot.drivebase.swerveDrive.getPose().getRotation().minus(goalHeading).getDegrees(), 0);
         }
-        // setting Pose2d
 
+        // setting Pose2d
         double leftTriggerValue;
         double rightTriggerValue;
 

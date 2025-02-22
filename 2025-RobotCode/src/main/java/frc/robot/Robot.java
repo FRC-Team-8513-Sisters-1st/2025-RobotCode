@@ -76,8 +76,6 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     updateAllianceFromDS();
     teleopController.initTele();
-    System.out.println(Settings.abATPose.getX());
-    System.out.println(Settings.abATPose.getY());
   }
 
   @Override

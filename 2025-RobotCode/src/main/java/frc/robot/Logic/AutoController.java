@@ -253,7 +253,7 @@ public class AutoController {
                         break;
                 }
                 break;
-            case far_KL3L_LFFS_KL3R_LFFS_AB4R:
+            case far_IJ2L_LFFS_KL4R_LFFS_KL4L:
                 switch (autoStep) {
                     case 0:
                         firstAutoBeingRun = false;
@@ -267,9 +267,9 @@ public class AutoController {
                             }
                         }
                         thisRobot.drivebase.initAstarAndAP(
-                                Settings.coralLeftKL.transformBy(Settings.astarReefPoseOffset), Settings.coralLeftKL);
+                                Settings.coralLeftIJ.transformBy(Settings.astarReefPoseOffset), Settings.coralLeftIJ);
                         thisRobot.coral.state = CoralIntakeStates.stationary;
-                        thisRobot.elevator.state = ElevatorStates.L3;
+                        thisRobot.elevator.state = ElevatorStates.L2;
                         autoStep = 5;
                     case 5:
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
@@ -302,7 +302,7 @@ public class AutoController {
                         }
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             autoStep = 25;
-                            thisRobot.elevator.state = ElevatorStates.L3;
+                            thisRobot.elevator.state = ElevatorStates.L4;
                             thisRobot.drivebase.initAstarAndAP(
                                     Settings.coralRightKL.transformBy(Settings.astarReefPoseOffset),
                                     Settings.coralRightKL);
@@ -339,8 +339,8 @@ public class AutoController {
                             autoStep = 40;
                             thisRobot.elevator.state = ElevatorStates.L4;
                             thisRobot.drivebase.initAstarAndAP(
-                                    Settings.coralLeftAB.transformBy(Settings.astarReefPoseOffset),
-                                    Settings.coralLeftAB);
+                                    Settings.coralLeftKL.transformBy(Settings.astarReefPoseOffset),
+                                    Settings.coralLeftKL);
                         }
                         break;
                     case 40:
@@ -360,7 +360,7 @@ public class AutoController {
                         break;
                 }
                 break;
-            case mid_GH4R_RCFS_CD4R_RCFS_CD4L:
+            case mid_EF2R_RCFS_CD4R_RCFS_CD4L:
                 switch (autoStep) {
                     case 0:
                         firstAutoBeingRun = false;
@@ -374,9 +374,9 @@ public class AutoController {
                             }
                         }
                         thisRobot.drivebase.initAstarAndAP(
-                                Settings.coralRightGH.transformBy(Settings.astarReefPoseOffset), Settings.coralRightGH);
+                                Settings.coralRightEF.transformBy(Settings.astarReefPoseOffset), Settings.coralRightEF);
                         thisRobot.coral.state = CoralIntakeStates.stationary;
-                        thisRobot.elevator.state = ElevatorStates.L4;
+                        thisRobot.elevator.state = ElevatorStates.L2;
                         autoStep = 5;
                     case 5:
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
