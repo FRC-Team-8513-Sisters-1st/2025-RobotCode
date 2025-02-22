@@ -441,7 +441,7 @@ public class AutoController {
                         }
                         break;
                     case 25:
-                    if (thisRobot.coral.state == CoralIntakeStates.outake) {
+                    if (thisRobot.coral.state == CoralIntakeStates.outake && thisRobot.drivebase.isRobotInReefZone()) {
                         thisRobot.elevator.state = ElevatorStates.L1;
                         thisRobot.coral.state = CoralIntakeStates.outake;
                         autoStep = 30;
@@ -482,7 +482,7 @@ public class AutoController {
                         }
                         break;
                     case 40:
-                    if (thisRobot.coral.state == CoralIntakeStates.outake) {
+                    if (thisRobot.coral.state == CoralIntakeStates.outake && thisRobot.drivebase.isRobotInReefZone()) {
                         thisRobot.elevator.state = ElevatorStates.L1;
                         thisRobot.coral.state = CoralIntakeStates.outake;
                         autoStep = 45;
