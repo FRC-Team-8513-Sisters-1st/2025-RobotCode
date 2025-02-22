@@ -253,7 +253,7 @@ public class AutoController {
                         break;
                 }
                 break;
-            case far_KL3L_RFFS_CD3L_RFFS_CD4R:
+            case far_KL3L_LFFS_KL3R_LFFS_AB4R:
                 switch (autoStep) {
                     case 0:
                         firstAutoBeingRun = false;
@@ -287,8 +287,8 @@ public class AutoController {
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
                             thisRobot.coral.setMotorPower();
                             thisRobot.drivebase.initAstarAndAP(
-                                    Settings.rightFarFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
-                                    Settings.rightFarFeederStationAP);
+                                    Settings.leftFarFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
+                                    Settings.leftFarFeederStationAP);
                             autoStep = 20;
                             thisRobot.coral.state = CoralIntakeStates.outake;
                             timeStepStarted = Timer.getFPGATimestamp();
@@ -304,8 +304,8 @@ public class AutoController {
                             autoStep = 25;
                             thisRobot.elevator.state = ElevatorStates.L3;
                             thisRobot.drivebase.initAstarAndAP(
-                                    Settings.coralLeftCD.transformBy(Settings.astarReefPoseOffset),
-                                    Settings.coralLeftCD);
+                                    Settings.coralRightKL.transformBy(Settings.astarReefPoseOffset),
+                                    Settings.coralRightKL);
                         }
                         break;
                     case 25:
@@ -323,8 +323,8 @@ public class AutoController {
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
                             thisRobot.coral.setMotorPower();
                             thisRobot.drivebase.initAstarAndAP(
-                                    Settings.rightFarFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
-                                    Settings.rightFarFeederStationAP);
+                                    Settings.leftFarFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
+                                    Settings.leftFarFeederStationAP);
                             timeStepStarted = Timer.getFPGATimestamp();
                             autoStep = 35;
                         }
@@ -339,8 +339,8 @@ public class AutoController {
                             autoStep = 40;
                             thisRobot.elevator.state = ElevatorStates.L4;
                             thisRobot.drivebase.initAstarAndAP(
-                                    Settings.coralRightCD.transformBy(Settings.astarReefPoseOffset),
-                                    Settings.coralRightCD);
+                                    Settings.coralLeftAB.transformBy(Settings.astarReefPoseOffset),
+                                    Settings.coralLeftAB);
                         }
                         break;
                     case 40:
@@ -360,7 +360,7 @@ public class AutoController {
                         break;
                 }
                 break;
-            case mid_EF4R_RCFS_CD4R_RCFS_CD4L:
+            case mid_GH4R_RCFS_CD4R_RCFS_CD4L:
                 switch (autoStep) {
                     case 0:
                         firstAutoBeingRun = false;
@@ -374,7 +374,7 @@ public class AutoController {
                             }
                         }
                         thisRobot.drivebase.initAstarAndAP(
-                                Settings.coralRightEF.transformBy(Settings.astarReefPoseOffset), Settings.coralRightEF);
+                                Settings.coralRightGH.transformBy(Settings.astarReefPoseOffset), Settings.coralRightGH);
                         thisRobot.coral.state = CoralIntakeStates.stationary;
                         thisRobot.elevator.state = ElevatorStates.L4;
                         autoStep = 5;
