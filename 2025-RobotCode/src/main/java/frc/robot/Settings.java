@@ -155,8 +155,8 @@ public final class Settings {
       
         
                 // offsets reef
-                public static Transform2d tagToLeft = new Transform2d(0.475, -0.227, new Rotation2d(Math.PI));
-                public static Transform2d tagToRight = new Transform2d(0.475, 0.1, new Rotation2d(Math.PI));
+                public static Transform2d tagToLeft = new Transform2d(0.522, -0.254, new Rotation2d(Math.PI));
+                public static Transform2d tagToRight = new Transform2d(0.522, 0.056, new Rotation2d(Math.PI));
         
                 // offset pocessor
                 public static Transform2d tagToProcessor = new Transform2d(0.4,0.1, new Rotation2d(Math.PI));
@@ -192,7 +192,7 @@ public final class Settings {
                 public static Pose2d reefZoneBlue = new Pose2d(4.495, 4.019, new Rotation2d(Radians.convertFrom(0, Degrees)));
                 public static Pose2d reefZoneRed = new Pose2d(13.091, 4.043, new Rotation2d(Radians.convertFrom(0, Degrees)));
                 public static double minDistanceFromReefZoneMeter = 3;
-                public static double maxATDist = 2.5;
+                public static double maxATDist = 3.5;
         
                 public static double coralScoreThold = 0.02;
                 public static double otfToAPThold = 0.25;
