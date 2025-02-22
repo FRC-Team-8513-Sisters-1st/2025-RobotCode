@@ -24,12 +24,12 @@ public class AutoController {
     // custom auto
     Pose2d customAutoStartPose = Settings.autoProcessorStartPose;
     Pose2d[] customAutoPoses = { Settings.coralLeftEF,
-            Settings.rightCloseFeederStationAP, Settings.coralRightAB,
-            Settings.rightCloseFeederStationAP, Settings.coralLeftCD,
-            Settings.rightCloseFeederStationAP, Settings.coralRightEF,
-            Settings.rightCloseFeederStationAP, Settings.coralLeftGH,
-            Settings.rightCloseFeederStationAP, Settings.coralRightIJ,
-            Settings.rightCloseFeederStationAP, Settings.coralLeftAB };
+            Settings.leftCenterFeederStationAP, Settings.coralRightAB,
+            Settings.leftCenterFeederStationAP, Settings.coralLeftCD,
+            Settings.leftCenterFeederStationAP, Settings.coralRightEF,
+            Settings.rightCenterFeederStationAP, Settings.coralLeftGH,
+            Settings.rightCenterFeederStationAP, Settings.coralRightIJ,
+            Settings.rightCenterFeederStationAP, Settings.coralLeftAB };
     ElevatorStates[] customElevatorStates = { ElevatorStates.L4,
             ElevatorStates.L1, ElevatorStates.L4,
             ElevatorStates.L1, ElevatorStates.L4,
@@ -146,7 +146,7 @@ public class AutoController {
                         break;
                 }
                 break;
-            case processor_EF2L_RCFS_AB2L_RCFS_AB2R:
+            case processor_EF2L_RFS_AB2L_RFS_AB2R:
                 switch (autoStep) {
                     case 0:
                         firstAutoBeingRun = false;
@@ -180,8 +180,8 @@ public class AutoController {
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
                             thisRobot.coral.setMotorPower();
                             thisRobot.drivebase.initAstarAndAP(
-                                    Settings.rightCloseFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
-                                    Settings.rightCloseFeederStationAP);
+                                    Settings.rightCenterFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
+                                    Settings.rightCenterFeederStationAP);
                             autoStep = 20;
                             thisRobot.coral.state = CoralIntakeStates.outake;
                             timeStepStarted = Timer.getFPGATimestamp();
@@ -222,8 +222,8 @@ public class AutoController {
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
                             thisRobot.coral.setMotorPower();
                             thisRobot.drivebase.initAstarAndAP(
-                                    Settings.rightCloseFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
-                                    Settings.rightCloseFeederStationAP);
+                                    Settings.rightCenterFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
+                                    Settings.rightCenterFeederStationAP);
                             timeStepStarted = Timer.getFPGATimestamp();
                             autoStep = 35;
                         }
@@ -266,7 +266,7 @@ public class AutoController {
                         break;
                 }
                 break;
-            case far_IJ2L_LFFS_KL4R_LFFS_KL4L:
+            case far_IJ2L_LFS_KL4R_LFS_KL4L:
                 switch (autoStep) {
                     case 0:
                         firstAutoBeingRun = false;
@@ -300,8 +300,8 @@ public class AutoController {
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
                             thisRobot.coral.setMotorPower();
                             thisRobot.drivebase.initAstarAndAP(
-                                    Settings.leftFarFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
-                                    Settings.leftFarFeederStationAP);
+                                    Settings.leftCenterFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
+                                    Settings.leftCenterFeederStationAP);
                             autoStep = 20;
                             thisRobot.coral.state = CoralIntakeStates.outake;
                             timeStepStarted = Timer.getFPGATimestamp();
@@ -342,8 +342,8 @@ public class AutoController {
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
                             thisRobot.coral.setMotorPower();
                             thisRobot.drivebase.initAstarAndAP(
-                                    Settings.leftFarFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
-                                    Settings.leftFarFeederStationAP);
+                                    Settings.leftCenterFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
+                                    Settings.leftCenterFeederStationAP);
                             timeStepStarted = Timer.getFPGATimestamp();
                             autoStep = 35;
                         }
@@ -385,7 +385,7 @@ public class AutoController {
                         break;
                 }
                 break;
-            case mid_EF2R_RCFS_CD4R_RCFS_CD4L:
+            case mid_EF2R_RFS_CD4R_RFS_CD4L:
                 switch (autoStep) {
                     case 0:
                         firstAutoBeingRun = false;
@@ -419,8 +419,8 @@ public class AutoController {
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
                             thisRobot.coral.setMotorPower();
                             thisRobot.drivebase.initAstarAndAP(
-                                    Settings.rightCloseFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
-                                    Settings.rightCloseFeederStationAP);
+                                    Settings.rightCenterFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
+                                    Settings.rightCenterFeederStationAP);
                             autoStep = 20;
                             thisRobot.coral.state = CoralIntakeStates.outake;
                             timeStepStarted = Timer.getFPGATimestamp();
@@ -461,8 +461,8 @@ public class AutoController {
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
                             thisRobot.coral.setMotorPower();
                             thisRobot.drivebase.initAstarAndAP(
-                                    Settings.rightCloseFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
-                                    Settings.rightCloseFeederStationAP);
+                                    Settings.rightCenterFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
+                                    Settings.rightCenterFeederStationAP);
                             timeStepStarted = Timer.getFPGATimestamp();
                             autoStep = 35;
                         }
@@ -539,8 +539,8 @@ public class AutoController {
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
                             thisRobot.coral.setMotorPower();
                             thisRobot.drivebase.initAstarAndAP(
-                                    Settings.rightFarFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
-                                    Settings.rightFarFeederStationAP);
+                                    Settings.rightCenterFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
+                                    Settings.rightCenterFeederStationAP);
                             autoStep = 20;
                             thisRobot.coral.state = CoralIntakeStates.outake;
                             timeStepStarted = Timer.getFPGATimestamp();
@@ -575,8 +575,8 @@ public class AutoController {
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
                             thisRobot.coral.setMotorPower();
                             thisRobot.drivebase.initAstarAndAP(
-                                    Settings.rightFarFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
-                                    Settings.rightFarFeederStationAP);
+                                    Settings.rightCenterFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
+                                    Settings.rightCenterFeederStationAP);
                             timeStepStarted = Timer.getFPGATimestamp();
                             autoStep = 35;
                         }
@@ -609,8 +609,8 @@ public class AutoController {
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
                             thisRobot.coral.setMotorPower();
                             thisRobot.drivebase.initAstarAndAP(
-                                    Settings.rightFarFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
-                                    Settings.rightFarFeederStationAP);
+                                    Settings.rightCenterFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
+                                    Settings.rightCenterFeederStationAP);
                             timeStepStarted = Timer.getFPGATimestamp();
                             autoStep = 42;
                         }

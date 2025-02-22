@@ -37,9 +37,9 @@ public final class Enums {
         DoNothing, 
         mid_GH3R, 
         processor_EF2L, 
-        processor_EF2L_RCFS_AB2L_RCFS_AB2R, 
-        far_IJ2L_LFFS_KL4R_LFFS_KL4L,
-        mid_EF2R_RCFS_CD4R_RCFS_CD4L,
+        processor_EF2L_RFS_AB2L_RFS_AB2R, 
+        far_IJ2L_LFS_KL4R_LFS_KL4L,
+        mid_EF2R_RFS_CD4R_RFS_CD4L,
         customAutoAnyLength,
         betWithBusler
         // make auto that lines up to score processor then score during tele

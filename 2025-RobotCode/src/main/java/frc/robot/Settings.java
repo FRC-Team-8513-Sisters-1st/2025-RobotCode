@@ -150,9 +150,7 @@ public final class Settings {
                         .getTagPose(12).get().toPose2d();
         public static Pose2d leftFeederStationPose = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape)
                         .getTagPose(13).get().toPose2d();
-        
-        public static Pose2d tempPose = flipPoseTemp(efATPose);          
-      
+              
         
                 // offsets reef
                 public static Transform2d tagToLeft = new Transform2d(0.522, -0.254, new Rotation2d(Math.PI));
@@ -189,6 +187,8 @@ public final class Settings {
                 public static Pose2d rightFarFeederStationAP = rightFeederStationPose.plus(farFeederStation);
                 public static Pose2d leftFarFeederStationAP = leftFeederStationPose.plus(farFeederStation);
                 public static Pose2d leftCloseFeederStationAP = leftFeederStationPose.plus(closeFeederStation);
+                public static Pose2d leftCenterFeederStationAP = leftFeederStationPose.plus(centerFeederStation);
+                public static Pose2d rightCenterFeederStationAP = rightFeederStationPose.plus(centerFeederStation);
         
                 public static Pose2d reefZoneBlue = new Pose2d(4.495, 4.019, new Rotation2d(Radians.convertFrom(0, Degrees)));
                 public static Pose2d reefZoneRed = new Pose2d(13.091, 4.043, new Rotation2d(Radians.convertFrom(0, Degrees)));
