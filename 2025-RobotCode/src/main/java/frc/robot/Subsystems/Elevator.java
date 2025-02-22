@@ -92,6 +92,6 @@ public class Elevator {
     }
 
     public boolean elevatorAtSetpoint(){
-        return Math.abs(elevatorMotor1.getEncoder().getPosition() - m_controller.getGoal().position) < 0.2;
+        return Math.abs(elevatorMotor1.getEncoder().getPosition() - m_controller.getGoal().position) < 0.15;
     }
 }
