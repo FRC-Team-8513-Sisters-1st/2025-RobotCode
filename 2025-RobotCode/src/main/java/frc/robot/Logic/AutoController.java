@@ -309,12 +309,18 @@ public class AutoController {
                         }
                         break;
                     case 25:
-                        thisRobot.elevator.setMotorPower();
-                        thisRobot.coral.setMotorPower();
-                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
-                            autoStep = 30;
-                            timeStepStarted = Timer.getFPGATimestamp();
+                        if (thisRobot.coral.coralMotor1.getAnalog().getVoltage() < Settings.sensorThold) {
+                            thisRobot.elevator.state = ElevatorStates.L1;
                             thisRobot.coral.state = CoralIntakeStates.outake;
+                            autoStep = 30;
+                        } else {
+                            thisRobot.elevator.setMotorPower();
+                            thisRobot.coral.setMotorPower();
+                            if (thisRobot.drivebase.fromOTFSwitchToAP()) {
+                                autoStep = 30;
+                                timeStepStarted = Timer.getFPGATimestamp();
+                                thisRobot.coral.state = CoralIntakeStates.outake;
+                            }
                         }
                         break;
                     case 30:
