@@ -1,5 +1,8 @@
 package frc.robot.Logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -9,6 +12,11 @@ import frc.robot.Settings;
 import frc.robot.Logic.Enums.AutoRoutines;
 import frc.robot.Logic.Enums.CoralIntakeStates;
 import frc.robot.Logic.Enums.ElevatorStates;
+import frc.robot.Logic.AutoCommands.AcquireCoralCommand;
+import frc.robot.Logic.AutoCommands.AutoCommand;
+import frc.robot.Logic.AutoCommands.EndAutoCommand;
+import frc.robot.Logic.AutoCommands.InitAutoCommand;
+import frc.robot.Logic.AutoCommands.ScoreOnReefCommand;
 
 public class AutoController {
 
@@ -16,6 +24,8 @@ public class AutoController {
     public AutoRoutines autoRoutine = AutoRoutines.DoNothing;
     public int autoStep = 0;
     public boolean firstAutoBeingRun = true;
+    List<AutoCommand> commandList = new ArrayList<>();
+    int commandStep = 0;
 
     public SendableChooser<String> autoSelector;
 
@@ -59,6 +69,9 @@ public class AutoController {
     public void autoInit() {
         updateAutoRoutine();
         autoStep = 0;
+        firstAutoBeingRun = true;
+        commandStep = 0;
+        commandList.clear();
     }
 
     public void autoDis() {
@@ -684,8 +697,30 @@ public class AutoController {
                         break;
                 }
                 break;
+            case buildable:
+                if (firstAutoBeingRun) {
+                    commandList.add(new InitAutoCommand(thisRobot, Settings.autoProcessorStartPose));
+                    commandList.add(new ScoreOnReefCommand(thisRobot, Settings.coralLeftEF, ElevatorStates.L2));
+                    commandList.add(new AcquireCoralCommand(thisRobot, Settings.rightCloseFeederStationAP));
+                    commandList.add(new ScoreOnReefCommand(thisRobot, Settings.coralLeftAB, ElevatorStates.L2));
+                    commandList.add(new AcquireCoralCommand(thisRobot, Settings.rightCloseFeederStationAP));
+                    commandList.add(new ScoreOnReefCommand(thisRobot, Settings.coralRightAB, ElevatorStates.L2));
+                    commandList.add(new EndAutoCommand(thisRobot));
+                    firstAutoBeingRun = false;
+                }
+                executeCommands();
+                break;
             default:
                 break;
+        }
+    }
+
+    public void executeCommands() {
+        if (!commandList.isEmpty() && commandList.get(commandStep).isComplete()) {
+            commandStep++;
+        }
+        else if (commandStep < commandList.size()) {
+            commandList.get(commandStep).execute();
         }
     }
 

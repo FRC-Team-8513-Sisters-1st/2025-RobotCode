@@ -41,6 +41,7 @@ public final class Enums {
         far_KL3L_RFFS_CD3L_RFFS_CD4R,
         mid_EF4R_RCFS_CD4R_RCFS_CD4L,
         customAutoAnyLength,
-        betWithBusler
+        betWithBusler,
+        buildable
     }
 }
