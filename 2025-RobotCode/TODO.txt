@@ -1,7 +1,8 @@
 - ToDo
     - due week 1
         - make generic "ready to auto score" function
-        - improve elevator auto up
+        - improve elevator auto up 
+        - during OTF auto, check if we have a coral, if we dont have one by AP, go to coral station
         - if copilot changes goal, reinitialize path
         
         - on path on fly, if start pose in reef zone, attak point backwards, then path to goal
@@ -11,6 +12,7 @@
         - add backup and elevator auto down after auto score with 
         - climber states
         - elevator jam detection 
+        - change offsets for L1
 
 - Tuning:
     - Tune drivebase odometry without vision
