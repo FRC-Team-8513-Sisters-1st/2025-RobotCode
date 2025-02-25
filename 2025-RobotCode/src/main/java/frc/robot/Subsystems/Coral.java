@@ -65,15 +65,12 @@ public class Coral {
 
                 // sensor
                 if (coralMotor1.getAnalog().getVoltage() > Settings.sensorThold && sensorFirstTime) {
-                    seenFrontEdge = true;
-                    seenBackEdge = false;
-                    if (coralMotor1.getAnalog().getVoltage() < Settings.sensorThold && seenFrontEdge) {
-                        seenBackEdge = true;
+                  //  if (coralMotor1.getAnalog().getVoltage() < Settings.sensorThold) {
                         coralMotor1.getEncoder().setPosition(0);
-                        coralController.setSetpoint(-2);
+                        coralController.setSetpoint(15);
                         sensorFirstTime = false;
                         state = CoralIntakeStates.stationary;
-                    }
+                  //  }
                 } else if (coralMotor1.getAnalog().getVoltage() < Settings.sensorThold) {
                     sensorFirstTime = true;
                 }

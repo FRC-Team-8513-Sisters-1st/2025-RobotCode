@@ -34,6 +34,8 @@ public class TeleopController {
     public Pose2d teleopGoalPose = new Pose2d();
     public Pose2d teleopGoalPoseAstar = new Pose2d();
 
+    boolean teleopAutoScore = true;
+
     Pose2d coralScoreGoalPose = new Pose2d();
 
     Rotation2d goalHeading = new Rotation2d();
@@ -62,6 +64,10 @@ public class TeleopController {
         elevatorSetLeve();
         forceCoralandAlgae();
         readCopilotJoystickAndUdateCloseOrFar();
+
+        if (manualJoystick.getRawButtonPressed(3)){
+            teleopAutoScore = !teleopAutoScore;
+        }
 
         if (driverXboxController.getRawButton(Settings.buttonId_resetOdo)) {
 
@@ -173,7 +179,7 @@ public class TeleopController {
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarReefPoseOffset);
             if (Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(),
                     coralScoreGoalPose) < Settings.coralScoreThold && thisRobot.drivebase.getRobotVelopcity() < 0.04
-                    && thisRobot.elevator.elevatorAtSetpoint()) {
+                    && thisRobot.elevator.elevatorAtSetpoint() && teleopAutoScore) {
                 // disabled auto score
                 thisRobot.coral.state = CoralIntakeStates.outake;
                 double currentTime = Timer.getFPGATimestamp();

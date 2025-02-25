@@ -202,9 +202,9 @@ public final class Settings {
         // elevator positions
         public static double elevatorPosStowed = 0;
         public static double elevatorPosL1 = 0;
-        public static double elevatorPosL2 = 7.00;
-        public static double elevatorPosL3 = 20;
-        public static double elevatorPosL4 = 41.4;
+        public static double elevatorPosL2 = 9.7;
+        public static double elevatorPosL3 = 22.8;
+        public static double elevatorPosL4 = 43.95;
         public static double elevatorPosA2 = 23.43;
         public static double elevatorPosA3 = 34.57;
 
