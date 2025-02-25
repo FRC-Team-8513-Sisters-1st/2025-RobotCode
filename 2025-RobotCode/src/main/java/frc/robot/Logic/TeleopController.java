@@ -25,6 +25,7 @@ public class TeleopController {
 
     public FeederStation feederCloseOrFar = FeederStation.Close;
     public SideOfReef operatorChosenSideOfReef = SideOfReef.AB;
+    public SideOfReef operatorOldChosenSideOfReef = SideOfReef.AB;
 
     RobotStates robotState = RobotStates.driving;
 
@@ -33,7 +34,6 @@ public class TeleopController {
     public Pose2d teleopGoalPoseAstar = new Pose2d();
 
     Pose2d coralScoreGoalPose = new Pose2d();
-    RobotStates operatorGoalAlgaeReefLevel;
 
     Rotation2d goalHeading = new Rotation2d();
 
@@ -261,6 +261,7 @@ public class TeleopController {
     }
 
     public void updatChosenSideOfReefFromCopilot() {
+        operatorOldChosenSideOfReef = operatorChosenSideOfReef;
         if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_ab)) {
             operatorChosenSideOfReef = SideOfReef.AB;
 
@@ -283,7 +284,10 @@ public class TeleopController {
         }
         if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_kl)) {
             operatorChosenSideOfReef = SideOfReef.KL;
-
+        }
+        //if chosen side of reef changed, set firstOTFPath to true which reinits the path
+        if(operatorChosenSideOfReef != operatorOldChosenSideOfReef){
+            firstOTFPath = true;
         }
     }
 
