@@ -113,11 +113,13 @@ public class AutoController {
             case betWithBusler:
                 customAutoStartPose = Settings.autoProcessorStartPose;
                 customAutoPoses = new Pose2d[] { Settings.coralLeftEF,
-                        Settings.rightCenterFeederStationAP, Settings.coralLeftAB, Settings.rightCenterFeederStationAP,
-                        Settings.coralRightAB, Settings.rightCenterFeederStationAP, Settings.coralLeftCD };
+                        Settings.rightCenterFeederStationAP, Settings.coralLeftAB, 
+                        Settings.rightCenterFeederStationAP, Settings.coralRightAB, 
+                        Settings.rightCenterFeederStationAP, Settings.coralLeftCD };
                 customElevatorStates = new ElevatorStates[] { ElevatorStates.L2,
                         ElevatorStates.L1, ElevatorStates.L2,
-                        ElevatorStates.L1, ElevatorStates.L2, };
+                        ElevatorStates.L1, ElevatorStates.L2,
+                        ElevatorStates.L1, ElevatorStates.L2};
                 autoRoutine = AutoRoutines.customAutoAnyLength;
                 break;
             case customAutoAnyLength:
@@ -200,7 +202,7 @@ public class AutoController {
         thisRobot.elevator.setMotorPower();
         thisRobot.coral.setMotorPower();
         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
-            if (customAutoStep >= customAutoPoses.length) {
+            if (customAutoStep >= customAutoPoses.length - 1) {
                 tempAutoStep = 45;
             } else {
                 tempAutoStep = 10;
