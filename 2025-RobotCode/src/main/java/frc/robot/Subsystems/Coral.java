@@ -23,6 +23,9 @@ public class Coral {
     public boolean sensorFirstTime = false;
     public double holdCoralPos = 16;
 
+    boolean seenFrontEdge = true;
+    boolean seenBackEdge = false;
+
     public double currentBrokeTholdTime = 0;
 
     public Coral(Robot thisRobotIn) {
@@ -36,7 +39,6 @@ public class Coral {
     }
 
     public void setMotorPower() {
-
 
         switch (state) {
             case stationary:
@@ -54,7 +56,7 @@ public class Coral {
 
                 break;
             case outake:
-                coralMotor1.set(0.75);
+                coralMotor1.set(1);
                 funnelMotor1.set(0.2);
                 if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake)) {
                     state = CoralIntakeStates.stationary;
@@ -63,13 +65,19 @@ public class Coral {
 
                 // sensor
                 if (coralMotor1.getAnalog().getVoltage() > Settings.sensorThold && sensorFirstTime) {
-                    coralMotor1.getEncoder().setPosition(0);
-                    coralController.setSetpoint(holdCoralPos);
-                    sensorFirstTime = false;
-                    state = CoralIntakeStates.stationary;
+                    seenFrontEdge = true;
+                    seenBackEdge = false;
+                    if (coralMotor1.getAnalog().getVoltage() < Settings.sensorThold && seenFrontEdge) {
+                        seenBackEdge = true;
+                        coralMotor1.getEncoder().setPosition(0);
+                        coralController.setSetpoint(-2);
+                        sensorFirstTime = false;
+                        state = CoralIntakeStates.stationary;
+                    }
                 } else if (coralMotor1.getAnalog().getVoltage() < Settings.sensorThold) {
                     sensorFirstTime = true;
                 }
+
                 break;
             default:
                 break;
