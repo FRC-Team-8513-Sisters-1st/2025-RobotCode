@@ -172,9 +172,15 @@ public class AutoController {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
-                            autoStep = 20;
+                            timeStepStarted = Timer.getFPGATimestamp();
+                            autoStep = 16;
                         }
                         break;
+                    case 16:
+                    if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
+                        autoStep = 20;
+                    }
+                    break;
                     case 20:
                         if (autoScoreCoral(customAutoPoses[customAutoStep], customElevatorStates[customAutoStep])) {
                             if (customAutoStep >= customAutoPoses.length - 1) {

@@ -1,6 +1,5 @@
 - ToDo
     - due week 1
-        - make generic "ready to auto score" function
         - test coral out then in thing
         - try different (smaller) reef astar offset (path all the way to goal score pose)
             - note: if within 0.5m of goal pose, we cant OTF, need to AP

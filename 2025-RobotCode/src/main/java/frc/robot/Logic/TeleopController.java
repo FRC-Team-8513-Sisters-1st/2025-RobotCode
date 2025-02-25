@@ -12,6 +12,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
 
 public class TeleopController {
@@ -175,6 +176,13 @@ public class TeleopController {
                     && thisRobot.elevator.elevatorAtSetpoint()) {
                 // disabled auto score
                 thisRobot.coral.state = CoralIntakeStates.outake;
+                double currentTime = Timer.getFPGATimestamp();
+                if (thisRobot.coral.coralMotor1.getAnalog().getVoltage() < Settings.sensorThold && Timer.getFPGATimestamp() - currentTime > 0.4) {
+                    followPath = true;
+                    firstOTFPath = true;
+                    teleopGoalPose = coralScoreGoalPose.transformBy(Settings.backUpFromReefTransform);
+                    thisRobot.elevator.state = ElevatorStates.L1;
+                }
             }
         } else {
             thisRobot.drivebase.drive(xV, yV, rV, true);
