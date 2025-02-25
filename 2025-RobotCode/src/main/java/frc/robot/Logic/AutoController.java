@@ -162,15 +162,28 @@ public class AutoController {
                                     customAutoPoses[customAutoStep].transformBy(Settings.astarFeederStPoseOffset),
                                     customAutoPoses[customAutoStep]);
                             customAutoStep++;
-                            autoStep = 20;
+                            autoStep = 15;
                             thisRobot.elevator.state = customElevatorStates[customAutoStep];
                             thisRobot.coral.state = CoralIntakeStates.outake;
 
                         }
                         break;
-
+                    case 15:
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
+                            autoStep = 20;
+                        }
+                        break;
                     case 20:
-                        autoStep = autoScoreCoral(customAutoPoses[customAutoStep], customElevatorStates[customAutoStep]);
+                        if (autoScoreCoral(customAutoPoses[customAutoStep], customElevatorStates[customAutoStep])) {
+                            if (customAutoStep >= customAutoPoses.length - 1) {
+                                autoStep = 45;
+                            } else {
+                                autoStep = 10;
+                                customAutoStep++;
+                            }
+                        }
                         break;
                     case 45:
                         thisRobot.elevator.setMotorPower();
@@ -186,32 +199,24 @@ public class AutoController {
                 break;
         }
     }
-    public int autoScoreCoral(Pose2d goalPose, ElevatorStates elevatorState) {
-        int tempAutoStep = autoStep;
+    public boolean autoScoreCoral(Pose2d goalPose, ElevatorStates elevatorState) {
+        boolean isComplete = false;
 
         thisRobot.elevator.setMotorPower();
         thisRobot.coral.setMotorPower();
-
-        if (thisRobot.drivebase.fromOTFSwitchToAP() && generatedPathFirstTime) {
+        if (generatedPathFirstTime) {
             thisRobot.elevator.state = elevatorState;
             thisRobot.drivebase.initAstarAndAP(
                     goalPose.transformBy(Settings.astarReefPoseOffset),
                     goalPose);
             generatedPathFirstTime = false;
         }
-        thisRobot.elevator.setMotorPower();
-        thisRobot.coral.setMotorPower();
         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
-            if (customAutoStep >= customAutoPoses.length - 1) {
-                tempAutoStep = 45;
-            } else {
-                tempAutoStep = 10;
-                customAutoStep++;
-            }
+            isComplete = true;
             generatedPathFirstTime = true;
             timeStepStarted = Timer.getFPGATimestamp();
             thisRobot.coral.state = CoralIntakeStates.outake;
         }
-        return tempAutoStep;
+        return isComplete;
     }
 }
