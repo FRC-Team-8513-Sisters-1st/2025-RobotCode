@@ -4,15 +4,19 @@
         - improve elevator auto up 
         - during OTF auto, check if we have a coral, if we dont have one by AP, go to coral station
         - if copilot changes goal, reinitialize path
+        - try different (smaller) reef astar offset (path all the way to goal score pose)
+            - note: if within 0.5m of goal pose, we cant OTF, need to AP
+        - scoring coral 1.0 power
         
-        - on path on fly, if start pose in reef zone, attak point backwards, then path to goal
         - manual control and resets for elevator (joystick 4)
         - manual control for algae and coral mech (joystick 4 or more buttons)
 
-        - add backup and elevator auto down after auto score with 
+        - add backup and elevator auto down after auto score
         - climber states
         - elevator jam detection 
         - change offsets for L1
+        - infinite coral statiion auto to practice feeding
+        - final tune navgrid using sim, check a few IRL
 
 - Tuning:
     - Tune drivebase odometry without vision
