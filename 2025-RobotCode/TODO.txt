@@ -2,6 +2,7 @@
     - due week 1
         - make generic "ready to auto score" function
         - improve elevator auto up 
+            - Instead of "reef zone" lets try "distance to goal pose" 
         - during OTF auto, check if we have a coral, if we dont have one by AP, go to coral station
         - if copilot changes goal, reinitialize path
             - if operatorChosenSideOfReef changes, set firstOTFPath to true and it will reinit path
