@@ -34,6 +34,8 @@ public class TeleopController {
     public Pose2d teleopGoalPose = new Pose2d();
     public Pose2d teleopGoalPoseAstar = new Pose2d();
 
+    boolean scoreCoralL1 = false;
+
     boolean teleopAutoScore = true;
 
     Pose2d coralScoreGoalPose = new Pose2d();
@@ -65,7 +67,7 @@ public class TeleopController {
         forceCoralandAlgae();
         readCopilotJoystickAndUdateCloseOrFar();
 
-        if (manualJoystick.getRawButtonPressed(3)){
+        if (manualJoystick.getRawButtonPressed(3)) {
             teleopAutoScore = !teleopAutoScore;
         }
 
@@ -176,6 +178,13 @@ public class TeleopController {
         } else if (rightTriggerValue > Settings.triggerDeadband || leftTriggerValue > Settings.triggerDeadband) {
             followPath = true;
             teleopGoalPose = coralScoreGoalPose;
+            if (scoreCoralL1) {
+                if (leftTriggerValue > Settings.triggerDeadband) {
+                    teleopGoalPose = Settings.changeOffsetToL1(coralScoreGoalPose, true);
+                } else {
+                    teleopGoalPose = Settings.changeOffsetToL1(coralScoreGoalPose, false);
+                }
+            }
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarReefPoseOffset);
             if (Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(),
                     coralScoreGoalPose) < Settings.coralScoreThold && thisRobot.drivebase.getRobotVelopcity() < 0.04
@@ -183,7 +192,9 @@ public class TeleopController {
                 // disabled auto score
                 thisRobot.coral.state = CoralIntakeStates.outake;
                 double currentTime = Timer.getFPGATimestamp();
-                if (thisRobot.coral.coralMotor1.getAnalog().getVoltage() < Settings.sensorThold && Timer.getFPGATimestamp() - currentTime > 0.4) {
+                // current time should be set once
+                if (thisRobot.coral.coralMotor1.getAnalog().getVoltage() < Settings.sensorThold
+                        && Timer.getFPGATimestamp() - currentTime > 0.4) {
                     followPath = true;
                     firstOTFPath = true;
                     teleopGoalPose = coralScoreGoalPose.transformBy(Settings.backUpFromReefTransform);
@@ -299,8 +310,9 @@ public class TeleopController {
         if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_kl)) {
             operatorChosenSideOfReef = SideOfReef.KL;
         }
-        //if chosen side of reef changed, set firstOTFPath to true which reinits the path
-        if(operatorChosenSideOfReef != operatorOldChosenSideOfReef){
+        // if chosen side of reef changed, set firstOTFPath to true which reinits the
+        // path
+        if (operatorChosenSideOfReef != operatorOldChosenSideOfReef) {
             firstOTFPath = true;
         }
     }
@@ -308,25 +320,32 @@ public class TeleopController {
     public void elevatorSetLeve() {
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral1)) {
             thisRobot.elevator.state = ElevatorStates.L1;
+            scoreCoralL1 = true;
         }
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral2)) {
             thisRobot.elevator.state = ElevatorStates.L2;
+            scoreCoralL1 = false;
         }
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral3)) {
             thisRobot.elevator.state = ElevatorStates.L3;
+            scoreCoralL1 = false;
         }
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral4)) {
             thisRobot.elevator.state = ElevatorStates.L4;
+            scoreCoralL1 = false;
         }
         // algae
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Algae2)) {
             thisRobot.elevator.state = ElevatorStates.L2a;
+            scoreCoralL1 = false;
         }
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Algae3)) {
             thisRobot.elevator.state = ElevatorStates.L3a;
+            scoreCoralL1 = false;
         }
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_processor)) {
             thisRobot.elevator.state = ElevatorStates.scoreProcessor;
+            scoreCoralL1 = false;
         }
     }
 

@@ -12,6 +12,7 @@
         - during OTF auto, check if we have a coral, if we dont have one by AP, go to coral station
         - change offsets for L1
         - update radio
+        - update wpilib and change field poses to use welded field
         
         - manual control and resets for elevator (joystick 4)
         - manual control for algae and coral mech (joystick 4 or more buttons)
@@ -21,7 +22,7 @@
         - elevator jam detection
 
         - infinite coral statiion auto to practice feeding
-        - update wpilib and change field poses to use welded field
+
 
 - Tuning:
     - Tune drivebase odometry without vision

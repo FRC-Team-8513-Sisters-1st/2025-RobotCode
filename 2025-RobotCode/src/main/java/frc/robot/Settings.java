@@ -154,6 +154,8 @@ public final class Settings {
         // offsets reef
         public static Transform2d tagToLeft = new Transform2d(0.5, -0.254, new Rotation2d(Math.PI));
         public static Transform2d tagToRight = new Transform2d(0.5, 0.056, new Rotation2d(Math.PI));
+        public static Transform2d tagToLeftL1 = new Transform2d(0, 0.3, new Rotation2d());
+        public static Transform2d tagToRightL1 = new Transform2d(0, -0.5, new Rotation2d());
 
         // offset pocessor
         public static Transform2d tagToProcessor = new Transform2d(0.4, 0.1, new Rotation2d(Math.PI));
@@ -181,6 +183,7 @@ public final class Settings {
         public static Pose2d coralLeftIJ = ijATPose.plus(tagToLeft);
         public static Pose2d coralRightKL = klATPose.plus(tagToRight);
         public static Pose2d coralLeftKL = klATPose.plus(tagToLeft);
+
 
         public static Pose2d processorAP = processorATPose.plus(tagToProcessor);
         public static Pose2d rightCloseFeederStationAP = rightFeederStationPose.plus(closeFeederStation);
@@ -235,5 +238,14 @@ public final class Settings {
                 }
 
                 return new Pose2d(goalXPos, goalYPos, goalRPos);
+        }
+
+        public static Pose2d changeOffsetToL1(Pose2d coralScoreGoalPose, boolean leftSide){
+                if (leftSide) {
+                        coralScoreGoalPose = coralScoreGoalPose.plus(tagToLeftL1);
+                } else {
+                        coralScoreGoalPose = coralScoreGoalPose.plus(tagToRightL1);
+                }
+                return coralScoreGoalPose;   
         }
 }
