@@ -23,6 +23,8 @@
         - elevator jam detection 
         - change offsets for L1
         - infinite coral statiion auto to practice feeding
+        - update radio
+        - update wpilib and change field poses to use welded field
         - final tune navgrid using sim, check a few IRL
 
 - Tuning:

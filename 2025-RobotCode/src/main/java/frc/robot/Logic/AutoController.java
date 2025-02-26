@@ -125,7 +125,7 @@ public class AutoController {
                 break;
             case customAutoAnyLength:
                 switch (autoStep) {
-                    case 0:
+                    case 0: //checks to flip to red side in simulation
                         if (Robot.isSimulation()) {
                             if (thisRobot.onRedAlliance) {
                                 thisRobot.drivebase.swerveDrive.resetOdometry(
@@ -134,26 +134,15 @@ public class AutoController {
                                 thisRobot.drivebase.swerveDrive.resetOdometry(customAutoStartPose);
                             }
                         }
-                        thisRobot.drivebase.initAstarAndAP(
-                                customAutoPoses[customAutoStep].transformBy(Settings.astarReefPoseOffset),
-                                customAutoPoses[0]);
-                        thisRobot.coral.state = CoralIntakeStates.stationary;
-                        thisRobot.elevator.state = customElevatorStates[customAutoStep];
-                        customAutoStep++;
                         autoStep = 5;
-                        // intentially no break
-                    case 5:
-                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
+                    case 5: //scores at initial scoring position
+                        thisRobot.coral.state = CoralIntakeStates.stationary;
+                        if (autoScoreCoral(customAutoPoses[customAutoStep], customElevatorStates[customAutoStep])) {
                             autoStep = 10;
-                            thisRobot.coral.state = CoralIntakeStates.outake;
-                            timeStepStarted = Timer.getFPGATimestamp();
+                            customAutoStep++;
                         }
-
-                        thisRobot.elevator.setMotorPower();
-                        thisRobot.coral.setMotorPower();
                         break;
-
-                    case 10:
+                    case 10: //waits to finish scoring, then generates path to coral station
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
@@ -169,7 +158,7 @@ public class AutoController {
 
                         }
                         break;
-                    case 15:
+                    case 15: //drives to coral station
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
@@ -177,14 +166,14 @@ public class AutoController {
                             autoStep = 16;
                         }
                         break;
-                    case 16:
+                    case 16: //waits at coral station
                     if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
                         autoStep = 20;
                     }
                     break;
-                    case 20:
+                    case 20: //generates path and scores at desired scoring location, then chooses whether to continue or end auto
                         if (autoScoreCoral(customAutoPoses[customAutoStep], customElevatorStates[customAutoStep])) {
-                            if (customAutoStep >= customAutoPoses.length - 1) {
+                            if (customAutoStep >= customAutoPoses.length - 1) { 
                                 autoStep = 45;
                             } else {
                                 autoStep = 10;
@@ -192,7 +181,7 @@ public class AutoController {
                             }
                         }
                         break;
-                    case 45:
+                    case 45: //ends auto
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
@@ -211,17 +200,17 @@ public class AutoController {
 
         thisRobot.elevator.setMotorPower();
         thisRobot.coral.setMotorPower();
-        if (generatedPathFirstTime) {
+        if (generatedPathFirstTime) { //generates path a single time
             thisRobot.elevator.state = elevatorState;
             thisRobot.drivebase.initAstarAndAP(
                     goalPose.transformBy(Settings.astarReefPoseOffset),
                     goalPose);
             generatedPathFirstTime = false;
         }
-        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
+        if (thisRobot.drivebase.fromOTFSwitchToAP()) { //drives to desired scoring position
             isComplete = true;
             generatedPathFirstTime = true;
-            timeStepStarted = Timer.getFPGATimestamp();
+            timeStepStarted = Timer.getFPGATimestamp(); //TODO: maybe move logic of waiting while coral is outtaking to here bc it is part of scoring
             thisRobot.coral.state = CoralIntakeStates.outake;
         }
         return isComplete;
