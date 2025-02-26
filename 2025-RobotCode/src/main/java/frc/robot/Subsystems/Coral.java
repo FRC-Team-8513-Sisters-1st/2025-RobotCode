@@ -54,6 +54,10 @@ public class Coral {
                     double lessenIntake = 1;
                     coralController.setSetpoint(coralController.getSetpoint() - lessenIntake);
                 }
+                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutakeALittle)) {
+                    double lessenIntake = -1;
+                    coralController.setSetpoint(coralController.getSetpoint() - lessenIntake);
+                }
 
                 break;
             case outake:

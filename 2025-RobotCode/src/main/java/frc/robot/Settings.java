@@ -91,6 +91,7 @@ public final class Settings {
 
         // controller 1 panel buttons
         public static int buttonId_CoralOutake = 5;
+        public static int buttonId_CoralOutakeALittle = 10;
         public static int buttonId_CoralIntake = 9;
         public static int buttonId_Coral4 = 6;
         public static int buttonId_Coral3 = 7;
