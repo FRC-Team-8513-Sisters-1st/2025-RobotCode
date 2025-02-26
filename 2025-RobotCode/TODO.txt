@@ -1,16 +1,12 @@
 - ToDo
     - test
-        - auto elevator up
-        - new coral out and back in
         - OTF tuning and AP tuning
-        - auto score
-        - copilot reinit path
         - tune OTF offsets
+        - tune l1 offsets
         
     - due week 1 
         - pheonix tuner upgrade
         - during OTF auto, check if we have a coral, if we dont have one by AP, go to coral station
-        - change offsets for L1
         - update radio
         - update wpilib and change field poses to use welded field
         
