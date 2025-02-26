@@ -4,6 +4,7 @@
         - tune OTF offsets
         - tune l1 offsets
         - tune cs offsets
+        - tune tune elevator heights
         
     - due week 1 
         - during OTF auto, check if we have a coral, if we dont have one by AP, go to coral station

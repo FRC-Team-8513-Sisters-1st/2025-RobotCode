@@ -292,7 +292,6 @@ public class Drivebase {
                         path = new PathPlannerPath(wpList, oTFConstraints, null, ges);
                     }
 
-                    - 
                     traj = path.generateTrajectory(swerveDrive.getRobotVelocity(), swerveDrive.getPose().getRotation(),
                             RobotConfig.fromGUISettings());
                     thisRobot.dashboard.otfGoalField2d.getObject("traj").setTrajectory(ppTrajToWPITraj(traj));
