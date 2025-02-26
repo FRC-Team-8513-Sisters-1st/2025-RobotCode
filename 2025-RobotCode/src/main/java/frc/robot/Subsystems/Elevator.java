@@ -9,6 +9,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import frc.robot.Robot;
 import frc.robot.Settings;
+import frc.robot.Logic.Enums.CoralIntakeStates;
 import frc.robot.Logic.Enums.ElevatorStates;
 
 public class Elevator {
@@ -98,7 +99,7 @@ public class Elevator {
 
     public boolean elevatorSafeToGo(Pose2d goalPose) {
         Pose2d currentPose = thisRobot.drivebase.swerveDrive.getPose();
-        if (Settings.getDistanceBetweenTwoPoses(goalPose, currentPose) < Settings.elevatorSafeToGoThold) {
+        if (Settings.getDistanceBetweenTwoPoses(goalPose, currentPose) < Settings.elevatorSafeToGoThold && thisRobot.coral.state == CoralIntakeStates.stationary) {
             return true;
         } else {
             return false;
