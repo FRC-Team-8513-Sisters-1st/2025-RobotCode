@@ -26,6 +26,7 @@ public class Coral {
     boolean seenBackEdge = false;
 
     public double currentBrokeTholdTime = 0;
+    boolean sensorBrokeThold = false;
 
     public Coral(Robot thisRobotIn) {
 
@@ -55,7 +56,7 @@ public class Coral {
 
                 break;
             case outake:
-                coralMotor1.set(1);
+                double coralPower = 1;
                 funnelMotor1.set(0.2);
                 if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake)) {
                     state = CoralIntakeStates.stationary;
@@ -63,19 +64,21 @@ public class Coral {
                 }
 
                 // sensor
-                if (coralMotor1.getAnalog().getVoltage() > Settings.sensorThold && sensorFirstTime) {
-                    seenBackEdge = false;
-                    if (coralMotor1.getAnalog().getVoltage() < Settings.sensorThold && !seenBackEdge) {
-                        seenBackEdge = true;
-                        coralMotor1.getEncoder().setPosition(0);
-                        coralController.setSetpoint(-2);
-                        sensorFirstTime = false;
-                        state = CoralIntakeStates.stationary;
-                    }
-                } else if (coralMotor1.getAnalog().getVoltage() < Settings.sensorThold - 0.1) {
+                if ((coralMotor1.getAnalog().getVoltage() > Settings.sensorThold || sensorBrokeThold) && sensorFirstTime) {
+                        sensorBrokeThold = true;
+                        coralPower = 0.4;
+                        if(coralMotor1.getAnalog().getVoltage() < Settings.sensorThold){
+                            coralMotor1.getEncoder().setPosition(0);
+                            coralController.setSetpoint(-2);
+                            sensorFirstTime = false;
+                            state = CoralIntakeStates.stationary;
+                            sensorBrokeThold = false;
+                        }
+                } else if (coralMotor1.getAnalog().getVoltage() < Settings.sensorThold) {
                     sensorFirstTime = true;
+                    sensorBrokeThold = false;
                 }
-
+                coralMotor1.set(coralPower);
                 break;
             default:
                 break;
