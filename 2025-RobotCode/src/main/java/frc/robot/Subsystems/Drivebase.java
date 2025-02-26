@@ -277,8 +277,9 @@ public class Drivebase {
                 try {
                     // if we started pose with a backup we need to isert a waypoint where we
                     // actually start
+                    List<Waypoint> wpList = path.getWaypoints();
                     if (isPoseInReefZone(otfGoalPose) == false && isRobotInReefZone()) {
-                        List<Waypoint> wpList = path.getWaypoints();
+                        
                         wpList.add(0,
                                 new Waypoint(
                                         null,
@@ -290,22 +291,6 @@ public class Drivebase {
 
                         path = new PathPlannerPath(wpList, oTFConstraints, null, ges);
                     }
-
-                    // have otf path bring us all the way to scoring pose
-                    List<Waypoint> wpList = path.getWaypoints();
-                    wpList.add(
-                            new Waypoint(
-                                    wpList.get(wpList.size() - 1).anchor(),
-                                    apGoalPose.getTranslation(),
-                                    null));
-
-                    wpList.set(wpList.size() - 2,
-                            new Waypoint(
-                                    wpList.get(wpList.size() - 2).prevControl(),
-                                    wpList.get(wpList.size() - 2).anchor(),
-                                    wpList.get(wpList.size() - 1).anchor()));
-
-                    path = new PathPlannerPath(wpList, oTFConstraints, null, ges);
 
                     traj = path.generateTrajectory(swerveDrive.getRobotVelocity(), swerveDrive.getPose().getRotation(),
                             RobotConfig.fromGUISettings());
@@ -345,7 +330,7 @@ public class Drivebase {
         }
         thisRobot.dashboard.otfGoalField2d.setRobotPose(apPose);
         skipOTF = false;
-        if(Settings.getDistanceBetweenTwoPoses(apPose, swerveDrive.getPose()) < 0.75){
+        if (Settings.getDistanceBetweenTwoPoses(apPose, swerveDrive.getPose()) < 0.75) {
             skipOTF = true;
             resetAPPIDControllers(apGoalPose);
         }
@@ -357,12 +342,12 @@ public class Drivebase {
     public boolean fromOTFSwitchToAP() {
         boolean pathDone = followOTFPath();
         if (pathDone || skipOTF) {
-            if(apDone){
+            if (apDone) {
                 swerveDrive.lockPose();
             } else {
                 apDone = thisRobot.drivebase.attackPoint(apGoalPose, 2) && pathDone;
             }
-           
+
         } else {
             resetAPPIDControllers(apGoalPose);
         }
