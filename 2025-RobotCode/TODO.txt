@@ -6,7 +6,7 @@
         - manual control and resets for elevator (joystick 4)
         - manual control for algae and coral mech (joystick 4 or more buttons)
 
-        - add backup and elevator auto down after auto score
+        - test backup and elevator auto down after auto score
         - climber states
         - elevator jam detection 
         - change offsets for L1

@@ -77,7 +77,7 @@ public class Elevator {
             m_controller.setGoal(elevatorGoalPIDState);
         }
 
-        double yLeftValue = thisRobot.teleopController.manualJoystick.getRawAxis(5); // make this copilot elevator
+        double yLeftValue = thisRobot.teleopController.manualJoystick.getRawAxis(5) * 0.2; // make this copilot elevator
                                                                                      // controller
         if (Math.abs(yLeftValue) > 0.02) {
             elevatorMotor1.set(yLeftValue);

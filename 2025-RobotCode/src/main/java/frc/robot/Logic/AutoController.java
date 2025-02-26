@@ -61,6 +61,7 @@ public class AutoController {
         updateAutoRoutine();
         autoStep = 0;
         customAutoStep = 0;
+        thisRobot.elevator.autoElevatorOn = true;
     }
 
     public void autoDis() {
@@ -161,9 +162,9 @@ public class AutoController {
                             thisRobot.drivebase.initAstarAndAP(
                                     customAutoPoses[customAutoStep].transformBy(Settings.astarFeederStPoseOffset),
                                     customAutoPoses[customAutoStep]);
-                            customAutoStep++;
                             autoStep = 15;
                             thisRobot.elevator.state = customElevatorStates[customAutoStep];
+                            customAutoStep++;
                             thisRobot.coral.state = CoralIntakeStates.outake;
 
                         }

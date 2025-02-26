@@ -21,10 +21,7 @@ public class Coral {
     // sensor
     public PIDController coralController = new PIDController(.1, 0, 0);
     public boolean sensorFirstTime = false;
-    public double holdCoralPos = 16;
-
-    boolean seenFrontEdge = true;
-    boolean seenBackEdge = false;
+    public double holdCoralPos = 15;
 
     public double currentBrokeTholdTime = 0;
 
@@ -39,6 +36,7 @@ public class Coral {
     }
 
     public void setMotorPower() {
+
 
         switch (state) {
             case stationary:
@@ -65,16 +63,13 @@ public class Coral {
 
                 // sensor
                 if (coralMotor1.getAnalog().getVoltage() > Settings.sensorThold && sensorFirstTime) {
-                  //  if (coralMotor1.getAnalog().getVoltage() < Settings.sensorThold) {
-                        coralMotor1.getEncoder().setPosition(0);
-                        coralController.setSetpoint(15);
-                        sensorFirstTime = false;
-                        state = CoralIntakeStates.stationary;
-                  //  }
+                    coralMotor1.getEncoder().setPosition(0);
+                    coralController.setSetpoint(holdCoralPos);
+                    sensorFirstTime = false;
+                    state = CoralIntakeStates.stationary;
                 } else if (coralMotor1.getAnalog().getVoltage() < Settings.sensorThold) {
                     sensorFirstTime = true;
                 }
-
                 break;
             default:
                 break;
