@@ -21,7 +21,7 @@ public class Coral {
     // sensor
     public PIDController coralController = new PIDController(.1, 0, 0);
     public boolean sensorFirstTime = false;
-    public double holdCoralPos = 16;
+    public double holdCoralPos = 15;
 
     public double currentBrokeTholdTime = 0;
 
@@ -54,7 +54,7 @@ public class Coral {
 
                 break;
             case outake:
-                coralMotor1.set(0.75);
+                coralMotor1.set(1);
                 funnelMotor1.set(0.2);
                 if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake)) {
                     state = CoralIntakeStates.stationary;

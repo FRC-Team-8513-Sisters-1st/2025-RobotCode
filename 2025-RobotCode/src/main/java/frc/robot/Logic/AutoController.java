@@ -61,6 +61,7 @@ public class AutoController {
         updateAutoRoutine();
         autoStep = 0;
         customAutoStep = 0;
+        thisRobot.elevator.autoElevatorOn = true;
     }
 
     public void autoDis() {
@@ -161,9 +162,9 @@ public class AutoController {
                             thisRobot.drivebase.initAstarAndAP(
                                     customAutoPoses[customAutoStep].transformBy(Settings.astarFeederStPoseOffset),
                                     customAutoPoses[customAutoStep]);
-                            customAutoStep++;
                             autoStep = 15;
                             thisRobot.elevator.state = customElevatorStates[customAutoStep];
+                            customAutoStep++;
                             thisRobot.coral.state = CoralIntakeStates.outake;
 
                         }
@@ -172,9 +173,15 @@ public class AutoController {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
-                            autoStep = 20;
+                            timeStepStarted = Timer.getFPGATimestamp();
+                            autoStep = 16;
                         }
                         break;
+                    case 16:
+                    if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
+                        autoStep = 20;
+                    }
+                    break;
                     case 20:
                         if (autoScoreCoral(customAutoPoses[customAutoStep], customElevatorStates[customAutoStep])) {
                             if (customAutoStep >= customAutoPoses.length - 1) {

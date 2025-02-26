@@ -4,6 +4,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import frc.robot.Robot;
@@ -50,24 +51,24 @@ public class Elevator {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL1, 0);
             m_controller.setGoal(elevatorGoalPIDState);
         }
-        if (thisRobot.drivebase.isRobotInReefZone() && state == ElevatorStates.L2 && autoElevatorOn) {
+        if (elevatorSafeToGo(thisRobot.drivebase.apGoalPose) && state == ElevatorStates.L2 && autoElevatorOn) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL2, 0);
             m_controller.setGoal(elevatorGoalPIDState);
         }
-        if (thisRobot.drivebase.isRobotInReefZone() && state == ElevatorStates.L3 && autoElevatorOn) {
+        if (elevatorSafeToGo(thisRobot.drivebase.apGoalPose) && state == ElevatorStates.L3 && autoElevatorOn) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL3, 0);
             m_controller.setGoal(elevatorGoalPIDState);
         }
-        if (thisRobot.drivebase.isRobotInReefZone() && state == ElevatorStates.L4 && autoElevatorOn) {
+        if (elevatorSafeToGo(thisRobot.drivebase.apGoalPose) && state == ElevatorStates.L4 && autoElevatorOn) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL4, 0);
             m_controller.setGoal(elevatorGoalPIDState);
         }
         // algae state if in reef zone
-        if (thisRobot.drivebase.isRobotInReefZone() && state == ElevatorStates.L2a && autoElevatorOn) {
+        if (elevatorSafeToGo(thisRobot.drivebase.apGoalPose) && state == ElevatorStates.L2a && autoElevatorOn) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosA2, 0);
             m_controller.setGoal(elevatorGoalPIDState);
         }
-        if (thisRobot.drivebase.isRobotInReefZone() && state == ElevatorStates.L3a && autoElevatorOn) {
+        if (elevatorSafeToGo(thisRobot.drivebase.apGoalPose) && state == ElevatorStates.L3a && autoElevatorOn) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosA3, 0);
             m_controller.setGoal(elevatorGoalPIDState);
         }
@@ -76,7 +77,7 @@ public class Elevator {
             m_controller.setGoal(elevatorGoalPIDState);
         }
 
-        double yLeftValue = thisRobot.teleopController.manualJoystick.getRawAxis(5); // make this copilot elevator
+        double yLeftValue = thisRobot.teleopController.manualJoystick.getRawAxis(5) * 0.2; // make this copilot elevator
                                                                                      // controller
         if (Math.abs(yLeftValue) > 0.02) {
             elevatorMotor1.set(yLeftValue);
@@ -93,5 +94,14 @@ public class Elevator {
 
     public boolean elevatorAtSetpoint(){
         return Math.abs(elevatorMotor1.getEncoder().getPosition() - m_controller.getGoal().position) < 0.25;
+    }
+
+    public boolean elevatorSafeToGo(Pose2d goalPose) {
+        Pose2d currentPose = thisRobot.drivebase.swerveDrive.getPose();
+        if (Settings.getDistanceBetweenTwoPoses(goalPose, currentPose) < Settings.elevatorSafeToGoThold) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

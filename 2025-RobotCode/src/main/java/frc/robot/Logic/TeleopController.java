@@ -12,6 +12,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
 
 public class TeleopController {
@@ -32,6 +33,8 @@ public class TeleopController {
     public boolean firstOTFPath = false;
     public Pose2d teleopGoalPose = new Pose2d();
     public Pose2d teleopGoalPoseAstar = new Pose2d();
+
+    boolean teleopAutoScore = true;
 
     Pose2d coralScoreGoalPose = new Pose2d();
 
@@ -61,6 +64,10 @@ public class TeleopController {
         elevatorSetLeve();
         forceCoralandAlgae();
         readCopilotJoystickAndUdateCloseOrFar();
+
+        if (manualJoystick.getRawButtonPressed(3)){
+            teleopAutoScore = !teleopAutoScore;
+        }
 
         if (driverXboxController.getRawButton(Settings.buttonId_resetOdo)) {
 
@@ -172,9 +179,16 @@ public class TeleopController {
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarReefPoseOffset);
             if (Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(),
                     coralScoreGoalPose) < Settings.coralScoreThold && thisRobot.drivebase.getRobotVelopcity() < 0.04
-                    && thisRobot.elevator.elevatorAtSetpoint()) {
+                    && thisRobot.elevator.elevatorAtSetpoint() && teleopAutoScore) {
                 // disabled auto score
                 thisRobot.coral.state = CoralIntakeStates.outake;
+                double currentTime = Timer.getFPGATimestamp();
+                if (thisRobot.coral.coralMotor1.getAnalog().getVoltage() < Settings.sensorThold && Timer.getFPGATimestamp() - currentTime > 0.4) {
+                    followPath = true;
+                    firstOTFPath = true;
+                    teleopGoalPose = coralScoreGoalPose.transformBy(Settings.backUpFromReefTransform);
+                    thisRobot.elevator.state = ElevatorStates.L1;
+                }
             }
         } else {
             thisRobot.drivebase.drive(xV, yV, rV, true);
