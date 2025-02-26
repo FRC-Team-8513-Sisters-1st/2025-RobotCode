@@ -9,6 +9,7 @@ import com.revrobotics.spark.SparkMax;
 import frc.robot.Robot;
 import frc.robot.Settings;
 import frc.robot.Logic.Enums.CoralIntakeStates;
+import frc.robot.Logic.Enums.ElevatorStates;
 
 public class Coral {
     Robot thisRobot;
@@ -77,6 +78,9 @@ public class Coral {
                 } else if (coralMotor1.getAnalog().getVoltage() < Settings.sensorThold) {
                     sensorFirstTime = true;
                     sensorBrokeThold = false;
+                }
+                if(thisRobot.elevator.state == ElevatorStates.L1){
+                    coralPower = 0.5;
                 }
                 coralMotor1.set(coralPower);
                 break;
