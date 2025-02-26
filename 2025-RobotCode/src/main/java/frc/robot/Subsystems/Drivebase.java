@@ -2,6 +2,9 @@ package frc.robot.Subsystems;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.simple.parser.ParseException;
 
 import edu.wpi.first.wpilibj.Filesystem;
@@ -9,11 +12,13 @@ import frc.robot.Robot;
 import frc.robot.Settings;
 import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
+import swervelib.encoders.ThriftyNovaEncoderSwerve;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import edu.wpi.first.math.util.Units;
 import swervelib.telemetry.SwerveDriveTelemetry;
@@ -247,6 +252,7 @@ public class Drivebase {
                 try {
                     traj = path.generateTrajectory(swerveDrive.getRobotVelocity(), swerveDrive.getPose().getRotation(),
                             RobotConfig.fromGUISettings());
+                    thisRobot.dashboard.otfGoalField2d.getObject("traj").setTrajectory(ppTrajToWPITraj(traj));
                 } catch (IOException | ParseException e) {
                     System.out.println("Error in trajectory generation");
                     e.printStackTrace();
@@ -302,5 +308,19 @@ public class Drivebase {
 
         return velocity;
         
+    }
+
+    public Trajectory ppTrajToWPITraj(PathPlannerTrajectory traj){
+        List<PathPlannerTrajectoryState> stateList = traj.getStates();
+        List<Trajectory.State> wpiStateLists = new ArrayList<Trajectory.State>();
+        for(PathPlannerTrajectoryState state: stateList){
+            Trajectory.State thisWPIState = new Trajectory.State(state.timeSeconds,
+                    state.linearVelocity,
+                    0,
+                    state.pose,
+                    0);
+            wpiStateLists.add(thisWPIState);
+        }
+        return new Trajectory(wpiStateLists);
     }
 }
