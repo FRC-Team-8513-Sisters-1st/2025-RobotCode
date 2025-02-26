@@ -1,5 +1,17 @@
 - ToDo
     - due week 1
+        - make generic "ready to auto score" function
+        - improve elevator auto up 
+            - Instead of "reef zone" lets try "distance to goal pose" 
+        - pheonix tuner upgrade
+        - during OTF auto, check if we have a coral, if we dont have one by AP, go to coral station
+        - if copilot changes goal, reinitialize path
+            - if operatorChosenSideOfReef changes, set firstOTFPath to true and it will reinit path
+        - try different (smaller) reef astar offset (path all the way to goal score pose)
+            - note: if within 0.5m of goal pose, we cant OTF, need to AP
+        - scoring coral 1.0 power
+
+        
         - test coral out then in thing
         - try different (smaller) reef astar offset (path all the way to goal score pose)
             - note: if within 0.5m of goal pose, we cant OTF, need to AP
