@@ -12,11 +12,11 @@ import frc.robot.Robot;
 import frc.robot.Settings;
 import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
-import swervelib.encoders.ThriftyNovaEncoderSwerve;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
@@ -31,6 +31,7 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.path.GoalEndState;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.path.Waypoint;
 import com.pathplanner.lib.pathfinding.LocalADStar;
 import com.pathplanner.lib.pathfinding.Pathfinder;
 
@@ -65,6 +66,7 @@ public class Drivebase {
     public Pose2d otfGoalPose = new Pose2d();
     int nullPathCount = 0;
     boolean otfPathDone = true;
+    boolean skipOTF = false;
 
     public Drivebase(Robot thisRobotIn) {
         double maximumSpeed = Units.feetToMeters(Settings.drivebaseMaxVelocityFPS);
@@ -203,6 +205,21 @@ public class Drivebase {
         }
     }
 
+    public boolean isPoseInReefZone(Pose2d pose) {
+        if (thisRobot.onRedAlliance) {
+            double x = pose.minus(Settings.reefZoneRed).getX();
+            double y = pose.minus(Settings.reefZoneRed).getY();
+            double distance = Math.sqrt(x * x + y * y);
+            return distance < Settings.minDistanceFromReefZoneMeter;
+        } else {
+            double x = pose.minus(Settings.reefZoneBlue).getX();
+            double y = pose.minus(Settings.reefZoneBlue).getY();
+            double distance = Math.sqrt(x * x + y * y);
+            return distance < Settings.minDistanceFromReefZoneMeter;
+        }
+
+    }
+
     public Pose2d flipPoseToRed(Pose2d goalPose) {
         double goalXPos = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getFieldLength()
                 - goalPose.getX();
@@ -236,7 +253,13 @@ public class Drivebase {
         Settings.yController.reset();
         Settings.rController.reset();
         generatePath.setGoalPosition(goalPose.getTranslation());
-        generatePath.setStartPosition(swerveDrive.getPose().getTranslation());
+        // drive back if not going to reef zone and if in reef zone
+        if (isPoseInReefZone(goalPose) == false && isRobotInReefZone()) {
+            generatePath.setStartPosition(
+                    swerveDrive.getPose().transformBy(new Transform2d(-0.5, 0, new Rotation2d())).getTranslation());
+        } else {
+            generatePath.setStartPosition(swerveDrive.getPose().getTranslation());
+        }
 
         trajGoalRotation = goalPose.getRotation();
         otfReady = false;
@@ -246,10 +269,43 @@ public class Drivebase {
 
     public boolean followOTFPath() {
         if (generatePath.isNewPathAvailable()) {
-            GoalEndState ges = new GoalEndState(0.25, trajGoalRotation);
+            GoalEndState ges = new GoalEndState(0.1, trajGoalRotation);
             path = generatePath.getCurrentPath(oTFConstraints, ges);
+
             if (path != null) {
                 try {
+                    // if we started pose with a backup we need to isert a waypoint where we
+                    // actually start
+                    if (isPoseInReefZone(otfGoalPose) == false && isRobotInReefZone()) {
+                        List<Waypoint> wpList = path.getWaypoints();
+                        wpList.add(0,
+                                new Waypoint(
+                                        null,
+                                        swerveDrive.getPose().getTranslation(),
+                                        wpList.get(0).anchor()));
+
+                        wpList.set(1, new Waypoint(wpList.get(0).anchor(), wpList.get(1).anchor(),
+                                wpList.get(1).nextControl()));
+
+                        path = new PathPlannerPath(wpList, oTFConstraints, null, ges);
+                    }
+
+                    // have otf path bring us all the way to scoring pose
+                    List<Waypoint> wpList = path.getWaypoints();
+                    wpList.add(
+                            new Waypoint(
+                                    wpList.get(wpList.size() - 1).anchor(),
+                                    apGoalPose.getTranslation(),
+                                    null));
+
+                    wpList.set(wpList.size() - 2,
+                            new Waypoint(
+                                    wpList.get(wpList.size() - 2).prevControl(),
+                                    wpList.get(wpList.size() - 2).anchor(),
+                                    wpList.get(wpList.size() - 1).anchor()));
+
+                    path = new PathPlannerPath(wpList, oTFConstraints, null, ges);
+
                     traj = path.generateTrajectory(swerveDrive.getRobotVelocity(), swerveDrive.getPose().getRotation(),
                             RobotConfig.fromGUISettings());
                     thisRobot.dashboard.otfGoalField2d.getObject("traj").setTrajectory(ppTrajToWPITraj(traj));
@@ -265,18 +321,18 @@ public class Drivebase {
                 nullPathCount++;
             }
         }
-        if(nullPathCount > 3){
+        if (nullPathCount > 3) {
             otfPathDone = true;
             return true;
         }
 
-        if (otfReady){
+        if (otfReady) {
             boolean pathState = followLoadedPath();
-            if(pathState){
+            if (pathState) {
                 otfPathDone = true;
                 return true;
             }
-        } else{
+        } else {
             nullPathCount++;
         }
         return false;
@@ -287,14 +343,19 @@ public class Drivebase {
             otfPose = flipPoseToRed(otfPose);
         }
         thisRobot.dashboard.otfGoalField2d.setRobotPose(apPose);
+        skipOTF = false;
+        if(Settings.getDistanceBetweenTwoPoses(apPose, swerveDrive.getPose()) < 0.75){
+            skipOTF = true;
+            resetAPPIDControllers(apGoalPose);
+        }
         apGoalPose = new Pose2d(apPose.getX(), apPose.getY(), apPose.getRotation());
         initPathToPoint(otfPose);
     }
 
     public boolean fromOTFSwitchToAP() {
         boolean pathDone = followOTFPath();
-        if (pathDone) {
-            return pathDone && thisRobot.drivebase.attackPoint(apGoalPose, 3);
+        if (pathDone || skipOTF) {
+            return thisRobot.drivebase.attackPoint(apGoalPose, 3) && pathDone;
         } else {
             resetAPPIDControllers(apGoalPose);
         }
@@ -307,13 +368,13 @@ public class Drivebase {
         double velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
 
         return velocity;
-        
+
     }
 
-    public Trajectory ppTrajToWPITraj(PathPlannerTrajectory traj){
+    public Trajectory ppTrajToWPITraj(PathPlannerTrajectory traj) {
         List<PathPlannerTrajectoryState> stateList = traj.getStates();
         List<Trajectory.State> wpiStateLists = new ArrayList<Trajectory.State>();
-        for(PathPlannerTrajectoryState state: stateList){
+        for (PathPlannerTrajectoryState state : stateList) {
             Trajectory.State thisWPIState = new Trajectory.State(state.timeSeconds,
                     state.linearVelocity,
                     0,

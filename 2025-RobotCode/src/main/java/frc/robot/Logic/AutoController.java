@@ -25,13 +25,25 @@ public class AutoController {
     // custom auto
     Pose2d customAutoStartPose = Settings.autoProcessorStartPose;
     Pose2d[] customAutoPoses = { Settings.coralLeftEF,
-            Settings.leftCenterFeederStationAP, Settings.coralRightAB,
+            Settings.leftCenterFeederStationAP, Settings.coralLeftAB,
             Settings.leftCenterFeederStationAP, Settings.coralLeftCD,
-            Settings.leftCenterFeederStationAP, Settings.coralRightEF,
-            Settings.rightCenterFeederStationAP, Settings.coralLeftGH,
+            Settings.leftCenterFeederStationAP, Settings.coralLeftEF,
+            Settings.leftCenterFeederStationAP, Settings.coralLeftGH,
+            Settings.leftCenterFeederStationAP, Settings.coralLeftIJ,
+            Settings.leftCenterFeederStationAP, Settings.coralLeftKL,
+            Settings.rightCenterFeederStationAP, Settings.coralRightAB,
+            Settings.rightCenterFeederStationAP, Settings.coralRightCD,
+            Settings.rightCenterFeederStationAP, Settings.coralRightEF,
+            Settings.rightCenterFeederStationAP, Settings.coralRightGH,
             Settings.rightCenterFeederStationAP, Settings.coralRightIJ,
-            Settings.rightCenterFeederStationAP, Settings.coralLeftAB };
+            Settings.rightCenterFeederStationAP, Settings.coralRightKL };
     ElevatorStates[] customElevatorStates = { ElevatorStates.L4,
+            ElevatorStates.L1, ElevatorStates.L4,
+            ElevatorStates.L1, ElevatorStates.L4,
+            ElevatorStates.L1, ElevatorStates.L4,
+            ElevatorStates.L1, ElevatorStates.L4,
+            ElevatorStates.L1, ElevatorStates.L4,
+            ElevatorStates.L1, ElevatorStates.L4,
             ElevatorStates.L1, ElevatorStates.L4,
             ElevatorStates.L1, ElevatorStates.L4,
             ElevatorStates.L1, ElevatorStates.L4,
@@ -84,8 +96,8 @@ public class AutoController {
             case processor_EF2L_RFS_AB2L_RFS_AB2R:
                 customAutoStartPose = Settings.autoProcessorStartPose;
                 customAutoPoses = new Pose2d[] { Settings.coralLeftEF,
-                        Settings.rightCenterFeederStationAP, Settings.coralLeftAB, Settings.rightCenterFeederStationAP,
-                        Settings.coralRightAB };
+                        Settings.rightCenterFeederStationAP, Settings.coralLeftAB, 
+                        Settings.rightCenterFeederStationAP,Settings.coralRightAB };
                 customElevatorStates = new ElevatorStates[] { ElevatorStates.L2,
                         ElevatorStates.L1, ElevatorStates.L2,
                         ElevatorStates.L1, ElevatorStates.L2, };

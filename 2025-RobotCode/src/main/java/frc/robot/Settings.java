@@ -21,7 +21,7 @@ public final class Settings {
 
         // joystick deadband
         public static double joystickDeadband = 0.01;
-        public static double triggerDeadband = 0.2;
+        public static double triggerDeadband = 0.8;
 
         // driver axis
         public static int leftRightAxis = 0;
@@ -163,8 +163,8 @@ public final class Settings {
 
         // astar tranforms
         public static Transform2d astarReefPoseOffset = new Transform2d(-0.15, 0, new Rotation2d());
-        public static Transform2d astarProcesserPoseOffset = new Transform2d(-1, 0, new Rotation2d());
-        public static Transform2d astarFeederStPoseOffset = new Transform2d(0.1, 0, new Rotation2d());
+        public static Transform2d astarProcesserPoseOffset = new Transform2d(-0.75, 0, new Rotation2d());
+        public static Transform2d astarFeederStPoseOffset = new Transform2d(0.15, 0, new Rotation2d());
 
         public static Transform2d backUpFromReefTransform = new Transform2d(-1,0,new Rotation2d());
 
