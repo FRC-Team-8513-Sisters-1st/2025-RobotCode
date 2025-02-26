@@ -34,6 +34,8 @@ public class TeleopController {
     public Pose2d teleopGoalPose = new Pose2d();
     public Pose2d teleopGoalPoseAstar = new Pose2d();
 
+    boolean goingToCoralStation = false;
+    ElevatorStates coPilotElevatorState = ElevatorStates.L1;
     boolean scoreCoralL1 = false;
 
     boolean teleopAutoScore = true;
@@ -153,30 +155,36 @@ public class TeleopController {
         // determine if we should go to point or manulaly drive
         if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)
                 && feederCloseOrFar == FeederStation.Far) {
+            goingToCoralStation = true;
             teleopGoalPose = Settings.rightFarFeederStationAP;
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarFeederStPoseOffset);
             followPath = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)
                 && feederCloseOrFar == FeederStation.Close) {
+                    goingToCoralStation = true;
             teleopGoalPose = Settings.rightCloseFeederStationAP;
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarFeederStPoseOffset);
             followPath = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt)
                 && feederCloseOrFar == FeederStation.Far) {
+                    goingToCoralStation = true;
             teleopGoalPose = Settings.leftFarFeederStationAP;
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarFeederStPoseOffset);
             followPath = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt)
                 && feederCloseOrFar == FeederStation.Close) {
+                    goingToCoralStation = true;
             teleopGoalPose = Settings.leftCloseFeederStationAP;
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarFeederStPoseOffset);
             followPath = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_processorAP)) {
+            goingToCoralStation = false;
             teleopGoalPose = Settings.processorAP;
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarProcesserPoseOffset);
             followPath = true;
         } else if (rightTriggerValue > Settings.triggerDeadband || leftTriggerValue > Settings.triggerDeadband) {
             followPath = true;
+            goingToCoralStation = false;
             teleopGoalPose = coralScoreGoalPose;
             if (scoreCoralL1) {
                 if (leftTriggerValue > Settings.triggerDeadband) {
@@ -202,13 +210,18 @@ public class TeleopController {
                 }
             }
         } else {
+            goingToCoralStation = false;
             thisRobot.drivebase.drive(xV, yV, rV, true);
             firstOTFPath = true;
             thisRobot.drivebase.generatePath
                     .setStartPosition(thisRobot.drivebase.swerveDrive.getPose().getTranslation());
-
         }
 
+        if(goingToCoralStation){
+            thisRobot.elevator.state = ElevatorStates.L1;
+        } else {
+            thisRobot.elevator.state = coPilotElevatorState;
+        }
         if (followPath) {
             if (firstOTFPath) {
                 thisRobot.drivebase.initAstarAndAP(teleopGoalPoseAstar, teleopGoalPose);
@@ -319,32 +332,32 @@ public class TeleopController {
 
     public void elevatorSetLeve() {
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral1)) {
-            thisRobot.elevator.state = ElevatorStates.L1;
+            coPilotElevatorState = ElevatorStates.L1;
             scoreCoralL1 = true;
         }
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral2)) {
-            thisRobot.elevator.state = ElevatorStates.L2;
+            coPilotElevatorState = ElevatorStates.L2;
             scoreCoralL1 = false;
         }
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral3)) {
-            thisRobot.elevator.state = ElevatorStates.L3;
+            coPilotElevatorState = ElevatorStates.L3;
             scoreCoralL1 = false;
         }
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral4)) {
-            thisRobot.elevator.state = ElevatorStates.L4;
+            coPilotElevatorState = ElevatorStates.L4;
             scoreCoralL1 = false;
         }
         // algae
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Algae2)) {
-            thisRobot.elevator.state = ElevatorStates.L2a;
+            coPilotElevatorState = ElevatorStates.L2a;
             scoreCoralL1 = false;
         }
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Algae3)) {
-            thisRobot.elevator.state = ElevatorStates.L3a;
+            coPilotElevatorState = ElevatorStates.L3a;
             scoreCoralL1 = false;
         }
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_processor)) {
-            thisRobot.elevator.state = ElevatorStates.scoreProcessor;
+            coPilotElevatorState = ElevatorStates.scoreProcessor;
             scoreCoralL1 = false;
         }
     }

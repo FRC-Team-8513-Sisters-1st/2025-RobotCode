@@ -100,7 +100,7 @@ public class Elevator {
     public boolean elevatorSafeToGo(Pose2d goalPose) {
         Pose2d currentPose = thisRobot.drivebase.swerveDrive.getPose();
         if (Settings.getDistanceBetweenTwoPoses(goalPose, currentPose) < Settings.elevatorSafeToGoThold && thisRobot.coral.state == CoralIntakeStates.stationary) {
-            return true;
+            return true && thisRobot.drivebase.isRobotInReefZone();
         } else {
             return false;
         }

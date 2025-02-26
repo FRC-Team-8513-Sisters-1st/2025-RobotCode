@@ -357,7 +357,7 @@ public class Drivebase {
     public boolean fromOTFSwitchToAP() {
         boolean pathDone = followOTFPath();
         if (pathDone || skipOTF) {
-            if(apDone == false){
+            if(apDone){
                 swerveDrive.lockPose();
             } else {
                 apDone = thisRobot.drivebase.attackPoint(apGoalPose, 2) && pathDone;

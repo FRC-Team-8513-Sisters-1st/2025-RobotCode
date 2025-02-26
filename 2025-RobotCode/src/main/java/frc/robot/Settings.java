@@ -36,9 +36,9 @@ public final class Settings {
         // pid settings
         public static double maxVelocityAP = 3;
         public static double maxAccelerationAP = 3;
-        private static double attackPointDriveP = 15;
-        private static double attackPointDriveI = 1;
-        private static double attackPointDriveD = 0.5;
+        private static double attackPointDriveP = 5;
+        private static double attackPointDriveI = 0.1;
+        private static double attackPointDriveD = 0.01;
         private static double attackPointDt = 0.02;
 
         // rotation
@@ -70,8 +70,8 @@ public final class Settings {
                         attackPointDriveConstraints, attackPointDt);
 
         // pid path follow settings
-        public static PIDController xController = new PIDController(10, 0.1, 0.1);
-        public static PIDController yController = new PIDController(10, 0.1, 0.1);
+        public static PIDController xController = new PIDController(3.5, 0.05, 0.01);
+        public static PIDController yController = new PIDController(3.5, 0.05, 0.01);
         public static PIDController rController = new PIDController(0.1, 0, 0);
 
         public static PIDController rJoystickController = new PIDController(0.1, 0, 0);
@@ -91,8 +91,8 @@ public final class Settings {
 
         // controller 1 panel buttons
         public static int buttonId_CoralOutake = 5;
-        public static int buttonId_CoralOutakeALittle = 10;
-        public static int buttonId_CoralIntake = 9;
+        public static int buttonId_CoralOutakeALittle = 9;
+        public static int buttonId_CoralIntake = 10;
         public static int buttonId_Coral4 = 6;
         public static int buttonId_Coral3 = 7;
         public static int buttonId_Coral2 = 8;
