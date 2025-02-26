@@ -67,6 +67,7 @@ public class Drivebase {
     int nullPathCount = 0;
     boolean otfPathDone = true;
     boolean skipOTF = false;
+    boolean apDone = false;
 
     public Drivebase(Robot thisRobotIn) {
         double maximumSpeed = Units.feetToMeters(Settings.drivebaseMaxVelocityFPS);
@@ -349,13 +350,19 @@ public class Drivebase {
             resetAPPIDControllers(apGoalPose);
         }
         apGoalPose = new Pose2d(apPose.getX(), apPose.getY(), apPose.getRotation());
+        apDone = false;
         initPathToPoint(otfPose);
     }
 
     public boolean fromOTFSwitchToAP() {
         boolean pathDone = followOTFPath();
         if (pathDone || skipOTF) {
-            return thisRobot.drivebase.attackPoint(apGoalPose, 3) && pathDone;
+            if(apDone == false){
+                swerveDrive.lockPose();
+            } else {
+                apDone = thisRobot.drivebase.attackPoint(apGoalPose, 2) && pathDone;
+            }
+           
         } else {
             resetAPPIDControllers(apGoalPose);
         }

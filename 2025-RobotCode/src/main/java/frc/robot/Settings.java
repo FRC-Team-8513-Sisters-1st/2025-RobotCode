@@ -36,9 +36,9 @@ public final class Settings {
         // pid settings
         public static double maxVelocityAP = 3;
         public static double maxAccelerationAP = 3;
-        private static double attackPointDriveP = 5;
-        private static double attackPointDriveI = 0.1;
-        private static double attackPointDriveD = 0.01;
+        private static double attackPointDriveP = 15;
+        private static double attackPointDriveI = 1;
+        private static double attackPointDriveD = 0.5;
         private static double attackPointDt = 0.02;
 
         // rotation
@@ -70,8 +70,8 @@ public final class Settings {
                         attackPointDriveConstraints, attackPointDt);
 
         // pid path follow settings
-        public static PIDController xController = new PIDController(3.5, 0.05, 0.01);
-        public static PIDController yController = new PIDController(3.5, 0.05, 0.01);
+        public static PIDController xController = new PIDController(10, 0.1, 0.1);
+        public static PIDController yController = new PIDController(10, 0.1, 0.1);
         public static PIDController rController = new PIDController(0.1, 0, 0);
 
         public static PIDController rJoystickController = new PIDController(0.1, 0, 0);
@@ -164,9 +164,9 @@ public final class Settings {
         public static Transform2d centerFeederStation = new Transform2d(0.5, 0, new Rotation2d());
 
         // astar tranforms
-        public static Transform2d astarReefPoseOffset = new Transform2d(-0.15, 0, new Rotation2d());
+        public static Transform2d astarReefPoseOffset = new Transform2d(-0.3, 0, new Rotation2d());
         public static Transform2d astarProcesserPoseOffset = new Transform2d(-0.75, 0, new Rotation2d());
-        public static Transform2d astarFeederStPoseOffset = new Transform2d(0.15, 0, new Rotation2d());
+        public static Transform2d astarFeederStPoseOffset = new Transform2d(0.25, 0, new Rotation2d());
 
         public static Transform2d backUpFromReefTransform = new Transform2d(-1,0,new Rotation2d());
 

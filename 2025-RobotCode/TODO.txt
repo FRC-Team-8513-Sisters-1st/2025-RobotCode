@@ -5,7 +5,6 @@
         - tune l1 offsets
         
     - due week 1 
-        - pheonix tuner upgrade
         - during OTF auto, check if we have a coral, if we dont have one by AP, go to coral station
         - update radio
         - update wpilib and change field poses to use welded field
