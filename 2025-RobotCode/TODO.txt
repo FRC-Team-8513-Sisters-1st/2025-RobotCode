@@ -5,13 +5,12 @@
         - tune l1 offsets
         - tune cs offsets
         - tune tune elevator heights
+        - during OTF auto, check if we have a coral, if we dont have one by AP, go to coral station
+        - during auto, check if elevator is at right height before scoring
+        - dont bring elevator down if close to reef 
+            - not sure if we need to do this or not
         
     - due week 1 
-        X during OTF auto, check if we have a coral, if we dont have one by AP, go to coral station
-        X during auto, check if elevator is at right height before scoring
-        X dont bring elevator down if close to reef 
-            - not sure if we need to do this or not
-        - test facing reef red
         - update radio
         
         - manual control and resets for elevator (joystick 4)
@@ -20,8 +19,6 @@
 
         - climber states
         - elevator jam detection
-
-        - infinite coral statiion auto to practice feeding
 
 
 - Tuning:

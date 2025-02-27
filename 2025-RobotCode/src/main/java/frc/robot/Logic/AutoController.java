@@ -273,7 +273,7 @@ public class AutoController {
                     goalPose);
             generatedPathFirstTime = false;
         }
-        if (thisRobot.drivebase.fromOTFSwitchToAP()) { // drives to desired scoring position
+        if (thisRobot.drivebase.fromOTFSwitchToAP() && thisRobot.elevator.elevatorAtSetpoint()) { // drives to desired scoring position
             isComplete = true;
             generatedPathFirstTime = true;
             timeStepStarted = Timer.getFPGATimestamp(); // TODO: maybe move logic of waiting while coral is outtaking to
