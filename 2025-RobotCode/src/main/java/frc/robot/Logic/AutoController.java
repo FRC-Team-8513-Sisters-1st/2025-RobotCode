@@ -1,6 +1,8 @@
 package frc.robot.Logic;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -96,8 +98,8 @@ public class AutoController {
             case processor_EF2L_RFS_AB2L_RFS_AB2R:
                 customAutoStartPose = Settings.autoProcessorStartPose;
                 customAutoPoses = new Pose2d[] { Settings.coralLeftEF,
-                        Settings.rightCenterFeederStationAP, Settings.coralLeftAB, 
-                        Settings.rightCenterFeederStationAP,Settings.coralRightAB };
+                        Settings.rightCenterFeederStationAP, Settings.coralLeftAB,
+                        Settings.rightCenterFeederStationAP, Settings.coralRightAB };
                 customElevatorStates = new ElevatorStates[] { ElevatorStates.L2,
                         ElevatorStates.L1, ElevatorStates.L2,
                         ElevatorStates.L1, ElevatorStates.L2, };
@@ -126,18 +128,18 @@ public class AutoController {
             case betWithBusler:
                 customAutoStartPose = Settings.autoProcessorStartPose;
                 customAutoPoses = new Pose2d[] { Settings.coralLeftEF,
-                        Settings.rightCenterFeederStationAP, Settings.coralLeftAB, 
-                        Settings.rightCenterFeederStationAP, Settings.coralRightAB, 
+                        Settings.rightCenterFeederStationAP, Settings.coralLeftAB,
+                        Settings.rightCenterFeederStationAP, Settings.coralRightAB,
                         Settings.rightCenterFeederStationAP, Settings.coralLeftCD };
                 customElevatorStates = new ElevatorStates[] { ElevatorStates.L2,
                         ElevatorStates.L1, ElevatorStates.L2,
                         ElevatorStates.L1, ElevatorStates.L2,
-                        ElevatorStates.L1, ElevatorStates.L2};
+                        ElevatorStates.L1, ElevatorStates.L2 };
                 autoRoutine = AutoRoutines.customAutoAnyLength;
                 break;
             case customAutoAnyLength:
                 switch (autoStep) {
-                    case 0: //checks to flip to red side in simulation
+                    case 0: // checks to flip to red side in simulation
                         if (Robot.isSimulation()) {
                             if (thisRobot.onRedAlliance) {
                                 thisRobot.drivebase.swerveDrive.resetOdometry(
@@ -147,14 +149,14 @@ public class AutoController {
                             }
                         }
                         autoStep = 5;
-                    case 5: //scores at initial scoring position
+                    case 5: // scores at initial scoring position
                         thisRobot.coral.state = CoralIntakeStates.stationary;
                         if (autoScoreCoral(customAutoPoses[customAutoStep], customElevatorStates[customAutoStep])) {
                             autoStep = 10;
                             customAutoStep++;
                         }
                         break;
-                    case 10: //waits to finish scoring, then generates path to coral station
+                    case 10: // waits to finish scoring, then generates path to coral station
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
@@ -170,7 +172,7 @@ public class AutoController {
 
                         }
                         break;
-                    case 15: //drives to coral station
+                    case 15: // drives to coral station
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
@@ -178,14 +180,15 @@ public class AutoController {
                             autoStep = 16;
                         }
                         break;
-                    case 16: //waits at coral station
-                    if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
-                        autoStep = 20;
-                    }
-                    break;
-                    case 20: //generates path and scores at desired scoring location, then chooses whether to continue or end auto
+                    case 16: // waits at coral station
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
+                            autoStep = 20;
+                        }
+                        break;
+                    case 20: // generates path and scores at desired scoring location, then chooses whether
+                             // to continue or end auto
                         if (autoScoreCoral(customAutoPoses[customAutoStep], customElevatorStates[customAutoStep])) {
-                            if (customAutoStep >= customAutoPoses.length - 1) { 
+                            if (customAutoStep >= customAutoPoses.length - 1) {
                                 autoStep = 45;
                             } else {
                                 autoStep = 10;
@@ -193,10 +196,59 @@ public class AutoController {
                             }
                         }
                         break;
-                    case 45: //ends auto
+                    case 45: // ends auto
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
+                        break;
+
+                    default:
+                        break;
+                }
+                break;
+            case hpPractice:
+                switch (autoStep) {
+                    case 0: // checks to flip to red side in simulation
+                        if (Robot.isSimulation()) {
+                            if (thisRobot.onRedAlliance) {
+                                thisRobot.drivebase.swerveDrive.resetOdometry(
+                                        thisRobot.drivebase.flipPoseToRed(Settings.rightCenterFeederStationAP));
+                            } else {
+                                thisRobot.drivebase.swerveDrive.resetOdometry(Settings.rightCenterFeederStationAP);
+                            }
+                        }
+                        autoStep = 5;
+                    case 5: // scores at initial scoring position
+                        thisRobot.coral.state = CoralIntakeStates.outake;
+                        if (autoScoreCoral(Settings.rightCenterFeederStationAP
+                                .transformBy(new Transform2d(2, Math.random() * 2 - 1, new Rotation2d())), ElevatorStates.L1)) {
+                            autoStep = 10;
+                            customAutoStep++;
+                        }
+                        break;
+                    case 10: // waits to finish scoring, then generates path to coral station
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        thisRobot.drivebase.swerveDrive.lockPose();
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
+                            thisRobot.coral.setMotorPower();
+                            thisRobot.drivebase.initAstarAndAP(
+                                    Settings.rightCenterFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
+                                    Settings.rightCenterFeederStationAP);
+                            autoStep = 15;
+                            thisRobot.elevator.state = ElevatorStates.L1;
+                            customAutoStep++;
+                            thisRobot.coral.state = CoralIntakeStates.outake;
+
+                        }
+                        break;
+                    case 15: // drives to coral station
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
+                            timeStepStarted = Timer.getFPGATimestamp();
+                            autoStep = 5;
+                        }
                         break;
 
                     default:
@@ -207,22 +259,24 @@ public class AutoController {
                 break;
         }
     }
+
     public boolean autoScoreCoral(Pose2d goalPose, ElevatorStates elevatorState) {
         boolean isComplete = false;
 
         thisRobot.elevator.setMotorPower();
         thisRobot.coral.setMotorPower();
-        if (generatedPathFirstTime) { //generates path a single time
+        if (generatedPathFirstTime) { // generates path a single time
             thisRobot.elevator.state = elevatorState;
             thisRobot.drivebase.initAstarAndAP(
                     goalPose.transformBy(Settings.astarReefPoseOffset),
                     goalPose);
             generatedPathFirstTime = false;
         }
-        if (thisRobot.drivebase.fromOTFSwitchToAP()) { //drives to desired scoring position
+        if (thisRobot.drivebase.fromOTFSwitchToAP()) { // drives to desired scoring position
             isComplete = true;
             generatedPathFirstTime = true;
-            timeStepStarted = Timer.getFPGATimestamp(); //TODO: maybe move logic of waiting while coral is outtaking to here bc it is part of scoring
+            timeStepStarted = Timer.getFPGATimestamp(); // TODO: maybe move logic of waiting while coral is outtaking to
+                                                        // here bc it is part of scoring
             thisRobot.coral.state = CoralIntakeStates.outake;
         }
         return isComplete;

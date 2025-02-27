@@ -41,7 +41,8 @@ public final class Enums {
         far_IJ2L_LFS_KL4R_LFS_KL4L,
         mid_EF2R_RFS_CD4R_RFS_CD4L,
         customAutoAnyLength,
-        betWithBusler
+        betWithBusler,
+        hpPractice
         // make auto that lines up to score processor then score during tele
     }
 }
