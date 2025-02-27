@@ -222,13 +222,13 @@ public class Drivebase {
     }
 
     public Pose2d flipPoseToRed(Pose2d goalPose) {
-        double goalXPos = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getFieldLength()
+        double goalXPos = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded).getFieldLength()
                 - goalPose.getX();
-        double goalYPos = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getFieldWidth()
+        double goalYPos = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded).getFieldWidth()
                 - goalPose.getY();
         Rotation2d goalRPos = goalPose.getRotation().rotateBy(new Rotation2d(Math.PI));
 
-        if (goalXPos <= AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getFieldLength() / 2) {
+        if (goalXPos <= AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded).getFieldLength() / 2) {
             return goalPose;
         }
 
