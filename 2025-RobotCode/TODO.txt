@@ -8,6 +8,8 @@
         
     - due week 1 
         - during OTF auto, check if we have a coral, if we dont have one by AP, go to coral station
+        - during auto, check if elevator is at right height before scoring
+        
         - update radio
         - update wpilib and change field poses to use welded field
         
