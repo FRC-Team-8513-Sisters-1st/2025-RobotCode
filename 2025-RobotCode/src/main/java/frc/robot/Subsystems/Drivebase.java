@@ -1,5 +1,7 @@
 package frc.robot.Subsystems;
 
+import static edu.wpi.first.units.Units.Second;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -139,8 +141,20 @@ public class Drivebase {
 
             double dvx = Settings.xController.calculate(swerveDrive.getPose().getX(), trajGoalState.pose.getX());
             double dvy = Settings.yController.calculate(swerveDrive.getPose().getY(), trajGoalState.pose.getY());
-            double dvr = Settings.rController.calculate(
+            double dvr;
+            double percentThroughPath = elapsedTime/traj.getTotalTime().in(Second);
+            if(isPoseInReefZone(apGoalPose) && percentThroughPath < 0.85 && percentThroughPath > 0.1){
+                Rotation2d faceReefRotation2d = Settings.reefZoneBlue.getTranslation().minus(swerveDrive.getPose().getTranslation()).getAngle();
+
+                dvr = Settings.rController.calculate(
+                    swerveDrive.getPose().getRotation().minus(faceReefRotation2d).getDegrees(), 0);
+
+            } else {
+                dvr = Settings.rController.calculate(
                     swerveDrive.getPose().getRotation().minus(trajGoalState.pose.getRotation()).getDegrees(), 0);
+
+            }
+
 
             swerveDrive.driveFieldOriented(trajGoalState.fieldSpeeds.plus(new ChassisSpeeds(dvx, dvy, dvr)));
 
