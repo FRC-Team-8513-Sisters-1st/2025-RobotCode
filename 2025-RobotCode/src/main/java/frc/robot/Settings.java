@@ -37,8 +37,8 @@ public final class Settings {
         public static double maxVelocityAP = 3;
         public static double maxAccelerationAP = 3;
         private static double attackPointDriveP = 7;
-        private static double attackPointDriveI = 0.25;
-        private static double attackPointDriveD = 0.03;
+        private static double attackPointDriveI = 3;
+        private static double attackPointDriveD = 0.1;
         private static double attackPointDt = 0.02;
 
         // rotation
@@ -49,9 +49,9 @@ public final class Settings {
         private static double attackPointRotateD = 0;
 
         // pid path follow settings
-        public static PIDController xControllerAPNP = new PIDController(3.5, 0.05, 0.01);
-        public static PIDController yControllerAPNP = new PIDController(3.5, 0.05, 0.01);
-        public static PIDController rControllerAPNP = new PIDController(0.1, 0, 0);
+        public static PIDController xControllerAPNP = new PIDController(6, 2, 0.01);
+        public static PIDController yControllerAPNP = new PIDController(6, 2, 0.01);
+        public static PIDController rControllerAPNP = new PIDController(0.15, 0, 0);
 
         private static final TrapezoidProfile.Constraints attackPointConstraints = new TrapezoidProfile.Constraints(
                         maxVelocityAP,
@@ -158,10 +158,10 @@ public final class Settings {
                         .getTagPose(13).get().toPose2d();
 
         // offsets reef
-        public static Transform2d tagToLeft = new Transform2d(0.475, -0.254, new Rotation2d(Math.PI));
-        public static Transform2d tagToRight = new Transform2d(0.475, 0.056, new Rotation2d(Math.PI));
-        public static Transform2d tagToLeftL1 = new Transform2d(0.05, 0.25, new Rotation2d());
-        public static Transform2d tagToRightL1 = new Transform2d(0.05, -0.35, new Rotation2d());
+        public static Transform2d tagToLeft = new Transform2d(0.425, -0.254, new Rotation2d(Math.PI));
+        public static Transform2d tagToRight = new Transform2d(0.425, 0.056, new Rotation2d(Math.PI));
+        public static Transform2d tagToLeftL1 = new Transform2d(0, 0.25, new Rotation2d());
+        public static Transform2d tagToRightL1 = new Transform2d(0, -0.35, new Rotation2d());
 
         // offset pocessor
         public static Transform2d tagToProcessor = new Transform2d(0.4, 0.1, new Rotation2d(Math.PI));

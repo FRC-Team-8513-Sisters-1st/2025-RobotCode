@@ -179,6 +179,12 @@ public class Drivebase {
         double rVelocity = Settings.rControllerAP
                 .calculate(thisRobot.drivebase.swerveDrive.getPose().getRotation().minus(goalPose.getRotation())
                         .getDegrees(), goalRState);
+
+        //xVelocity = Settings.xControllerAPNP.calculate(thisRobot.drivebase.swerveDrive.getPose().getX(), goalPose.getX() );
+        
+       // yVelocity = Settings.yControllerAPNP.calculate(thisRobot.drivebase.swerveDrive.getPose().getY(), goalPose.getY() );
+        
+        //rVelocity = Settings.rControllerAPNP.calculate(thisRobot.drivebase.swerveDrive.getPose().getRotation().minus(goalPose.getRotation()).getDegrees(), 0 );
         double oldMag = Math.sqrt(xVelocity * xVelocity + yVelocity * yVelocity);
         double newMag = clamp(oldMag, maxSpeed);
 
