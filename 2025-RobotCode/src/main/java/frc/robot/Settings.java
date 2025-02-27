@@ -158,8 +158,8 @@ public final class Settings {
                         .getTagPose(13).get().toPose2d();
 
         // offsets reef
-        public static Transform2d tagToLeft = new Transform2d(5, -0.254, new Rotation2d(Math.PI));
-        public static Transform2d tagToRight = new Transform2d(5, 0.056, new Rotation2d(Math.PI));
+        public static Transform2d tagToLeft = new Transform2d(0.5, -0.254, new Rotation2d(Math.PI));
+        public static Transform2d tagToRight = new Transform2d(0.5, 0.056, new Rotation2d(Math.PI));
         public static Transform2d tagToLeftL1 = new Transform2d(0, 0.25, new Rotation2d());
         public static Transform2d tagToRightL1 = new Transform2d(0, -0.35, new Rotation2d());
 

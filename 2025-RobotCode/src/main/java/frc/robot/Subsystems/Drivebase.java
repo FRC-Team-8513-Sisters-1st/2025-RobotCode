@@ -142,19 +142,24 @@ public class Drivebase {
             double dvx = Settings.xController.calculate(swerveDrive.getPose().getX(), trajGoalState.pose.getX());
             double dvy = Settings.yController.calculate(swerveDrive.getPose().getY(), trajGoalState.pose.getY());
             double dvr;
-            double percentThroughPath = elapsedTime/traj.getTotalTime().in(Second);
-            if(isPoseInReefZone(apGoalPose) && percentThroughPath < 0.85 && percentThroughPath > 0.1){
-                Rotation2d faceReefRotation2d = Settings.reefZoneBlue.getTranslation().minus(swerveDrive.getPose().getTranslation()).getAngle();
-
+            Rotation2d faceReefRotation2d;
+            double percentThroughPath = elapsedTime / traj.getTotalTime().in(Second);
+            if (isPoseInReefZone(apGoalPose) && percentThroughPath < 0.85 && percentThroughPath > 0.1) {
+                if (thisRobot.onRedAlliance) {
+                    faceReefRotation2d = Settings.reefZoneRed.getTranslation()
+                            .minus(swerveDrive.getPose().getTranslation()).getAngle();
+                } else {
+                    faceReefRotation2d = Settings.reefZoneBlue.getTranslation()
+                            .minus(swerveDrive.getPose().getTranslation()).getAngle();
+                }
                 dvr = Settings.rController.calculate(
-                    swerveDrive.getPose().getRotation().minus(faceReefRotation2d).getDegrees(), 0);
+                        swerveDrive.getPose().getRotation().minus(faceReefRotation2d).getDegrees(), 0);
 
             } else {
                 dvr = Settings.rController.calculate(
-                    swerveDrive.getPose().getRotation().minus(trajGoalState.pose.getRotation()).getDegrees(), 0);
+                        swerveDrive.getPose().getRotation().minus(trajGoalState.pose.getRotation()).getDegrees(), 0);
 
             }
-
 
             swerveDrive.driveFieldOriented(trajGoalState.fieldSpeeds.plus(new ChassisSpeeds(dvx, dvy, dvr)));
 
@@ -180,11 +185,17 @@ public class Drivebase {
                 .calculate(thisRobot.drivebase.swerveDrive.getPose().getRotation().minus(goalPose.getRotation())
                         .getDegrees(), goalRState);
 
-        //xVelocity = Settings.xControllerAPNP.calculate(thisRobot.drivebase.swerveDrive.getPose().getX(), goalPose.getX() );
-        
-       // yVelocity = Settings.yControllerAPNP.calculate(thisRobot.drivebase.swerveDrive.getPose().getY(), goalPose.getY() );
-        
-        //rVelocity = Settings.rControllerAPNP.calculate(thisRobot.drivebase.swerveDrive.getPose().getRotation().minus(goalPose.getRotation()).getDegrees(), 0 );
+        // xVelocity =
+        // Settings.xControllerAPNP.calculate(thisRobot.drivebase.swerveDrive.getPose().getX(),
+        // goalPose.getX() );
+
+        // yVelocity =
+        // Settings.yControllerAPNP.calculate(thisRobot.drivebase.swerveDrive.getPose().getY(),
+        // goalPose.getY() );
+
+        // rVelocity =
+        // Settings.rControllerAPNP.calculate(thisRobot.drivebase.swerveDrive.getPose().getRotation().minus(goalPose.getRotation()).getDegrees(),
+        // 0 );
         double oldMag = Math.sqrt(xVelocity * xVelocity + yVelocity * yVelocity);
         double newMag = clamp(oldMag, maxSpeed);
 
@@ -270,12 +281,16 @@ public class Drivebase {
     }
 
     public void initPathToPoint(Pose2d goalPose) {
+        if (thisRobot.onRedAlliance) {
+            goalPose = flipPoseToRed(goalPose);
+        }
         Settings.xController.reset();
         Settings.yController.reset();
         Settings.rController.reset();
         generatePath.setGoalPosition(goalPose.getTranslation());
         // drive back if not going to reef zone and if in reef zone
-        if ((isPoseInReefZone(goalPose) == false && isRobotInReefZone()) || Settings.getDistanceBetweenTwoPoses(Settings.processorAP, swerveDrive.getPose()) < 1) {
+        if ((isPoseInReefZone(goalPose) == false && isRobotInReefZone())
+                || Settings.getDistanceBetweenTwoPoses(Settings.processorAP, swerveDrive.getPose()) < 1) {
             generatePath.setStartPosition(
                     swerveDrive.getPose().transformBy(new Transform2d(-0.5, 0, new Rotation2d())).getTranslation());
         } else {
@@ -298,8 +313,9 @@ public class Drivebase {
                     // if we started pose with a backup we need to isert a waypoint where we
                     // actually start
                     List<Waypoint> wpList = path.getWaypoints();
-                    if ((isPoseInReefZone(otfGoalPose) == false && isRobotInReefZone()) || Settings.getDistanceBetweenTwoPoses(Settings.processorATPose, swerveDrive.getPose()) < 0.25) {
-                        
+                    if ((isPoseInReefZone(apGoalPose) == false && isRobotInReefZone()) || Settings
+                            .getDistanceBetweenTwoPoses(Settings.processorATPose, swerveDrive.getPose()) < 0.25) {
+
                         wpList.add(0,
                                 new Waypoint(
                                         null,
@@ -347,6 +363,7 @@ public class Drivebase {
     public void initAstarAndAP(Pose2d otfPose, Pose2d apPose) {
         if (thisRobot.onRedAlliance) {
             otfPose = flipPoseToRed(otfPose);
+            apPose = flipPoseToRed(apPose);
         }
         thisRobot.dashboard.otfGoalField2d.setRobotPose(apPose);
         skipOTF = false;
@@ -393,4 +410,5 @@ public class Drivebase {
         }
         return new Trajectory(wpiStateLists);
     }
+
 }

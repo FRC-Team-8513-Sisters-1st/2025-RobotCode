@@ -7,13 +7,12 @@
         - tune tune elevator heights
         
     - due week 1 
-        - during OTF auto, check if we have a coral, if we dont have one by AP, go to coral station
-        - during auto, check if elevator is at right height before scoring
-        - dont bring elevator down if close to reef 
+        X during OTF auto, check if we have a coral, if we dont have one by AP, go to coral station
+        X during auto, check if elevator is at right height before scoring
+        X dont bring elevator down if close to reef 
             - not sure if we need to do this or not
         - test facing reef red
         - update radio
-        - update wpilib and change field poses to use welded field
         
         - manual control and resets for elevator (joystick 4)
         - manual control for algae and coral mech (joystick 4 or more buttons)

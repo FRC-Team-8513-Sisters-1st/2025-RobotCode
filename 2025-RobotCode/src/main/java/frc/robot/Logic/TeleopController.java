@@ -223,10 +223,10 @@ public class TeleopController {
                     .setStartPosition(thisRobot.drivebase.swerveDrive.getPose().getTranslation());
         }
 
-        if (goingToCoralStation) {
+        if (goingToCoralStation && thisRobot.drivebase.getRobotVelopcity() > 0.1) {
             thisRobot.elevator.state = ElevatorStates.L1;
         } else {
-            if (goingToProcessor) {
+            if (goingToProcessor && thisRobot.drivebase.getRobotVelopcity() > 0.1) {
                 thisRobot.elevator.state = ElevatorStates.scoreProcessor;
 
             } else {
