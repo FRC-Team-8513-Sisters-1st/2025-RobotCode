@@ -344,6 +344,7 @@ public class Drivebase {
         if (pathDone || skipOTF) {
             if (apDone) {
                 swerveDrive.lockPose();
+                return true;
             } else {
                 apDone = thisRobot.drivebase.attackPoint(apGoalPose, 2) && pathDone;
             }
