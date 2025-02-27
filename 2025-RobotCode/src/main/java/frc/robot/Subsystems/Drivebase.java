@@ -62,8 +62,8 @@ public class Drivebase {
     public Pathfinder generatePath = new LocalADStar();
     Rotation2d trajGoalRotation = new Rotation2d();
     PathConstraints oTFConstraints = new PathConstraints(
-            3.4, 4,
-            Units.degreesToRadians(360), Units.degreesToRadians(360));
+            3.4, 3,
+            Units.degreesToRadians(300), Units.degreesToRadians(360));
     boolean otfReady = false;
     public Pose2d otfGoalPose = new Pose2d();
     int nullPathCount = 0;
@@ -269,7 +269,7 @@ public class Drivebase {
         Settings.rController.reset();
         generatePath.setGoalPosition(goalPose.getTranslation());
         // drive back if not going to reef zone and if in reef zone
-        if (isPoseInReefZone(goalPose) == false && isRobotInReefZone()) {
+        if ((isPoseInReefZone(goalPose) == false && isRobotInReefZone()) || Settings.getDistanceBetweenTwoPoses(Settings.processorAP, swerveDrive.getPose()) < 1) {
             generatePath.setStartPosition(
                     swerveDrive.getPose().transformBy(new Transform2d(-0.5, 0, new Rotation2d())).getTranslation());
         } else {
@@ -292,7 +292,7 @@ public class Drivebase {
                     // if we started pose with a backup we need to isert a waypoint where we
                     // actually start
                     List<Waypoint> wpList = path.getWaypoints();
-                    if (isPoseInReefZone(otfGoalPose) == false && isRobotInReefZone()) {
+                    if ((isPoseInReefZone(otfGoalPose) == false && isRobotInReefZone()) || Settings.getDistanceBetweenTwoPoses(Settings.processorATPose, swerveDrive.getPose()) < 0.25) {
                         
                         wpList.add(0,
                                 new Waypoint(
@@ -357,7 +357,7 @@ public class Drivebase {
         boolean pathDone = followOTFPath();
         if (pathDone || skipOTF) {
             if (apDone) {
-                swerveDrive.lockPose();
+                //swerveDrive.lockPose();
                 return true;
             } else {
                 apDone = thisRobot.drivebase.attackPoint(apGoalPose, 2) && pathDone;

@@ -74,7 +74,7 @@ public class Elevator {
             m_controller.setGoal(elevatorGoalPIDState);
         }
         if (state == ElevatorStates.scoreProcessor) {
-            State elevatorGoalPIDState = new State(Settings.elevatorPosL2, 0);
+            State elevatorGoalPIDState = new State(Settings.elevatorPosProcessor, 0);
             m_controller.setGoal(elevatorGoalPIDState);
         }
 

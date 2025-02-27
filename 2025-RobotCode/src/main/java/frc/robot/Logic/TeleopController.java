@@ -39,6 +39,7 @@ public class TeleopController {
     boolean scoreCoralL1 = false;
 
     boolean teleopAutoScore = true;
+    boolean goingToProcessor = false;
 
     Pose2d coralScoreGoalPose = new Pose2d();
 
@@ -151,7 +152,6 @@ public class TeleopController {
         }
 
         boolean followPath = false;
-
         // determine if we should go to point or manulaly drive
         if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)
                 && feederCloseOrFar == FeederStation.Far) {
@@ -159,31 +159,37 @@ public class TeleopController {
             teleopGoalPose = Settings.rightFarFeederStationAP;
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarFeederStPoseOffset);
             followPath = true;
+            goingToProcessor = false;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)
                 && feederCloseOrFar == FeederStation.Close) {
-                    goingToCoralStation = true;
+            goingToCoralStation = true;
             teleopGoalPose = Settings.rightCloseFeederStationAP;
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarFeederStPoseOffset);
             followPath = true;
+            goingToProcessor = false;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt)
                 && feederCloseOrFar == FeederStation.Far) {
-                    goingToCoralStation = true;
+            goingToCoralStation = true;
             teleopGoalPose = Settings.leftFarFeederStationAP;
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarFeederStPoseOffset);
             followPath = true;
+            goingToProcessor = false;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt)
                 && feederCloseOrFar == FeederStation.Close) {
-                    goingToCoralStation = true;
+            goingToCoralStation = true;
+            goingToProcessor = false;
             teleopGoalPose = Settings.leftCloseFeederStationAP;
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarFeederStPoseOffset);
             followPath = true;
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_processorAP)) {
             goingToCoralStation = false;
+            goingToProcessor = true;
             teleopGoalPose = Settings.processorAP;
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarProcesserPoseOffset);
             followPath = true;
         } else if (rightTriggerValue > Settings.triggerDeadband || leftTriggerValue > Settings.triggerDeadband) {
             followPath = true;
+            goingToProcessor = false;
             goingToCoralStation = false;
             teleopGoalPose = coralScoreGoalPose;
             if (scoreCoralL1) {
@@ -195,7 +201,7 @@ public class TeleopController {
             }
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarReefPoseOffset);
             if (Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(),
-                    coralScoreGoalPose) < Settings.coralScoreThold && thisRobot.drivebase.getRobotVelopcity() < 0.04
+                    coralScoreGoalPose) < Settings.coralScoreThold && thisRobot.drivebase.getRobotVelopcity() < 0.03
                     && thisRobot.elevator.elevatorAtSetpoint() && teleopAutoScore) {
                 // disabled auto score
                 thisRobot.coral.state = CoralIntakeStates.outake;
@@ -217,13 +223,13 @@ public class TeleopController {
                     .setStartPosition(thisRobot.drivebase.swerveDrive.getPose().getTranslation());
         }
 
-        if(goingToCoralStation){
+        if (goingToCoralStation) {
             thisRobot.elevator.state = ElevatorStates.L1;
         } else {
-            if(driverXboxController.getRawButton(Settings.buttonId_processorAP)){
+            if (goingToProcessor) {
                 thisRobot.elevator.state = ElevatorStates.scoreProcessor;
 
-            }else {
+            } else {
                 thisRobot.elevator.state = coPilotElevatorState;
 
             }

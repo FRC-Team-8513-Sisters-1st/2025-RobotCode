@@ -36,9 +36,9 @@ public final class Settings {
         // pid settings
         public static double maxVelocityAP = 3;
         public static double maxAccelerationAP = 3;
-        private static double attackPointDriveP = 5;
-        private static double attackPointDriveI = 0.1;
-        private static double attackPointDriveD = 0.01;
+        private static double attackPointDriveP = 7;
+        private static double attackPointDriveI = 0.25;
+        private static double attackPointDriveD = 0.03;
         private static double attackPointDt = 0.02;
 
         // rotation
@@ -47,6 +47,11 @@ public final class Settings {
         private static double attackPointRotateP = 0.1;
         private static double attackPointRotateI = 0;
         private static double attackPointRotateD = 0;
+
+        // pid path follow settings
+        public static PIDController xControllerAPNP = new PIDController(3.5, 0.05, 0.01);
+        public static PIDController yControllerAPNP = new PIDController(3.5, 0.05, 0.01);
+        public static PIDController rControllerAPNP = new PIDController(0.1, 0, 0);
 
         private static final TrapezoidProfile.Constraints attackPointConstraints = new TrapezoidProfile.Constraints(
                         maxVelocityAP,
@@ -153,10 +158,10 @@ public final class Settings {
                         .getTagPose(13).get().toPose2d();
 
         // offsets reef
-        public static Transform2d tagToLeft = new Transform2d(0.5, -0.254, new Rotation2d(Math.PI));
-        public static Transform2d tagToRight = new Transform2d(0.5, 0.056, new Rotation2d(Math.PI));
-        public static Transform2d tagToLeftL1 = new Transform2d(0, 0.3, new Rotation2d());
-        public static Transform2d tagToRightL1 = new Transform2d(0, -0.5, new Rotation2d());
+        public static Transform2d tagToLeft = new Transform2d(0.475, -0.254, new Rotation2d(Math.PI));
+        public static Transform2d tagToRight = new Transform2d(0.475, 0.056, new Rotation2d(Math.PI));
+        public static Transform2d tagToLeftL1 = new Transform2d(0.05, 0.25, new Rotation2d());
+        public static Transform2d tagToRightL1 = new Transform2d(0.05, -0.35, new Rotation2d());
 
         // offset pocessor
         public static Transform2d tagToProcessor = new Transform2d(0.4, 0.1, new Rotation2d(Math.PI));
@@ -197,7 +202,7 @@ public final class Settings {
         public static Pose2d reefZoneBlue = new Pose2d(4.495, 4.019, new Rotation2d(Radians.convertFrom(0, Degrees)));
         public static Pose2d reefZoneRed = new Pose2d(13.091, 4.043, new Rotation2d(Radians.convertFrom(0, Degrees)));
         public static double minDistanceFromReefZoneMeter = 3;
-        public static double maxATDist = 3.5;
+        public static double maxATDist = 3;
 
         public static double coralScoreThold = 0.02;
         public static double otfToAPThold = 0.25;
@@ -207,6 +212,7 @@ public final class Settings {
         public static double elevatorPosStowed = 0;
         public static double elevatorPosL1 = 0;
         public static double elevatorPosL2 = 9.7;
+        public static double elevatorPosProcessor = 5;
         public static double elevatorPosL3 = 22.8;
         public static double elevatorPosL4 = 43;
         public static double elevatorPosA2 = 23.43;

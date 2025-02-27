@@ -11,7 +11,7 @@
         - during auto, check if elevator is at right height before scoring
         - dont bring elevator down if close to reef 
             - not sure if we need to do this or not
-        
+        - test facing reef red
         - update radio
         - update wpilib and change field poses to use welded field
         
