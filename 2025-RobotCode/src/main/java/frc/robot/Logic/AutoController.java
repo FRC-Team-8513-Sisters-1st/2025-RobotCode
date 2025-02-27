@@ -230,7 +230,7 @@ public class AutoController {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 1) {
                             thisRobot.coral.setMotorPower();
                             thisRobot.drivebase.initAstarAndAP(
                                     Settings.rightCenterFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
