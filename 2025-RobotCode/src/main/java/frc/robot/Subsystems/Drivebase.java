@@ -362,12 +362,8 @@ public class Drivebase {
     public boolean fromOTFSwitchToAP() {
         boolean pathDone = followOTFPath();
         if (pathDone || skipOTF) {
-            if (apDone) {
-                //swerveDrive.lockPose();
-                return true;
-            } else {
-                apDone = thisRobot.drivebase.attackPoint(apGoalPose, 2) && pathDone;
-            }
+            apDone = thisRobot.drivebase.attackPoint(apGoalPose, 2) && pathDone;
+            return apDone;
 
         } else {
             resetAPPIDControllers(apGoalPose);
