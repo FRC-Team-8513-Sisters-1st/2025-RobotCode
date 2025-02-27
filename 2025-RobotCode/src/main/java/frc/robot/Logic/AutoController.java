@@ -221,7 +221,8 @@ public class AutoController {
                     case 5: // scores at initial scoring position
                         thisRobot.coral.state = CoralIntakeStates.outake;
                         if (autoScoreCoral(Settings.rightCenterFeederStationAP
-                                .transformBy(new Transform2d(2, Math.random() * 2 - 1, new Rotation2d())), ElevatorStates.L1)) {
+                                .transformBy(new Transform2d(2, Math.random() * 2 - 1, new Rotation2d())),
+                                ElevatorStates.L1)) {
                             autoStep = 10;
                             customAutoStep++;
                         }
@@ -277,6 +278,9 @@ public class AutoController {
             generatedPathFirstTime = true;
             timeStepStarted = Timer.getFPGATimestamp(); // TODO: maybe move logic of waiting while coral is outtaking to
                                                         // here bc it is part of scoring
+            if (thisRobot.coral.state == CoralIntakeStates.outake) {
+                timeStepStarted = 0;
+            }
             thisRobot.coral.state = CoralIntakeStates.outake;
         }
         return isComplete;

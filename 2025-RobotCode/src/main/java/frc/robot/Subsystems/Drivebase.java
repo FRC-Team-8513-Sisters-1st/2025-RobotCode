@@ -62,7 +62,7 @@ public class Drivebase {
     public Pathfinder generatePath = new LocalADStar();
     Rotation2d trajGoalRotation = new Rotation2d();
     PathConstraints oTFConstraints = new PathConstraints(
-            3.4, 3,
+            3.8, 4,
             Units.degreesToRadians(300), Units.degreesToRadians(360));
     boolean otfReady = false;
     public Pose2d otfGoalPose = new Pose2d();
