@@ -220,7 +220,13 @@ public class TeleopController {
         if(goingToCoralStation){
             thisRobot.elevator.state = ElevatorStates.L1;
         } else {
-            thisRobot.elevator.state = coPilotElevatorState;
+            if(driverXboxController.getRawButton(Settings.buttonId_processorAP)){
+                thisRobot.elevator.state = ElevatorStates.scoreProcessor;
+
+            }else {
+                thisRobot.elevator.state = coPilotElevatorState;
+
+            }
         }
         if (followPath) {
             if (firstOTFPath) {

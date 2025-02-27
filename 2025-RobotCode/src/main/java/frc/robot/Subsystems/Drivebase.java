@@ -270,7 +270,7 @@ public class Drivebase {
 
     public boolean followOTFPath() {
         if (generatePath.isNewPathAvailable()) {
-            GoalEndState ges = new GoalEndState(0.1, trajGoalRotation);
+            GoalEndState ges = new GoalEndState(0.25, trajGoalRotation);
             path = generatePath.getCurrentPath(oTFConstraints, ges);
 
             if (path != null) {
