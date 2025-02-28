@@ -1,4 +1,5 @@
 radio 10.85.13.1
+      (B) 10.83.13.4
 rio 10.85.13.2
 photonvision1.local 10.85.13.51 (Robots right) (processorCam and lowerRightReefCam)
 photonvision2.local 10.85.13.52 (robots left)  (coralStationCam and lowerLeftReefCam)
