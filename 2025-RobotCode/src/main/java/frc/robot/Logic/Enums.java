@@ -21,12 +21,6 @@ public final class Enums {
         locked, stowedLimits, L1Limits, L2Limits,
         L3Limits, L4Limits 
     }
-    public enum RobotStates {
-        driving, preClimb, climbDeep, algaeIntakeL3, algaeIntakeL2,
-        algaeIntakeGround, algaeScoreProcessor, coralScore1, coralScore2, coralScore3,
-        coralScore4, coralIntakeFeederSt, coral1, coral2, coral3, coral4 
-
-    }
     public enum SideOfReef {
         AB, CD, EF, GH, IJ, KL
     }

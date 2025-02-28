@@ -8,9 +8,6 @@ import frc.robot.Robot;
 public class Dashboard {
 
     Robot thisRobot;
-    Field2d coralGoaField2d = new Field2d();
-    Field2d goalFeederStationField2d = new Field2d();
-    Field2d processorField2d = new Field2d();
     public Field2d attackPoitnField2d = new Field2d();
     public Field2d pathPlannerGoalField2d = new Field2d();
     public Field2d otfGoalField2d = new Field2d();
@@ -38,6 +35,7 @@ public class Dashboard {
         //teleop 
         SmartDashboard.putString("Operator Chosen Side Of Reef", thisRobot.teleopController.operatorChosenSideOfReef.name());
         SmartDashboard.putString("Operator Chosen Side Of Feeder", thisRobot.teleopController.feederCloseOrFar.name());
+        SmartDashboard.putBoolean("AutoScoreTeleop", thisRobot.teleopController.teleopAutoScore);
         
         // elevator motor stats
         SmartDashboard.putNumber("elevator motor 1 power", thisRobot.elevator.elevatorMotor1.getAppliedOutput());

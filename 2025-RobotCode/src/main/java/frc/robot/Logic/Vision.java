@@ -33,7 +33,7 @@ public class Vision {
     PhotonCamera coralStationCam = new PhotonCamera("coralStationCam");
     PhotonCamera lowerLeftReefCam = new PhotonCamera("lowerLeftReefCam");
 
-    AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
+    AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
 
     Transform3d processorCamTransform = new Transform3d(new Translation3d(Units.inchesToMeters(6), Units.inchesToMeters(-10.5), Units.inchesToMeters(33.5)),
             new Rotation3d(0, Units.degreesToRadians(-26.5), 0));
@@ -82,7 +82,8 @@ public class Vision {
             if (photonPose.isPresent()) {
                 photonField.setRobotPose(photonPose.get().estimatedPose.toPose2d());
                 double tag0Dist = cameraPipeline.get(0).getBestTarget().bestCameraToTarget.getTranslation().getNorm();
-                double poseAmbaguitiy = photonPose.get().targetsUsed.get(0).getPoseAmbiguity();
+                
+                double poseAmbaguitiy = cameraPipeline.get(0).getBestTarget().poseAmbiguity();
                 if (useCamera && tag0Dist < maxDistance && poseAmbaguitiy < 0.05) {
                     thisRobot.drivebase.swerveDrive.addVisionMeasurement(photonPose.get().estimatedPose.toPose2d(),
                             photonPose.get().timestampSeconds);

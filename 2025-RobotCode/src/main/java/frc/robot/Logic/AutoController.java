@@ -16,13 +16,14 @@ public class AutoController {
 
     Robot thisRobot;
     public AutoRoutines autoRoutine = AutoRoutines.DoNothing;
-    public int autoStep = 0;
-    public boolean firstAutoBeingRun = true;
-    boolean generatedPathFirstTime = true;
-
     public SendableChooser<String> autoSelector;
 
+    public boolean firstAutoBeingRun = true;
+    boolean generatedPathFirstTime = true;
     double timeStepStarted = 0;
+
+    public int autoStep = 0;
+    int customAutoStep = 0;
 
     // custom auto
     Pose2d customAutoStartPose = Settings.autoProcessorStartPose;
@@ -53,8 +54,6 @@ public class AutoController {
             ElevatorStates.L1, ElevatorStates.L4,
             ElevatorStates.L1, ElevatorStates.L4 };
 
-    int customAutoStep = 0;
-
     public AutoController(Robot thisRobotIn) {
         thisRobot = thisRobotIn;
 
@@ -72,17 +71,17 @@ public class AutoController {
     }
 
     public void autoInit() {
-        updateAutoRoutine();
+        updateAutoRoutineFromDashboard();
         autoStep = 0;
         customAutoStep = 0;
         thisRobot.elevator.autoElevatorOn = true;
     }
 
     public void autoDis() {
-        updateAutoRoutine();
+        updateAutoRoutineFromDashboard();
     }
 
-    public void updateAutoRoutine() {
+    public void updateAutoRoutineFromDashboard() {
         try {
             autoRoutine = AutoRoutines.valueOf(autoSelector.getSelected());
         } catch (Exception e) {
@@ -112,7 +111,7 @@ public class AutoController {
             case far_IJ2L_LFS_KL4R_LFS_KL4L:
                 customAutoStartPose = Settings.autoFarStartPose;
                 customAutoPoses = new Pose2d[] { Settings.coralLeftIJ,
-                        Settings.leftCenterFeederStationAP, Settings.coralRightKL, 
+                        Settings.leftCenterFeederStationAP, Settings.coralRightKL,
                         Settings.leftCenterFeederStationAP, Settings.coralLeftKL,
                         Settings.leftCenterFeederStationAP, Settings.coralLeftAB };
                 customElevatorStates = new ElevatorStates[] { ElevatorStates.L2,
@@ -125,7 +124,7 @@ public class AutoController {
             case mid_EF2R_RFS_CD4R_RFS_CD4L:
                 customAutoStartPose = Settings.autoMidStartPose;
                 customAutoPoses = new Pose2d[] { Settings.coralRightEF,
-                        Settings.rightCenterFeederStationAP, Settings.coralRightCD, 
+                        Settings.rightCenterFeederStationAP, Settings.coralRightCD,
                         Settings.rightCenterFeederStationAP, Settings.coralLeftCD,
                         Settings.rightCenterFeederStationAP, Settings.coralRightAB };
                 customElevatorStates = new ElevatorStates[] { ElevatorStates.L2,
@@ -285,11 +284,12 @@ public class AutoController {
                     goalPose);
             generatedPathFirstTime = false;
         }
-        if (thisRobot.drivebase.fromOTFSwitchToAP() && thisRobot.elevator.elevatorAtSetpoint()) { // drives to desired scoring position
+        if (thisRobot.drivebase.fromOTFSwitchToAP() && thisRobot.elevator.elevatorAtSetpoint()) { // drives to desired
+                                                                                                  // scoring position
             isComplete = true;
             generatedPathFirstTime = true;
-            timeStepStarted = Timer.getFPGATimestamp(); // TODO: maybe move logic of waiting while coral is outtaking to
-                                                        // here bc it is part of scoring
+            timeStepStarted = Timer.getFPGATimestamp(); 
+            //if we reach AP and are still outaking it means we dont have coral and we need to immedialy go back
             if (thisRobot.coral.state == CoralIntakeStates.outake && Robot.isReal()) {
                 timeStepStarted = 0;
             }

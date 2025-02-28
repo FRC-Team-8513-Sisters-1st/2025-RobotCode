@@ -4,7 +4,6 @@ import frc.robot.Settings;
 import frc.robot.Logic.Enums.CoralIntakeStates;
 import frc.robot.Logic.Enums.ElevatorStates;
 import frc.robot.Logic.Enums.FeederStation;
-import frc.robot.Logic.Enums.RobotStates;
 import frc.robot.Logic.Enums.SideOfReef;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -27,8 +26,6 @@ public class TeleopController {
     public FeederStation feederCloseOrFar = FeederStation.Close;
     public SideOfReef operatorChosenSideOfReef = SideOfReef.AB;
     public SideOfReef operatorOldChosenSideOfReef = SideOfReef.AB;
-
-    RobotStates robotState = RobotStates.driving;
 
     public boolean firstOTFPath = false;
     public Pose2d teleopGoalPose = new Pose2d();
