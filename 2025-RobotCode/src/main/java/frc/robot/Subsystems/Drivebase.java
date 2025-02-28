@@ -84,6 +84,9 @@ public class Drivebase {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if(Robot.isReal()){
+            swerveDrive.setCosineCompensator(true);
+        }
         SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
         thisRobot = thisRobotIn;
 

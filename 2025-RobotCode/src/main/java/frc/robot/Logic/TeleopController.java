@@ -55,6 +55,7 @@ public class TeleopController {
         thisRobot.elevator.m_controller.reset(state);
         thisRobot.coral.coralController.setSetpoint(thisRobot.coral.coralMotor1.getEncoder().getPosition());
         thisRobot.coral.state = CoralIntakeStates.stationary;
+        thisRobot.vision.useProcessorCam = true;
         if (thisRobot.drivebase.swerveDrive.getPose().getX() == 0 && Robot.isSimulation()) {
             if(thisRobot.onRedAlliance){
                 thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(16, 2, new Rotation2d()));

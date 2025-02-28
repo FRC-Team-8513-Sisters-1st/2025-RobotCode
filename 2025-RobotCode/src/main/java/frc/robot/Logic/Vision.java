@@ -23,7 +23,7 @@ import frc.robot.Settings;
 public class Vision {
     Robot thisRobot;
 
-    boolean useProcessorCam = true;
+    public boolean useProcessorCam = true;
     boolean useLowerRightReefCam = true;
     boolean useCoralStationCam = true;
     boolean useLowerLeftReefCam = true;
@@ -68,6 +68,7 @@ public class Vision {
     }
 
     public void updatePhotonVision() {
+
         integrateCamera(useProcessorCam, processorCam, processorPoseEstimator, photonField2d_processor, Settings.maxATDist);
         integrateCamera(useLowerRightReefCam, lowerRightReefCam, lowerRightPoseEstimator, photonField2d_lowerRight, Settings.maxATDist);
         integrateCamera(useLowerLeftReefCam, lowerLeftReefCam, lowerLeftPoseEstimator, photonField2d_lowerLeft, Settings.maxATDist);

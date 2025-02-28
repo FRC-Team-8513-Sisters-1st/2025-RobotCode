@@ -201,7 +201,7 @@ public final class Settings {
 
         public static double coralScoreThold = 0.02;
         public static double otfToAPThold = 0.25;
-        public static double elevatorSafeToGoThold = 1;
+        public static double elevatorSafeToGoThold = 1.5;
 
         // elevator positions
         public static double elevatorPosStowed = 0;
@@ -214,7 +214,7 @@ public final class Settings {
         public static double elevatorPosA3 = 34.57;
 
         // coral sensor
-        public static double sensorThold = 1;
+        public static double sensorThold = 0.6;
 
         // auto start poses
         public static Pose2d autoMidStartPose = new Pose2d(7.229, 3.899, new Rotation2d(Math.PI));

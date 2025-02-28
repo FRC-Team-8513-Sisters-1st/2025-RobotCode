@@ -12,6 +12,7 @@
         
     - due week 1 
         - update radio
+        - when robot disabled ignor max ap distance
         
         - manual control and resets for elevator (joystick 4)
         - manual control for algae and coral mech (joystick 4 or more buttons)

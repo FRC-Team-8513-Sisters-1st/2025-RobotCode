@@ -21,7 +21,7 @@ public class Coral {
 
     // sensor
     public PIDController coralController = new PIDController(.1, 0, 0);
-    public boolean sensorFirstTime = false;
+    public boolean sensorFirstTime = true;
     public double holdCoralPos = -2;
 
     public double currentBrokeTholdTime = 0;
@@ -71,7 +71,7 @@ public class Coral {
                 if ((coralMotor1.getAnalog().getVoltage() > Settings.sensorThold || sensorBrokeThold) && sensorFirstTime) {
                         sensorBrokeThold = true;
                         //after we see coral slow down so it doesnt over shoot
-                        coralPower = 0.4;
+                        coralPower = 0.25;
                         if(coralMotor1.getAnalog().getVoltage() < Settings.sensorThold){
                             coralMotor1.getEncoder().setPosition(0);
                             coralController.setSetpoint(holdCoralPos);

@@ -75,6 +75,7 @@ public class AutoController {
         autoStep = 0;
         customAutoStep = 0;
         thisRobot.elevator.autoElevatorOn = true;
+        thisRobot.vision.useProcessorCam = false;
     }
 
     public void autoDis() {
