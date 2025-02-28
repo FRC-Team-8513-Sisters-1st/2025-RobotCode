@@ -94,13 +94,13 @@ public class Elevator {
     }
 
     public boolean elevatorAtSetpoint(){
-        return Math.abs(elevatorMotor1.getEncoder().getPosition() - m_controller.getGoal().position) < 0.25;
+        return Robot.isSimulation() || (Math.abs(elevatorMotor1.getEncoder().getPosition() - m_controller.getGoal().position) < 0.25);
     }
 
     public boolean elevatorSafeToGo(Pose2d goalPose) {
         Pose2d currentPose = thisRobot.drivebase.swerveDrive.getPose();
         if (Settings.getDistanceBetweenTwoPoses(goalPose, currentPose) < Settings.elevatorSafeToGoThold && thisRobot.coral.state == CoralIntakeStates.stationary) {
-            return true && thisRobot.drivebase.isRobotInReefZone();
+            return (true && thisRobot.drivebase.isRobotInReefZone());
         } else {
             return false;
         }

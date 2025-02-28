@@ -181,6 +181,7 @@ public class AutoController {
                         }
                         break;
                     case 16: // waits at coral station
+                        thisRobot.drivebase.fromOTFSwitchToAP();
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
                             autoStep = 20;
                         }
@@ -278,7 +279,7 @@ public class AutoController {
             generatedPathFirstTime = true;
             timeStepStarted = Timer.getFPGATimestamp(); // TODO: maybe move logic of waiting while coral is outtaking to
                                                         // here bc it is part of scoring
-            if (thisRobot.coral.state == CoralIntakeStates.outake) {
+            if (thisRobot.coral.state == CoralIntakeStates.outake && Robot.isReal()) {
                 timeStepStarted = 0;
             }
             thisRobot.coral.state = CoralIntakeStates.outake;
