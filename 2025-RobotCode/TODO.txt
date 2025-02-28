@@ -15,9 +15,10 @@
         
         - manual control and resets for elevator (joystick 4)
         - manual control for algae and coral mech (joystick 4 or more buttons)
+        - diagram for what joystick 4 buttons do
         - backup and elevator auto down after auto score
         - add comments to drivebase class
-
+        
         - climber states
         - elevator jam detection
 
