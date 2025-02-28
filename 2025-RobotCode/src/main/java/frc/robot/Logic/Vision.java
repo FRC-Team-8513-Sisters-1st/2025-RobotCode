@@ -82,8 +82,7 @@ public class Vision {
             if (photonPose.isPresent()) {
                 photonField.setRobotPose(photonPose.get().estimatedPose.toPose2d());
                 double tag0Dist = cameraPipeline.get(0).getBestTarget().bestCameraToTarget.getTranslation().getNorm();
-                
-                double poseAmbaguitiy = cameraPipeline.get(0).getBestTarget().poseAmbiguity();
+                double poseAmbaguitiy = cameraPipeline.get(0).getBestTarget().getPoseAmbiguity();
                 if (useCamera && tag0Dist < maxDistance && poseAmbaguitiy < 0.05) {
                     thisRobot.drivebase.swerveDrive.addVisionMeasurement(photonPose.get().estimatedPose.toPose2d(),
                             photonPose.get().timestampSeconds);
