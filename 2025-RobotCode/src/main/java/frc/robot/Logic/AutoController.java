@@ -95,36 +95,46 @@ public class AutoController {
             case DoNothing:
                 thisRobot.drivebase.swerveDrive.lockPose();
                 break;
+
             case processor_EF2L_RFS_AB2L_RFS_AB2R:
                 customAutoStartPose = Settings.autoProcessorStartPose;
                 customAutoPoses = new Pose2d[] { Settings.coralLeftEF,
                         Settings.rightCenterFeederStationAP, Settings.coralLeftAB,
-                        Settings.rightCenterFeederStationAP, Settings.coralRightAB };
+                        Settings.rightCenterFeederStationAP, Settings.coralRightAB,
+                        Settings.rightCenterFeederStationAP, Settings.coralLeftCD };
                 customElevatorStates = new ElevatorStates[] { ElevatorStates.L2,
                         ElevatorStates.L1, ElevatorStates.L2,
-                        ElevatorStates.L1, ElevatorStates.L2, };
+                        ElevatorStates.L1, ElevatorStates.L2,
+                        ElevatorStates.L1, ElevatorStates.L2 };
                 autoRoutine = AutoRoutines.customAutoAnyLength;
                 break;
+
             case far_IJ2L_LFS_KL4R_LFS_KL4L:
                 customAutoStartPose = Settings.autoFarStartPose;
                 customAutoPoses = new Pose2d[] { Settings.coralLeftIJ,
-                        Settings.leftCenterFeederStationAP, Settings.coralRightKL, Settings.leftCenterFeederStationAP,
-                        Settings.coralLeftKL };
+                        Settings.leftCenterFeederStationAP, Settings.coralRightKL, 
+                        Settings.leftCenterFeederStationAP, Settings.coralLeftKL,
+                        Settings.leftCenterFeederStationAP, Settings.coralLeftAB };
                 customElevatorStates = new ElevatorStates[] { ElevatorStates.L2,
                         ElevatorStates.L1, ElevatorStates.L4,
-                        ElevatorStates.L1, ElevatorStates.L4, };
+                        ElevatorStates.L1, ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4 };
                 autoRoutine = AutoRoutines.customAutoAnyLength;
                 break;
+
             case mid_EF2R_RFS_CD4R_RFS_CD4L:
                 customAutoStartPose = Settings.autoMidStartPose;
                 customAutoPoses = new Pose2d[] { Settings.coralRightEF,
-                        Settings.rightCenterFeederStationAP, Settings.coralRightCD, Settings.rightCenterFeederStationAP,
-                        Settings.coralLeftCD };
+                        Settings.rightCenterFeederStationAP, Settings.coralRightCD, 
+                        Settings.rightCenterFeederStationAP, Settings.coralLeftCD,
+                        Settings.rightCenterFeederStationAP, Settings.coralRightAB };
                 customElevatorStates = new ElevatorStates[] { ElevatorStates.L2,
                         ElevatorStates.L1, ElevatorStates.L4,
-                        ElevatorStates.L1, ElevatorStates.L4, };
+                        ElevatorStates.L1, ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4 };
                 autoRoutine = AutoRoutines.customAutoAnyLength;
                 break;
+
             case betWithBusler:
                 customAutoStartPose = Settings.autoProcessorStartPose;
                 customAutoPoses = new Pose2d[] { Settings.coralLeftEF,
@@ -137,6 +147,7 @@ public class AutoController {
                         ElevatorStates.L1, ElevatorStates.L2 };
                 autoRoutine = AutoRoutines.customAutoAnyLength;
                 break;
+
             case customAutoAnyLength:
                 switch (autoStep) {
                     case 0: // checks to flip to red side in simulation
