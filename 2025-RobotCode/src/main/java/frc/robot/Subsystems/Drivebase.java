@@ -46,7 +46,7 @@ public class Drivebase {
     Robot thisRobot;
     public SwerveDrive swerveDrive;
 
-    // class variables
+    // OTF/Path variables
     PathPlannerTrajectory traj;
     boolean loadedPathHasStarted = false;
     PathPlannerPath path;
@@ -55,10 +55,12 @@ public class Drivebase {
     double timePathStarted;
     PathPlannerTrajectoryState trajGoalState;
     Field2d trajGoalPosition = new Field2d();
+    double otfEndVelocity = 0.3;
+
     public PathPlannerPath pathPlannerGoalPose;
     public Pose2d newTeleopGoalPose = new Pose2d();
-    Pose2d apGoalPose = new Pose2d();
 
+    // OTF Path Variables
     public Pathfinder generatePath = new LocalADStar();
     Rotation2d trajGoalRotation = new Rotation2d();
     PathConstraints oTFConstraints = new PathConstraints(
@@ -69,6 +71,9 @@ public class Drivebase {
     int nullPathCount = 0;
     boolean otfPathDone = true;
     boolean skipOTF = false;
+
+    // ap variables
+    Pose2d apGoalPose = new Pose2d();
     boolean apDone = false;
 
     public Drivebase(Robot thisRobotIn) {
@@ -185,17 +190,6 @@ public class Drivebase {
                 .calculate(thisRobot.drivebase.swerveDrive.getPose().getRotation().minus(goalPose.getRotation())
                         .getDegrees(), goalRState);
 
-        // xVelocity =
-        // Settings.xControllerAPNP.calculate(thisRobot.drivebase.swerveDrive.getPose().getX(),
-        // goalPose.getX() );
-
-        // yVelocity =
-        // Settings.yControllerAPNP.calculate(thisRobot.drivebase.swerveDrive.getPose().getY(),
-        // goalPose.getY() );
-
-        // rVelocity =
-        // Settings.rControllerAPNP.calculate(thisRobot.drivebase.swerveDrive.getPose().getRotation().minus(goalPose.getRotation()).getDegrees(),
-        // 0 );
         double oldMag = Math.sqrt(xVelocity * xVelocity + yVelocity * yVelocity);
         double newMag = clamp(oldMag, maxSpeed);
 
@@ -289,8 +283,8 @@ public class Drivebase {
         Settings.rController.reset();
         generatePath.setGoalPosition(goalPose.getTranslation());
         // drive back if not going to reef zone and if in reef zone
-        if ((isPoseInReefZone(goalPose) == false && isRobotInReefZone())
-                || Settings.getDistanceBetweenTwoPoses(Settings.processorAP, swerveDrive.getPose()) < 1) {
+
+        if (robotShouldBackupBeforeOTFPath(goalPose)) {
             generatePath.setStartPosition(
                     swerveDrive.getPose().transformBy(new Transform2d(-0.5, 0, new Rotation2d())).getTranslation());
         } else {
@@ -305,7 +299,7 @@ public class Drivebase {
 
     public boolean followOTFPath() {
         if (generatePath.isNewPathAvailable()) {
-            GoalEndState ges = new GoalEndState(0.25, trajGoalRotation);
+            GoalEndState ges = new GoalEndState(otfEndVelocity, trajGoalRotation);
             path = generatePath.getCurrentPath(oTFConstraints, ges);
 
             if (path != null) {
@@ -313,8 +307,7 @@ public class Drivebase {
                     // if we started pose with a backup we need to isert a waypoint where we
                     // actually start
                     List<Waypoint> wpList = path.getWaypoints();
-                    if ((isPoseInReefZone(apGoalPose) == false && isRobotInReefZone()) || Settings
-                            .getDistanceBetweenTwoPoses(Settings.processorATPose, swerveDrive.getPose()) < 0.25) {
+                    if (robotShouldBackupBeforeOTFPath(otfGoalPose)) {
 
                         wpList.add(0,
                                 new Waypoint(
@@ -409,6 +402,20 @@ public class Drivebase {
             wpiStateLists.add(thisWPIState);
         }
         return new Trajectory(wpiStateLists);
+    }
+
+    public boolean robotShouldBackupBeforeOTFPath(Pose2d goalPose) {
+        if (thisRobot.onRedAlliance) {
+            return (isPoseInReefZone(goalPose) == false && isRobotInReefZone())
+                    || Settings.getDistanceBetweenTwoPoses(flipPoseToRed(Settings.processorAP),
+                            swerveDrive.getPose()) < 1;
+        } else {
+            return (isPoseInReefZone(goalPose) == false && isRobotInReefZone())
+                    || Settings.getDistanceBetweenTwoPoses(Settings.processorAP,
+                            swerveDrive.getPose()) < 1;
+
+        }
+
     }
 
 }

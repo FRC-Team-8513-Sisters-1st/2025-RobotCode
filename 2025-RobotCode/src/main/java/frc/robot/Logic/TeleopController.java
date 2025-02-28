@@ -56,7 +56,12 @@ public class TeleopController {
         thisRobot.coral.coralController.setSetpoint(thisRobot.coral.coralMotor1.getEncoder().getPosition());
         thisRobot.coral.state = CoralIntakeStates.stationary;
         if (thisRobot.drivebase.swerveDrive.getPose().getX() == 0 && Robot.isSimulation()) {
-            thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(2, 2, new Rotation2d()));
+            if(thisRobot.onRedAlliance){
+                thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(16, 2, new Rotation2d()));
+            } else {
+                thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(2, 2, new Rotation2d()));
+            }
+            
         }
     }
 

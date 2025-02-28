@@ -22,9 +22,7 @@ public class Coral {
     // sensor
     public PIDController coralController = new PIDController(.1, 0, 0);
     public boolean sensorFirstTime = false;
-    public double holdCoralPos = 14;
-
-    boolean seenBackEdge = false;
+    public double holdCoralPos = -2;
 
     public double currentBrokeTholdTime = 0;
     boolean sensorBrokeThold = false;
@@ -50,6 +48,7 @@ public class Coral {
                 double motorPower = coralController.calculate(coralMotor1.getEncoder().getPosition());
                 coralMotor1.set(motorPower);
 
+                //shift coral in and out when button pressed
                 if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralIntake)) {
                     double lessenIntake = 1;
                     coralController.setSetpoint(coralController.getSetpoint() - lessenIntake);
@@ -68,13 +67,14 @@ public class Coral {
                     coralController.setSetpoint(coralMotor1.getEncoder().getPosition());
                 }
 
-                // sensor
+                //if we see coral prep to stop when it passes sensor
                 if ((coralMotor1.getAnalog().getVoltage() > Settings.sensorThold || sensorBrokeThold) && sensorFirstTime) {
                         sensorBrokeThold = true;
+                        //after we see coral slow down so it doesnt over shoot
                         coralPower = 0.4;
                         if(coralMotor1.getAnalog().getVoltage() < Settings.sensorThold){
                             coralMotor1.getEncoder().setPosition(0);
-                            coralController.setSetpoint(-2);
+                            coralController.setSetpoint(holdCoralPos);
                             sensorFirstTime = false;
                             state = CoralIntakeStates.stationary;
                             sensorBrokeThold = false;
@@ -83,6 +83,7 @@ public class Coral {
                     sensorFirstTime = true;
                     sensorBrokeThold = false;
                 }
+                //lower power for L1 so it doesnt bounce out
                 if(thisRobot.elevator.state == ElevatorStates.L1){
                     coralPower = 0.5;
                 }

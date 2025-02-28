@@ -48,11 +48,6 @@ public final class Settings {
         private static double attackPointRotateI = 0;
         private static double attackPointRotateD = 0;
 
-        // pid path follow settings
-        public static PIDController xControllerAPNP = new PIDController(6, 2, 0.01);
-        public static PIDController yControllerAPNP = new PIDController(6, 2, 0.01);
-        public static PIDController rControllerAPNP = new PIDController(0.15, 0, 0);
-
         private static final TrapezoidProfile.Constraints attackPointConstraints = new TrapezoidProfile.Constraints(
                         maxVelocityAP,
                         maxAccelerationAP);
@@ -201,7 +196,7 @@ public final class Settings {
 
         public static Pose2d reefZoneBlue = new Pose2d(4.495, 4.019, new Rotation2d(Radians.convertFrom(0, Degrees)));
         public static Pose2d reefZoneRed = new Pose2d(13.091, 4.043, new Rotation2d(Radians.convertFrom(0, Degrees)));
-        public static double minDistanceFromReefZoneMeter = 3;
+        public static double minDistanceFromReefZoneMeter = 2.5;
         public static double maxATDist = 3;
 
         public static double coralScoreThold = 0.02;
