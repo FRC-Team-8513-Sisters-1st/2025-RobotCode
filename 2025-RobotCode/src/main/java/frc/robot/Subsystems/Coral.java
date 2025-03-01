@@ -39,10 +39,10 @@ public class Coral {
 
     public void setMotorPower() {
 
-        if (thisRobot.teleopController.manualJoystick.getRawAxis(2) > Settings.triggerDeadband) {
+        if (thisRobot.teleopController.manualJoystick.getRawAxis(3) > Settings.triggerDeadband) {
             state = CoralIntakeStates.intake;
         }
-        if (thisRobot.teleopController.manualJoystick.getRawButton(5)) {
+        if (thisRobot.teleopController.manualJoystick.getRawButton(6)) {
             state = CoralIntakeStates.outake;
         }
 

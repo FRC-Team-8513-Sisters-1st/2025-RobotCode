@@ -22,10 +22,10 @@ Manual Joystick
 - A - auto elevator on/off
 - X - auto score on/off
 - B - reset elevator position to 0
-- LT - manual algae in
-- LB - manual algae out
-- RT - manual coral in
-- RB - manual coral out
+- RT - manual algae in
+- RB - manual algae out
+- LT - manual coral in
+- LB - manual coral out
 
 
 

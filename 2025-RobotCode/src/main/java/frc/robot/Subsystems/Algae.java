@@ -36,10 +36,10 @@ public class Algae {
     }
 
     public void setMotorPower() {
-        if (thisRobot.teleopController.manualJoystick.getRawAxis(3) > Settings.triggerDeadband) {
+        if (thisRobot.teleopController.manualJoystick.getRawAxis(2) > Settings.triggerDeadband) {
             algaeState = AlgaeIntakeStates.intake;
         }
-        if (thisRobot.teleopController.manualJoystick.getRawButton(6)) {
+        if (thisRobot.teleopController.manualJoystick.getRawButton(5)) {
             algaeState = AlgaeIntakeStates.outake;
         }
 

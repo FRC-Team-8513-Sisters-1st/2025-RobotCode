@@ -44,7 +44,7 @@ public class Vision {
     Transform3d coralStationCamTransform = new Transform3d(new Translation3d(Units.inchesToMeters(2.3), Units.inchesToMeters(7.3), Units.inchesToMeters(38)),
             new Rotation3d(0, Units.degreesToRadians(-26.5), Units.degreesToRadians(180)));
     Transform3d lowerLeftReefCamTransform = new Transform3d(new Translation3d(Units.inchesToMeters(5), Units.inchesToMeters(7), Units.inchesToMeters(10)),
-            new Rotation3d(0, Units.degreesToRadians(-15), 0));
+            new Rotation3d(0, 0, 0));
 
     PhotonPoseEstimator processorPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout,
             PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, processorCamTransform);

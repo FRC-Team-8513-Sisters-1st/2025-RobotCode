@@ -11,10 +11,9 @@
         - possibly reduce OTF final velocity, test how long autos take with and without it but it looks like its overshooting the paths
             - this may be a path following PID tuning issue
         
-        - manual control and resets for elevator (joystick 4)
-        - manual control for algae and coral mech (joystick 4 or more buttons)
-        - diagram for what joystick 4 buttons do
-        - backup and elevator auto down after auto score
+        X manual control and resets for elevator (joystick 4)
+        X manual control for algae and coral mech (joystick 4 or more buttons)
+        X diagram for what joystick 4 buttons do
         - add comments to drivebase class 
         - elevator jam detection
         - climber states
