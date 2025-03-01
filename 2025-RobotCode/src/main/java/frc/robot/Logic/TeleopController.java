@@ -33,6 +33,7 @@ public class TeleopController {
 
     boolean goingToCoralStation = false;
     ElevatorStates coPilotElevatorState = ElevatorStates.L1;
+    ElevatorStates coPilotElevatorStateOLD = coPilotElevatorState;
     boolean scoreCoralL1 = false;
 
     boolean teleopAutoScore = true;
@@ -346,6 +347,7 @@ public class TeleopController {
     }
 
     public void elevatorSetLeve() {
+        coPilotElevatorStateOLD = coPilotElevatorState;
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_Coral1)) {
             coPilotElevatorState = ElevatorStates.L1;
             scoreCoralL1 = true;
@@ -374,6 +376,9 @@ public class TeleopController {
         if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_processor)) {
             coPilotElevatorState = ElevatorStates.scoreProcessor;
             scoreCoralL1 = false;
+        }
+        if(coPilotElevatorState != coPilotElevatorStateOLD){
+            firstOTFPath = true;
         }
     }
 
