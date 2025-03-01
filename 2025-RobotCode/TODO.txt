@@ -1,18 +1,23 @@
-- ToDo       
+- ToDo
+    - test
+        - when l1-l4 buttons are pressed reinit the OTF path
+            - works in sim, is this what olivia wants
+        - when robot disabled use farther max AT distance
+
     - due week 1 
-        - update radio
-        - when robot disabled ignor max ap distance
+        - in the "ready to score functions" in both auto and teleop we need to check our goal heading
+            - once we add this check, the rotational PID may need to be made more aggressive to actually reach the goal
+        - add more I to the AP Pid controllers, it took a few seconds to pull us in sometimes
+        - possibly reduce OTF final velocity, test how long autos take with and without it but it looks like its overshooting the paths
+            - this may be a path following PID tuning issue
         
         - manual control and resets for elevator (joystick 4)
         - manual control for algae and coral mech (joystick 4 or more buttons)
         - diagram for what joystick 4 buttons do
         - backup and elevator auto down after auto score
-        - add comments to drivebase class
-        
-        - climber states
+        - add comments to drivebase class 
         - elevator jam detection
-        - check ange b4 scoring
-        - when level changes re init path
+        - climber states
 
 - Tuning:
     - Tune drivebase odometry without vision

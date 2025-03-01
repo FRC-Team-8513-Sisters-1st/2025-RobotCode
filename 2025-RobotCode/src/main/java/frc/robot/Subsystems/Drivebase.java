@@ -63,9 +63,7 @@ public class Drivebase {
     // OTF Path Variables
     public Pathfinder generatePath = new LocalADStar();
     Rotation2d trajGoalRotation = new Rotation2d();
-    PathConstraints oTFConstraints = new PathConstraints(
-            3.8, 4,
-            Units.degreesToRadians(300), Units.degreesToRadians(360));
+    PathConstraints oTFConstraints;
     boolean otfReady = false;
     public Pose2d otfGoalPose = new Pose2d();
     int nullPathCount = 0;
@@ -87,6 +85,9 @@ public class Drivebase {
         if(Robot.isReal()){
             swerveDrive.setCosineCompensator(true);
         }
+        oTFConstraints = new PathConstraints(
+            swerveDrive.getMaximumChassisVelocity(), 4,
+            Units.degreesToRadians(300), Units.degreesToRadians(360));
         SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
         thisRobot = thisRobotIn;
 

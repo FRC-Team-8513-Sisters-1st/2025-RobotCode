@@ -37,15 +37,15 @@ public final class Settings {
         public static double maxVelocityAP = 3;
         public static double maxAccelerationAP = 3;
         private static double attackPointDriveP = 7;
-        private static double attackPointDriveI = 3;
-        private static double attackPointDriveD = 0.1;
+        private static double attackPointDriveI = 5;
+        private static double attackPointDriveD = 0.5;
         private static double attackPointDt = 0.02;
 
         // rotation
         public static double maxVelocityRotateAP = 360;
         public static double maxAccelerationRotateAP = 360;
-        private static double attackPointRotateP = 0.1;
-        private static double attackPointRotateI = 0;
+        private static double attackPointRotateP = 0.15;
+        private static double attackPointRotateI = 0.01;
         private static double attackPointRotateD = 0;
 
         private static final TrapezoidProfile.Constraints attackPointConstraints = new TrapezoidProfile.Constraints(
@@ -70,11 +70,11 @@ public final class Settings {
                         attackPointDriveConstraints, attackPointDt);
 
         // pid path follow settings
-        public static PIDController xController = new PIDController(3.5, 0.05, 0.01);
-        public static PIDController yController = new PIDController(3.5, 0.05, 0.01);
+        public static PIDController xController = new PIDController(3.5, .5, 0.1);
+        public static PIDController yController = new PIDController(3.5, .5, 0.1);
         public static PIDController rController = new PIDController(0.1, 0, 0);
 
-        public static PIDController rJoystickController = new PIDController(0.1, 0, 0);
+        public static PIDController rJoystickController = new PIDController(0.15, 0.01, 0);
         public static int rightJoystickY = 5;
         public static int rightJoystickX = 4;
         public static boolean headingJoystickControls = false;
