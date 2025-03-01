@@ -39,6 +39,13 @@ public class Coral {
 
     public void setMotorPower() {
 
+        if (thisRobot.teleopController.manualJoystick.getRawAxis(2) > Settings.triggerDeadband) {
+            state = CoralIntakeStates.intake;
+        }
+        if (thisRobot.teleopController.manualJoystick.getRawButton(5)) {
+            state = CoralIntakeStates.outake;
+        }
+
         switch (state) {
             case stationary:
                 funnelMotor1.set(0);

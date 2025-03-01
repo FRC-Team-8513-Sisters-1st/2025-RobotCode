@@ -91,6 +91,10 @@ public class Elevator {
             elevatorMotor1.set(power);
             elevatorMotor2.set(-power);
         }
+
+        if (thisRobot.teleopController.manualJoystick.getRawButtonPressed(2)) {
+            thisRobot.elevator.m_controller.reset(new State(thisRobot.elevator.elevatorMotor1.getEncoder().getPosition(), 0));
+        }
     }
 
     public boolean elevatorAtSetpoint(){

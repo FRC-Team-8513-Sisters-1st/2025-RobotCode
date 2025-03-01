@@ -59,12 +59,12 @@ public class TeleopController {
         thisRobot.vision.useProcessorCam = true;
         thisRobot.vision.visionMaxATDist = Settings.maxATDist;
         if (thisRobot.drivebase.swerveDrive.getPose().getX() == 0 && Robot.isSimulation()) {
-            if(thisRobot.onRedAlliance){
+            if (thisRobot.onRedAlliance) {
                 thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(16, 2, new Rotation2d()));
             } else {
                 thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(2, 2, new Rotation2d()));
             }
-            
+
         }
     }
 
@@ -252,10 +252,9 @@ public class TeleopController {
         thisRobot.elevator.setMotorPower();
         thisRobot.climber.setMotorPower();
 
-        if (thisRobot.teleopController.manualJoystick.getRawButtonPressed(1)) {
+        if (manualJoystick.getRawButtonPressed(1)) {
             thisRobot.elevator.autoElevatorOn = !thisRobot.elevator.autoElevatorOn;
         }
-
     }
 
     public void setCoralScoreGoalPoseRight() {
@@ -378,7 +377,7 @@ public class TeleopController {
             coPilotElevatorState = ElevatorStates.scoreProcessor;
             scoreCoralL1 = false;
         }
-        if(coPilotElevatorState != coPilotElevatorStateOLD){
+        if (coPilotElevatorState != coPilotElevatorStateOLD) {
             firstOTFPath = true;
         }
     }

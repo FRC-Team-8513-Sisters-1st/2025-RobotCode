@@ -18,6 +18,15 @@ Copilot
 - 2 buttons: Algae which of 2 levels
 - 1 button: reset to Drive
 
+Manual Joystick
+- A - auto elevator on/off
+- X - auto score on/off
+- B - reset elevator position to 0
+- LT - manual algae in
+- LB - manual algae out
+- RT - manual coral in
+- RB - manual coral out
+
 
 
 When naming positions use: https://www.chiefdelphi.com/uploads/default/original/3X/a/d/ad69934106322e031222e09cfa394e921c802552.jpeg
