@@ -47,13 +47,9 @@ public class Coral {
                 state = CoralIntakeStates.intake;
             }
         }
-        if (thisRobot.teleopController.manualJoystick.getRawButtonPressed(5)) {// After pressing again it spins back to initial state???
-            if (state == CoralIntakeStates.outake) {
-                state = CoralIntakeStates.stationary;
-            } else {
+        if (thisRobot.teleopController.manualJoystick.getRawButtonPressed(5)) {
                 state = CoralIntakeStates.outake;
-            }
-                }
+        }
 
         switch (state) {
             case stationary:
@@ -79,7 +75,8 @@ public class Coral {
             case outake:
                 double coralPower = 0.8;
                 funnelMotor1.set(0.2);
-                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake)) {
+                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake) ||
+                thisRobot.teleopController.manualJoystick.getRawButtonPressed(5)) {
                     state = CoralIntakeStates.stationary;
                     coralController.setSetpoint(coralMotor1.getEncoder().getPosition());
                 }
@@ -107,7 +104,7 @@ public class Coral {
                 }
                 coralMotor1.set(coralPower);
                 break;
-                case intake:
+            case intake: //we will never break out of this state unless intake is pressed again. maybe should add some escape conditions.
                 coralController.setSetpoint(coralMotor1.getEncoder().getPosition());
                 coralMotor1.set(-0.25);
             default:

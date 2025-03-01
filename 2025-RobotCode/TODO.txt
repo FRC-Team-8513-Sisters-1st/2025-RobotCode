@@ -1,8 +1,7 @@
 - ToDo
     - test
-        - when l1-l4 buttons are pressed reinit the OTF path
-            - works in sim, is this what olivia wants
         - when robot disabled use farther max AT distance
+        - manual coral outtake
 
     - due week 1 
         - in the "ready to score functions" in both auto and teleop we need to check our goal heading
@@ -10,7 +9,6 @@
         - add more I to the AP Pid controllers, it took a few seconds to pull us in sometimes
         - possibly reduce OTF final velocity, test how long autos take with and without it but it looks like its overshooting the paths
             - this may be a path following PID tuning issue
-        - Bug: Manual copilot controller intake on second button press outtakes
         
         X manual control and resets for elevator (joystick 4)
         X manual control for algae and coral mech (joystick 4 or more buttons)
