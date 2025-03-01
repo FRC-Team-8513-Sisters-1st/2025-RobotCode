@@ -85,6 +85,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit() {
+    vision.visionMaxATDist = Settings.maxATDistDisabeled;
   }
 
   @Override

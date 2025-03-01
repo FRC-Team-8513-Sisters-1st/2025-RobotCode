@@ -28,6 +28,8 @@ public class Vision {
     boolean useCoralStationCam = true;
     boolean useLowerLeftReefCam = true;
 
+    public double visionMaxATDist = Settings.maxATDistDisabeled;
+
     PhotonCamera processorCam = new PhotonCamera("processorCam");
     PhotonCamera lowerRightReefCam = new PhotonCamera("lowerRightReefCam");
     PhotonCamera coralStationCam = new PhotonCamera("coralStationCam");
@@ -69,10 +71,10 @@ public class Vision {
 
     public void updatePhotonVision() {
 
-        integrateCamera(useProcessorCam, processorCam, processorPoseEstimator, photonField2d_processor, Settings.maxATDist);
-        integrateCamera(useLowerRightReefCam, lowerRightReefCam, lowerRightPoseEstimator, photonField2d_lowerRight, Settings.maxATDist);
-        integrateCamera(useLowerLeftReefCam, lowerLeftReefCam, lowerLeftPoseEstimator, photonField2d_lowerLeft, Settings.maxATDist);
-        integrateCamera(useCoralStationCam, coralStationCam, coralStationEstimator, photonField2d_coralStation, Settings.maxATDist);
+        integrateCamera(useProcessorCam, processorCam, processorPoseEstimator, photonField2d_processor, visionMaxATDist);
+        integrateCamera(useLowerRightReefCam, lowerRightReefCam, lowerRightPoseEstimator, photonField2d_lowerRight, visionMaxATDist);
+        integrateCamera(useLowerLeftReefCam, lowerLeftReefCam, lowerLeftPoseEstimator, photonField2d_lowerLeft, visionMaxATDist);
+        integrateCamera(useCoralStationCam, coralStationCam, coralStationEstimator, photonField2d_coralStation, visionMaxATDist);
     }
 
     public void integrateCamera(boolean useCamera, PhotonCamera camera, PhotonPoseEstimator estimator, Field2d photonField, double maxDistance) {
