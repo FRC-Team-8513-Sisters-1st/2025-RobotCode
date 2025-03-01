@@ -1,15 +1,4 @@
-- ToDo
-    - test
-        - OTF tuning and AP tuning
-        - tune OTF offsets
-        - tune l1 offsets
-        - tune cs offsets
-        - tune tune elevator heights
-        - during OTF auto, check if we have a coral, if we dont have one by AP, go to coral station
-        - during auto, check if elevator is at right height before scoring
-        - dont bring elevator down if close to reef 
-            - not sure if we need to do this or not
-        
+- ToDo       
     - due week 1 
         - update radio
         - when robot disabled ignor max ap distance
@@ -22,7 +11,8 @@
         
         - climber states
         - elevator jam detection
-
+        - check ange b4 scoring
+        - when level changes re init path
 
 - Tuning:
     - Tune drivebase odometry without vision

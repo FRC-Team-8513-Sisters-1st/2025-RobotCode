@@ -155,8 +155,8 @@ public final class Settings {
         // offsets reef
         public static Transform2d tagToLeft = new Transform2d(0.5, -0.254, new Rotation2d(Math.PI));
         public static Transform2d tagToRight = new Transform2d(0.5, 0.056, new Rotation2d(Math.PI));
-        public static Transform2d tagToLeftL1 = new Transform2d(0, 0.25, new Rotation2d());
-        public static Transform2d tagToRightL1 = new Transform2d(0, -0.35, new Rotation2d());
+        public static Transform2d tagToLeftL1 = new Transform2d(0.05, 0.3, new Rotation2d());
+        public static Transform2d tagToRightL1 = new Transform2d(0.05, -0.35, new Rotation2d());
 
         // offset pocessor
         public static Transform2d tagToProcessor = new Transform2d(0.4, 0.1, new Rotation2d(Math.PI));
@@ -207,7 +207,7 @@ public final class Settings {
         public static double elevatorPosStowed = 0;
         public static double elevatorPosL1 = 0;
         public static double elevatorPosL2 = 9.7;
-        public static double elevatorPosProcessor = 5;
+        public static double elevatorPosProcessor = 7;
         public static double elevatorPosL3 = 22.8;
         public static double elevatorPosL4 = 43;
         public static double elevatorPosA2 = 23.43;
