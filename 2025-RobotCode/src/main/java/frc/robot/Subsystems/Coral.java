@@ -26,6 +26,7 @@ public class Coral {
 
     public double currentBrokeTholdTime = 0;
     boolean sensorBrokeThold = false;
+    boolean manualOutakePressed = false;
 
     public Coral(Robot thisRobotIn) {
 
@@ -39,12 +40,20 @@ public class Coral {
 
     public void setMotorPower() {
 
-        if (thisRobot.teleopController.manualJoystick.getRawAxis(3) > Settings.triggerDeadband) {
-            state = CoralIntakeStates.intake;
+        if (thisRobot.teleopController.manualJoystick.getRawAxis(2) > Settings.triggerDeadband) {
+            if (state == CoralIntakeStates.intake) {
+                state = CoralIntakeStates.stationary;
+            } else {
+                state = CoralIntakeStates.intake;
+            }
         }
-        if (thisRobot.teleopController.manualJoystick.getRawButton(6)) {
-            state = CoralIntakeStates.outake;
-        }
+        if (thisRobot.teleopController.manualJoystick.getRawButtonPressed(5)) {// After pressing again it spins back to initial state???
+            if (state == CoralIntakeStates.outake) {
+                state = CoralIntakeStates.stationary;
+            } else {
+                state = CoralIntakeStates.outake;
+            }
+                }
 
         switch (state) {
             case stationary:
@@ -55,12 +64,13 @@ public class Coral {
                 double motorPower = coralController.calculate(coralMotor1.getEncoder().getPosition());
                 coralMotor1.set(motorPower);
 
-                //shift coral in and out when button pressed
+                // shift coral in and out when button pressed
                 if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralIntake)) {
                     double lessenIntake = 1;
                     coralController.setSetpoint(coralController.getSetpoint() - lessenIntake);
                 }
-                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutakeALittle)) {
+                if (thisRobot.teleopController.operatorJoystick1
+                        .getRawButtonPressed(Settings.buttonId_CoralOutakeALittle)) {
                     double lessenIntake = -1;
                     coralController.setSetpoint(coralController.getSetpoint() - lessenIntake);
                 }
@@ -74,28 +84,32 @@ public class Coral {
                     coralController.setSetpoint(coralMotor1.getEncoder().getPosition());
                 }
 
-                //if we see coral prep to stop when it passes sensor
-                if ((coralMotor1.getAnalog().getVoltage() > Settings.sensorThold || sensorBrokeThold) && sensorFirstTime) {
-                        sensorBrokeThold = true;
-                        //after we see coral slow down so it doesnt over shoot
-                        coralPower = 0.25;
-                        if(coralMotor1.getAnalog().getVoltage() < Settings.sensorThold){
-                            coralMotor1.getEncoder().setPosition(0);
-                            coralController.setSetpoint(holdCoralPos);
-                            sensorFirstTime = false;
-                            state = CoralIntakeStates.stationary;
-                            sensorBrokeThold = false;
-                        }
+                // if we see coral prep to stop when it passes sensor
+                if ((coralMotor1.getAnalog().getVoltage() > Settings.sensorThold || sensorBrokeThold)
+                        && sensorFirstTime) {
+                    sensorBrokeThold = true;
+                    // after we see coral slow down so it doesnt over shoot
+                    coralPower = 0.25;
+                    if (coralMotor1.getAnalog().getVoltage() < Settings.sensorThold) {
+                        coralMotor1.getEncoder().setPosition(0);
+                        coralController.setSetpoint(holdCoralPos);
+                        sensorFirstTime = false;
+                        state = CoralIntakeStates.stationary;
+                        sensorBrokeThold = false;
+                    }
                 } else if (coralMotor1.getAnalog().getVoltage() < Settings.sensorThold) {
                     sensorFirstTime = true;
                     sensorBrokeThold = false;
                 }
-                //lower power for L1 so it doesnt bounce out
-                if(thisRobot.elevator.state == ElevatorStates.L1){
+                // lower power for L1 so it doesnt bounce out
+                if (thisRobot.elevator.state == ElevatorStates.L1) {
                     coralPower = 0.5;
                 }
                 coralMotor1.set(coralPower);
                 break;
+                case intake:
+                coralController.setSetpoint(coralMotor1.getEncoder().getPosition());
+                coralMotor1.set(-0.25);
             default:
                 break;
         }

@@ -36,11 +36,15 @@ public class Algae {
     }
 
     public void setMotorPower() {
-        if (thisRobot.teleopController.manualJoystick.getRawAxis(2) > Settings.triggerDeadband) {
-            algaeState = AlgaeIntakeStates.intake;
+        if (thisRobot.teleopController.manualJoystick.getRawAxis(3) > Settings.triggerDeadband) {
+            if (algaeState == AlgaeIntakeStates.intake) {
+                algaeState = AlgaeIntakeStates.stationary;
+            } else {
+                algaeState = AlgaeIntakeStates.intake;
+            }
         }
-        if (thisRobot.teleopController.manualJoystick.getRawButton(5)) {
-            algaeState = AlgaeIntakeStates.outake;
+        if (thisRobot.teleopController.manualJoystick.getRawButtonPressed(6)) {
+            algaeState = AlgaeIntakeStates.outake; 
         }
 
         if (algaeState == AlgaeIntakeStates.intake) {

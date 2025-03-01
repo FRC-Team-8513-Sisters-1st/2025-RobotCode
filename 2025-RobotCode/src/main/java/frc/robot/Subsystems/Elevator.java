@@ -93,7 +93,8 @@ public class Elevator {
         }
 
         if (thisRobot.teleopController.manualJoystick.getRawButtonPressed(2)) {
-            thisRobot.elevator.m_controller.reset(new State(thisRobot.elevator.elevatorMotor1.getEncoder().getPosition(), 0));
+            double elevatorState = thisRobot.elevator.elevatorMotor1.getEncoder().getPosition();
+            thisRobot.elevator.m_controller.setGoal(elevatorState);
             
         }
     }
