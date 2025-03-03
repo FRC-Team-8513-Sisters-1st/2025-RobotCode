@@ -42,14 +42,19 @@ public class Coral {
 
         if (thisRobot.teleopController.manualJoystick.getRawAxis(2) > Settings.triggerDeadband) {
             if (state == CoralIntakeStates.intake) {
+                coralController.setSetpoint(coralMotor1.getEncoder().getPosition());
                 state = CoralIntakeStates.stationary;
             } else {
                 state = CoralIntakeStates.intake;
             }
         }
         if (thisRobot.teleopController.manualJoystick.getRawButtonPressed(5)) {
+            if (state == CoralIntakeStates.outake) {
+                coralController.setSetpoint(coralMotor1.getEncoder().getPosition());
+                state = CoralIntakeStates.stationary;
+            } else {
                 state = CoralIntakeStates.outake;
-        }
+            }        }
 
         switch (state) {
             case stationary:
@@ -107,6 +112,9 @@ public class Coral {
             case intake: //we will never break out of this state unless intake is pressed again. maybe should add some escape conditions.
                 coralController.setSetpoint(coralMotor1.getEncoder().getPosition());
                 coralMotor1.set(-0.25);
+                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake)) {
+                    state = CoralIntakeStates.stationary;
+                }
             default:
                 break;
         }

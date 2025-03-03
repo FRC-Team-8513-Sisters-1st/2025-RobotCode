@@ -1,6 +1,5 @@
 - ToDo
     - test
-        - when robot disabled use farther max AT distance and heading correction
         - manual coral outtake
         X manual control and resets for elevator (joystick 4)
         X manual control for algae and coral mech (joystick 4 or more buttons)
