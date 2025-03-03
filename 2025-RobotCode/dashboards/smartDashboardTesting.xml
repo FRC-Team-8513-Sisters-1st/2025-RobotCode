@@ -1,5 +1,15 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="IsRobotInReefZone" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1138" y="39"/>
+	</widget>
+	<widget field="elevator motor 2 pos" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="45" y="326"/>
+		<height>21</height>
+	</widget>
+	<widget field="AutoScoreTeleop" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="318" y="273"/>
+	</widget>
 	<widget field="Path Name" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="201" y="43"/>
 	</widget>
@@ -28,7 +38,7 @@
 		<location x="312" y="247"/>
 	</widget>
 	<widget field="Auto Elevator On" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="64" y="337"/>
+		<location x="58" y="349"/>
 	</widget>
 	<widget field="Operator Chosen Side Of Feeder" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="384" y="23"/>
@@ -46,7 +56,7 @@
 		<location x="208" y="63"/>
 	</widget>
 	<widget field="isOnRed" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="-2" y="144"/>
+		<location x="1137" y="15"/>
 	</widget>
 	<widget field="coralState" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="339" y="200"/>
@@ -75,7 +85,7 @@
 		<location x="32" y="285"/>
 	</widget>
 	<widget field="Auton Selector" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="5" y="24"/>
+		<location x="899" y="2"/>
 	</widget>
 	<widget field="Time" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="0"/>
@@ -84,19 +94,17 @@
 <live-window>
 </live-window>
 	<hidden field="Swerve Drive"/>
-	<hidden field="elevator motor 2 pos"/>
 	<hidden field="photonPose CoralStation"/>
 	<hidden field="Motors"/>
 	<hidden field="JSON"/>
-	<hidden field="processor"/>
 	<hidden field="Encoders"/>
-	<hidden field="coralScoreGoalPose"/>
 	<hidden field="IMU"/>
 	<hidden field="Field"/>
 	<hidden field="photonPose Lower Left"/>
 	<hidden field="photonPose Processor"/>
 	<hidden field="photonPose Lower Right"/>
+	<hidden field="pathPlannerGoalPose"/>
 	<hidden field="Path Planner Goal Pose"/>
-	<hidden field="goalFeederStation"/>
 	<hidden field="attackPointPose"/>
+	<hidden field="otfGoalPose"/>
 </xml>
