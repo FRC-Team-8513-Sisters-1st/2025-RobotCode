@@ -188,6 +188,7 @@ public class AutoController {
                     case 15: // drives to coral station
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
+                        thisRobot.coral.state = CoralIntakeStates.outake;
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             timeStepStarted = Timer.getFPGATimestamp();
                             autoStep = 16;
