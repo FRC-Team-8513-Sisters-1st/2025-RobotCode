@@ -1,6 +1,7 @@
 package frc.robot.Logic;
 
 import frc.robot.Settings;
+import frc.robot.Logic.Enums.ClimberStates;
 import frc.robot.Logic.Enums.CoralIntakeStates;
 import frc.robot.Logic.Enums.ElevatorStates;
 import frc.robot.Logic.Enums.FeederStation;
@@ -421,6 +422,18 @@ public class TeleopController {
                 && thisRobot.elevator.state == ElevatorStates.scoreProcessor) {
             State elevatorGoalPIDState = new State(Settings.elevatorPosL2, 0);
             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);
+        }
+    }
+
+    public void climbUsingDriverController() {
+        if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_Climb) && thisRobot.climber.state == ClimberStates.stowed) {
+            thisRobot.climber.state = ClimberStates.armOut;
+            if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_Climb) && thisRobot.climber.state == ClimberStates.armOut) {
+                thisRobot.climber.state = ClimberStates.climbing;
+                if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_Climb) && thisRobot.climber.state == ClimberStates.climbing) {
+                    thisRobot.climber.state = ClimberStates.stowed;
+                }
+            }
         }
     }
 }

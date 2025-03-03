@@ -214,6 +214,11 @@ public final class Settings {
         public static double elevatorPosA2 = 23.43;
         public static double elevatorPosA3 = 34.57;
 
+        // climber positions
+        public static double climberArmOutPos = -93.55;
+        public static double climberClimbingPos = 0;
+        public static double climberStowedPos = 0;
+
         // coral sensor
         public static double sensorThold = 0.6;
 
