@@ -76,6 +76,7 @@ public class AutoController {
         customAutoStep = 0;
         thisRobot.elevator.autoElevatorOn = true;
         thisRobot.vision.useProcessorCam = false;
+        thisRobot.vision.updateHeadingWithVision = false;
         thisRobot.vision.visionMaxATDist = Settings.maxATDist;
     }
 

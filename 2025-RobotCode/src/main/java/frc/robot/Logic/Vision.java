@@ -11,9 +11,13 @@ import org.photonvision.targeting.PhotonPipelineResult;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -34,6 +38,9 @@ public class Vision {
     PhotonCamera lowerRightReefCam = new PhotonCamera("lowerRightReefCam");
     PhotonCamera coralStationCam = new PhotonCamera("coralStationCam");
     PhotonCamera lowerLeftReefCam = new PhotonCamera("lowerLeftReefCam");
+
+    Matrix<N3,N1> visionSTDNoRotation = VecBuilder.fill(0.9, 0.9, 9999999);
+    public boolean updateHeadingWithVision = true;
 
     AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
 
@@ -87,8 +94,15 @@ public class Vision {
                 double tag0Dist = cameraPipeline.get(0).getBestTarget().bestCameraToTarget.getTranslation().getNorm();
                 double poseAmbaguitiy = cameraPipeline.get(0).getBestTarget().getPoseAmbiguity();
                 if (useCamera && tag0Dist < maxDistance && poseAmbaguitiy < 0.05) {
-                    thisRobot.drivebase.swerveDrive.addVisionMeasurement(photonPose.get().estimatedPose.toPose2d(),
-                            photonPose.get().timestampSeconds);
+        
+                    if(updateHeadingWithVision){
+                        thisRobot.drivebase.swerveDrive.addVisionMeasurement(photonPose.get().estimatedPose.toPose2d(),
+                        photonPose.get().timestampSeconds);
+                    } else {
+                        thisRobot.drivebase.swerveDrive.addVisionMeasurement(photonPose.get().estimatedPose.toPose2d(),
+                        photonPose.get().timestampSeconds, visionSTDNoRotation);
+                    }
+
                 }
             }
         }

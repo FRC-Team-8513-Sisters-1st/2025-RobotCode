@@ -58,6 +58,7 @@ public class TeleopController {
         thisRobot.coral.state = CoralIntakeStates.stationary;
         thisRobot.vision.useProcessorCam = true;
         thisRobot.vision.visionMaxATDist = Settings.maxATDist;
+        thisRobot.vision.updateHeadingWithVision = false;
         if (thisRobot.drivebase.swerveDrive.getPose().getX() == 0 && Robot.isSimulation()) {
             if (thisRobot.onRedAlliance) {
                 thisRobot.drivebase.swerveDrive.resetOdometry(new Pose2d(16, 2, new Rotation2d()));
