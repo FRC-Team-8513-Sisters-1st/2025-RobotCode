@@ -90,28 +90,28 @@ public final class Settings {
         public static int funnelMotor1 = 21;
 
         // controller 1 panel buttons
-        public static int buttonId_CoralOutake = 5;
-        public static int buttonId_CoralOutakeALittle = 9;
+        public static int buttonId_CoralOutake = 6;
+        public static int buttonId_CoralOutakeALittle = 7;
         public static int buttonId_CoralIntake = 10;
-        public static int buttonId_Coral4 = 6;
-        public static int buttonId_Coral3 = 7;
+        public static int buttonId_Coral4 = 5;
+        public static int buttonId_Coral3 = 3;
         public static int buttonId_Coral2 = 8;
         public static int buttonId_Coral1 = 4;
-        public static int buttonId_Algae3 = 1;
+        public static int buttonId_Algae3 = 9;
         public static int buttonId_Algae2 = 2;
-        public static int buttonId_processor = 3;
+        public static int buttonId_processor = 1;
 
         // controller 2 panel buttons
-        public static int buttonId_Close = 6;
-        public static int buttonId_Far = 7;
+        public static int buttonId_Close = 7;
+        public static int buttonId_Far = 4;
         public static int buttonId_forceElevator = 5;
-        public static int buttonId_ab = 9;
-        public static int buttonId_cd = 10;
-        public static int buttonId_ef = 11;
-        public static int buttonId_gh = 3;
-        public static int buttonId_ij = 1;
-        public static int buttonId_kl = 8;
-        public static int buttonId_AlgaeIntake = 4;
+        public static int buttonId_ab = 10;
+        public static int buttonId_cd = 1;
+        public static int buttonId_ef = 3;
+        public static int buttonId_gh = 11;
+        public static int buttonId_ij = 8;
+        public static int buttonId_kl = 9;
+        public static int buttonId_AlgaeIntake = 6;
         public static int buttonId_AlgaeOutake = 2;
 
         // driver button ids

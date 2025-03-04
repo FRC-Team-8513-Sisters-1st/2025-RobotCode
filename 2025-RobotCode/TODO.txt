@@ -11,6 +11,7 @@
         - add comments to drivebase class
         - add delay in auto
         - nake other autos
+        - outake in 1st second of diving to cs
 
     - later 
         - elevator jam detection

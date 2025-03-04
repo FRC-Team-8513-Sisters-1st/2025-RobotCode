@@ -376,15 +376,10 @@ public class Drivebase {
     public boolean fromOTFSwitchToAP() {
         boolean pathDone = followOTFPath();
         if (pathDone || skipOTF) {
-            thisRobot.vision.updateHeadingWithVision = true;
             apDone = thisRobot.drivebase.attackPoint(apGoalPose, 2) && pathDone;
-            if(apDone){
-                thisRobot.vision.updateHeadingWithVision = false;
-            }
             return apDone;
 
         } else {
-            thisRobot.vision.updateHeadingWithVision = false;
             resetAPPIDControllers(apGoalPose);
         }
         return false;
