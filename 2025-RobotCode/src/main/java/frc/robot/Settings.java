@@ -37,7 +37,7 @@ public final class Settings {
         public static double maxVelocityAP = 3;
         public static double maxAccelerationAP = 3;
         private static double attackPointDriveP = 7;
-        private static double attackPointDriveI = 5;
+        private static double attackPointDriveI = 10;
         private static double attackPointDriveD = 0.5;
         private static double attackPointDt = 0.02;
 
