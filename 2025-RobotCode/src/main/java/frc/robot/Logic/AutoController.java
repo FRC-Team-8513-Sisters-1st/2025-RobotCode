@@ -136,6 +136,18 @@ public class AutoController {
                         ElevatorStates.L1, ElevatorStates.L4 };
                 autoRoutine = AutoRoutines.customAutoAnyLength;
                 break;
+            case processor_CD2R_RFS_CD4L_RFS_AB4R:
+                customAutoStartPose = Settings.autoProcessorStartPose;
+                customAutoPoses = new Pose2d[] { Settings.coralRightCD,
+                        Settings.rightCenterFeederStationAP, Settings.coralLeftCD,
+                        Settings.rightCenterFeederStationAP, Settings.coralRightAB,
+                        Settings.rightCenterFeederStationAP, Settings.coralLeftAB };
+                customElevatorStates = new ElevatorStates[] { ElevatorStates.L2,
+                        ElevatorStates.L1, ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4 };
+                autoRoutine = AutoRoutines.customAutoAnyLength;
+                break;
 
             case far_IJ2L_LFS_KL2R_LFS_KL2L:
                 customAutoStartPose = Settings.autoFarStartPose;
