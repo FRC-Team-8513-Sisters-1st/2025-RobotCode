@@ -39,7 +39,7 @@ public class Vision {
     PhotonCamera coralStationCam = new PhotonCamera("coralStationCam");
     PhotonCamera lowerLeftReefCam = new PhotonCamera("lowerLeftReefCam");
 
-    Matrix<N3,N1> visionSTDNoRotation = VecBuilder.fill(0.9, 0.9, 9999999);
+    Matrix<N3,N1> visionSTDNoRotation = VecBuilder.fill(0.9, 0.9, 5);
     public boolean updateHeadingWithVision = true;
 
     AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);

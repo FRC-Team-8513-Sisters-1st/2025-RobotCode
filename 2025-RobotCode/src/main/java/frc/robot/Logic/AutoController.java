@@ -124,6 +124,18 @@ public class AutoController {
                 autoRoutine = AutoRoutines.customAutoAnyLength;
                 break;
 
+            case processor_EF2L_RFS_CD4L_RFS_CD4R:
+                customAutoStartPose = Settings.autoProcessorStartPose;
+                customAutoPoses = new Pose2d[] { Settings.coralLeftEF,
+                        Settings.rightCenterFeederStationAP, Settings.coralLeftCD,
+                        Settings.rightCenterFeederStationAP, Settings.coralRightCD,
+                        Settings.rightCenterFeederStationAP, Settings.coralLeftAB };
+                customElevatorStates = new ElevatorStates[] { ElevatorStates.L2,
+                        ElevatorStates.L1, ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4 };
+                autoRoutine = AutoRoutines.customAutoAnyLength;
+                break;
             case processor_CD4R_RFS_CD4L_RFS_AB4R:
                 customAutoStartPose = Settings.autoProcessorStartPose;
                 customAutoPoses = new Pose2d[] { Settings.coralRightCD,
@@ -174,7 +186,7 @@ public class AutoController {
                         ElevatorStates.L1, ElevatorStates.L4 };
                 autoRoutine = AutoRoutines.customAutoAnyLength;
                 break;
-            
+
             case far_KL4R_LFS_AB4L_LFS_AB4R:
                 customAutoStartPose = Settings.autoFarStartPose;
                 customAutoPoses = new Pose2d[] { Settings.coralRightKL,
@@ -200,7 +212,7 @@ public class AutoController {
                         ElevatorStates.L1, ElevatorStates.L4 };
                 autoRoutine = AutoRoutines.customAutoAnyLength;
                 break;
-            
+
             case mid_GH2R_LFS_KL4L_LFS_KL4R:
                 customAutoStartPose = Settings.autoMidStartPose;
                 customAutoPoses = new Pose2d[] { Settings.coralRightGH,

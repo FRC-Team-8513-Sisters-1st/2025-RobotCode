@@ -32,6 +32,7 @@ public final class Enums {
         mid_GH3R, 
         processor_EF2L, 
         processor_EF2L_RFS_AB2L_RFS_AB2R, 
+        processor_EF2L_RFS_CD4L_RFS_CD4R, 
         processor_CD2R_RFS_CD4L_RFS_AB4R,
         processor_EF4L_RFS_AB4L_RFS_AB4R,
         processor_CD4R_RFS_CD4L_RFS_AB4R, 
