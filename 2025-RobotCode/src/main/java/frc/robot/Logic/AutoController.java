@@ -111,11 +111,89 @@ public class AutoController {
                 autoRoutine = AutoRoutines.customAutoAnyLength;
                 break;
 
+            case processor_EF4L_RFS_AB4L_RFS_AB4R:
+                customAutoStartPose = Settings.autoProcessorStartPose;
+                customAutoPoses = new Pose2d[] { Settings.coralLeftEF,
+                        Settings.rightCenterFeederStationAP, Settings.coralLeftAB,
+                        Settings.rightCenterFeederStationAP, Settings.coralRightAB,
+                        Settings.rightCenterFeederStationAP, Settings.coralLeftCD };
+                customElevatorStates = new ElevatorStates[] { ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4 };
+                autoRoutine = AutoRoutines.customAutoAnyLength;
+                break;
+
+            case processor_CD4R_RFS_CD4L_RFS_AB4R:
+                customAutoStartPose = Settings.autoProcessorStartPose;
+                customAutoPoses = new Pose2d[] { Settings.coralRightCD,
+                        Settings.rightCenterFeederStationAP, Settings.coralLeftCD,
+                        Settings.rightCenterFeederStationAP, Settings.coralRightAB,
+                        Settings.rightCenterFeederStationAP, Settings.coralLeftAB };
+                customElevatorStates = new ElevatorStates[] { ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4 };
+                autoRoutine = AutoRoutines.customAutoAnyLength;
+                break;
+
+            case far_IJ2L_LFS_KL2R_LFS_KL2L:
+                customAutoStartPose = Settings.autoFarStartPose;
+                customAutoPoses = new Pose2d[] { Settings.coralLeftIJ,
+                        Settings.leftCenterFeederStationAP, Settings.coralRightKL,
+                        Settings.leftCenterFeederStationAP, Settings.coralLeftKL,
+                        Settings.leftCenterFeederStationAP, Settings.coralLeftAB };
+                customElevatorStates = new ElevatorStates[] { ElevatorStates.L2,
+                        ElevatorStates.L1, ElevatorStates.L2,
+                        ElevatorStates.L1, ElevatorStates.L2,
+                        ElevatorStates.L1, ElevatorStates.L2 };
+                autoRoutine = AutoRoutines.customAutoAnyLength;
+                break;
+
             case far_IJ2L_LFS_KL4R_LFS_KL4L:
                 customAutoStartPose = Settings.autoFarStartPose;
                 customAutoPoses = new Pose2d[] { Settings.coralLeftIJ,
                         Settings.leftCenterFeederStationAP, Settings.coralRightKL,
                         Settings.leftCenterFeederStationAP, Settings.coralLeftKL,
+                        Settings.leftCenterFeederStationAP, Settings.coralLeftAB };
+                customElevatorStates = new ElevatorStates[] { ElevatorStates.L2,
+                        ElevatorStates.L1, ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4 };
+                autoRoutine = AutoRoutines.customAutoAnyLength;
+                break;
+            
+            case far_KL4R_LFS_AB4L_LFS_AB4R:
+                customAutoStartPose = Settings.autoFarStartPose;
+                customAutoPoses = new Pose2d[] { Settings.coralRightKL,
+                        Settings.leftCenterFeederStationAP, Settings.coralLeftAB,
+                        Settings.leftCenterFeederStationAP, Settings.coralRightAB,
+                        Settings.leftCenterFeederStationAP, Settings.coralRightKL };
+                customElevatorStates = new ElevatorStates[] { ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4 };
+                autoRoutine = AutoRoutines.customAutoAnyLength;
+                break;
+
+            case mid_GH2R_RFS_CD4R_RFS_CD4L:
+                customAutoStartPose = Settings.autoMidStartPose;
+                customAutoPoses = new Pose2d[] { Settings.coralRightGH,
+                        Settings.rightCenterFeederStationAP, Settings.coralRightCD,
+                        Settings.rightCenterFeederStationAP, Settings.coralLeftCD,
+                        Settings.rightCenterFeederStationAP, Settings.coralRightAB };
+                customElevatorStates = new ElevatorStates[] { ElevatorStates.L2,
+                        ElevatorStates.L1, ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4 };
+                autoRoutine = AutoRoutines.customAutoAnyLength;
+                break;
+            
+            case mid_GH2R_LFS_KL4L_LFS_KL4R:
+                customAutoStartPose = Settings.autoMidStartPose;
+                customAutoPoses = new Pose2d[] { Settings.coralRightGH,
+                        Settings.leftCenterFeederStationAP, Settings.coralLeftKL,
+                        Settings.leftCenterFeederStationAP, Settings.coralRightKL,
                         Settings.leftCenterFeederStationAP, Settings.coralLeftAB };
                 customElevatorStates = new ElevatorStates[] { ElevatorStates.L2,
                         ElevatorStates.L1, ElevatorStates.L4,
@@ -130,6 +208,19 @@ public class AutoController {
                         Settings.rightCenterFeederStationAP, Settings.coralRightCD,
                         Settings.rightCenterFeederStationAP, Settings.coralLeftCD,
                         Settings.rightCenterFeederStationAP, Settings.coralRightAB };
+                customElevatorStates = new ElevatorStates[] { ElevatorStates.L2,
+                        ElevatorStates.L1, ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4,
+                        ElevatorStates.L1, ElevatorStates.L4 };
+                autoRoutine = AutoRoutines.customAutoAnyLength;
+                break;
+
+            case mid_IJ2L_LFS_KL4L_LFS_KL4R:
+                customAutoStartPose = Settings.autoMidStartPose;
+                customAutoPoses = new Pose2d[] { Settings.coralLeftIJ,
+                        Settings.leftCenterFeederStationAP, Settings.coralLeftKL,
+                        Settings.leftCenterFeederStationAP, Settings.coralRightKL,
+                        Settings.leftCenterFeederStationAP, Settings.coralLeftAB };
                 customElevatorStates = new ElevatorStates[] { ElevatorStates.L2,
                         ElevatorStates.L1, ElevatorStates.L4,
                         ElevatorStates.L1, ElevatorStates.L4,
@@ -292,8 +383,9 @@ public class AutoController {
                                                                                                   // scoring position
             isComplete = true;
             generatedPathFirstTime = true;
-            timeStepStarted = Timer.getFPGATimestamp(); 
-            //if we reach AP and are still outaking it means we dont have coral and we need to immedialy go back
+            timeStepStarted = Timer.getFPGATimestamp();
+            // if we reach AP and are still outaking it means we dont have coral and we need
+            // to immedialy go back
             if (thisRobot.coral.state == CoralIntakeStates.outake && Robot.isReal()) {
                 timeStepStarted = 0;
             }
