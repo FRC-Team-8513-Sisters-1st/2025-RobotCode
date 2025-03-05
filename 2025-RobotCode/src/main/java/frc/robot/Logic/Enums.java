@@ -29,12 +29,11 @@ public final class Enums {
     }
     public enum AutoRoutines {
         DoNothing, 
-        mid_GH3R, 
-        processor_EF2L, 
         processor_EF2L_RFS_AB2L_RFS_AB2R, 
         processor_EF2L_RFS_CD4L_RFS_CD4R, 
         processor_CD2R_RFS_CD4L_RFS_AB4R,
         processor_EF4L_RFS_AB4L_RFS_AB4R,
+        processor_EF4L_RFS_CD4L_RFS_CD4R,
         processor_CD4R_RFS_CD4L_RFS_AB4R, 
         far_IJ2L_LFS_KL4R_LFS_KL4L,
         far_IJ2L_LFS_KL2R_LFS_KL2L,
