@@ -2,12 +2,10 @@
     - test
         - add delay in auto
         - tune OTF Final V and AP PID
+        - test auto score rotation check, tune AP Rot PID if needed
 
     - due week 1 
-        - in the "ready to score functions" in both auto and teleop we need to check our goal heading
-            - once we add this check, the rotational PID may need to be made more aggressive to actually reach the goal
         - add comments to drivebase class
-
         - outake in 1st second of diving to cs
 
     - later 
