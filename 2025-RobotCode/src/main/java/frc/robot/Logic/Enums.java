@@ -47,6 +47,5 @@ public final class Enums {
         customAutoAnyLength,
         betWithBusler,
         hpPractice
-        // make auto that lines up to score processor then score during tele
     }
 }

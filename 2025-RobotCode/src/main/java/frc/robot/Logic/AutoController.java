@@ -24,6 +24,7 @@ public class AutoController {
 
     public int autoStep = 0;
     int customAutoStep = 0;
+    double autoStartWaitTime = 0;
 
     // custom auto
     Pose2d customAutoStartPose = Settings.autoProcessorStartPose;
@@ -78,6 +79,8 @@ public class AutoController {
         thisRobot.vision.useProcessorCam = false;
         thisRobot.vision.updateHeadingWithVision = false;
         thisRobot.vision.visionMaxATDist = Settings.maxATDist;
+        timeStepStarted = Timer.getFPGATimestamp();
+        
     }
 
     public void autoDis() {
@@ -304,7 +307,10 @@ public class AutoController {
                                 thisRobot.drivebase.swerveDrive.resetOdometry(customAutoStartPose);
                             }
                         }
-                        autoStep = 5;
+                        if(Timer.getFPGATimestamp() - timeStepStarted > autoStartWaitTime){
+                            autoStep = 5;
+                        }
+                        break;
                     case 5: // scores at initial scoring position
                         thisRobot.coral.state = CoralIntakeStates.stationary;
                         if (autoScoreCoral(customAutoPoses[customAutoStep], customElevatorStates[customAutoStep])) {

@@ -1,16 +1,13 @@
 - ToDo
     - test
+        - add delay in auto
+        - tune OTF Final V and AP PID
 
     - due week 1 
-        - simplify autos
-            - some are impossible. we want a 222, 244, and 444 on each side.
-        - need score 1 coral auto
         - in the "ready to score functions" in both auto and teleop we need to check our goal heading
             - once we add this check, the rotational PID may need to be made more aggressive to actually reach the goal
-        - possibly reduce OTF final velocity, test how long autos take with and without it but it looks like its overshooting the paths
-            - this may be a path following PID tuning issue
         - add comments to drivebase class
-        - add delay in auto
+
         - outake in 1st second of diving to cs
 
     - later 
