@@ -38,6 +38,7 @@ public final class Enums {
         far_IJ2L_LFS_KL4R_LFS_KL4L,
         far_IJ2L_LFS_KL2R_LFS_KL2L,
         far_KL4R_LFS_AB4L_LFS_AB4R,
+        far_IJ4R_LFS_KL4L_LFS_KL4R,
         mid_GH2R_RFS_CD4R_RFS_CD4L,
         mid_GH2R_LFS_KL4L_LFS_KL4R,
         mid_EF2R_RFS_CD4R_RFS_CD4L,
