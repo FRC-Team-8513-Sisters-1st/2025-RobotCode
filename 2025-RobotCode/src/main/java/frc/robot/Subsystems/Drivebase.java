@@ -202,7 +202,8 @@ public class Drivebase {
         swerveDrive.driveFieldOriented(new ChassisSpeeds(xVelocity, yVelocity, rVelocity));
         thisRobot.dashboard.attackPoitnField2d.setRobotPose(goalPose);
         return Settings.getDistanceBetweenTwoPoses(goalPose, swerveDrive.getPose()) < Settings.coralScoreThold 
-                && goalPose.getRotation().minus(swerveDrive.getPose().getRotation()).getDegrees() < Settings.coralScoreDegThold;
+                && goalPose.getRotation().minus(swerveDrive.getPose().getRotation()).getDegrees() < Settings.coralScoreDegThold
+                && getRobotVelopcity() < Settings.scoringVelocityThold;
 
     }
 

@@ -204,6 +204,7 @@ public final class Settings {
         public static double otfToAPThold = 0.25;
         public static double elevatorSafeToGoThold = 1.5;
         public static double coralScoreDegThold = 2;
+        public static double scoringVelocityThold = 0.05;
 
         // elevator positions
         public static double elevatorPosStowed = 0;
