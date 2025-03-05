@@ -1,10 +1,13 @@
 - ToDo
     - test
-        - add delay in auto
+        - test auto score 
+            - rotation check, tune AP Rot PID if needed
+            - maximum velocity
+        - Test auto
+            - outake in 1st second of diving to cs
+            - delay in auto
+            - pregen auto path
         - tune OTF Final V and AP PID
-        - test auto score rotation check, tune AP Rot PID if needed
-        - outake in 1st second of diving to cs
-        - pregen auto path
 
     - due week 1 
         - add comments to drivebase class
