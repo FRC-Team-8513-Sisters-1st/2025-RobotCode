@@ -30,8 +30,7 @@ public final class Enums {
     public enum AutoRoutines {
         DoNothing, 
         processor_EF2L_RFS_AB2L_RFS_AB2R, 
-        processor_EF2L_RFS_CD4L_RFS_CD4R, 
-        processor_CD2R_RFS_CD4L_RFS_AB4R,
+        processor_EF2L_RFS_CD4L_RFS_CD4R,
         processor_EF4L_RFS_AB4L_RFS_AB4R,
         processor_EF4L_RFS_CD4L_RFS_CD4R,
         processor_CD4R_RFS_CD4L_RFS_AB4R, 
@@ -43,6 +42,8 @@ public final class Enums {
         mid_GH2R_LFS_KL4L_LFS_KL4R,
         mid_EF2R_RFS_CD4R_RFS_CD4L,
         mid_IJ2L_LFS_KL4L_LFS_KL4R,
+        mid_GH2R,
+        mid_GH4R,        
         customAutoAnyLength,
         betWithBusler,
         hpPractice
