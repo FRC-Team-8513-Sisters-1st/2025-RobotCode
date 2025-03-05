@@ -104,7 +104,9 @@
 	<hidden field="photonPose Processor"/>
 	<hidden field="photonPose Lower Right"/>
 	<hidden field="pathPlannerGoalPose"/>
+	<hidden field="Alerts"/>
 	<hidden field="Path Planner Goal Pose"/>
 	<hidden field="attackPointPose"/>
+	<hidden field="PathPlanner"/>
 	<hidden field="otfGoalPose"/>
 </xml>

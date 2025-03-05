@@ -85,6 +85,22 @@ public class AutoController {
 
     public void autoDis() {
         updateAutoRoutineFromDashboard();
+        autoPeriodic();
+        autoStep = 0;
+        customAutoStep = 0;
+
+        //pre load the path
+        if (thisRobot.onRedAlliance) {
+            thisRobot.drivebase.swerveDrive.resetOdometry(
+                    thisRobot.drivebase.flipPoseToRed(customAutoStartPose));
+        } else {
+            thisRobot.drivebase.swerveDrive.resetOdometry(customAutoStartPose);
+        }
+        thisRobot.drivebase.initAstarAndAP(
+        customAutoPoses[0].transformBy(Settings.astarFeederStPoseOffset),
+        customAutoPoses[0]);
+        
+
     }
 
     public void updateAutoRoutineFromDashboard() {
