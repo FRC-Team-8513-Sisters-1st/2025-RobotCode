@@ -71,7 +71,7 @@ public class Drivebase {
     boolean skipOTF = false;
 
     // ap variables
-    Pose2d apGoalPose = new Pose2d();
+    public Pose2d apGoalPose = new Pose2d();
     boolean apDone = false;
 
     public Drivebase(Robot thisRobotIn) {

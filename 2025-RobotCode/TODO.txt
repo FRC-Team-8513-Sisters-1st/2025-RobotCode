@@ -3,10 +3,10 @@
         - add delay in auto
         - tune OTF Final V and AP PID
         - test auto score rotation check, tune AP Rot PID if needed
+        - outake in 1st second of diving to cs
 
     - due week 1 
         - add comments to drivebase class
-        - outake in 1st second of diving to cs
 
     - later 
         - elevator jam detection
