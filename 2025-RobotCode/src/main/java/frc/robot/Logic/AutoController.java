@@ -91,12 +91,15 @@ public class AutoController {
         customAutoStep = 0;
 
         //pre load the path
-        if (thisRobot.onRedAlliance) {
-            thisRobot.drivebase.swerveDrive.resetOdometry(
-                    thisRobot.drivebase.flipPoseToRed(customAutoStartPose));
-        } else {
-            thisRobot.drivebase.swerveDrive.resetOdometry(customAutoStartPose);
+        if(Robot.isSimulation()){
+            if (thisRobot.onRedAlliance) {
+                thisRobot.drivebase.swerveDrive.resetOdometry(
+                        thisRobot.drivebase.flipPoseToRed(customAutoStartPose));
+            } else {
+                thisRobot.drivebase.swerveDrive.resetOdometry(customAutoStartPose);
+            }
         }
+
         thisRobot.drivebase.initAstarAndAP(
         customAutoPoses[0].transformBy(Settings.astarFeederStPoseOffset),
         customAutoPoses[0]);
@@ -161,7 +164,7 @@ public class AutoController {
                 customAutoStartPose = Settings.autoProcessorStartPose;
                 customAutoPoses = new Pose2d[] { Settings.coralRightEF,
                         Settings.rightCenterFeederStationAP, Settings.coralLeftCD,
-                        Settings.rightCenterFeederStationAP, Settings.coralLeftCD,
+                        Settings.rightCenterFeederStationAP, Settings.coralRightCD,
                         Settings.rightCenterFeederStationAP, Settings.coralRightAB };
                 customElevatorStates = new ElevatorStates[] { ElevatorStates.L4,
                         ElevatorStates.L1, ElevatorStates.L4,

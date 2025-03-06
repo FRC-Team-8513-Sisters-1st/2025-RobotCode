@@ -36,8 +36,8 @@ public final class Settings {
         // pid settings
         public static double maxVelocityAP = 3;
         public static double maxAccelerationAP = 3;
-        private static double attackPointDriveP = 7;
-        private static double attackPointDriveI = 10;
+        private static double attackPointDriveP = 10;
+        private static double attackPointDriveI = 1;
         private static double attackPointDriveD = 0.5;
         private static double attackPointDt = 0.02;
 
@@ -198,7 +198,7 @@ public final class Settings {
         public static Pose2d reefZoneRed = new Pose2d(13.091, 4.043, new Rotation2d(Radians.convertFrom(0, Degrees)));
         public static double minDistanceFromReefZoneMeter = 2.5;
         public static double maxATDist = 3;
-        public static double maxATDistDisabeled = 6;
+        public static double maxATDistDisabeled = 5;
 
         public static double coralScoreThold = 0.02;
         public static double otfToAPThold = 0.25;
@@ -212,7 +212,8 @@ public final class Settings {
         public static double elevatorPosL2 = 9;
         public static double elevatorPosProcessor = 7;
         public static double elevatorPosL3 = 22.8;
-        public static double elevatorPosL4 = 43;
+        //public static double elevatorPosL4 = 43;
+        public static double elevatorPosL4 = 42;
         public static double elevatorPosA2 = 23.43;
         public static double elevatorPosA3 = 34.57;
 

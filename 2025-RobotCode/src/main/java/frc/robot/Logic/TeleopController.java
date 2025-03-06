@@ -210,7 +210,7 @@ public class TeleopController {
             }
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarReefPoseOffset);
             if (Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(),
-                    coralScoreGoalPose) < Settings.coralScoreThold && thisRobot.drivebase.getRobotVelopcity() < 0.03
+                    coralScoreGoalPose) < Settings.coralScoreThold && thisRobot.drivebase.getRobotVelopcity() < 0.01
                     && thisRobot.elevator.elevatorAtSetpoint() 
                     && teleopAutoScore 
                     && thisRobot.drivebase.apGoalPose.getRotation().minus(thisRobot.drivebase.swerveDrive.getPose().getRotation()).getDegrees() < Settings.coralScoreDegThold) {
@@ -227,6 +227,7 @@ public class TeleopController {
                 }
             }
         } else {
+            goingToProcessor = false;
             goingToCoralStation = false;
             thisRobot.drivebase.drive(xV, yV, rV, true);
             firstOTFPath = true;
