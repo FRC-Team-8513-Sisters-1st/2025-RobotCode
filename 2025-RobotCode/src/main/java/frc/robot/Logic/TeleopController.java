@@ -53,6 +53,9 @@ public class TeleopController {
     }
 
     public void initTele() {
+        coPilotElevatorState = thisRobot.elevator.state;
+        coPilotElevatorStateOLD = thisRobot.elevator.state;
+
         State currentElevatorState = new State(thisRobot.elevator.elevatorMotor1.getEncoder().getPosition(), 0);
         thisRobot.elevator.m_controller.reset(currentElevatorState);
         thisRobot.elevator.m_controller.setGoal(currentElevatorState);
