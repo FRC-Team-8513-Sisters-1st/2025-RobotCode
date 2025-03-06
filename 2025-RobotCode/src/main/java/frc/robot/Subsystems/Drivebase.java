@@ -85,9 +85,12 @@ public class Drivebase {
         if(Robot.isReal()){
             swerveDrive.setCosineCompensator(true);
         }
+        //sets max valocity and acceleariton of our OTF Paths
         oTFConstraints = new PathConstraints(
             swerveDrive.getMaximumChassisVelocity(), 4,
             Units.degreesToRadians(300), Units.degreesToRadians(360));
+        
+        //turn this down if we are hitting BW limits
         SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
         thisRobot = thisRobotIn;
 
@@ -102,6 +105,7 @@ public class Drivebase {
         }
     }
 
+    //updates path and trajectory from a predefined file path
     public void initPath(String pathNameIn) {
         pathName = pathNameIn;
 
@@ -131,6 +135,7 @@ public class Drivebase {
 
     }
 
+    //generic method for following a preloaded trajectory
     public boolean followLoadedPath() {
         if (!loadedPathHasStarted) {
             timePathStarted = Timer.getFPGATimestamp();
@@ -144,16 +149,17 @@ public class Drivebase {
         } else {
 
             trajGoalState = traj.sample(elapsedTime);
-            swerveDrive.driveFieldOriented(trajGoalState.fieldSpeeds);
-
             trajGoalPosition.setRobotPose(trajGoalState.pose);
 
             double dvx = Settings.xController.calculate(swerveDrive.getPose().getX(), trajGoalState.pose.getX());
             double dvy = Settings.yController.calculate(swerveDrive.getPose().getY(), trajGoalState.pose.getY());
             double dvr;
+
             Rotation2d faceReefRotation2d;
             double percentThroughPath = elapsedTime / traj.getTotalTime().in(Second);
-            if (isPoseInReefZone(apGoalPose) && percentThroughPath < 0.85 && percentThroughPath > 0.1) {
+
+            //if we are beterrn 15 and 75% of the path, face the reef, otherwise face the goalStateRotation
+            if (isPoseInReefZone(apGoalPose) && percentThroughPath > 0.15 && percentThroughPath < 0.75) {
                 if (thisRobot.onRedAlliance) {
                     faceReefRotation2d = Settings.reefZoneRed.getTranslation()
                             .minus(swerveDrive.getPose().getTranslation()).getAngle();
@@ -177,6 +183,7 @@ public class Drivebase {
         }
     }
 
+    //profiled PID controller to get us to precise scoring location
     public boolean attackPoint(Pose2d goalPose, double maxSpeed) {
         if (thisRobot.onRedAlliance) {
             goalPose = flipPoseToRed(goalPose);
@@ -201,16 +208,20 @@ public class Drivebase {
         yVelocity = yVelocity * newMag / oldMag;
         swerveDrive.driveFieldOriented(new ChassisSpeeds(xVelocity, yVelocity, rVelocity));
         thisRobot.dashboard.attackPoitnField2d.setRobotPose(goalPose);
+
+        //are we close enough, facing the right way, velocity low enough
         return Settings.getDistanceBetweenTwoPoses(goalPose, swerveDrive.getPose()) < Settings.coralScoreThold 
                 && goalPose.getRotation().minus(swerveDrive.getPose().getRotation()).getDegrees() < Settings.coralScoreDegThold
                 && getRobotVelopcity() < Settings.scoringVelocityThold;
 
     }
 
+    //only in simulation we need to update the odometry
     public void matchSimulatedOdomToPose() {
         swerveDrive.addVisionMeasurement(swerveDrive.getSimulationDriveTrainPose().get(), Timer.getFPGATimestamp());
     }
 
+    //if value is greater than max, return just max
     public double clamp(double value, double max) {
         if (value > 0 && value > max) {
             return max;
@@ -223,6 +234,7 @@ public class Drivebase {
         return value;
     }
 
+    //takes into account red/blue and detemrines if we are close to the reef
     public boolean isRobotInReefZone() {
         if (thisRobot.onRedAlliance) {
             double x = thisRobot.drivebase.swerveDrive.getPose().minus(Settings.reefZoneRed).getX();
@@ -237,6 +249,7 @@ public class Drivebase {
         }
     }
 
+    //takes into account red/blue and detemrines if a pose is close to the reef
     public boolean isPoseInReefZone(Pose2d pose) {
         if (thisRobot.onRedAlliance) {
             double x = pose.minus(Settings.reefZoneRed).getX();
@@ -252,6 +265,7 @@ public class Drivebase {
 
     }
 
+    //is pose is on blue side, flip to red. if on red, return original
     public Pose2d flipPoseToRed(Pose2d goalPose) {
         double goalXPos = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded).getFieldLength()
                 - goalPose.getX();
@@ -266,20 +280,19 @@ public class Drivebase {
         return new Pose2d(goalXPos, goalYPos, goalRPos);
     }
 
-    public void resetAPPIDControllers(Pose2d goalPose) {
-        if (thisRobot.onRedAlliance) {
-            goalPose = thisRobot.drivebase.flipPoseToRed(goalPose);
-        }
-        State goalXState = new State(thisRobot.drivebase.swerveDrive.getPose().getX(),
+    //when not APing we need to reset the PID controllers so they know where we are and can have smooth transitions 
+    public void resetAPPIDControllers() {
+        State currentXState = new State(thisRobot.drivebase.swerveDrive.getPose().getX(),
                 thisRobot.drivebase.swerveDrive.getFieldVelocity().vxMetersPerSecond);
-        State goalYState = new State(thisRobot.drivebase.swerveDrive.getPose().getY(),
+        State currentYState = new State(thisRobot.drivebase.swerveDrive.getPose().getY(),
                 thisRobot.drivebase.swerveDrive.getFieldVelocity().vyMetersPerSecond);
 
-        Settings.xControllerAP.reset(goalXState);
-        Settings.yControllerAP.reset(goalYState);
+        Settings.xControllerAP.reset(currentXState);
+        Settings.yControllerAP.reset(currentYState);
         Settings.rControllerAP.reset(new State(0, 0));
     }
 
+    //init an OTF path to any point on field
     public void initPathToPoint(Pose2d goalPose) {
         if (thisRobot.onRedAlliance) {
             goalPose = flipPoseToRed(goalPose);
@@ -288,8 +301,8 @@ public class Drivebase {
         Settings.yController.reset();
         Settings.rController.reset();
         generatePath.setGoalPosition(goalPose.getTranslation());
-        // drive back if not going to reef zone and if in reef zone
 
+        // drive back if not going to reef zone and if in reef zone
         if (robotShouldBackupBeforeOTFPath(goalPose)) {
             generatePath.setStartPosition(
                     swerveDrive.getPose().transformBy(new Transform2d(-0.5, 0, new Rotation2d())).getTranslation());
@@ -303,6 +316,7 @@ public class Drivebase {
         otfGoalPose = new Pose2d(goalPose.getX(), goalPose.getY(), trajGoalRotation);
     }
 
+    //follow an OTF path checking if there is a new one available
     public boolean followOTFPath() {
         if (generatePath.isNewPathAvailable()) {
             GoalEndState ges = new GoalEndState(otfEndVelocity, trajGoalRotation);
@@ -342,6 +356,7 @@ public class Drivebase {
                 nullPathCount++;
             }
         }
+    //if path is null 3 or more times, it probably means we are too close and we should just AP
         if (nullPathCount > 3) {
             otfPathDone = true;
             return true;
@@ -359,6 +374,7 @@ public class Drivebase {
         return false;
     }
 
+    //initailize an OTF then AP plan
     public void initAstarAndAP(Pose2d otfPose, Pose2d apPose) {
         if (thisRobot.onRedAlliance) {
             otfPose = flipPoseToRed(otfPose);
@@ -366,23 +382,26 @@ public class Drivebase {
         }
         thisRobot.dashboard.otfGoalField2d.setRobotPose(apPose);
         skipOTF = false;
+        //if we start close to the end goal, then skip OTF and just AP
         if (Settings.getDistanceBetweenTwoPoses(apPose, swerveDrive.getPose()) < 0.75) {
             skipOTF = true;
-            resetAPPIDControllers(apGoalPose);
+            resetAPPIDControllers();
         }
+
         apGoalPose = new Pose2d(apPose.getX(), apPose.getY(), apPose.getRotation());
         apDone = false;
         initPathToPoint(otfPose);
     }
 
+    //call this to automatically handel when to AP and when to OTF path
     public boolean fromOTFSwitchToAP() {
         boolean pathDone = followOTFPath();
         if (pathDone || skipOTF) {
-            apDone = thisRobot.drivebase.attackPoint(apGoalPose, 2) && pathDone;
+            apDone = thisRobot.drivebase.attackPoint(apGoalPose, 2);
             return apDone;
 
         } else {
-            resetAPPIDControllers(apGoalPose);
+            resetAPPIDControllers();
         }
         return false;
     }
@@ -396,6 +415,8 @@ public class Drivebase {
 
     }
 
+    //PP trajectories cant be put on dashboard so they need to get point by point converted to WPI trajectories
+    //so we can visualize them in AdvantageScope
     public Trajectory ppTrajToWPITraj(PathPlannerTrajectory traj) {
         List<PathPlannerTrajectoryState> stateList = traj.getStates();
         List<Trajectory.State> wpiStateLists = new ArrayList<Trajectory.State>();

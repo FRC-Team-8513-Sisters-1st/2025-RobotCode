@@ -9,9 +9,6 @@
             - pregen auto path
         - tune OTF Final V and AP PID
 
-    - due week 1 
-        - add comments to drivebase class
-
     - later 
         - elevator jam detection
         - climber states
