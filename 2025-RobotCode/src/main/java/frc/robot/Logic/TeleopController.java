@@ -53,8 +53,10 @@ public class TeleopController {
     }
 
     public void initTele() {
-        State state = new State(thisRobot.elevator.elevatorMotor1.getEncoder().getPosition(), 0);
-        thisRobot.elevator.m_controller.reset(state);
+        State currentElevatorState = new State(thisRobot.elevator.elevatorMotor1.getEncoder().getPosition(), 0);
+        thisRobot.elevator.m_controller.reset(currentElevatorState);
+        thisRobot.elevator.m_controller.setGoal(currentElevatorState);
+        
         thisRobot.coral.coralController.setSetpoint(thisRobot.coral.coralMotor1.getEncoder().getPosition());
         thisRobot.coral.state = CoralIntakeStates.stationary;
         thisRobot.vision.useProcessorCam = true;

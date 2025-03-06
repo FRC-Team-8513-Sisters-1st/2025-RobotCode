@@ -85,6 +85,7 @@ public class AutoController {
 
     public void autoDis() {
         updateAutoRoutineFromDashboard();
+        SmartDashboard.putString("AutoMode", autoRoutine.name());
         autoPeriodic();
         autoStep = 0;
         customAutoStep = 0;

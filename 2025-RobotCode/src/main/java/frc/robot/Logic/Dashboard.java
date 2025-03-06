@@ -29,7 +29,6 @@ public class Dashboard {
 
         //autos
         SmartDashboard.putNumber("AutoStep", thisRobot.autoController.autoStep);
-        SmartDashboard.putString("AutoMode", thisRobot.autoController.autoRoutine.name());
         SmartDashboard.putBoolean("FirstAutoRun", thisRobot.autoController.firstAutoBeingRun);
         
         //teleop 
