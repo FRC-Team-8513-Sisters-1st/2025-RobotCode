@@ -342,7 +342,7 @@ public class AutoController {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.2) {
                             if (customAutoStep >= customAutoPoses.length) {
                                 thisRobot.coral.state = CoralIntakeStates.outake;
                                 autoStep = 45;
@@ -373,7 +373,7 @@ public class AutoController {
                         break;
                     case 16: // waits at coral station
                         thisRobot.drivebase.fromOTFSwitchToAP();
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.35) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.25) {
                             autoStep = 20;
                         }
                         break;
@@ -423,7 +423,7 @@ public class AutoController {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
                             thisRobot.coral.setMotorPower();
                             thisRobot.drivebase.initAstarAndAP(
                                     Settings.rightCenterFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),

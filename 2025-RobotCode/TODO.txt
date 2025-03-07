@@ -13,6 +13,11 @@
         - elevator jam detection
         - climber states
 
+At Mount Olive:
+- tune reef offsets
+- tune elevator heights
+- tune coral station 
+
 - Tuning:
     - Tune drivebase odometry without vision
     - Tune DB velocity PID

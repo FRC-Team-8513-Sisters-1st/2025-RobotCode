@@ -34,11 +34,11 @@ public final class Settings {
         public static int operatorJoystick2Port = 3;
 
         // pid settings
-        public static double maxVelocityAP = 1.5;
+        public static double maxVelocityAP = 1;
         public static double maxAccelerationAP = 2;
-        private static double attackPointDriveP = 8;
-        private static double attackPointDriveI = .5;
-        private static double attackPointDriveD = 0.1;
+        private static double attackPointDriveP = 10;
+        private static double attackPointDriveI = 0;
+        private static double attackPointDriveD = 0;
         private static double attackPointDt = 0.02;
 
         // rotation
@@ -204,7 +204,10 @@ public final class Settings {
         public static double elevatorSafeToGoThold = 1.5;
         public static double coralScoreDegThold = 2;
         public static double scoringVelocityThold = 0.02;
-
+        
+        public static double coralStationThold = 0.03;
+        public static double coralStationDegThold = 20;
+        public static double stationVelocityThold = 0.1;
         // elevator positions
         public static double elevatorPosStowed = 0;
         public static double elevatorPosL1 = 0;

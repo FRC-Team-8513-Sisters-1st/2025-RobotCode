@@ -210,9 +210,16 @@ public class Drivebase {
         thisRobot.dashboard.attackPoitnField2d.setRobotPose(goalPose);
 
         //are we close enough, facing the right way, velocity low enough
-        return Settings.getDistanceBetweenTwoPoses(goalPose, swerveDrive.getPose()) < Settings.coralScoreThold 
-                && goalPose.getRotation().minus(swerveDrive.getPose().getRotation()).getDegrees() < Settings.coralScoreDegThold
-                && getRobotVelopcity() < Settings.scoringVelocityThold;
+        if(isPoseInReefZone(goalPose)){
+            return Settings.getDistanceBetweenTwoPoses(goalPose, swerveDrive.getPose()) < Settings.coralScoreThold 
+            && goalPose.getRotation().minus(swerveDrive.getPose().getRotation()).getDegrees() < Settings.coralScoreDegThold
+            && getRobotVelopcity() < Settings.scoringVelocityThold;
+        } else {
+            return Settings.getDistanceBetweenTwoPoses(goalPose, swerveDrive.getPose()) < Settings.coralStationThold 
+            && goalPose.getRotation().minus(swerveDrive.getPose().getRotation()).getDegrees() < Settings.coralStationDegThold
+            && getRobotVelopcity() < Settings.stationVelocityThold;
+        }
+
 
     }
 
