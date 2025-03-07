@@ -13,6 +13,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class TeleopController {
@@ -211,9 +212,20 @@ public class TeleopController {
                     teleopGoalPose = Settings.changeOffsetToL1(coralScoreGoalPose, false);
                 }
             }
+
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarReefPoseOffset);
+            if(thisRobot.onRedAlliance){
+                teleopGoalPose = thisRobot.drivebase.flipPoseToRed(teleopGoalPose);
+            }
+            SmartDashboard.putNumber("AP Dist", Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(),
+            teleopGoalPose));
+            SmartDashboard.putBoolean("Dist", Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(),
+            teleopGoalPose) < Settings.coralScoreThold);
+            SmartDashboard.putBoolean("Elevator", thisRobot.elevator.elevatorAtSetpoint());
+            SmartDashboard.putBoolean("Rot", thisRobot.drivebase.apGoalPose.getRotation().minus(thisRobot.drivebase.swerveDrive.getPose().getRotation()).getDegrees() < Settings.coralScoreDegThold);
+            
             if (Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(),
-                    coralScoreGoalPose) < Settings.coralScoreThold && thisRobot.drivebase.getRobotVelopcity() < Settings.scoringVelocityThold
+                teleopGoalPose) < Settings.coralScoreThold && thisRobot.drivebase.getRobotVelopcity() < Settings.scoringVelocityThold
                     && thisRobot.elevator.elevatorAtSetpoint() 
                     && teleopAutoScore 
                     && thisRobot.drivebase.apGoalPose.getRotation().minus(thisRobot.drivebase.swerveDrive.getPose().getRotation()).getDegrees() < Settings.coralScoreDegThold) {
