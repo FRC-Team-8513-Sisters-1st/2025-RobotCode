@@ -34,17 +34,17 @@ public final class Settings {
         public static int operatorJoystick2Port = 3;
 
         // pid settings
-        public static double maxVelocityAP = 3;
-        public static double maxAccelerationAP = 3;
-        private static double attackPointDriveP = 10;
-        private static double attackPointDriveI = 1;
-        private static double attackPointDriveD = 0.5;
+        public static double maxVelocityAP = 1.5;
+        public static double maxAccelerationAP = 2;
+        private static double attackPointDriveP = 8;
+        private static double attackPointDriveI = .5;
+        private static double attackPointDriveD = 0.1;
         private static double attackPointDt = 0.02;
 
         // rotation
-        public static double maxVelocityRotateAP = 360;
-        public static double maxAccelerationRotateAP = 360;
-        private static double attackPointRotateP = 0.15;
+        public static double maxVelocityRotateAP = 200;
+        public static double maxAccelerationRotateAP = 250;
+        private static double attackPointRotateP = 0.2;
         private static double attackPointRotateI = 0.01;
         private static double attackPointRotateD = 0;
 
@@ -70,8 +70,8 @@ public final class Settings {
                         attackPointDriveConstraints, attackPointDt);
 
         // pid path follow settings
-        public static PIDController xController = new PIDController(3.5, .5, 0.1);
-        public static PIDController yController = new PIDController(3.5, .5, 0.1);
+        public static PIDController xController = new PIDController(5, .5, 0.1);
+        public static PIDController yController = new PIDController(5, .5, 0.1);
         public static PIDController rController = new PIDController(0.1, 0, 0);
 
         public static PIDController rJoystickController = new PIDController(0.15, 0.01, 0);
@@ -200,11 +200,10 @@ public final class Settings {
         public static double maxATDist = 3;
         public static double maxATDistDisabeled = 5;
 
-        public static double coralScoreThold = 0.02;
-        public static double otfToAPThold = 0.25;
+        public static double coralScoreThold = 0.01;
         public static double elevatorSafeToGoThold = 1.5;
         public static double coralScoreDegThold = 2;
-        public static double scoringVelocityThold = 0.05;
+        public static double scoringVelocityThold = 0.02;
 
         // elevator positions
         public static double elevatorPosStowed = 0;

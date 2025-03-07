@@ -91,7 +91,7 @@ public class Coral {
                         && sensorFirstTime) {
                     sensorBrokeThold = true;
                     // after we see coral slow down so it doesnt over shoot
-                    coralPower = 0.25;
+                    coralPower = 0.2;
                     if (coralMotor1.getAnalog().getVoltage() < Settings.sensorThold) {
                         coralMotor1.getEncoder().setPosition(0);
                         coralController.setSetpoint(holdCoralPos);

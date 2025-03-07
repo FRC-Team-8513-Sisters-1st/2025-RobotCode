@@ -66,5 +66,6 @@ public class Dashboard {
         SmartDashboard.putString("Path Name", thisRobot.drivebase.pathName);
         SmartDashboard.putBoolean("IsRobotInReefZone", thisRobot.drivebase.isRobotInReefZone());
         pathPlannerGoalField2d.setRobotPose(thisRobot.drivebase.otfGoalPose);
+        SmartDashboard.putNumber("DB Velocity", thisRobot.drivebase.getRobotVelopcity());
     }
 }
