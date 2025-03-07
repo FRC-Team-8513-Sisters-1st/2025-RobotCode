@@ -153,15 +153,15 @@ public final class Settings {
                         .getTagPose(13).get().toPose2d();
 
         // offsets reef
-        public static Transform2d tagToLeft = new Transform2d(0.5, -0.254, new Rotation2d(Math.PI));
-        public static Transform2d tagToRight = new Transform2d(0.5, 0.056, new Rotation2d(Math.PI));
+        public static Transform2d tagToLeft = new Transform2d(0.5, -0.22, new Rotation2d(Math.PI));
+        public static Transform2d tagToRight = new Transform2d(0.5, 0.08, new Rotation2d(Math.PI));
         public static Transform2d tagToLeftL1 = new Transform2d(0.05, 0.3, new Rotation2d());
         public static Transform2d tagToRightL1 = new Transform2d(0.05, -0.35, new Rotation2d());
 
         // offset pocessor
         public static Transform2d tagToProcessor = new Transform2d(0.45, 0.1, new Rotation2d(Math.PI));
-        public static Transform2d closeFeederStation = new Transform2d(0.5, -0.1, new Rotation2d());
-        public static Transform2d farFeederStation = new Transform2d(0.5, 0.4, new Rotation2d());
+        public static Transform2d closeFeederStation = new Transform2d(0.5, -0.3, new Rotation2d());
+        public static Transform2d farFeederStation = new Transform2d(0.5, 0.6, new Rotation2d());
         public static Transform2d centerFeederStation = new Transform2d(0.5, 0, new Rotation2d());
 
         // astar tranforms
@@ -200,10 +200,10 @@ public final class Settings {
         public static double maxATDist = 3;
         public static double maxATDistDisabeled = 5;
 
-        public static double coralScoreThold = 0.01;
+        public static double coralScoreThold = 0.05;
         public static double elevatorSafeToGoThold = 1.5;
         public static double coralScoreDegThold = 2;
-        public static double scoringVelocityThold = 0.02;
+        public static double scoringVelocityThold = 0.05;
         
         public static double coralStationThold = 0.03;
         public static double coralStationDegThold = 20;

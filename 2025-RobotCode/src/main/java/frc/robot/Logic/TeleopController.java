@@ -213,21 +213,13 @@ public class TeleopController {
             }
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarReefPoseOffset);
             if (Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(),
-                    coralScoreGoalPose) < Settings.coralScoreThold && thisRobot.drivebase.getRobotVelopcity() < 0.01
+                    coralScoreGoalPose) < Settings.coralScoreThold && thisRobot.drivebase.getRobotVelopcity() < Settings.scoringVelocityThold
                     && thisRobot.elevator.elevatorAtSetpoint() 
                     && teleopAutoScore 
                     && thisRobot.drivebase.apGoalPose.getRotation().minus(thisRobot.drivebase.swerveDrive.getPose().getRotation()).getDegrees() < Settings.coralScoreDegThold) {
                 // disabled auto score
                 thisRobot.coral.state = CoralIntakeStates.outake;
-                double currentTime = Timer.getFPGATimestamp();
-                // current time should be set once
-                if (thisRobot.coral.coralMotor1.getAnalog().getVoltage() < Settings.sensorThold
-                        && Timer.getFPGATimestamp() - currentTime > 0.4) {
-                    followPath = true;
-                    firstOTFPath = true;
-                    teleopGoalPose = coralScoreGoalPose.transformBy(Settings.backUpFromReefTransform);
-                    thisRobot.elevator.state = ElevatorStates.L1;
-                }
+
             }
         } else {
             goingToProcessor = false;
