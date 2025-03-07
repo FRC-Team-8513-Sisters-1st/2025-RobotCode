@@ -104,7 +104,7 @@ public class Coral {
                     sensorBrokeThold = false;
                 }
                 // lower power for L1 so it doesnt bounce out
-                if (thisRobot.elevator.state == ElevatorStates.L1) {
+                if (thisRobot.elevator.state == ElevatorStates.L1 && thisRobot.drivebase.isRobotInReefZone()) {
                     coralPower = 0.5;
                 }
                 coralMotor1.set(coralPower);
