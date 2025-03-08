@@ -345,7 +345,7 @@ public class AutoController {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.2) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
                             if (customAutoStep >= customAutoPoses.length) {
                                 thisRobot.coral.state = CoralIntakeStates.outake;
                                 autoStep = 45;
@@ -366,7 +366,7 @@ public class AutoController {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         //for the 1 second after scoring keep forcing outake
-                        if(Timer.getFPGATimestamp() - timeStepStarted < 1){
+                        if(Timer.getFPGATimestamp() - timeStepStarted < 0.5){
                             thisRobot.coral.state = CoralIntakeStates.outake;
                         }
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
@@ -376,7 +376,7 @@ public class AutoController {
                         break;
                     case 16: // waits at coral station
                         thisRobot.drivebase.fromOTFSwitchToAP();
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.25) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.75) {
                             autoStep = 20;
                         }
                         break;
