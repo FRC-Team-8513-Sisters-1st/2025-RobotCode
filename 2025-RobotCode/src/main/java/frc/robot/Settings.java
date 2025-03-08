@@ -155,8 +155,8 @@ public final class Settings {
         // offsets reef
         public static Transform2d tagToLeft = new Transform2d(0.475, -0.21, new Rotation2d(Math.PI));
         public static Transform2d tagToRight = new Transform2d(0.475, 0.08, new Rotation2d(Math.PI));
-        public static Transform2d tagToLeftL1 = new Transform2d(0.05, 0.3, new Rotation2d());
-        public static Transform2d tagToRightL1 = new Transform2d(0.05, -0.35, new Rotation2d());
+        public static Transform2d tagToLeftL1 = new Transform2d(0.05, 0.35, new Rotation2d());
+        public static Transform2d tagToRightL1 = new Transform2d(0.05, -0.275, new Rotation2d());
 
         // offset pocessor
         public static Transform2d tagToProcessor = new Transform2d(0.45, 0.15, new Rotation2d(Math.PI));

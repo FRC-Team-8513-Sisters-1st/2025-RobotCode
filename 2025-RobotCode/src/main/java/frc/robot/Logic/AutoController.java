@@ -80,6 +80,8 @@ public class AutoController {
         thisRobot.vision.updateHeadingWithVision = false;
         thisRobot.vision.visionMaxATDist = Settings.maxATDist;
         timeStepStarted = Timer.getFPGATimestamp();
+        thisRobot.coral.coralController.reset();
+        thisRobot.coral.coralMotor1.getEncoder().setPosition(0);
         
     }
 
@@ -332,6 +334,7 @@ public class AutoController {
                         }
                         break;
                     case 5: // scores at initial scoring position
+
                         thisRobot.coral.state = CoralIntakeStates.stationary;
                         if (autoScoreCoral(customAutoPoses[customAutoStep], customElevatorStates[customAutoStep])) {
                             autoStep = 10;

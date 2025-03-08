@@ -105,7 +105,16 @@ public class Coral {
                 }
                 // lower power for L1 so it doesnt bounce out
                 if (thisRobot.elevator.state == ElevatorStates.L1 && thisRobot.drivebase.isRobotInReefZone()) {
+                    coralPower = 0.2;
+                }
+                if (thisRobot.elevator.state == ElevatorStates.L4 && thisRobot.drivebase.isRobotInReefZone()) {
                     coralPower = 0.5;
+                }
+                if (thisRobot.elevator.state == ElevatorStates.L2 && thisRobot.drivebase.isRobotInReefZone()) {
+                    coralPower = 0.6;
+                }
+                if (thisRobot.elevator.state == ElevatorStates.L3 && thisRobot.drivebase.isRobotInReefZone()) {
+                    coralPower = 0.6;
                 }
                 coralMotor1.set(coralPower);
                 break;
