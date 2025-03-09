@@ -368,6 +368,7 @@ public class AutoController {
                         //for the 1 second after scoring keep forcing outake
                         if(Timer.getFPGATimestamp() - timeStepStarted < 0.5){
                             thisRobot.coral.state = CoralIntakeStates.outake;
+                            thisRobot.coral.sensorFirstTime = false;
                         }
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             timeStepStarted = Timer.getFPGATimestamp();
