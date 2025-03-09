@@ -471,7 +471,7 @@ public class AutoController {
                     goalPose);
             generatedPathFirstTime = false;
         }
-        if (thisRobot.drivebase.fromOTFSwitchToAP() && thisRobot.elevator.elevatorAtSetpoint()) { // drives to desired
+        if (thisRobot.drivebase.fromOTFSwitchToAP() && thisRobot.elevator.elevatorAtL4()) { // drives to desired
                                                                                                   // scoring position
             isComplete = true;
             generatedPathFirstTime = true;

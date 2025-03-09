@@ -102,6 +102,12 @@ public class Elevator {
 
     public boolean elevatorAtSetpoint(){
         return Robot.isSimulation() || (Math.abs(elevatorMotor1.getEncoder().getPosition() - m_controller.getGoal().position) < 0.5);
+        
+    }
+
+    public boolean elevatorAtL4(){
+        return Robot.isSimulation() || (Math.abs(elevatorMotor1.getEncoder().getPosition() - Settings.elevatorPosL4) < 0.5);
+        
     }
 
     public boolean elevatorSafeToGo(Pose2d goalPose) {
