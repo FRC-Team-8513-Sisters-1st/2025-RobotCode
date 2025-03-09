@@ -25,7 +25,7 @@ public class Coral {
     public double holdCoralPos = -2;
 
     public double currentBrokeTholdTime = 0;
-    boolean sensorBrokeThold = false;
+    public boolean sensorBrokeThold = false;
     boolean manualOutakePressed = false;
 
     public Coral(Robot thisRobotIn) {
@@ -71,7 +71,7 @@ public class Coral {
                     coralController.setSetpoint(coralController.getSetpoint() - lessenIntake);
                 }
                 if (thisRobot.teleopController.operatorJoystick1
-                        .getRawButtonPressed(Settings.buttonId_CoralOutakeALittle)&& thisRobot.isTeleop()) {
+                        .getRawButtonPressed(Settings.buttonId_CoralOutakeALittle) && thisRobot.isTeleop()) {
                     double lessenIntake = -1;
                     coralController.setSetpoint(coralController.getSetpoint() - lessenIntake);
                 }
