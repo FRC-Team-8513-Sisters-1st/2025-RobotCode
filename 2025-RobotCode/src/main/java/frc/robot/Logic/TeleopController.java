@@ -59,7 +59,7 @@ public class TeleopController {
         coPilotElevatorStateOLD = thisRobot.elevator.state;
         thisRobot.elevator.autoElevatorOn = true;
         autoScoreCounter = 0;
-        
+        manualJoystick.getRawButtonPressed(1);
         teleopAutoScore = false;
 
         State currentElevatorState = new State(thisRobot.elevator.elevatorMotor1.getEncoder().getPosition(), 0);
@@ -231,7 +231,7 @@ public class TeleopController {
             
             if (Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(),
                 teleopGoalPose) < Settings.coralScoreThold && thisRobot.drivebase.getRobotVelopcity() < Settings.scoringVelocityThold
-                    && thisRobot.elevator.elevatorAtSetpoint() 
+                    && thisRobot.elevator.newElevatorAtSetpoint()
                     && teleopAutoScore 
                     && thisRobot.drivebase.apGoalPose.getRotation().minus(thisRobot.drivebase.swerveDrive.getPose().getRotation()).getDegrees() < Settings.coralScoreDegThold) {
                 // disabled auto score

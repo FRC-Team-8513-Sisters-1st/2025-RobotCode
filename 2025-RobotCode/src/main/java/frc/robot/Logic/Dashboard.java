@@ -45,7 +45,7 @@ public class Dashboard {
         SmartDashboard.putNumber("elevatorPosition", thisRobot.elevator.elevatorMotor1.getEncoder().getPosition());
         SmartDashboard.putString("elevatorState", thisRobot.elevator.state.name());
         SmartDashboard.putBoolean("Auto Elevator On", thisRobot.elevator.autoElevatorOn);
-        SmartDashboard.putBoolean("L4",thisRobot.elevator.elevatorAtL4());
+        SmartDashboard.putBoolean("New At Goal",thisRobot.elevator.newElevatorAtSetpoint());
 
 
         // coral mech stats
