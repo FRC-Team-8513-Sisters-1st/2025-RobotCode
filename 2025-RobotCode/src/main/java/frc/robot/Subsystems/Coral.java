@@ -80,6 +80,9 @@ public class Coral {
             case outake:
                 double coralPower = 0.8;
                 funnelMotor1.set(0.2);
+                if (thisRobot.isAutonomous()) {
+                    coralPower = 0.4;
+                }
                 if ((thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake) ||
                 thisRobot.teleopController.manualJoystick.getRawButtonPressed(5)) && thisRobot.isTeleop()) {
                     state = CoralIntakeStates.stationary;

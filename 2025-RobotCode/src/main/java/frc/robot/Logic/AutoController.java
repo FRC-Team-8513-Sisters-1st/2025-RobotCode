@@ -485,6 +485,7 @@ public class AutoController {
             }
             thisRobot.coral.state = CoralIntakeStates.outake;
         }
+        thisRobot.coral.setMotorPower();
         return isComplete;
     }
 }
