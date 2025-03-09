@@ -48,7 +48,7 @@ public class Coral {
                 state = CoralIntakeStates.intake;
             }
         }
-        if (thisRobot.teleopController.manualJoystick.getRawButtonPressed(5)) {
+        if (thisRobot.teleopController.manualJoystick.getRawButtonPressed(5) && thisRobot.isTeleop()) {
             if (state == CoralIntakeStates.outake) {
                 coralController.setSetpoint(coralMotor1.getEncoder().getPosition());
                 state = CoralIntakeStates.stationary;
@@ -59,19 +59,19 @@ public class Coral {
         switch (state) {
             case stationary:
                 funnelMotor1.set(0);
-                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake)) {
+                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake) && thisRobot.isTeleop()) {
                     state = CoralIntakeStates.outake;
                 }
                 double motorPower = coralController.calculate(coralMotor1.getEncoder().getPosition());
                 coralMotor1.set(motorPower);
 
                 // shift coral in and out when button pressed
-                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralIntake)) {
+                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralIntake) && thisRobot.isTeleop()) {
                     double lessenIntake = 1;
                     coralController.setSetpoint(coralController.getSetpoint() - lessenIntake);
                 }
                 if (thisRobot.teleopController.operatorJoystick1
-                        .getRawButtonPressed(Settings.buttonId_CoralOutakeALittle)) {
+                        .getRawButtonPressed(Settings.buttonId_CoralOutakeALittle)&& thisRobot.isTeleop()) {
                     double lessenIntake = -1;
                     coralController.setSetpoint(coralController.getSetpoint() - lessenIntake);
                 }
@@ -80,8 +80,8 @@ public class Coral {
             case outake:
                 double coralPower = 0.8;
                 funnelMotor1.set(0.2);
-                if (thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake) ||
-                thisRobot.teleopController.manualJoystick.getRawButtonPressed(5)) {
+                if ((thisRobot.teleopController.operatorJoystick1.getRawButtonPressed(Settings.buttonId_CoralOutake) ||
+                thisRobot.teleopController.manualJoystick.getRawButtonPressed(5)) && thisRobot.isTeleop()) {
                     state = CoralIntakeStates.stationary;
                     coralController.setSetpoint(coralMotor1.getEncoder().getPosition());
                 }
