@@ -376,12 +376,15 @@ public class AutoController {
                         break;
                     case 16: // waits at coral station
                         thisRobot.drivebase.fromOTFSwitchToAP();
+                        thisRobot.coral.setMotorPower();
+                        thisRobot.elevator.setMotorPower();
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.75) {
                             autoStep = 20;
                         }
                         break;
                     case 20: // generates path and scores at desired scoring location, then chooses whether
                              // to continue or end auto
+                             
                         if (autoScoreCoral(customAutoPoses[customAutoStep], customElevatorStates[customAutoStep])) {
                             if (customAutoStep >= customAutoPoses.length - 1) {
                                 autoStep = 45;
