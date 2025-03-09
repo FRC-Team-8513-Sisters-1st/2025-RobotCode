@@ -67,5 +67,6 @@ public class Dashboard {
         SmartDashboard.putBoolean("IsRobotInReefZone", thisRobot.drivebase.isRobotInReefZone());
         pathPlannerGoalField2d.setRobotPose(thisRobot.drivebase.otfGoalPose);
         SmartDashboard.putNumber("DB Velocity", thisRobot.drivebase.getRobotVelopcity());
+        SmartDashboard.putNumber("Teleop Auto Score Counter", thisRobot.teleopController.autoScoreCounter);
     }
 }

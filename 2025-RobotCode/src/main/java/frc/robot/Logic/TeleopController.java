@@ -48,6 +48,8 @@ public class TeleopController {
     SlewRateLimiter yfilter = new SlewRateLimiter(4);
     SlewRateLimiter rfilter = new SlewRateLimiter(4);
 
+    public int autoScoreCounter;
+
     public TeleopController(Robot thisRobotIn) {
         thisRobot = thisRobotIn;
     }
@@ -56,7 +58,9 @@ public class TeleopController {
         coPilotElevatorState = thisRobot.elevator.state;
         coPilotElevatorStateOLD = thisRobot.elevator.state;
         thisRobot.elevator.autoElevatorOn = true;
-
+        autoScoreCounter = 0;
+        
+        teleopAutoScore = false;
 
         State currentElevatorState = new State(thisRobot.elevator.elevatorMotor1.getEncoder().getPosition(), 0);
         thisRobot.elevator.m_controller.reset(currentElevatorState);
@@ -231,8 +235,12 @@ public class TeleopController {
                     && teleopAutoScore 
                     && thisRobot.drivebase.apGoalPose.getRotation().minus(thisRobot.drivebase.swerveDrive.getPose().getRotation()).getDegrees() < Settings.coralScoreDegThold) {
                 // disabled auto score
-                thisRobot.coral.state = CoralIntakeStates.outake;
-
+                autoScoreCounter++;
+                if (autoScoreCounter >= 10) {
+                    thisRobot.coral.state = CoralIntakeStates.outake;
+                }
+            } else{
+                autoScoreCounter = 0;
             }
         } else {
             goingToProcessor = false;
