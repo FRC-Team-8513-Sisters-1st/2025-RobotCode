@@ -96,7 +96,6 @@ public class Vision {
             Field2d photonField, double maxDistance) {
         List<PhotonPipelineResult> cameraPipeline = camera.getAllUnreadResults();
 
-        if (cameraPipeline.size() > 0) {
             for (int i = 0; i < cameraPipeline.size(); i++) {
                 Optional<EstimatedRobotPose> photonPose = estimator.update(cameraPipeline.get(i));
                 if (photonPose.isPresent()) {
@@ -120,4 +119,3 @@ public class Vision {
             }
         }
     }
-}
