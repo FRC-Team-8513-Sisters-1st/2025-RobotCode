@@ -39,18 +39,22 @@ public class Vision {
     PhotonCamera coralStationCam = new PhotonCamera("coralStationCam");
     PhotonCamera lowerLeftReefCam = new PhotonCamera("lowerLeftReefCam");
 
-    Matrix<N3,N1> visionSTDNoRotation = VecBuilder.fill(0.9, 0.9, 5);
+    Matrix<N3, N1> visionSTDNoRotation = VecBuilder.fill(0.9, 0.9, 5);
     public boolean updateHeadingWithVision = true;
 
     AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
 
-    Transform3d processorCamTransform = new Transform3d(new Translation3d(Units.inchesToMeters(6), Units.inchesToMeters(7.3), Units.inchesToMeters(33.5)),
+    Transform3d processorCamTransform = new Transform3d(
+            new Translation3d(Units.inchesToMeters(6), Units.inchesToMeters(7.3), Units.inchesToMeters(33.5)),
             new Rotation3d(0, Units.degreesToRadians(-26.5), Units.degreesToRadians(0)));
-    Transform3d lowerRightReefCamTransorm = new Transform3d(new Translation3d(Units.inchesToMeters(5), Units.inchesToMeters(-10.5), Units.inchesToMeters(10)),
+    Transform3d lowerRightReefCamTransorm = new Transform3d(
+            new Translation3d(Units.inchesToMeters(5), Units.inchesToMeters(-10.5), Units.inchesToMeters(10)),
             new Rotation3d(0, 0, Units.degreesToRadians(11.2)));
-    Transform3d coralStationCamTransform = new Transform3d(new Translation3d(Units.inchesToMeters(2.3), Units.inchesToMeters(7.3), Units.inchesToMeters(38)),
+    Transform3d coralStationCamTransform = new Transform3d(
+            new Translation3d(Units.inchesToMeters(2.3), Units.inchesToMeters(7.3), Units.inchesToMeters(38)),
             new Rotation3d(0, Units.degreesToRadians(-26.5), Units.degreesToRadians(180)));
-    Transform3d lowerLeftReefCamTransform = new Transform3d(new Translation3d(Units.inchesToMeters(5), Units.inchesToMeters(7), Units.inchesToMeters(10)),
+    Transform3d lowerLeftReefCamTransform = new Transform3d(
+            new Translation3d(Units.inchesToMeters(5), Units.inchesToMeters(7), Units.inchesToMeters(10)),
             new Rotation3d(0, 0, 0));
 
     PhotonPoseEstimator processorPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout,
@@ -78,31 +82,40 @@ public class Vision {
 
     public void updatePhotonVision() {
 
-        integrateCamera(useProcessorCam, processorCam, processorPoseEstimator, photonField2d_processor, visionMaxATDist);
-        integrateCamera(useLowerRightReefCam, lowerRightReefCam, lowerRightPoseEstimator, photonField2d_lowerRight, visionMaxATDist);
-        integrateCamera(useLowerLeftReefCam, lowerLeftReefCam, lowerLeftPoseEstimator, photonField2d_lowerLeft, visionMaxATDist);
-        integrateCamera(useCoralStationCam, coralStationCam, coralStationEstimator, photonField2d_coralStation, visionMaxATDist);
+        integrateCamera(useProcessorCam, processorCam, processorPoseEstimator, photonField2d_processor,
+                visionMaxATDist);
+        integrateCamera(useLowerRightReefCam, lowerRightReefCam, lowerRightPoseEstimator, photonField2d_lowerRight,
+                visionMaxATDist);
+        integrateCamera(useLowerLeftReefCam, lowerLeftReefCam, lowerLeftPoseEstimator, photonField2d_lowerLeft,
+                visionMaxATDist);
+        integrateCamera(useCoralStationCam, coralStationCam, coralStationEstimator, photonField2d_coralStation,
+                visionMaxATDist);
     }
 
-    public void integrateCamera(boolean useCamera, PhotonCamera camera, PhotonPoseEstimator estimator, Field2d photonField, double maxDistance) {
+    public void integrateCamera(boolean useCamera, PhotonCamera camera, PhotonPoseEstimator estimator,
+            Field2d photonField, double maxDistance) {
         List<PhotonPipelineResult> cameraPipeline = camera.getAllUnreadResults();
-        
-        if (cameraPipeline.size() > 0) {
-            Optional<EstimatedRobotPose> photonPose = estimator.update(cameraPipeline.get(0));
-            if (photonPose.isPresent()) {
-                photonField.setRobotPose(photonPose.get().estimatedPose.toPose2d());
-                double tag0Dist = cameraPipeline.get(0).getBestTarget().bestCameraToTarget.getTranslation().getNorm();
-                double poseAmbaguitiy = cameraPipeline.get(0).getBestTarget().getPoseAmbiguity();
-                if (useCamera && tag0Dist < maxDistance && poseAmbaguitiy < 0.05) {
-        
-                    if(updateHeadingWithVision){
-                        thisRobot.drivebase.swerveDrive.addVisionMeasurement(photonPose.get().estimatedPose.toPose2d(),
-                        photonPose.get().timestampSeconds);
-                    } else {
-                        thisRobot.drivebase.swerveDrive.addVisionMeasurement(photonPose.get().estimatedPose.toPose2d(),
-                        photonPose.get().timestampSeconds, visionSTDNoRotation);
-                    }
 
+        if (cameraPipeline.size() > 0) {
+            for (int i = 0; i < cameraPipeline.size(); i++) {
+                Optional<EstimatedRobotPose> photonPose = estimator.update(cameraPipeline.get(i));
+                if (photonPose.isPresent()) {
+                    photonField.setRobotPose(photonPose.get().estimatedPose.toPose2d());
+                    double tag0Dist = cameraPipeline.get(i).getBestTarget().bestCameraToTarget.getTranslation()
+                            .getNorm();
+                    double poseAmbaguitiy = cameraPipeline.get(i).getBestTarget().getPoseAmbiguity();
+                    if (useCamera && tag0Dist < maxDistance && poseAmbaguitiy < 0.05) {
+
+                        if (updateHeadingWithVision) {
+                            thisRobot.drivebase.swerveDrive.addVisionMeasurement(
+                                    photonPose.get().estimatedPose.toPose2d(),
+                                    photonPose.get().timestampSeconds);
+                        } else {
+                            thisRobot.drivebase.swerveDrive.addVisionMeasurement(
+                                    photonPose.get().estimatedPose.toPose2d(),
+                                    photonPose.get().timestampSeconds, visionSTDNoRotation);
+                        }
+                    }
                 }
             }
         }
