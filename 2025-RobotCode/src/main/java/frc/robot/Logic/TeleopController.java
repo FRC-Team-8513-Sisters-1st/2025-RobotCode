@@ -241,11 +241,18 @@ public class TeleopController {
                     driverXboxController.setRumble(RumbleType.kLeftRumble, 0.5);
                     driverXboxController.setRumble(RumbleType.kRightRumble, 0.5);
                     thisRobot.coral.state = CoralIntakeStates.outake;
+                } else {
+                    driverXboxController.setRumble(RumbleType.kLeftRumble, 0);
+                    driverXboxController.setRumble(RumbleType.kRightRumble, 0);
                 }
             } else{
+                driverXboxController.setRumble(RumbleType.kLeftRumble, 0);
+                driverXboxController.setRumble(RumbleType.kRightRumble, 0);
                 autoScoreCounter = 0;
             }
         } else {
+            driverXboxController.setRumble(RumbleType.kLeftRumble, 0);
+            driverXboxController.setRumble(RumbleType.kRightRumble, 0);
             goingToProcessor = false;
             goingToCoralStation = false;
             thisRobot.drivebase.drive(xV, yV, rV, true);
