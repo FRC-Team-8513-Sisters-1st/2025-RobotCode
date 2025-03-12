@@ -11,6 +11,7 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
@@ -237,6 +238,8 @@ public class TeleopController {
                 // disabled auto score
                 autoScoreCounter++;
                 if (autoScoreCounter >= 10) {
+                    driverXboxController.setRumble(RumbleType.kLeftRumble, 0.5);
+                    driverXboxController.setRumble(RumbleType.kRightRumble, 0.5);
                     thisRobot.coral.state = CoralIntakeStates.outake;
                 }
             } else{
