@@ -27,6 +27,9 @@ public final class Enums {
     public enum FeederStation {
         Close, Far
     }
+    public enum LEDColors {
+        green, red, pink, blue, purple
+    }
     public enum AutoRoutines {
         DoNothing, 
         processor_EF2L_RFS_AB2L_RFS_AB2R, 
