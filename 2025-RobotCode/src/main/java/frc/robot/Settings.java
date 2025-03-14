@@ -14,7 +14,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 
 public final class Settings {
         // drivebase settings
-        public static double drivebaseMaxVelocityFPS = 17.1;
+        public static double drivebaseMaxVelocityFPS = 18.5;
 
         // vision settings
         public static boolean useVision = true;

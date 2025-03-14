@@ -87,7 +87,7 @@ public class Drivebase {
         }
         //sets max valocity and acceleariton of our OTF Paths
         oTFConstraints = new PathConstraints(
-            swerveDrive.getMaximumChassisVelocity(), 4,
+            swerveDrive.getMaximumChassisVelocity(), 4.5,
             Units.degreesToRadians(300), Units.degreesToRadians(360));
         
         //turn this down if we are hitting BW limits
