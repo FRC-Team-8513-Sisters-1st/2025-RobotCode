@@ -1,4 +1,4 @@
-package frc.robot.Logic;
+package frc.robot.Subsystems;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
@@ -12,6 +12,9 @@ public class LEDs {
     Robot thisRobot;
     AddressableLED m_led;
     AddressableLEDBuffer m_ledBuffer;
+
+    public LEDColors color = LEDColors.purple;
+
 
     public LEDs(Robot thisRobotIn) {
         thisRobot = thisRobotIn;
@@ -63,3 +66,4 @@ public class LEDs {
         m_led.setData(m_ledBuffer);
     }
 }
+
