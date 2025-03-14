@@ -15,6 +15,7 @@ import frc.robot.Subsystems.Climber;
 import frc.robot.Subsystems.Coral;
 import frc.robot.Subsystems.Drivebase;
 import frc.robot.Subsystems.Elevator;
+import frc.robot.Subsystems.LEDs;
 
 public class Robot extends TimedRobot {
 
@@ -25,6 +26,7 @@ public class Robot extends TimedRobot {
   public Climber climber;
   public Coral coral;
   public Elevator elevator;
+  public LEDs leds;
 
   //logic
   public TeleopController teleopController;
@@ -46,6 +48,7 @@ public class Robot extends TimedRobot {
     climber = new Climber(this);
     algae = new Algae(this);
     dashboard = new Dashboard(this);
+    leds = new LEDs(this);
 
   }
 
@@ -54,6 +57,7 @@ public class Robot extends TimedRobot {
     dashboard.updateDashboard();
     if (Robot.isReal() && Settings.useVision) {
       vision.updatePhotonVision();
+      leds.LEDPeriodic();
     } else {
       if(Robot.isSimulation()){
         drivebase.matchSimulatedOdomToPose();

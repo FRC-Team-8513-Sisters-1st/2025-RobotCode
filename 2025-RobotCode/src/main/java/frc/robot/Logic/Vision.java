@@ -19,6 +19,7 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
@@ -31,6 +32,8 @@ public class Vision {
     boolean useLowerRightReefCam = true;
     boolean useCoralStationCam = true;
     boolean useLowerLeftReefCam = true;
+
+    public double timeATLastSeen;
 
     public double visionMaxATDist = Settings.maxATDistDisabeled;
 
@@ -105,6 +108,7 @@ public class Vision {
                     double poseAmbaguitiy = cameraPipeline.get(i).getBestTarget().getPoseAmbiguity();
                     if (useCamera && tag0Dist < maxDistance && poseAmbaguitiy < 0.05) {
 
+                        timeATLastSeen = Timer.getFPGATimestamp();
                         if (updateHeadingWithVision) {
                             thisRobot.drivebase.swerveDrive.addVisionMeasurement(
                                     photonPose.get().estimatedPose.toPose2d(),
