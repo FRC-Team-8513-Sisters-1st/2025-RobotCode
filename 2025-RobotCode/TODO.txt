@@ -3,11 +3,12 @@
         - make them turn on
         - make them solid red when we haven't seen reef tags in ~1 seconds
         - other colors to help driver know what state we are in
+    - Cameras
+        - Add reef camera feeds to driver station
+        - Figure out how to switch to climber camera feed at endgame
     - test
         - Test new attack point distance PID
         - Test faster auto to determine if 3 piece works
-        - Add reef camera feeds to driver station
-        - Figure out
     - later 
         - elevator jam detection
         - climber states
