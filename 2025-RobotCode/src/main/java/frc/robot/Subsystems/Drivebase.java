@@ -415,7 +415,7 @@ public class Drivebase {
 
     public double getRobotVelopcity() {
         double velocityX = thisRobot.drivebase.swerveDrive.getFieldVelocity().vxMetersPerSecond;
-        double velocityY = thisRobot.drivebase.swerveDrive.getFieldVelocity().vxMetersPerSecond;
+        double velocityY = thisRobot.drivebase.swerveDrive.getFieldVelocity().vyMetersPerSecond;
         double velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
 
         return velocity;
