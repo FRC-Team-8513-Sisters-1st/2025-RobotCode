@@ -36,7 +36,7 @@ public final class Settings {
         // pid settings
         public static double maxVelocityAP = 1;
         public static double maxAccelerationAP = 2;
-        private static double attackPointDriveP = 10;
+        private static double attackPointDriveP = 8;
         private static double attackPointDriveI = 0;
         private static double attackPointDriveD = 0;
         private static double attackPointDt = 0.02;
@@ -51,13 +51,10 @@ public final class Settings {
         private static final TrapezoidProfile.Constraints attackPointConstraints = new TrapezoidProfile.Constraints(
                         maxVelocityAP,
                         maxAccelerationAP);
-        public static final ProfiledPIDController xControllerAP = new ProfiledPIDController(attackPointDriveP,
+
+        public static final ProfiledPIDController dControllerAP = new ProfiledPIDController(attackPointDriveP,
                         attackPointDriveI,
                         attackPointDriveD,
-                        attackPointConstraints, attackPointDt);
-        public static final ProfiledPIDController yControllerAP = new ProfiledPIDController(attackPointDriveP,
-                        attackPointDriveI,
-                        attackPointRotateD,
                         attackPointConstraints, attackPointDt);
 
         // rotation
@@ -200,10 +197,10 @@ public final class Settings {
         public static double maxATDist = 3;
         public static double maxATDistDisabeled = 5;
 
-        public static double coralScoreThold = 0.02;
+        public static double coralScoreThold = 0.05;
         public static double elevatorSafeToGoThold = 1.5;
         public static double coralScoreDegThold = 2;
-        public static double scoringVelocityThold = 0.01;
+        public static double scoringVelocityThold = 0.05;
         
         public static double coralStationThold = 0.03;
         public static double coralStationDegThold = 20;

@@ -19,6 +19,7 @@ import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
@@ -55,7 +56,7 @@ public class Drivebase {
     double timePathStarted;
     PathPlannerTrajectoryState trajGoalState;
     Field2d trajGoalPosition = new Field2d();
-    double otfEndVelocity = 0.1;
+    double otfEndVelocity = 0.2;
 
     public PathPlannerPath pathPlannerGoalPose;
     public Pose2d newTeleopGoalPose = new Pose2d();
@@ -189,24 +190,19 @@ public class Drivebase {
             goalPose = flipPoseToRed(goalPose);
         }
 
-        State goalXState = new State(goalPose.getX(), 0);
-        State goalYState = new State(goalPose.getY(), 0);
         State goalRState = new State(0, 0);
+        double posError = Settings.getDistanceBetweenTwoPoses(goalPose, swerveDrive.getPose());
+        double velocity = Settings.dControllerAP.calculate(posError, goalRState);
+        Translation2d translationError = swerveDrive.getPose().minus(goalPose).getTranslation();
 
-        double xVelocity = Settings.xControllerAP.calculate(thisRobot.drivebase.swerveDrive.getPose().getX(),
-                goalXState);
-        double yVelocity = Settings.yControllerAP.calculate(thisRobot.drivebase.swerveDrive.getPose().getY(),
-                goalYState);
+        double xVelocity = (translationError.getX() / posError) * velocity;
+        double yVelocity = (translationError.getY() / posError) * velocity;
+        
         double rVelocity = Settings.rControllerAP
                 .calculate(thisRobot.drivebase.swerveDrive.getPose().getRotation().minus(goalPose.getRotation())
                         .getDegrees(), goalRState);
 
-        double oldMag = Math.sqrt(xVelocity * xVelocity + yVelocity * yVelocity);
-        double newMag = clamp(oldMag, maxSpeed);
-
-        xVelocity = xVelocity * newMag / oldMag;
-        yVelocity = yVelocity * newMag / oldMag;
-        swerveDrive.driveFieldOriented(new ChassisSpeeds(xVelocity, yVelocity, rVelocity));
+        swerveDrive.drive(new ChassisSpeeds(xVelocity, yVelocity, rVelocity));
         thisRobot.dashboard.attackPoitnField2d.setRobotPose(goalPose);
 
         //are we close enough, facing the right way, velocity low enough
@@ -289,13 +285,7 @@ public class Drivebase {
 
     //when not APing we need to reset the PID controllers so they know where we are and can have smooth transitions 
     public void resetAPPIDControllers() {
-        State currentXState = new State(thisRobot.drivebase.swerveDrive.getPose().getX(),
-                thisRobot.drivebase.swerveDrive.getFieldVelocity().vxMetersPerSecond);
-        State currentYState = new State(thisRobot.drivebase.swerveDrive.getPose().getY(),
-                thisRobot.drivebase.swerveDrive.getFieldVelocity().vyMetersPerSecond);
-
-        Settings.xControllerAP.reset(currentXState);
-        Settings.yControllerAP.reset(currentYState);
+        Settings.dControllerAP.reset(new State(Settings.getDistanceBetweenTwoPoses(apGoalPose, swerveDrive.getPose()), -getRobotVelopcity()));
         Settings.rControllerAP.reset(new State(0, 0));
     }
 
