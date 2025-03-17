@@ -62,6 +62,7 @@ public class TeleopController {
         autoScoreCounter = 0;
         manualJoystick.getRawButtonPressed(1);
         teleopAutoScore = false;
+        thisRobot.coral.forceOutake = false;
 
         State currentElevatorState = new State(thisRobot.elevator.elevatorMotor1.getEncoder().getPosition(), 0);
         thisRobot.elevator.m_controller.reset(currentElevatorState);
