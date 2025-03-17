@@ -86,17 +86,17 @@ public class Vision {
     public void updatePhotonVision() {
 
         integrateCamera(useProcessorCam, processorCam, processorPoseEstimator, photonField2d_processor,
-                visionMaxATDist);
+                visionMaxATDist, false);
         integrateCamera(useLowerRightReefCam, lowerRightReefCam, lowerRightPoseEstimator, photonField2d_lowerRight,
-                visionMaxATDist);
+                visionMaxATDist, true);
         integrateCamera(useLowerLeftReefCam, lowerLeftReefCam, lowerLeftPoseEstimator, photonField2d_lowerLeft,
-                visionMaxATDist);
+                visionMaxATDist, true);
         integrateCamera(useCoralStationCam, coralStationCam, coralStationEstimator, photonField2d_coralStation,
-                visionMaxATDist);
+                visionMaxATDist, false);
     }
 
     public void integrateCamera(boolean useCamera, PhotonCamera camera, PhotonPoseEstimator estimator,
-            Field2d photonField, double maxDistance) {
+            Field2d photonField, double maxDistance, boolean updateLastTimeSeen) {
         List<PhotonPipelineResult> cameraPipeline = camera.getAllUnreadResults();
 
             for (int i = 0; i < cameraPipeline.size(); i++) {
@@ -107,8 +107,9 @@ public class Vision {
                             .getNorm();
                     double poseAmbaguitiy = cameraPipeline.get(i).getBestTarget().getPoseAmbiguity();
                     if (useCamera && tag0Dist < maxDistance && poseAmbaguitiy < 0.05) {
-
-                        timeATLastSeen = Timer.getFPGATimestamp();
+                        if(updateLastTimeSeen){
+                                timeATLastSeen = Timer.getFPGATimestamp();
+                        }
                         if (updateHeadingWithVision) {
                             thisRobot.drivebase.swerveDrive.addVisionMeasurement(
                                     photonPose.get().estimatedPose.toPose2d(),
