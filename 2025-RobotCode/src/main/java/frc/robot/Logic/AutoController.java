@@ -346,6 +346,7 @@ public class AutoController {
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
                         if (Timer.getFPGATimestamp() - timeStepStarted > 0.35) {
+                            thisRobot.coral.forceOutake = false;
                             if (customAutoStep >= customAutoPoses.length) {
                                 thisRobot.coral.state = CoralIntakeStates.outake;
                                 autoStep = 45;
@@ -480,13 +481,15 @@ public class AutoController {
             generatedPathFirstTime = true;
             timeStepStarted = Timer.getFPGATimestamp();
             thisRobot.coral.state = CoralIntakeStates.outake;
+            thisRobot.coral.forceOutake = true;
         }
         // if we reach AP and are still outaking it means we dont have coral and we need
         // to immedialy go back
         if(atAP && thisRobot.coral.state == CoralIntakeStates.outake && Robot.isReal()){
+            isComplete = true;
             timeStepStarted = 0;
+            generatedPathFirstTime = true;
         }
-        thisRobot.coral.setMotorPower();
         return isComplete;
     }
 }

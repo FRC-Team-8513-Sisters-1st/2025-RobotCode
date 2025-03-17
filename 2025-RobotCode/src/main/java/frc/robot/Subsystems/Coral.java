@@ -23,6 +23,7 @@ public class Coral {
     public PIDController coralController = new PIDController(.1, 0, 0);
     public boolean sensorFirstTime = true;
     public double holdCoralPos = -2;
+    public boolean forceOutake = false;
 
     public double currentBrokeTholdTime = 0;
     public boolean sensorBrokeThold = false;
@@ -56,6 +57,9 @@ public class Coral {
                 state = CoralIntakeStates.outake;
             }        }
 
+        if(forceOutake){
+            state = CoralIntakeStates.outake;
+        }
         switch (state) {
             case stationary:
                 funnelMotor1.set(0);
@@ -127,7 +131,11 @@ public class Coral {
                 if (thisRobot.elevator.state == ElevatorStates.L3 && thisRobot.drivebase.isRobotInReefZone()) {
                     coralPower = 0.6;
                 }
-                coralMotor1.set(coralPower);
+                if(forceOutake){
+                    coralMotor1.set(0.4);
+                } else {
+                    coralMotor1.set(coralPower);
+                }
                 break;
             case intake: //we will never break out of this state unless intake is pressed again. maybe should add some escape conditions.
                 coralController.setSetpoint(coralMotor1.getEncoder().getPosition());
