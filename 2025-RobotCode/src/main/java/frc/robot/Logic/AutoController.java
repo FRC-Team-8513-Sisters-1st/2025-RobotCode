@@ -345,7 +345,7 @@ public class AutoController {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.35) {
                             if (customAutoStep >= customAutoPoses.length) {
                                 thisRobot.coral.state = CoralIntakeStates.outake;
                                 autoStep = 45;
@@ -380,7 +380,7 @@ public class AutoController {
                         thisRobot.drivebase.fromOTFSwitchToAP();
                         thisRobot.coral.setMotorPower();
                         thisRobot.elevator.setMotorPower();
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.6) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.55) {
                             autoStep = 20;
                         }
                         break;
@@ -431,7 +431,7 @@ public class AutoController {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.drivebase.swerveDrive.lockPose();
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.3) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.35) {
                             thisRobot.coral.setMotorPower();
                             thisRobot.drivebase.initAstarAndAP(
                                     Settings.rightCenterFeederStationAP.transformBy(Settings.astarFeederStPoseOffset),
@@ -473,17 +473,18 @@ public class AutoController {
                     goalPose);
             generatedPathFirstTime = false;
         }
-        if (thisRobot.drivebase.fromOTFSwitchToAP() && thisRobot.elevator.elevatorAtL4()) { // drives to desired
+        boolean atAP = thisRobot.drivebase.fromOTFSwitchToAP();
+        if (atAP && thisRobot.elevator.elevatorAtL4()) { // drives to desired
                                                                                                   // scoring position
             isComplete = true;
             generatedPathFirstTime = true;
             timeStepStarted = Timer.getFPGATimestamp();
-            // if we reach AP and are still outaking it means we dont have coral and we need
-            // to immedialy go back
-            if (thisRobot.coral.state == CoralIntakeStates.outake && Robot.isReal()) {
-                timeStepStarted = 0;
-            }
             thisRobot.coral.state = CoralIntakeStates.outake;
+        }
+        // if we reach AP and are still outaking it means we dont have coral and we need
+        // to immedialy go back
+        if(atAP && thisRobot.coral.state == CoralIntakeStates.outake && Robot.isReal()){
+            timeStepStarted = 0;
         }
         thisRobot.coral.setMotorPower();
         return isComplete;

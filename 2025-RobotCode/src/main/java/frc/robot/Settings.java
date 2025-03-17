@@ -36,7 +36,7 @@ public final class Settings {
         // pid settings
         public static double maxVelocityAP = 1;
         public static double maxAccelerationAP = 2;
-        private static double attackPointDriveP = 8;
+        private static double attackPointDriveP = 12;
         private static double attackPointDriveI = 0;
         private static double attackPointDriveD = 0;
         private static double attackPointDt = 0.02;
