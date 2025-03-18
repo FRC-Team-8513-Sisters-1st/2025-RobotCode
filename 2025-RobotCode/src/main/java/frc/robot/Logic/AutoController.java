@@ -383,7 +383,7 @@ public class AutoController {
                         thisRobot.drivebase.fromOTFSwitchToAP();
                         thisRobot.coral.setMotorPower();
                         thisRobot.elevator.setMotorPower();
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.45) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.4) {
                             autoStep = 20;
                         }
                         break;
@@ -478,7 +478,7 @@ public class AutoController {
             generatedPathFirstTime = false;
         }
         boolean atAP = thisRobot.drivebase.fromOTFSwitchToAP();
-        if (atAP && thisRobot.elevator.elevatorAtSetpoint()) { // drives to desired
+        if (atAP && thisRobot.elevator.newElevatorAtSetpoint()) { // drives to desired
                                                          // scoring position
             isComplete = true;
             generatedPathFirstTime = true;

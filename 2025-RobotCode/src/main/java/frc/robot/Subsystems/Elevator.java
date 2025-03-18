@@ -22,7 +22,7 @@ public class Elevator {
     public static int yAxisRight = 1;
 
     private static double elevatorMaxVelocity = 70;
-    private static double elevatorMaxAcceleration = 90;
+    private static double elevatorMaxAcceleration = 120;
     private static double elevatorP = 0.2;
     private static double elevatorI = 0.025;
     private static double elevatorD = 0.0;
@@ -83,9 +83,9 @@ public class Elevator {
         if (Math.abs(yLeftValue) > 0.02) {
             elevatorMotor1.set(yLeftValue);
             elevatorMotor2.set(-yLeftValue);
-            State state = new State(elevatorMotor1.getEncoder().getPosition(), 0);
-            m_controller.setGoal(state);
-            m_controller.reset(state);
+            State pidState = new State(elevatorMotor1.getEncoder().getPosition(), 0);
+            m_controller.setGoal(pidState);
+            m_controller.reset(pidState);
         } else {
             double power = m_controller.calculate(elevatorMotor1.getEncoder().getPosition());
             elevatorMotor1.set(power);
