@@ -21,8 +21,8 @@ public class Elevator {
     public static int yAxisLeft = 1;
     public static int yAxisRight = 1;
 
-    private static double elevatorMaxVelocity = 70;
-    private static double elevatorMaxAcceleration = 120;
+    private static double elevatorMaxVelocity = 100;
+    private static double elevatorMaxAcceleration = 130;
     private static double elevatorP = 0.2;
     private static double elevatorI = 0.025;
     private static double elevatorD = 0.0;
@@ -35,6 +35,21 @@ public class Elevator {
     public final ProfiledPIDController m_controller = new ProfiledPIDController(elevatorP, elevatorI, elevatorD,
             m_constraints, elevatorDt);
 
+    private static double elevatorMaxVelocityL1 = 50;
+    private static double elevatorMaxAccelerationL1 = 50;
+    private static double elevatorPL1 = 0.2;
+    private static double elevatorIL1 = 0.025;
+    private static double elevatorDL1 = 0.0;
+    private static double elevatorDtL1 = 0.02;
+
+    public boolean autoElevatorOnL1 = true;
+
+    private final TrapezoidProfile.Constraints m_constraintsL1 = new TrapezoidProfile.Constraints(elevatorMaxVelocityL1,
+            elevatorMaxAccelerationL1);
+    public final ProfiledPIDController m_controllerL1 = new ProfiledPIDController(elevatorPL1, elevatorIL1, elevatorDL1,
+            m_constraintsL1, elevatorDtL1);
+    
+    
     public Elevator(Robot thisRobotIn) {
 
         thisRobot = thisRobotIn;
@@ -86,16 +101,32 @@ public class Elevator {
             State pidState = new State(elevatorMotor1.getEncoder().getPosition(), 0);
             m_controller.setGoal(pidState);
             m_controller.reset(pidState);
+            m_controllerL1.setGoal(pidState);
+            m_controllerL1.reset(pidState);
         } else {
             double power = m_controller.calculate(elevatorMotor1.getEncoder().getPosition());
-            elevatorMotor1.set(power);
-            elevatorMotor2.set(-power);
+            m_controllerL1.setGoal(m_controller.getGoal());
+            double powerL1 = m_controllerL1.calculate(elevatorMotor1.getEncoder().getPosition());
+            if(elevatorMotor1.getEncoder().getPosition() < Settings.elevatorPosL2){
+                elevatorMotor1.set(powerL1);
+                elevatorMotor2.set(-powerL1);
+                State pidState = new State(elevatorMotor1.getEncoder().getPosition(), elevatorMotor1.getEncoder().getVelocity());
+                m_controller.reset(pidState);
+            } else {
+                elevatorMotor1.set(power);
+                elevatorMotor2.set(-power);
+                State pidState = new State(elevatorMotor1.getEncoder().getPosition(), elevatorMotor1.getEncoder().getVelocity());
+                m_controllerL1.reset(pidState);
+
+            }
+
         }
 
         if (thisRobot.teleopController.manualJoystick.getRawButtonPressed(2)) {
             elevatorMotor1.getEncoder().setPosition(0);
             State state = new State(elevatorMotor1.getEncoder().getPosition(), 0);
             thisRobot.elevator.m_controller.reset(state);
+            thisRobot.elevator.m_controllerL1.reset(state);
             
         }
     }
