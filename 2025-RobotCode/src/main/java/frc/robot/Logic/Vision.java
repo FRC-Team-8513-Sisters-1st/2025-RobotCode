@@ -123,4 +123,8 @@ public class Vision {
                 }
             }
         }
+
+        public boolean visionIsRecent(){
+                return Timer.getFPGATimestamp() - timeATLastSeen < Settings.goodVisionTime;
+        }
     }

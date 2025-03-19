@@ -18,6 +18,7 @@ public final class Settings {
 
         // vision settings
         public static boolean useVision = true;
+        public static double goodVisionTime = 0.2;
 
         // joystick deadband
         public static double joystickDeadband = 0.01;
@@ -36,7 +37,7 @@ public final class Settings {
         // pid settings
         public static double maxVelocityAP = 1;
         public static double maxAccelerationAP = 2;
-        private static double attackPointDriveP = 12;
+        private static double attackPointDriveP = 6;
         private static double attackPointDriveI = 0;
         private static double attackPointDriveD = 0;
         private static double attackPointDt = 0.02;
@@ -150,8 +151,8 @@ public final class Settings {
                         .getTagPose(13).get().toPose2d();
 
         // offsets reef
-        public static Transform2d tagToLeft = new Transform2d(0.4875, -0.21, new Rotation2d(Math.PI));
-        public static Transform2d tagToRight = new Transform2d(0.4875, 0.08, new Rotation2d(Math.PI));
+        public static Transform2d tagToLeft = new Transform2d(0.48, -0.25, new Rotation2d(Math.PI));
+        public static Transform2d tagToRight = new Transform2d(0.48, 0.08, new Rotation2d(Math.PI));
         public static Transform2d tagToLeftL1 = new Transform2d(0.05, 0.35, new Rotation2d());
         public static Transform2d tagToRightL1 = new Transform2d(0.05, -0.275, new Rotation2d());
 
@@ -199,6 +200,9 @@ public final class Settings {
 
         public static double coralScoreThold = 0.05;
         public static double elevatorSafeToGoThold = 1.5;
+        public static double elevatorSafeToGoTholdTele = 1.5;
+        public static double elevatorSafeToGoTholdAuto = 2;
+
         public static double coralScoreDegThold = 2;
         public static double scoringVelocityThold = 0.05;
         

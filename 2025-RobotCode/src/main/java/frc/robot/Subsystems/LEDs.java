@@ -68,7 +68,7 @@ public class LEDs {
     }
 
     public void LEDPeriodic() {
-        if (Timer.getFPGATimestamp() - thisRobot.vision.timeATLastSeen > 0.25) {
+        if (!thisRobot.vision.visionIsRecent()) {
             updateLEDColor(LEDColors.red);
         } else if (thisRobot.teleopController.driverXboxController
                 .getRawAxis(Settings.axisId_RightBranch) > 0.2

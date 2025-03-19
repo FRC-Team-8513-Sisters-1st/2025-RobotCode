@@ -82,6 +82,7 @@ public class AutoController {
         timeStepStarted = Timer.getFPGATimestamp();
         thisRobot.coral.coralController.reset();
         thisRobot.coral.coralMotor1.getEncoder().setPosition(0);
+        Settings.elevatorSafeToGoThold = Settings.elevatorSafeToGoTholdAuto;
 
     }
 

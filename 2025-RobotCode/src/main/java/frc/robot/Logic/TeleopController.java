@@ -61,8 +61,10 @@ public class TeleopController {
         thisRobot.elevator.autoElevatorOn = true;
         autoScoreCounter = 0;
         manualJoystick.getRawButtonPressed(1);
-        teleopAutoScore = false;
+        teleopAutoScore = true;
         thisRobot.coral.forceOutake = false;
+        Settings.elevatorSafeToGoThold = Settings.elevatorSafeToGoTholdTele;
+
 
         State currentElevatorState = new State(thisRobot.elevator.elevatorMotor1.getEncoder().getPosition(), 0);
         thisRobot.elevator.m_controller.reset(currentElevatorState);
@@ -235,7 +237,8 @@ public class TeleopController {
                 teleopGoalPose) < Settings.coralScoreThold && thisRobot.drivebase.getRobotVelopcity() < Settings.scoringVelocityThold
                     && thisRobot.elevator.newElevatorAtSetpoint()
                     && teleopAutoScore 
-                    && thisRobot.drivebase.apGoalPose.getRotation().minus(thisRobot.drivebase.swerveDrive.getPose().getRotation()).getDegrees() < Settings.coralScoreDegThold) {
+                    && thisRobot.drivebase.apGoalPose.getRotation().minus(thisRobot.drivebase.swerveDrive.getPose().getRotation()).getDegrees() < Settings.coralScoreDegThold
+                    && thisRobot.vision.visionIsRecent()) {
                 // disabled auto score
                 autoScoreCounter++;
                 if (autoScoreCounter >= 10) {
