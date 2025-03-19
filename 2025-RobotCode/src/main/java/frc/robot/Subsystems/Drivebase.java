@@ -56,7 +56,7 @@ public class Drivebase {
     double timePathStarted;
     PathPlannerTrajectoryState trajGoalState;
     Field2d trajGoalPosition = new Field2d();
-    double otfEndVelocity = 0.2;
+    double otfEndVelocity = 0.15;
 
     public PathPlannerPath pathPlannerGoalPose;
     public Pose2d newTeleopGoalPose = new Pose2d();
@@ -64,7 +64,7 @@ public class Drivebase {
     // OTF Path Variables
     public Pathfinder generatePath = new LocalADStar();
     Rotation2d trajGoalRotation = new Rotation2d();
-    PathConstraints oTFConstraints;
+    public PathConstraints oTFConstraints;
     boolean otfReady = false;
     public Pose2d otfGoalPose = new Pose2d();
     int nullPathCount = 0;

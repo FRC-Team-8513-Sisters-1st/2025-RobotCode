@@ -154,7 +154,7 @@ public final class Settings {
         public static Transform2d tagToLeft = new Transform2d(0.48, -0.25, new Rotation2d(Math.PI));
         public static Transform2d tagToRight = new Transform2d(0.48, 0.08, new Rotation2d(Math.PI));
         public static Transform2d tagToLeftL1 = new Transform2d(0.05, 0.35, new Rotation2d());
-        public static Transform2d tagToRightL1 = new Transform2d(0.05, -0.275, new Rotation2d());
+        public static Transform2d tagToRightL1 = new Transform2d(0.05, -0.25, new Rotation2d());
 
         // offset pocessor
         public static Transform2d tagToProcessor = new Transform2d(0.45, 0.15, new Rotation2d(Math.PI));
@@ -206,7 +206,7 @@ public final class Settings {
         public static double coralScoreDegThold = 2;
         public static double scoringVelocityThold = 0.05;
         
-        public static double coralStationThold = 0.03;
+        public static double coralStationThold = 0.1;
         public static double coralStationDegThold = 20;
         public static double stationVelocityThold = 0.1;
         // elevator positions

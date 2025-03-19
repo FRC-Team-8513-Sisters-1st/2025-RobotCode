@@ -7,10 +7,13 @@ import frc.robot.Logic.Enums.ElevatorStates;
 import frc.robot.Logic.Enums.FeederStation;
 import frc.robot.Logic.Enums.SideOfReef;
 
+import com.pathplanner.lib.path.PathConstraints;
+
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -83,6 +86,11 @@ public class TeleopController {
             }
 
         }
+
+                //sets max valocity and acceleariton of our OTF Paths
+        thisRobot.drivebase.oTFConstraints = new PathConstraints(
+            thisRobot.drivebase.swerveDrive.getMaximumChassisVelocity()*0.9, 3.75,
+            Units.degreesToRadians(300), Units.degreesToRadians(360));
     }
 
     public void driveTele() {
