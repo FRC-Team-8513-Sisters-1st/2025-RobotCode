@@ -21,7 +21,7 @@ public class Coral {
 
     // sensor
     public PIDController coralController = new PIDController(.1, 0, 0);
-    public PIDController coralVelocityController = new PIDController(0.1, 0, 0);
+    public PIDController coralVelocityController = new PIDController(0.00001, 0, 0);
     public boolean sensorFirstTime = true;
     public double holdCoralPos = -2;
     public boolean forceOutake = false;
@@ -139,8 +139,8 @@ public class Coral {
                 } else {
                     double coralSpeed = coralPower * Settings.coralPowerToVeloctyFactor;
                     coralPIDVelocityPower = coralVelocityController.calculate(coralMotor1.getEncoder().getVelocity(), coralSpeed);
-                    //coralMotor1.set(coralPIDVelocityPower);
-                    coralMotor1.set(coralPower);
+                    coralMotor1.set(coralPIDVelocityPower + coralPower);
+                    //coralMotor1.set(coralPower);
                 }
                 break;
             case intake: //we will never break out of this state unless intake is pressed again. maybe should add some escape conditions.
