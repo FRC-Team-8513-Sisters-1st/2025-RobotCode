@@ -106,6 +106,8 @@ public class Coral {
                         state = CoralIntakeStates.stationary;
                         sensorBrokeThold = false;
                     }
+                    coralMotor1.set(coralPower);
+                    break; //break early so we don't overwrite motor power later.
                 } else if (coralMotor1.getAnalog().getVoltage() < Settings.sensorThold) {
                     sensorFirstTime = true;
                     sensorBrokeThold = false;
