@@ -62,7 +62,7 @@ public class AutoController {
         autoSelector = new SendableChooser<>();
         autoSelector.setDefaultOption(AutoRoutines.values()[0].toString(), AutoRoutines.values()[0].toString());
         for (int i = 1; i < AutoRoutines.values().length; i++) {
-            if (AutoRoutines.values()[i].toString().charAt(0) != '_') {
+            if (AutoRoutines.values()[i].toString().charAt(0) != '~') {
                 autoSelector.addOption(AutoRoutines.values()[i].toString(), AutoRoutines.values()[i].toString());
             }
 
@@ -162,7 +162,7 @@ public class AutoController {
                 autoRoutine = AutoRoutines.customAutoAnyLength;
                 break;
 
-            case processor_EF4L_RFS_CD4L_RFS_CD4R:
+            case _processor_EF4L_RFS_CD4L_RFS_CD4R:
                 customAutoStartPose = Settings.autoProcessorStartPose;
                 customAutoPoses = new Pose2d[] { Settings.coralRightEF,
                         Settings.rightCenterFeederStationAP, Settings.coralLeftCD,
@@ -226,7 +226,7 @@ public class AutoController {
                 autoRoutine = AutoRoutines.customAutoAnyLength;
                 break;
 
-            case far_IJ4R_LFS_KL4L_LFS_KL4R:
+            case _far_IJ4R_LFS_KL4L_LFS_KL4R:
                 customAutoStartPose = Settings.autoFarStartPose;
                 customAutoPoses = new Pose2d[] { Settings.coralRightIJ,
                         Settings.leftCenterFeederStationAP, Settings.coralLeftKL,
