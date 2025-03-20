@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.Settings;
 
 public class Dashboard {
 
@@ -46,12 +47,17 @@ public class Dashboard {
         SmartDashboard.putString("elevatorState", thisRobot.elevator.state.name());
         SmartDashboard.putBoolean("Auto Elevator On", thisRobot.elevator.autoElevatorOn);
         SmartDashboard.putBoolean("New At Goal",thisRobot.elevator.newElevatorAtSetpoint());
-
+ 
 
         // coral mech stats
         SmartDashboard.putNumber("coral motor pos", thisRobot.coral.coralMotor1.getEncoder().getPosition());
         SmartDashboard.putNumber("coralSensor", thisRobot.coral.coralMotor1.getAnalog().getVoltage());
         SmartDashboard.putString("coralState", thisRobot.coral.state.name());
+        SmartDashboard.putNumber("coral motor velocity", thisRobot.coral.coralMotor1.getEncoder().getVelocity());
+        SmartDashboard.putNumber("coral motor power", thisRobot.coral.coralPower);
+        SmartDashboard.putNumber("coral goal velocity", thisRobot.coral.coralPower * Settings.coralPowerToVeloctyFactor);
+
+
 
         //algae mech
         SmartDashboard.putString("Algae State", thisRobot.algae.algaeState.name());

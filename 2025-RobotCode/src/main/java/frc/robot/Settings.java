@@ -227,6 +227,7 @@ public final class Settings {
 
         // coral sensor
         public static double sensorThold = 0.8;
+        public static double coralPowerToVeloctyFactor = 11000;
 
         // auto start poses
         public static Pose2d autoMidStartPose = new Pose2d(7.229, 3.899, new Rotation2d(Math.PI));
