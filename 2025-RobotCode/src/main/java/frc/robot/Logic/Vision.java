@@ -69,6 +69,7 @@ public class Vision {
     PhotonPoseEstimator lowerLeftPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout,
             PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, lowerLeftReefCamTransform);
 
+
     Field2d photonField2d_processor = new Field2d();
     Field2d photonField2d_coralStation = new Field2d();
     Field2d photonField2d_lowerLeft = new Field2d();
@@ -81,6 +82,10 @@ public class Vision {
         SmartDashboard.putData("photonPose Lower Left", photonField2d_lowerLeft);
         SmartDashboard.putData("photonPose Lower Right", photonField2d_lowerRight);
 
+        processorPoseEstimator.setMultiTagFallbackStrategy(PoseStrategy.PNP_DISTANCE_TRIG_SOLVE);
+        lowerRightPoseEstimator.setMultiTagFallbackStrategy(PoseStrategy.PNP_DISTANCE_TRIG_SOLVE);
+        lowerLeftPoseEstimator.setMultiTagFallbackStrategy(PoseStrategy.PNP_DISTANCE_TRIG_SOLVE);
+        coralStationEstimator.setMultiTagFallbackStrategy(PoseStrategy.PNP_DISTANCE_TRIG_SOLVE);
     }
 
     public void updatePhotonVision() {
@@ -97,6 +102,7 @@ public class Vision {
 
     public void integrateCamera(boolean useCamera, PhotonCamera camera, PhotonPoseEstimator estimator,
             Field2d photonField, double maxDistance, boolean updateLastTimeSeen) {
+        estimator.addHeadingData(Timer.getFPGATimestamp(), thisRobot.drivebase.swerveDrive.getGyroRotation3d());        
         List<PhotonPipelineResult> cameraPipeline = camera.getAllUnreadResults();
 
             for (int i = 0; i < cameraPipeline.size(); i++) {
@@ -105,8 +111,7 @@ public class Vision {
                     photonField.setRobotPose(photonPose.get().estimatedPose.toPose2d());
                     double tag0Dist = cameraPipeline.get(i).getBestTarget().bestCameraToTarget.getTranslation()
                             .getNorm();
-                    double poseAmbaguitiy = cameraPipeline.get(i).getBestTarget().getPoseAmbiguity();
-                    if (useCamera && tag0Dist < maxDistance && poseAmbaguitiy < 0.05) {
+                    if (useCamera && tag0Dist < maxDistance) {
                         if(updateLastTimeSeen){
                                 timeATLastSeen = Timer.getFPGATimestamp();
                         }

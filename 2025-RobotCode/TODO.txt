@@ -5,6 +5,8 @@
     - later 
         - elevator jam detection
         - climber states
+    - Vision
+        - Test PNP Trig solve fallback
 
 At Warren Hills:
 - tune reef offsets
