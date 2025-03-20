@@ -21,6 +21,7 @@ public class Coral {
 
     // sensor
     public PIDController coralController = new PIDController(.1, 0, 0);
+    public PIDController coralVelocityController = new PIDController(0.1, 0, 0);
     public boolean sensorFirstTime = true;
     public double holdCoralPos = -2;
     public boolean forceOutake = false;
@@ -28,6 +29,8 @@ public class Coral {
     public double currentBrokeTholdTime = 0;
     public boolean sensorBrokeThold = false;
     boolean manualOutakePressed = false;
+    public double coralPIDVelocityPower = 0;
+    public double coralPower = 0;
 
     public Coral(Robot thisRobotIn) {
 
@@ -82,7 +85,7 @@ public class Coral {
 
                 break;
             case outake:
-                double coralPower = 0.8;
+                coralPower = 0.8;
                 funnelMotor1.set(0.2);
                 if (thisRobot.isAutonomous()) {
                     coralPower = 0.4;
@@ -134,6 +137,9 @@ public class Coral {
                 if(forceOutake){
                     coralMotor1.set(0.4);
                 } else {
+                    double coralSpeed = coralPower * Settings.coralPowerToVeloctyFactor;
+                    coralPIDVelocityPower = coralVelocityController.calculate(coralMotor1.getEncoder().getVelocity(), coralSpeed);
+                    //coralMotor1.set(coralPIDVelocityPower);
                     coralMotor1.set(coralPower);
                 }
                 break;
