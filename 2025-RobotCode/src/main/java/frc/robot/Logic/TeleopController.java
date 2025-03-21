@@ -5,6 +5,7 @@ import frc.robot.Logic.Enums.ClimberStates;
 import frc.robot.Logic.Enums.CoralIntakeStates;
 import frc.robot.Logic.Enums.ElevatorStates;
 import frc.robot.Logic.Enums.FeederStation;
+import frc.robot.Logic.Enums.LEDColors;
 import frc.robot.Logic.Enums.SideOfReef;
 
 import com.pathplanner.lib.path.PathConstraints;
@@ -35,6 +36,8 @@ public class TeleopController {
     public boolean firstOTFPath = false;
     public Pose2d teleopGoalPose = new Pose2d();
     public Pose2d teleopGoalPoseAstar = new Pose2d();
+
+    public boolean isAtAP = false;
 
     boolean goingToCoralStation = false;
     ElevatorStates coPilotElevatorState = ElevatorStates.L1;
@@ -68,11 +71,10 @@ public class TeleopController {
         thisRobot.coral.forceOutake = false;
         Settings.elevatorSafeToGoThold = Settings.elevatorSafeToGoTholdTele;
 
-
         State currentElevatorState = new State(thisRobot.elevator.elevatorMotor1.getEncoder().getPosition(), 0);
         thisRobot.elevator.m_controller.reset(currentElevatorState);
         thisRobot.elevator.m_controller.setGoal(currentElevatorState);
-        
+
         thisRobot.coral.coralController.setSetpoint(thisRobot.coral.coralMotor1.getEncoder().getPosition());
         thisRobot.coral.state = CoralIntakeStates.stationary;
         thisRobot.vision.useProcessorCam = true;
@@ -87,10 +89,10 @@ public class TeleopController {
 
         }
 
-                //sets max valocity and acceleariton of our OTF Paths
+        // sets max valocity and acceleariton of our OTF Paths
         thisRobot.drivebase.oTFConstraints = new PathConstraints(
-            thisRobot.drivebase.swerveDrive.getMaximumChassisVelocity()*0.9, 3.75,
-            Units.degreesToRadians(300), Units.degreesToRadians(360));
+                thisRobot.drivebase.swerveDrive.getMaximumChassisVelocity() * 0.9, 3.75,
+                Units.degreesToRadians(300), Units.degreesToRadians(360));
     }
 
     public void driveTele() {
@@ -231,33 +233,41 @@ public class TeleopController {
             }
 
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarReefPoseOffset);
-            if(thisRobot.onRedAlliance){
+            if (thisRobot.onRedAlliance) {
                 teleopGoalPose = thisRobot.drivebase.flipPoseToRed(teleopGoalPose);
             }
-            SmartDashboard.putNumber("AP Dist", Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(),
-            teleopGoalPose));
-            SmartDashboard.putBoolean("Dist", Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(),
-            teleopGoalPose) < Settings.coralScoreThold);
+            SmartDashboard.putNumber("AP Dist",
+                    Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(),
+                            teleopGoalPose));
+            SmartDashboard.putBoolean("Dist",
+                    Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(),
+                            teleopGoalPose) < Settings.coralScoreThold);
             SmartDashboard.putBoolean("Elevator", thisRobot.elevator.elevatorAtSetpoint());
-            SmartDashboard.putBoolean("Rot", thisRobot.drivebase.apGoalPose.getRotation().minus(thisRobot.drivebase.swerveDrive.getPose().getRotation()).getDegrees() < Settings.coralScoreDegThold);
-            
+            SmartDashboard.putBoolean("Rot",
+                    thisRobot.drivebase.apGoalPose.getRotation()
+                            .minus(thisRobot.drivebase.swerveDrive.getPose().getRotation())
+                            .getDegrees() < Settings.coralScoreDegThold);
+
             if (Settings.getDistanceBetweenTwoPoses(thisRobot.drivebase.swerveDrive.getPose(),
-                teleopGoalPose) < Settings.coralScoreThold && thisRobot.drivebase.getRobotVelopcity() < Settings.scoringVelocityThold
+                    teleopGoalPose) < Settings.coralScoreThold
+                    && thisRobot.drivebase.getRobotVelopcity() < Settings.scoringVelocityThold
                     && thisRobot.elevator.newElevatorAtSetpoint()
-                    && teleopAutoScore 
-                    && thisRobot.drivebase.apGoalPose.getRotation().minus(thisRobot.drivebase.swerveDrive.getPose().getRotation()).getDegrees() < Settings.coralScoreDegThold
+                    && teleopAutoScore
+                    && thisRobot.drivebase.apGoalPose.getRotation()
+                            .minus(thisRobot.drivebase.swerveDrive.getPose().getRotation())
+                            .getDegrees() < Settings.coralScoreDegThold
                     && thisRobot.vision.visionIsRecent()) {
                 // disabled auto score
                 autoScoreCounter++;
                 if (autoScoreCounter >= 10) {
-                    driverXboxController.setRumble(RumbleType.kLeftRumble, 0.5);
-                    driverXboxController.setRumble(RumbleType.kRightRumble, 0.5);
+                    driverXboxController.setRumble(RumbleType.kLeftRumble, 0.7);
+                    driverXboxController.setRumble(RumbleType.kRightRumble, 0.7);
                     thisRobot.coral.state = CoralIntakeStates.outake;
                 } else {
                     driverXboxController.setRumble(RumbleType.kLeftRumble, 0);
                     driverXboxController.setRumble(RumbleType.kRightRumble, 0);
                 }
-            } else{
+            } else {
                 driverXboxController.setRumble(RumbleType.kLeftRumble, 0);
                 driverXboxController.setRumble(RumbleType.kRightRumble, 0);
                 autoScoreCounter = 0;
@@ -284,12 +294,13 @@ public class TeleopController {
 
             }
         }
+        isAtAP = false;
         if (followPath) {
             if (firstOTFPath) {
                 thisRobot.drivebase.initAstarAndAP(teleopGoalPoseAstar, teleopGoalPose);
                 firstOTFPath = false;
             }
-            thisRobot.drivebase.fromOTFSwitchToAP();
+            isAtAP = thisRobot.drivebase.fromOTFSwitchToAP();
         }
 
         thisRobot.algae.setMotorPower();
@@ -469,11 +480,14 @@ public class TeleopController {
     }
 
     public void climbUsingDriverController() {
-        if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_Climb) && thisRobot.climber.state == ClimberStates.stowed) {
+        if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_Climb)
+                && thisRobot.climber.state == ClimberStates.stowed) {
             thisRobot.climber.state = ClimberStates.armOut;
-            if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_Climb) && thisRobot.climber.state == ClimberStates.armOut) {
+            if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_Climb)
+                    && thisRobot.climber.state == ClimberStates.armOut) {
                 thisRobot.climber.state = ClimberStates.climbing;
-                if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_Climb) && thisRobot.climber.state == ClimberStates.climbing) {
+                if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_Climb)
+                        && thisRobot.climber.state == ClimberStates.climbing) {
                     thisRobot.climber.state = ClimberStates.stowed;
                 }
             }

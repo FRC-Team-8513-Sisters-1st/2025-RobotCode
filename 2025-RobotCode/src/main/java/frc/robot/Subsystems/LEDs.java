@@ -67,17 +67,15 @@ public class LEDs {
     }
 
     public void LEDPeriodic() {
-        if (!thisRobot.vision.visionIsRecent()) {
-            updateLEDColor(LEDColors.red);
-        } else if (thisRobot.teleopController.driverXboxController
-                .getRawAxis(Settings.axisId_RightBranch) > 0.2
-                || thisRobot.teleopController.driverXboxController
-                        .getRawAxis(Settings.axisId_LeftBranch) > 0.2
-                || thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_RightFeederSt)
-                || thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_LeftFeederSt)) {
+        if (thisRobot.teleopController.isAtAP) {
             updateLEDColor(LEDColors.purple);
         } else {
-            updateLEDColor(LEDColors.green);
+            if (!thisRobot.vision.visionIsRecent()) {
+                updateLEDColor(LEDColors.red);
+            } 
+            else {
+                updateLEDColor(LEDColors.green);
+            }
         }
     }
 }
