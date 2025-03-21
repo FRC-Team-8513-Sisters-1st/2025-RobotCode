@@ -56,7 +56,7 @@ public class LEDs {
                 blue.applyTo(m_ledBuffer);
                 break;
             case purple:
-                LEDPattern purple = LEDPattern.solid(Color.kLavender);
+                LEDPattern purple = LEDPattern.solid(Color.kPurple);
                 // Apply the LED pattern to the data buffer
                 purple.applyTo(m_ledBuffer);
                 break;
