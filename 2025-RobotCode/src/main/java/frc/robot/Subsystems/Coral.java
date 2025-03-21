@@ -109,7 +109,9 @@ public class Coral {
                         state = CoralIntakeStates.stationary;
                         sensorBrokeThold = false;
                     }
-                    coralMotor1.set(coralPower);
+                    double coralSpeed = coralPower * Settings.coralPowerToVeloctyFactor;
+                    coralPIDVelocityPower = coralVelocityController.calculate(coralMotor1.getEncoder().getVelocity(), coralSpeed);
+                    coralMotor1.set(coralPIDVelocityPower + coralPower);
                     break; //break early so we don't overwrite motor power later.
                 } else if (coralMotor1.getAnalog().getVoltage() < Settings.sensorThold) {
                     sensorFirstTime = true;
