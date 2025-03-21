@@ -479,7 +479,7 @@ public class AutoController {
             generatedPathFirstTime = false;
         }
         boolean atAP = thisRobot.drivebase.fromOTFSwitchToAP();
-        if (atAP && thisRobot.elevator.newElevatorAtSetpoint()) { // drives to desired
+        if (atAP && (thisRobot.elevator.newElevatorAtSetpoint() || thisRobot.coral.state == CoralIntakeStates.outake)) { // drives to desired
                                                          // scoring position
             isComplete = true;
             generatedPathFirstTime = true;

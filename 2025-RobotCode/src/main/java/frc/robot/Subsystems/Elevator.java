@@ -21,8 +21,8 @@ public class Elevator {
     public static int yAxisLeft = 1;
     public static int yAxisRight = 1;
 
-    private static double elevatorMaxVelocity = 70;
-    private static double elevatorMaxAcceleration = 120;
+    private static double elevatorMaxVelocity = 85;
+    private static double elevatorMaxAcceleration = 130;
     private static double elevatorP = 0.2;
     private static double elevatorI = 0.025;
     private static double elevatorD = 0.0;
