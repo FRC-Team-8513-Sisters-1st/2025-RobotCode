@@ -384,7 +384,7 @@ public class AutoController {
                         thisRobot.drivebase.fromOTFSwitchToAP();
                         thisRobot.coral.setMotorPower();
                         thisRobot.elevator.setMotorPower();
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.4) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.25) {
                             autoStep = 20;
                         }
                         break;
