@@ -402,7 +402,7 @@ public class Drivebase {
             } else {
                 apCounter = 0;
             }
-            return apCounter > 10;
+            return apCounter > 5;
 
         } else {
             resetAPPIDControllers();
