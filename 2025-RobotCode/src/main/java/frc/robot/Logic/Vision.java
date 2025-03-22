@@ -106,7 +106,7 @@ public class Vision {
                     double tag0Dist = cameraPipeline.get(i).getBestTarget().bestCameraToTarget.getTranslation()
                             .getNorm();
                     double poseAmbaguitiy = cameraPipeline.get(i).getBestTarget().getPoseAmbiguity();
-                    if (useCamera && tag0Dist < maxDistance && poseAmbaguitiy < 0.05) {
+                    if (useCamera && tag0Dist < maxDistance && poseAmbaguitiy < 0.15) {
                         if(updateLastTimeSeen){
                                 timeATLastSeen = Timer.getFPGATimestamp();
                         }
