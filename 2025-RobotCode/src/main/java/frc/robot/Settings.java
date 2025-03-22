@@ -153,7 +153,7 @@ public final class Settings {
         // offsets reef
         public static Transform2d tagToLeft = new Transform2d(0.48, -0.25, new Rotation2d(Math.PI));
         public static Transform2d tagToRight = new Transform2d(0.48, 0.08, new Rotation2d(Math.PI));
-        public static Transform2d tagToLeftL1 = new Transform2d(0.05, 0.35, new Rotation2d());
+        public static Transform2d tagToLeftL1 = new Transform2d(0.05, 0.32, new Rotation2d());
         public static Transform2d tagToRightL1 = new Transform2d(0.05, -0.25, new Rotation2d());
 
         // offset pocessor

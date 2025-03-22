@@ -62,7 +62,8 @@ public class Algae {
                 algaeOutFirstTime = false;
             }
             if (Timer.getFPGATimestamp() - algaeOutTime > 1) {
-                algaeState = AlgaeIntakeStates.stationary;
+                algaeState = AlgaeIntakeStates.holdPosition;
+                algaeOutFirstTime = true;
             }
             algaeMotor1.set(-1);
         }
@@ -81,7 +82,7 @@ public class Algae {
 
         if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_AlgaeIntake)) {
             if (algaeState == AlgaeIntakeStates.intake) {
-                algaeState = AlgaeIntakeStates.stationary;
+                algaeState = AlgaeIntakeStates.holdPosition;
             } else {
                 algaeState = AlgaeIntakeStates.intake;
             }
@@ -89,6 +90,7 @@ public class Algae {
 
         if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_AlgaeOutake)) {
             algaeState = AlgaeIntakeStates.outake;
+            algaeOutFirstTime = true;
         }
 
         if (thisRobot.teleopController.manualJoystick.getRawAxis(2) > Settings.triggerDeadband) {

@@ -259,7 +259,7 @@ public class TeleopController {
                     && thisRobot.vision.visionIsRecent()) {
                 // disabled auto score
                 autoScoreCounter++;
-                if (autoScoreCounter >= 10) {
+                if (autoScoreCounter >= 6) {
                     driverXboxController.setRumble(RumbleType.kLeftRumble, 0.7);
                     driverXboxController.setRumble(RumbleType.kRightRumble, 0.7);
                     thisRobot.coral.state = CoralIntakeStates.outake;
