@@ -58,6 +58,8 @@ public class Drivebase {
     Field2d trajGoalPosition = new Field2d();
     double otfEndVelocity = 0.1;
 
+    int apCounter = 0;
+
     public PathPlannerPath pathPlannerGoalPose;
     public Pose2d newTeleopGoalPose = new Pose2d();
 
@@ -395,7 +397,12 @@ public class Drivebase {
         boolean pathDone = followOTFPath();
         if (pathDone || skipOTF) {
             apDone = thisRobot.drivebase.attackPoint(apGoalPose, 2);
-            return apDone;
+            if (apDone) {
+                apCounter++;
+            } else {
+                apCounter = 0;
+            }
+            return apCounter > 10;
 
         } else {
             resetAPPIDControllers();
