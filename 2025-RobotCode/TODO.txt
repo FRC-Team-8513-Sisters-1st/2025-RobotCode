@@ -1,4 +1,6 @@
 - ToDo
+    - backups and spares
+        - flashed sd card for rio and Opi
     - Coral velocity PID test
         - once factor is calcualted, then switch to PID velocity
         - tune PID velocity
