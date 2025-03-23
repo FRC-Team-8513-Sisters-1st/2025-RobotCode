@@ -100,8 +100,8 @@ public final class Settings {
         public static int buttonId_processor = 1;
 
         // controller 2 panel buttons
-        public static int buttonId_Close = 7;
-        public static int buttonId_Far = 4;
+        public static int buttonId_Close = 4;
+        public static int buttonId_Far = 7;
         public static int buttonId_forceElevator = 5;
         public static int buttonId_ab = 10;
         public static int buttonId_cd = 1;
