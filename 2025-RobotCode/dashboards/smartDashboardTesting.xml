@@ -96,19 +96,4 @@
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="Swerve Drive"/>
-	<hidden field="photonPose CoralStation"/>
-	<hidden field="Motors"/>
-	<hidden field="JSON"/>
-	<hidden field="Encoders"/>
-	<hidden field="IMU"/>
-	<hidden field="Field"/>
-	<hidden field="photonPose Lower Left"/>
-	<hidden field="photonPose Processor"/>
-	<hidden field="photonPose Lower Right"/>
-	<hidden field="pathPlannerGoalPose"/>
-	<hidden field="Alerts"/>
-	<hidden field="Path Planner Goal Pose"/>
-	<hidden field="attackPointPose"/>
-	<hidden field="otfGoalPose"/>
 </xml>
