@@ -5,7 +5,6 @@ import frc.robot.Logic.Enums.ClimberStates;
 import frc.robot.Logic.Enums.CoralIntakeStates;
 import frc.robot.Logic.Enums.ElevatorStates;
 import frc.robot.Logic.Enums.FeederStation;
-import frc.robot.Logic.Enums.LEDColors;
 import frc.robot.Logic.Enums.SideOfReef;
 
 import com.pathplanner.lib.path.PathConstraints;
