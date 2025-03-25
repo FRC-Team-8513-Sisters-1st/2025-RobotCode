@@ -1,16 +1,14 @@
 - ToDo
-    - Coral velocity PID test
-        - once factor is calcualted, then switch to PID velocity
-        - tune PID velocity
+    - Prep
+        - bring pre imaged rio and oPi for quick swap
     - Cameras
         - Add reef camera feeds to driver station
-        - Figure out how to switch to climber camera feed at endgame
     - later 
         - elevator jam detection
         - climber states
 
-At Warren Hills:
-- tune reef offsets
-- tune elevator heights
-- tune coral station poses
+At Lehigh:
+- test reef offsets
+- test elevator heights
+- test coral station poses
 
