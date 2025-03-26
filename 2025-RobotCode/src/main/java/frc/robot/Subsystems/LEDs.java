@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.LEDPattern;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Robot;
-import frc.robot.Settings;
 import frc.robot.Logic.Enums.LEDColors;
 
 public class LEDs {

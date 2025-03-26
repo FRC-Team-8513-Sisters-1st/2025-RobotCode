@@ -58,7 +58,7 @@ public class Vision {
             new Rotation3d(0, Units.degreesToRadians(-26.5), Units.degreesToRadians(180)));
     Transform3d lowerLeftReefCamTransform = new Transform3d(
             new Translation3d(Units.inchesToMeters(5), Units.inchesToMeters(7), Units.inchesToMeters(10)),
-            new Rotation3d(0, 0, 0));
+            new Rotation3d(0, 0, Units.degreesToRadians(-10))); //if we add spacer, this yaw becomes Units.degreesToRadians(-10)
 
     PhotonPoseEstimator processorPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout,
             PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, processorCamTransform);
@@ -106,7 +106,7 @@ public class Vision {
                     double tag0Dist = cameraPipeline.get(i).getBestTarget().bestCameraToTarget.getTranslation()
                             .getNorm();
                     double poseAmbaguitiy = cameraPipeline.get(i).getBestTarget().getPoseAmbiguity();
-                    if (useCamera && tag0Dist < maxDistance && poseAmbaguitiy < 0.05) {
+                    if (useCamera && tag0Dist < maxDistance && poseAmbaguitiy < 0.15) {
                         if(updateLastTimeSeen){
                                 timeATLastSeen = Timer.getFPGATimestamp();
                         }

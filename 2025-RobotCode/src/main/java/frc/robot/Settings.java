@@ -100,8 +100,8 @@ public final class Settings {
         public static int buttonId_processor = 1;
 
         // controller 2 panel buttons
-        public static int buttonId_Close = 7;
-        public static int buttonId_Far = 4;
+        public static int buttonId_Close = 4;
+        public static int buttonId_Far = 7;
         public static int buttonId_forceElevator = 5;
         public static int buttonId_ab = 10;
         public static int buttonId_cd = 1;
@@ -153,14 +153,16 @@ public final class Settings {
         // offsets reef
         public static Transform2d tagToLeft = new Transform2d(0.48, -0.25, new Rotation2d(Math.PI));
         public static Transform2d tagToRight = new Transform2d(0.48, 0.08, new Rotation2d(Math.PI));
-        public static Transform2d tagToLeftL1 = new Transform2d(0.05, 0.35, new Rotation2d());
+        public static Transform2d tagToLeftL1 = new Transform2d(0.05, 0.32, new Rotation2d());
         public static Transform2d tagToRightL1 = new Transform2d(0.05, -0.25, new Rotation2d());
 
         // offset pocessor
         public static Transform2d tagToProcessor = new Transform2d(0.45, 0.15, new Rotation2d(Math.PI));
-        public static Transform2d closeFeederStation = new Transform2d(0.5, -0.3, new Rotation2d());
+        // 0.5, -0.3
+        public static Transform2d closeFeederStation = new Transform2d(0.5, -0.45, new Rotation2d());
+        // 0.5, 0.6
         public static Transform2d farFeederStation = new Transform2d(0.5, 0.6, new Rotation2d());
-        public static Transform2d centerFeederStation = new Transform2d(0.5, 0, new Rotation2d());
+        public static Transform2d centerFeederStation = new Transform2d(0.5, 0.08, new Rotation2d());
 
         // astar tranforms
         public static Transform2d astarReefPoseOffset = new Transform2d(-0.25, 0, new Rotation2d());

@@ -5,7 +5,6 @@ import frc.robot.Logic.Enums.ClimberStates;
 import frc.robot.Logic.Enums.CoralIntakeStates;
 import frc.robot.Logic.Enums.ElevatorStates;
 import frc.robot.Logic.Enums.FeederStation;
-import frc.robot.Logic.Enums.LEDColors;
 import frc.robot.Logic.Enums.SideOfReef;
 
 import com.pathplanner.lib.path.PathConstraints;
@@ -259,7 +258,7 @@ public class TeleopController {
                     && thisRobot.vision.visionIsRecent()) {
                 // disabled auto score
                 autoScoreCounter++;
-                if (autoScoreCounter >= 10) {
+                if (autoScoreCounter >= 6) {
                     driverXboxController.setRumble(RumbleType.kLeftRumble, 0.7);
                     driverXboxController.setRumble(RumbleType.kRightRumble, 0.7);
                     thisRobot.coral.state = CoralIntakeStates.outake;
