@@ -1,4 +1,5 @@
 - ToDo
+    - consume all getButtonPressed at teleop init
     - Prep
         - bring pre imaged rio and oPi for quick swap
     - Cameras
