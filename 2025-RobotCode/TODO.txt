@@ -18,7 +18,6 @@
 - tune path following PID
 - delay when autopathing in teleop
 - reduce score time
-- 
 
 At Lehigh:
 - test reef offsets
