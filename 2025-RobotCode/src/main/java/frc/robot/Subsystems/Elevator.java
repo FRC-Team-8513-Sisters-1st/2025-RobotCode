@@ -7,6 +7,7 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
+import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Robot;
 import frc.robot.Settings;
 import frc.robot.Logic.Enums.CoralIntakeStates;
@@ -28,6 +29,8 @@ public class Elevator {
     private static double elevatorD = 0.0;
     private static double elevatorDt = 0.02;
 
+    DigitalInput limitSwitch = new DigitalInput(8);
+
     public boolean autoElevatorOn = true;
 
     private final TrapezoidProfile.Constraints m_constraints = new TrapezoidProfile.Constraints(elevatorMaxVelocity,
@@ -46,6 +49,10 @@ public class Elevator {
     }
 
     public void setMotorPower() {
+
+        if (limitSwitch.get() == false) {
+            elevatorMotor1.getEncoder().setPosition(0);
+        }
 
         // sets the elevator state if in reef zone
         if (state == ElevatorStates.L1 && autoElevatorOn) {

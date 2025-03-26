@@ -1,4 +1,6 @@
 - ToDo
+    - backups and spares
+        - flashed sd card for rio and Opi
     - Coral velocity PID test
         - once factor is calcualted, then switch to PID velocity
         - tune PID velocity
@@ -8,9 +10,10 @@
     - later 
         - elevator jam detection
         - climber states
-
-At Warren Hills:
-- tune reef offsets
-- tune elevator heights
-- tune coral station poses
-
+- LIMIT switch
+- tune otf velocity and acceleration teleop
+- try to get 4 coral auto (reduce otf offset)
+- tune path following PID
+- delay when autopathing in teleop
+- reduce score time
+- 
