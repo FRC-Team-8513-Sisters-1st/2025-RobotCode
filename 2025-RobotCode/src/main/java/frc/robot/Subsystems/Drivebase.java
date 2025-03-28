@@ -54,7 +54,7 @@ public class Drivebase {
     public String pathName = "";
     double elapsedTime;
     double timePathStarted;
-    PathPlannerTrajectoryState trajGoalState;
+    public PathPlannerTrajectoryState trajGoalState;
     Field2d trajGoalPosition = new Field2d();
     double otfEndVelocity = 0.1;
 

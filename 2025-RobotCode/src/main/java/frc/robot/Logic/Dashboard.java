@@ -12,6 +12,8 @@ public class Dashboard {
     public Field2d attackPoitnField2d = new Field2d();
     public Field2d pathPlannerGoalField2d = new Field2d();
     public Field2d otfGoalField2d = new Field2d();
+    double lastDBV = 0;
+    double lastDBV_time = 0;
 
     public Dashboard(Robot thisRobotIn) {
 
@@ -74,7 +76,14 @@ public class Dashboard {
         SmartDashboard.putString("Path Name", thisRobot.drivebase.pathName);
         SmartDashboard.putBoolean("IsRobotInReefZone", thisRobot.drivebase.isRobotInReefZone());
         pathPlannerGoalField2d.setRobotPose(thisRobot.drivebase.otfGoalPose);
-        SmartDashboard.putNumber("DB Velocity", thisRobot.drivebase.getRobotVelopcity());
+        SmartDashboard.putNumber("DB Velocity", lastDBV);
+        SmartDashboard.putNumber("DB Acceleration", (thisRobot.drivebase.getRobotVelopcity() - lastDBV)/(Timer.getFPGATimestamp() - lastDBV_time));
+        lastDBV = thisRobot.drivebase.getRobotVelopcity();
+        lastDBV_time = Timer.getFPGATimestamp();
+
         SmartDashboard.putNumber("Teleop Auto Score Counter", thisRobot.teleopController.autoScoreCounter);
+        SmartDashboard.putNumber("PathErrorX", thisRobot.drivebase.trajGoalState.pose.getX() - thisRobot.drivebase.swerveDrive.getPose().getX());
+        SmartDashboard.putNumber("PathErrorY", thisRobot.drivebase.trajGoalState.pose.getY() - thisRobot.drivebase.swerveDrive.getPose().getY());
+        
     }
 }
