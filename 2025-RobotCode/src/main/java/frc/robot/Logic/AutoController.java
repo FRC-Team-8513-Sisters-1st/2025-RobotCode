@@ -26,6 +26,8 @@ public class AutoController {
     int customAutoStep = 0;
     double autoStartWaitTime = 0;
 
+    boolean autoRan = false;
+
     // custom auto
     Pose2d customAutoStartPose = Settings.autoProcessorStartPose;
     Pose2d[] customAutoPoses = { Settings.coralLeftEF,
@@ -83,15 +85,19 @@ public class AutoController {
         thisRobot.coral.coralController.reset();
         thisRobot.coral.coralMotor1.getEncoder().setPosition(0);
         Settings.elevatorSafeToGoThold = Settings.elevatorSafeToGoTholdAuto;
+        autoRan = true;
 
     }
 
     public void autoDis() {
         updateAutoRoutineFromDashboard();
         SmartDashboard.putString("AutoMode", autoRoutine.name());
-        autoPeriodic();
-        autoStep = 0;
-        customAutoStep = 0;
+        if(autoRan == false){
+            autoPeriodic();
+            autoStep = 0;
+            customAutoStep = 0;
+        }
+
 
         // pre load the path
         if (Robot.isSimulation()) {
