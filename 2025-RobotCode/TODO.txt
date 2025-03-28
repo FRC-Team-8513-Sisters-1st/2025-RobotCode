@@ -1,26 +1,26 @@
 - ToDo
+    - Before Lehigh
+        - LIMIT switch reset elevator
+        - consume all getButtonPressed at teleop init
+        - Tuning
+            - reduce teleop score counter
+            - make coral intake faster in auto
+            - tune otf velocity and acceleration teleop
+            - reduce OTF offset
+            - graph OTF error and tune path following PID
+            - investigate delay when autopathing in teleop
+
+    - At Lehigh:
+        - test reef offsets
+        - test elevator heights
+        - test coral station poses
+
     - backups and spares
         - flashed sd card for rio and Opi
-    - Coral velocity PID test
-        - once factor is calcualted, then switch to PID velocity
-        - tune PID velocity
-    - consume all getButtonPressed at teleop init
-    - Prep
         - bring pre imaged rio and oPi for quick swap
-    - Cameras
-        - Add reef camera feeds to driver station
+
     - later 
         - elevator jam detection
         - climber states
-- LIMIT switch
-- tune otf velocity and acceleration teleop
-- try to get 4 coral auto (reduce otf offset)
-- tune path following PID
-- delay when autopathing in teleop
-- reduce score time
 
-At Lehigh:
-- test reef offsets
-- test elevator heights
-- test coral station poses
 
