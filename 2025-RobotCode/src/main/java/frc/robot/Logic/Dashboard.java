@@ -84,6 +84,8 @@ public class Dashboard {
         SmartDashboard.putNumber("Teleop Auto Score Counter", thisRobot.teleopController.autoScoreCounter);
         SmartDashboard.putNumber("PathErrorX", thisRobot.drivebase.trajGoalState.pose.getX() - thisRobot.drivebase.swerveDrive.getPose().getX());
         SmartDashboard.putNumber("PathErrorY", thisRobot.drivebase.trajGoalState.pose.getY() - thisRobot.drivebase.swerveDrive.getPose().getY());
-        
+        SmartDashboard.putNumber("PathGoalX", thisRobot.drivebase.trajGoalState.pose.getX());
+        SmartDashboard.putNumber("PathGoalY", thisRobot.drivebase.trajGoalState.pose.getY());
+      
     }
 }
