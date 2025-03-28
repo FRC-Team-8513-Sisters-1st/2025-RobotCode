@@ -29,7 +29,7 @@ public class Elevator {
     private static double elevatorD = 0.0;
     private static double elevatorDt = 0.02;
 
-    DigitalInput limitSwitch = new DigitalInput(8);
+    public DigitalInput limitSwitch = new DigitalInput(9);
 
     public boolean autoElevatorOn = true;
 
