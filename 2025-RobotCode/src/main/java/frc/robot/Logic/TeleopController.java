@@ -88,6 +88,13 @@ public class TeleopController {
 
         }
 
+        //consume all buttons pressed before tele
+        for(int i = 0; i < 14; i++){
+            driverXboxController.getRawButtonPressed(i);
+            operatorJoystick1.getRawButtonPressed(i);
+            operatorJoystick2.getRawButtonPressed(i);
+        }
+
         // sets max valocity and acceleariton of our OTF Paths
         thisRobot.drivebase.oTFConstraints = new PathConstraints(
                 thisRobot.drivebase.swerveDrive.getMaximumChassisVelocity() * 0.9, 3.75,
