@@ -1,7 +1,5 @@
 - ToDo
     - Before Lehigh
-        - LIMIT switch reset elevator
-        - consume all getButtonPressed at teleop init
         - Tuning
             - reduce teleop score counter
             - make coral intake faster in auto

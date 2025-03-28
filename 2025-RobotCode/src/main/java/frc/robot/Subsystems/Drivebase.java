@@ -56,7 +56,7 @@ public class Drivebase {
     double timePathStarted;
     public PathPlannerTrajectoryState trajGoalState = new PathPlannerTrajectoryState();
     Field2d trajGoalPosition = new Field2d();
-    double otfEndVelocity = 0.1;
+    double otfEndVelocity = 0;
 
     public PathPlannerPath pathPlannerGoalPose;
     public Pose2d newTeleopGoalPose = new Pose2d();

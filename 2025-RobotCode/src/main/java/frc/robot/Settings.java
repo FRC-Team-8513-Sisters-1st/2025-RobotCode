@@ -68,8 +68,8 @@ public final class Settings {
                         attackPointDriveConstraints, attackPointDt);
 
         // pid path follow settings
-        public static PIDController xController = new PIDController(5, .5, 0.1);
-        public static PIDController yController = new PIDController(5, .5, 0.1);
+        public static PIDController xController = new PIDController(5, 0, 0);
+        public static PIDController yController = new PIDController(5,0, 0);
         public static PIDController rController = new PIDController(0.1, 0, 0);
 
         public static PIDController rJoystickController = new PIDController(0.15, 0.01, 0);
@@ -88,25 +88,37 @@ public final class Settings {
         public static int funnelMotor1 = 21;
 
         // controller 1 panel buttons
-        public static int buttonId_CoralOutake = 6;
+        public static int buttonId_CoralOutake = 2;
+        // 
         public static int buttonId_CoralOutakeALittle = 7;
         public static int buttonId_CoralIntake = 10;
-        public static int buttonId_Coral4 = 5;
-        public static int buttonId_Coral3 = 3;
-        public static int buttonId_Coral2 = 8;
-        public static int buttonId_Coral1 = 4;
-        public static int buttonId_Algae3 = 9;
-        public static int buttonId_Algae2 = 2;
+        public static int buttonId_Coral4 = 9;
+        // 5
+        public static int buttonId_Coral3 = 8;
+        // 3
+        public static int buttonId_Coral2 = 5;
+        // 8 
+        public static int buttonId_Coral1 = 3;
+        // 4
+        public static int buttonId_Algae3 = 6;
+        // 9
+        public static int buttonId_Algae2 = 200;
+        // 2
         public static int buttonId_processor = 1;
 
         // controller 2 panel buttons
-        public static int buttonId_Close = 4;
+        public static int buttonId_Close = 888888;
+        // 4
         public static int buttonId_Far = 7;
         public static int buttonId_forceElevator = 5;
-        public static int buttonId_ab = 10;
+        public static int buttonId_ab = 4;
+        // 10
         public static int buttonId_cd = 1;
+        // 1
         public static int buttonId_ef = 3;
+        // 3
         public static int buttonId_gh = 11;
+        // 11
         public static int buttonId_ij = 8;
         public static int buttonId_kl = 9;
         public static int buttonId_AlgaeIntake = 6;
@@ -165,9 +177,9 @@ public final class Settings {
         public static Transform2d centerFeederStation = new Transform2d(0.5, 0.08, new Rotation2d());
 
         // astar tranforms
-        public static Transform2d astarReefPoseOffset = new Transform2d(-0.25, 0, new Rotation2d());
-        public static Transform2d astarProcesserPoseOffset = new Transform2d(-0.75, 0, new Rotation2d());
-        public static Transform2d astarFeederStPoseOffset = new Transform2d(0.25, 0, new Rotation2d());
+        public static Transform2d astarReefPoseOffset = new Transform2d(-0.20, 0, new Rotation2d());
+        public static Transform2d astarProcesserPoseOffset = new Transform2d(-0.5, 0, new Rotation2d());
+        public static Transform2d astarFeederStPoseOffset = new Transform2d(0.1, 0, new Rotation2d());
 
         public static Transform2d backUpFromReefTransform = new Transform2d(-1,0,new Rotation2d());
 

@@ -93,6 +93,8 @@ public class TeleopController {
             driverXboxController.getRawButtonPressed(i);
             operatorJoystick1.getRawButtonPressed(i);
             operatorJoystick2.getRawButtonPressed(i);
+            manualJoystick.getRawButtonPressed(i);
+
         }
 
         // sets max valocity and acceleariton of our OTF Paths
@@ -265,7 +267,7 @@ public class TeleopController {
                     && thisRobot.vision.visionIsRecent()) {
                 // disabled auto score
                 autoScoreCounter++;
-                if (autoScoreCounter >= 6) {
+                if (autoScoreCounter >= 1) {
                     driverXboxController.setRumble(RumbleType.kLeftRumble, 0.7);
                     driverXboxController.setRumble(RumbleType.kRightRumble, 0.7);
                     thisRobot.coral.state = CoralIntakeStates.outake;
