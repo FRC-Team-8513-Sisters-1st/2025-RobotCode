@@ -96,10 +96,12 @@ public class AutoController {
             autoPeriodic();
             autoStep = 0;
             customAutoStep = 0;
+            // pre load the path
+            thisRobot.drivebase.initAstarAndAP(
+                customAutoPoses[0].transformBy(Settings.astarFeederStPoseOffset),
+                customAutoPoses[0]);
         }
 
-
-        // pre load the path
         if (Robot.isSimulation()) {
             if (thisRobot.onRedAlliance) {
                 thisRobot.drivebase.swerveDrive.resetOdometry(
@@ -109,9 +111,7 @@ public class AutoController {
             }
         }
 
-        thisRobot.drivebase.initAstarAndAP(
-                customAutoPoses[0].transformBy(Settings.astarFeederStPoseOffset),
-                customAutoPoses[0]);
+
 
     }
 
