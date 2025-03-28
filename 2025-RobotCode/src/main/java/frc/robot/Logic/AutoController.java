@@ -83,17 +83,6 @@ public class AutoController {
         thisRobot.coral.coralController.reset();
         thisRobot.coral.coralMotor1.getEncoder().setPosition(0);
         Settings.elevatorSafeToGoThold = Settings.elevatorSafeToGoTholdAuto;
-
-    }
-
-    public void autoDis() {
-        updateAutoRoutineFromDashboard();
-        SmartDashboard.putString("AutoMode", autoRoutine.name());
-        autoPeriodic();
-        autoStep = 0;
-        customAutoStep = 0;
-
-        // pre load the path
         if (Robot.isSimulation()) {
             if (thisRobot.onRedAlliance) {
                 thisRobot.drivebase.swerveDrive.resetOdometry(
@@ -102,11 +91,16 @@ public class AutoController {
                 thisRobot.drivebase.swerveDrive.resetOdometry(customAutoStartPose);
             }
         }
-
         thisRobot.drivebase.initAstarAndAP(
-                customAutoPoses[0].transformBy(Settings.astarFeederStPoseOffset),
-                customAutoPoses[0]);
+            customAutoPoses[0].transformBy(Settings.astarFeederStPoseOffset),
+            customAutoPoses[0]);
 
+    }
+
+    public void autoDis() {
+        updateAutoRoutineFromDashboard();
+        SmartDashboard.putString("AutoMode", autoRoutine.name());
+        // autoPeriodic();
     }
 
     public void updateAutoRoutineFromDashboard() {

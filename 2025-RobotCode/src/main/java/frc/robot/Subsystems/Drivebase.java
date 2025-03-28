@@ -71,6 +71,8 @@ public class Drivebase {
     boolean otfPathDone = true;
     boolean skipOTF = false;
 
+    List<Waypoint> wpList;
+
     // ap variables
     public Pose2d apGoalPose = new Pose2d();
     boolean apDone = false;
@@ -298,13 +300,27 @@ public class Drivebase {
         Settings.yController.reset();
         Settings.rController.reset();
         generatePath.setGoalPosition(goalPose.getTranslation());
-
+        
+        wpList = PathPlannerPath.waypointsFromPoses(
+        swerveDrive.getPose(),
+        goalPose);
+        
         // drive back if not going to reef zone and if in reef zone
         if (robotShouldBackupBeforeOTFPath(goalPose)) {
-            generatePath.setStartPosition(
-                    swerveDrive.getPose().transformBy(new Transform2d(-0.5, 0, new Rotation2d())).getTranslation());
+            wpList = PathPlannerPath.waypointsFromPoses(
+                swerveDrive.getPose().transformBy(new Transform2d(-0.5, 0, new Rotation2d())),
+                goalPose);
+            wpList.add(0,
+                    new Waypoint(
+                            null,
+                            swerveDrive.getPose().getTranslation(),
+                            wpList.get(0).anchor()));
+            wpList.set(1, new Waypoint(wpList.get(0).anchor(), wpList.get(1).anchor(),
+                    wpList.get(1).nextControl()));
         } else {
-            generatePath.setStartPosition(swerveDrive.getPose().getTranslation());
+        wpList = PathPlannerPath.waypointsFromPoses(
+            swerveDrive.getPose(),
+            goalPose);
         }
 
         trajGoalRotation = goalPose.getRotation();
@@ -315,29 +331,13 @@ public class Drivebase {
 
     //follow an OTF path checking if there is a new one available
     public boolean followOTFPath() {
-        if (generatePath.isNewPathAvailable()) {
+        if (!wpList.isEmpty() && !otfReady) {
             GoalEndState ges = new GoalEndState(otfEndVelocity, trajGoalRotation);
-            path = generatePath.getCurrentPath(oTFConstraints, ges);
-
+            double pathGenTimer = Timer.getFPGATimestamp();
+            path = new PathPlannerPath(wpList, oTFConstraints, null, ges);
             if (path != null) {
+                System.out.println("Time to gen path: " + (Timer.getFPGATimestamp() - pathGenTimer));
                 try {
-                    // if we started pose with a backup we need to isert a waypoint where we
-                    // actually start
-                    List<Waypoint> wpList = path.getWaypoints();
-                    if (robotShouldBackupBeforeOTFPath(otfGoalPose)) {
-
-                        wpList.add(0,
-                                new Waypoint(
-                                        null,
-                                        swerveDrive.getPose().getTranslation(),
-                                        wpList.get(0).anchor()));
-
-                        wpList.set(1, new Waypoint(wpList.get(0).anchor(), wpList.get(1).anchor(),
-                                wpList.get(1).nextControl()));
-
-                        path = new PathPlannerPath(wpList, oTFConstraints, null, ges);
-                    }
-
                     traj = path.generateTrajectory(swerveDrive.getRobotVelocity(), swerveDrive.getPose().getRotation(),
                             RobotConfig.fromGUISettings());
                     thisRobot.dashboard.otfGoalField2d.getObject("traj").setTrajectory(ppTrajToWPITraj(traj));
@@ -363,6 +363,7 @@ public class Drivebase {
             boolean pathState = followLoadedPath();
             if (pathState) {
                 otfPathDone = true;
+                wpList.clear();
                 return true;
             }
         } else {
