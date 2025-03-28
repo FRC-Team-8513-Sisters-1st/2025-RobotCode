@@ -1,6 +1,7 @@
 package frc.robot.Logic;
 
 import frc.robot.Settings;
+import frc.robot.Logic.Enums.AlgaeIntakeStates;
 import frc.robot.Logic.Enums.ClimberStates;
 import frc.robot.Logic.Enums.CoralIntakeStates;
 import frc.robot.Logic.Enums.ElevatorStates;
@@ -217,6 +218,14 @@ public class TeleopController {
             goingToProcessor = true;
             teleopGoalPose = Settings.processorAP;
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarProcesserPoseOffset);
+            followPath = true;
+        } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_driverUpperAlgae)) {
+            goingToCoralStation = false;
+            goingToProcessor = false;
+            teleopGoalPose = coralScoreGoalPose;
+            teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarReefPoseOffset);
+            thisRobot.algae.setState(AlgaeIntakeStates.intake);
+            thisRobot.elevator.setState(ElevatorStates.L3a);
             followPath = true;
         } else if (rightTriggerValue > Settings.triggerDeadband || leftTriggerValue > Settings.triggerDeadband) {
             followPath = true;
