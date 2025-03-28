@@ -5,9 +5,10 @@
         - Tuning
             - reduce teleop score counter
             - make coral intake faster in auto
+            - graph OTF error and tune path following PID
+            - test max OTF velocity and acceleration
             - tune otf velocity and acceleration teleop
             - reduce OTF offset
-            - graph OTF error and tune path following PID
             - investigate delay when autopathing in teleop
 
     - At Lehigh:
