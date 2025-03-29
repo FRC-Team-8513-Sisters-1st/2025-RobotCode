@@ -231,11 +231,12 @@ public class TeleopController {
         } else if (thisRobot.teleopController.driverXboxController.getRawButton(Settings.buttonId_driverUpperAlgae)) {
             goingToCoralStation = false;
             goingToProcessor = false;
+            setCoralScoreGoalPoseRight();
             teleopGoalPose = coralScoreGoalPose;
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarReefPoseOffset);
-            thisRobot.algae.setState(AlgaeIntakeStates.intake);
-            thisRobot.elevator.setState(ElevatorStates.L3a);
-            followPath = true;
+            thisRobot.algae.algaeState = AlgaeIntakeStates.intake;
+            State elevatorGoalPIDState = new State(Settings.elevatorPosA3, 0);
+            thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);            followPath = true;
         } else if (rightTriggerValue > Settings.triggerDeadband || leftTriggerValue > Settings.triggerDeadband) {
             followPath = true;
             goingToProcessor = false;

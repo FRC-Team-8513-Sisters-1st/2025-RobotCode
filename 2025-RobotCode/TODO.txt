@@ -1,10 +1,7 @@
 - ToDo
     - Before Lehigh
         - Tuning
-            - make coral intake faster in auto
-            - graph OTF error and tune path following PID
-            - test max OTF velocity and acceleration
-            - tune otf velocity and acceleration teleop
+            - tune path following PID
             - reduce OTF offset
             - investigate delay when autopathing in teleop
 

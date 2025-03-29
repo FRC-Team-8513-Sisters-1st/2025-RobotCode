@@ -64,6 +64,7 @@ public class Algae {
             if (Timer.getFPGATimestamp() - algaeOutTime > 1) {
                 algaeState = AlgaeIntakeStates.holdPosition;
                 algaeOutFirstTime = true;
+                algaeController.setSetpoint(algaeMotor1.getEncoder().getPosition());
             }
             algaeMotor1.set(-1);
         }
@@ -88,7 +89,7 @@ public class Algae {
             }
         }
 
-        if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_AlgaeOutake)) {
+        if (thisRobot.teleopController.operatorJoystick2.getRawButtonPressed(Settings.buttonId_AlgaeOutake) || thisRobot.teleopController.driverXboxController.getRawButtonPressed(3)) {
             algaeState = AlgaeIntakeStates.outake;
             algaeOutFirstTime = true;
         }
