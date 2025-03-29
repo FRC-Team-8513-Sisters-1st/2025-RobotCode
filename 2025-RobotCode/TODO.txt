@@ -1,5 +1,6 @@
 - ToDo
     - Before Lehigh
+        - in teleop, while joystick held, and NOT at AP,  add a little bit to elevator setpoint to allow us to score OVER coral
         - Tuning
             - tune path following PID
             - reduce OTF offset
