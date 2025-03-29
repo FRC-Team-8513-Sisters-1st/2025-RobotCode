@@ -133,6 +133,7 @@ public final class Settings {
         public static int buttonId_reorenting = 3;
         public static int buttonId_resetOdo = 8;
         public static int buttonId_processorAP = 2;
+        public static int buttonId_driverUpperAlgae = 3;
 
         // auto poses
         // get aprilTag pose on blue
