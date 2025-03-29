@@ -1,7 +1,6 @@
 - ToDo
     - Before Lehigh
         - Tuning
-            - reduce teleop score counter
             - make coral intake faster in auto
             - graph OTF error and tune path following PID
             - test max OTF velocity and acceleration

@@ -50,9 +50,9 @@ public class Elevator {
 
     public void setMotorPower() {
 
-        if (limitSwitch.get() == false) {
-            elevatorMotor1.getEncoder().setPosition(0);
-        }
+       //  if (limitSwitch.get() == false) {
+            // elevatorMotor1.getEncoder().setPosition(0);
+       //  }
 
         // sets the elevator state if in reef zone
         if (state == ElevatorStates.L1 && autoElevatorOn) {

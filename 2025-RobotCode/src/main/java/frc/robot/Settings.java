@@ -68,8 +68,8 @@ public final class Settings {
                         attackPointDriveConstraints, attackPointDt);
 
         // pid path follow settings
-        public static PIDController xController = new PIDController(5, 0, 0);
-        public static PIDController yController = new PIDController(5,0, 0);
+        public static PIDController xController = new PIDController(10, 0, 0);
+        public static PIDController yController = new PIDController(10,0, 0);
         public static PIDController rController = new PIDController(0.1, 0, 0);
 
         public static PIDController rJoystickController = new PIDController(0.15, 0.01, 0);
@@ -177,11 +177,11 @@ public final class Settings {
         public static Transform2d centerFeederStation = new Transform2d(0.5, 0.08, new Rotation2d());
 
         // astar tranforms
-        public static Transform2d astarReefPoseOffset = new Transform2d(-0.20, 0, new Rotation2d());
+        public static Transform2d astarReefPoseOffset = new Transform2d(-0.15, 0, new Rotation2d());
         public static Transform2d astarProcesserPoseOffset = new Transform2d(-0.5, 0, new Rotation2d());
-        public static Transform2d astarFeederStPoseOffset = new Transform2d(0.1, 0, new Rotation2d());
+        public static Transform2d astarFeederStPoseOffset = new Transform2d(0.05, 0, new Rotation2d());
 
-        public static Transform2d backUpFromReefTransform = new Transform2d(-1,0,new Rotation2d());
+        public static Transform2d backUpFromReefTransform = new Transform2d(-.6,0,new Rotation2d());
 
         // reef poses
         public static Pose2d coralRightAB = abATPose.plus(tagToRight);
@@ -208,7 +208,7 @@ public final class Settings {
 
         public static Pose2d reefZoneBlue = new Pose2d(4.495, 4.019, new Rotation2d(Radians.convertFrom(0, Degrees)));
         public static Pose2d reefZoneRed = new Pose2d(13.091, 4.043, new Rotation2d(Radians.convertFrom(0, Degrees)));
-        public static double minDistanceFromReefZoneMeter = 2.5;
+        public static double minDistanceFromReefZoneMeter = 4;
         public static double maxATDist = 3;
         public static double maxATDistDisabeled = 5;
 
