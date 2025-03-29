@@ -209,9 +209,9 @@ public final class Settings {
 
         public static Pose2d reefZoneBlue = new Pose2d(4.495, 4.019, new Rotation2d(Radians.convertFrom(0, Degrees)));
         public static Pose2d reefZoneRed = new Pose2d(13.091, 4.043, new Rotation2d(Radians.convertFrom(0, Degrees)));
-        public static double minDistanceFromReefZoneMeter = 2.75;
-        public static double maxATDist = 3;
-        public static double maxATDistDisabeled = 5;
+        public static double minDistanceFromReefZoneMeter = 2.5;
+        public static double maxATDist = 4;
+        public static double maxATDistDisabeled = 6;
 
         public static double coralScoreThold = 0.05;
         public static double elevatorSafeToGoThold = 1.5;
