@@ -86,7 +86,7 @@ public class Drivebase {
         if(Robot.isReal()){
             swerveDrive.setCosineCompensator(true);
         }
-        //sets max valocity and acceleariton of our OTF Paths
+        //sets max valocityotf and acceleariton of our OTF Paths
         oTFConstraints = new PathConstraints(
             swerveDrive.getMaximumChassisVelocity(), 3.75,
             Units.degreesToRadians(300), Units.degreesToRadians(360));
