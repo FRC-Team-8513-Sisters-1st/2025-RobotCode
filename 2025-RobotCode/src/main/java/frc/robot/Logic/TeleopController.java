@@ -236,7 +236,9 @@ public class TeleopController {
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarReefPoseOffset);
             thisRobot.algae.algaeState = AlgaeIntakeStates.intake;
             State elevatorGoalPIDState = new State(Settings.elevatorPosA3, 0);
-            thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);            followPath = true;
+            coPilotElevatorState = ElevatorStates.L3a;
+            thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);            
+            followPath = true;
         } else if (rightTriggerValue > Settings.triggerDeadband || leftTriggerValue > Settings.triggerDeadband) {
             followPath = true;
             goingToProcessor = false;
@@ -277,7 +279,7 @@ public class TeleopController {
                     && thisRobot.vision.visionIsRecent()) {
                 // disabled auto score
                 autoScoreCounter++;
-                if (autoScoreCounter >= 1) {
+                if (autoScoreCounter >= 4) {
                     driverXboxController.setRumble(RumbleType.kLeftRumble, 0.7);
                     driverXboxController.setRumble(RumbleType.kRightRumble, 0.7);
                     thisRobot.coral.state = CoralIntakeStates.outake;

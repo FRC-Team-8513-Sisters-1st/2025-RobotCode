@@ -180,7 +180,7 @@ public final class Settings {
         // astar tranforms
         public static Transform2d astarReefPoseOffset = new Transform2d(-0.15, 0, new Rotation2d());
         public static Transform2d astarProcesserPoseOffset = new Transform2d(-0.5, 0, new Rotation2d());
-        public static Transform2d astarFeederStPoseOffset = new Transform2d(0.05, 0, new Rotation2d());
+        public static Transform2d astarFeederStPoseOffset = new Transform2d(0.1, 0, new Rotation2d());
 
         public static Transform2d backUpFromReefTransform = new Transform2d(-.6,0,new Rotation2d());
 
@@ -215,8 +215,8 @@ public final class Settings {
 
         public static double coralScoreThold = 0.05;
         public static double elevatorSafeToGoThold = 1.5;
-        public static double elevatorSafeToGoTholdTele = 1.5;
-        public static double elevatorSafeToGoTholdAuto = 2;
+        public static double elevatorSafeToGoTholdTele = 1.25;
+        public static double elevatorSafeToGoTholdAuto = 1.75;
 
         public static double coralScoreDegThold = 2;
         public static double scoringVelocityThold = 0.05;

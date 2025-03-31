@@ -92,7 +92,7 @@ public class Vision {
         integrateCamera(useLowerLeftReefCam, lowerLeftReefCam, lowerLeftPoseEstimator, photonField2d_lowerLeft,
                 visionMaxATDist, true);
         integrateCamera(useCoralStationCam, coralStationCam, coralStationEstimator, photonField2d_coralStation,
-                visionMaxATDist, false);
+                2.5, false);
     }
 
     public void integrateCamera(boolean useCamera, PhotonCamera camera, PhotonPoseEstimator estimator,
