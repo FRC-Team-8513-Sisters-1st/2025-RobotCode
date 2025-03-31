@@ -46,7 +46,8 @@ public final class Enums {
         mid_EF2R_RFS_CD4R_RFS_CD4L,
         mid_IJ2L_LFS_KL4L_LFS_KL4R,
         mid_GH2R,
-        mid_GH4R,        
+        mid_GH4R,
+        mid_GH4R_GH_P_EF_P,   
         customAutoAnyLength,
         betWithBusler,
         hpPractice

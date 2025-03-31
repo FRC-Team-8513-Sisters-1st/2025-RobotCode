@@ -3,11 +3,13 @@ package frc.robot.Logic;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Settings;
+import frc.robot.Logic.Enums.AlgaeIntakeStates;
 import frc.robot.Logic.Enums.AutoRoutines;
 import frc.robot.Logic.Enums.CoralIntakeStates;
 import frc.robot.Logic.Enums.ElevatorStates;
@@ -86,20 +88,21 @@ public class AutoController {
         thisRobot.coral.coralMotor1.getEncoder().setPosition(0);
         Settings.elevatorSafeToGoThold = Settings.elevatorSafeToGoTholdAuto;
         autoRan = true;
+        thisRobot.drivebase.forcePathHeading = false;
 
     }
 
     public void autoDis() {
         updateAutoRoutineFromDashboard();
         SmartDashboard.putString("AutoMode", autoRoutine.name());
-        if(autoRan == false){
+        if (autoRan == false) {
             autoPeriodic();
             autoStep = 0;
             customAutoStep = 0;
             // pre load the path
             thisRobot.drivebase.initAstarAndAP(
-                customAutoPoses[0].transformBy(Settings.astarFeederStPoseOffset),
-                customAutoPoses[0]);
+                    customAutoPoses[0].transformBy(Settings.astarFeederStPoseOffset),
+                    customAutoPoses[0]);
         }
 
         if (Robot.isSimulation()) {
@@ -110,8 +113,6 @@ public class AutoController {
                 thisRobot.drivebase.swerveDrive.resetOdometry(customAutoStartPose);
             }
         }
-
-
 
     }
 
@@ -324,6 +325,185 @@ public class AutoController {
                 autoRoutine = AutoRoutines.customAutoAnyLength;
                 break;
 
+            case mid_GH4R_GH_P_EF_P:
+                switch (autoStep) {
+                    case 0: // checks to flip to red side in simulation
+                        if (Robot.isSimulation()) {
+                            if (thisRobot.onRedAlliance) {
+                                thisRobot.drivebase.swerveDrive.resetOdometry(
+                                        thisRobot.drivebase.flipPoseToRed(Settings.autoMidStartPose));
+                            } else {
+                                thisRobot.drivebase.swerveDrive.resetOdometry(Settings.autoMidStartPose);
+                            }
+                        }
+                        if (Timer.getFPGATimestamp() - timeStepStarted > autoStartWaitTime) {
+                            autoStep = 5;
+                        }
+                        break;
+                    case 5: // scores at initial scoring position
+
+                        thisRobot.coral.state = CoralIntakeStates.stationary;
+                        if (autoScoreCoral(Settings.coralRightGH, ElevatorStates.L4)) {
+                            autoStep = 10;
+                            customAutoStep++;
+                            timeStepStarted = Timer.getFPGATimestamp();
+                        }
+                        break;
+                    case 10: // waits to finish scoring, then aps back 0.5 m and lowers elevator
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        thisRobot.drivebase.swerveDrive.lockPose();
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.275) {
+                            thisRobot.coral.forceOutake = false;
+                            timeStepStarted = Timer.getFPGATimestamp();
+
+                            thisRobot.drivebase.initAstarAndAP(
+                                thisRobot.drivebase.swerveDrive.getPose(),
+                                    thisRobot.drivebase.swerveDrive.getPose()
+                                            .transformBy(new Transform2d(-0.4, 0, new Rotation2d())));
+                            autoStep = 15;
+                            thisRobot.drivebase.resetAPPIDControllers();
+
+                            State elevatorGoalPIDState = new State(Settings.elevatorPosA2, 0);
+                            thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState); 
+                            thisRobot.elevator.state = ElevatorStates.L2a;
+                            thisRobot.coral.state = CoralIntakeStates.stationary;
+                            thisRobot.algae.algaeState = AlgaeIntakeStates.intake;
+                        }
+
+                        break;
+                    case 15: // backup
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        thisRobot.algae.setMotorPower();
+                        thisRobot.drivebase.forcePathHeading = true;
+                        // once backed up, drive back in at lower level
+
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
+                            timeStepStarted = Timer.getFPGATimestamp();
+                            autoStep = 16;
+                            thisRobot.drivebase.resetAPPIDControllers();
+                            thisRobot.drivebase.initAstarAndAP(
+                                thisRobot.drivebase.swerveDrive.getPose().transformBy(new Transform2d(0.01,0, new Rotation2d())),
+                                Settings.coralRightGH);
+                            thisRobot.drivebase.resetAPPIDControllers();
+                        }
+                        break;
+                    case 16: // go back to grab algae
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        thisRobot.algae.setMotorPower();
+                        // once backed up, drive back in at lower level
+
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
+                            timeStepStarted = Timer.getFPGATimestamp();
+                            autoStep = 18;
+                        }
+                        break;
+                    case 18: // wait at point to grab algae
+                        thisRobot.drivebase.fromOTFSwitchToAP();
+                        thisRobot.coral.setMotorPower();
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.algae.setMotorPower();
+
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
+                            timeStepStarted = Timer.getFPGATimestamp();
+                            autoStep = 20;
+                            thisRobot.drivebase.initAstarAndAP(
+                                    Settings.processorAP.transformBy(Settings.astarProcesserPoseOffset),
+                                    Settings.processorAP);
+                        }
+                        break;
+
+                    case 20: // drive to processor
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        thisRobot.algae.setMotorPower();
+                        // once backed up, drive back in at lower level
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.25) {
+                            State elevatorGoalPIDState = new State(Settings.elevatorPosProcessor, 0);
+                            thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);  
+                        }
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
+                            timeStepStarted = Timer.getFPGATimestamp();
+                            thisRobot.algae.algaeOutTime = Timer.getFPGATimestamp();
+                            thisRobot.algae.algaeState = AlgaeIntakeStates.outake;
+                            autoStep = 25;
+                        }
+                        break;
+                    
+                    case 25: // wait at processor scoring
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        thisRobot.algae.setMotorPower();
+
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
+                            timeStepStarted = Timer.getFPGATimestamp();
+                            autoStep = 30;
+                            thisRobot.drivebase.initAstarAndAP(
+                                Settings.coralRightEF.transformBy(new Transform2d(-0.4, 0, new Rotation2d())),
+                                Settings.coralRightEF);
+                            thisRobot.elevator.state = ElevatorStates.L3a;
+                            thisRobot.algae.algaeState = AlgaeIntakeStates.intake;
+                        }
+                        break;
+                    case 30: // drive back to reef
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        thisRobot.algae.setMotorPower();
+
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
+                            timeStepStarted = Timer.getFPGATimestamp();
+                            autoStep = 35;
+                        }
+                        break;
+                    case 35: // wait at point to grab algae
+                        thisRobot.drivebase.fromOTFSwitchToAP();
+                        thisRobot.coral.setMotorPower();
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.algae.setMotorPower();
+
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.4) {
+                            timeStepStarted = Timer.getFPGATimestamp();
+                            autoStep = 40;
+                            thisRobot.drivebase.initAstarAndAP(
+                                    Settings.processorAP.transformBy(Settings.astarProcesserPoseOffset),
+                                    Settings.processorAP);
+                        }
+                        break;
+
+                    case 40: // drive to processor
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        thisRobot.algae.setMotorPower();
+                        // once backed up, drive back in at lower level
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.25) {
+                            State elevatorGoalPIDState = new State(Settings.elevatorPosProcessor, 0);
+                            thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);  
+                        }
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
+                            timeStepStarted = Timer.getFPGATimestamp();
+                            thisRobot.algae.algaeOutTime = Timer.getFPGATimestamp();
+                            thisRobot.algae.algaeState = AlgaeIntakeStates.outake;
+                            autoStep = 45;
+                        }
+                        break;
+                    
+                    case 45: // wait at processor scoring
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        thisRobot.algae.setMotorPower();
+
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
+                            timeStepStarted = Timer.getFPGATimestamp();
+                            autoStep = 99;
+                        }
+                        break;
+                    case 99:
+                        thisRobot.drivebase.swerveDrive.lockPose();
+                        break;
+                }
+                break;
             case customAutoAnyLength:
                 switch (autoStep) {
                     case 0: // checks to flip to red side in simulation
@@ -419,7 +599,7 @@ public class AutoController {
                 break;
             case hpPractice:
                 switch (autoStep) {
-                    case 0: // checks to flip to red side in simulation
+                    case 0: // checks to flip to red side in simulati on
                         if (Robot.isSimulation()) {
                             if (thisRobot.onRedAlliance) {
                                 thisRobot.drivebase.swerveDrive.resetOdometry(
@@ -485,12 +665,14 @@ public class AutoController {
             generatedPathFirstTime = false;
         }
         boolean atAP = thisRobot.drivebase.fromOTFSwitchToAP();
-        if (atAP && (thisRobot.elevator.newElevatorAtSetpoint() || thisRobot.coral.state == CoralIntakeStates.outake)) { // drives to desired
-                                                         // scoring position
+        if (atAP && (thisRobot.elevator.newElevatorAtSetpoint() || thisRobot.coral.state == CoralIntakeStates.outake)) { // drives
+                                                                                                                         // to
+                                                                                                                         // desired
+            // scoring position
             isComplete = true;
             generatedPathFirstTime = true;
             timeStepStarted = Timer.getFPGATimestamp();
-            if(thisRobot.coral.state == CoralIntakeStates.stationary){
+            if (thisRobot.coral.state == CoralIntakeStates.stationary) {
                 thisRobot.coral.state = CoralIntakeStates.outake;
                 thisRobot.coral.forceOutake = true;
             }

@@ -18,7 +18,7 @@ public class Algae {
     int currentLimit = 4;
     int currentLimitBrokenCount = 0;
 
-    double algaeOutTime = 0;
+    public double algaeOutTime = 0;
     boolean algaeOutFirstTime = true;
 
     int algaeSetState = 3;
