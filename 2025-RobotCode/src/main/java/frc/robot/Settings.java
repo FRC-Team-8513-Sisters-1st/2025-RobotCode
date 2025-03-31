@@ -168,6 +168,8 @@ public final class Settings {
         public static Transform2d tagToRight = new Transform2d(0.48, 0.08, new Rotation2d(Math.PI));
         public static Transform2d tagToLeftL1 = new Transform2d(0.05, 0.32, new Rotation2d());
         public static Transform2d tagToRightL1 = new Transform2d(0.05, -0.25, new Rotation2d());
+        public static Transform2d tagToRightAlgae = new Transform2d(0.43, 0.08, new Rotation2d(Math.PI));
+
 
         // offset pocessor
         public static Transform2d tagToProcessor = new Transform2d(0.45, 0.15, new Rotation2d(Math.PI));
@@ -197,6 +199,8 @@ public final class Settings {
         public static Pose2d coralLeftIJ = ijATPose.plus(tagToLeft);
         public static Pose2d coralRightKL = klATPose.plus(tagToRight);
         public static Pose2d coralLeftKL = klATPose.plus(tagToLeft);
+        public static Pose2d autoAlgaeRightGH = ghATPose.plus(tagToRightAlgae);
+        public static Pose2d autoAlgaeRightEF = efATPose.plus(tagToRightAlgae);
 
 
         public static Pose2d processorAP = processorATPose.plus(tagToProcessor);
