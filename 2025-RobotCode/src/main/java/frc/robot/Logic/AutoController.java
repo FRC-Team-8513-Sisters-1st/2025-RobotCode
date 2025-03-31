@@ -171,7 +171,7 @@ public class AutoController {
 
             case _processor_EF4L_RFS_CD4L_RFS_CD4R:
                 customAutoStartPose = Settings.autoProcessorStartPose;
-                customAutoPoses = new Pose2d[] { Settings.coralRightEF,
+                customAutoPoses = new Pose2d[] { Settings.coralLeftEF,
                         Settings.rightCenterFeederStationAP, Settings.coralLeftCD,
                         Settings.rightCenterFeederStationAP, Settings.coralRightCD,
                         Settings.rightCenterFeederStationAP, Settings.coralRightAB };
