@@ -236,7 +236,8 @@ public class TeleopController {
             teleopGoalPoseAstar = teleopGoalPose.transformBy(Settings.astarReefPoseOffset);
             thisRobot.algae.algaeState = AlgaeIntakeStates.intake;
             State elevatorGoalPIDState = new State(Settings.elevatorPosA3, 0);
-            thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);            followPath = true;
+            thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);            
+            followPath = true;
         } else if (rightTriggerValue > Settings.triggerDeadband || leftTriggerValue > Settings.triggerDeadband) {
             followPath = true;
             goingToProcessor = false;
