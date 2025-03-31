@@ -12,12 +12,3 @@
         - test coral station poses
         - calibrate cameras
 
-    - backups and spares
-        - flashed sd card for rio and Opi
-        - bring pre imaged rio and oPi for quick swap
-
-    - later 
-        - elevator jam detection
-        - climber states
-
-
