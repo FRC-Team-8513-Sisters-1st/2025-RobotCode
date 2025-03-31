@@ -57,6 +57,8 @@ public class Drivebase {
     public PathPlannerTrajectoryState trajGoalState = new PathPlannerTrajectoryState();
     Field2d trajGoalPosition = new Field2d();
     double otfEndVelocity = 0;
+    public boolean forcePathHeading = false; 
+
 
     public PathPlannerPath pathPlannerGoalPose;
     public Pose2d newTeleopGoalPose = new Pose2d();
@@ -160,7 +162,7 @@ public class Drivebase {
             double percentThroughPath = elapsedTime / traj.getTotalTime().in(Second);
 
             //if we are beterrn 15 and 75% of the path, face the reef, otherwise face the goalStateRotation
-            if (isPoseInReefZone(apGoalPose) && percentThroughPath > 0.15 && percentThroughPath < 0.75) {
+            if ((isPoseInReefZone(apGoalPose) && percentThroughPath > 0.15 && percentThroughPath < 0.75) && forcePathHeading == false) {
                 if (thisRobot.onRedAlliance) {
                     faceReefRotation2d = Settings.reefZoneRed.getTranslation()
                             .minus(swerveDrive.getPose().getTranslation()).getAngle();

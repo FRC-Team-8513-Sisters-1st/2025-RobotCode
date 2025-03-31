@@ -88,6 +88,7 @@ public class AutoController {
         thisRobot.coral.coralMotor1.getEncoder().setPosition(0);
         Settings.elevatorSafeToGoThold = Settings.elevatorSafeToGoTholdAuto;
         autoRan = true;
+        thisRobot.drivebase.forcePathHeading = false;
 
     }
 
@@ -359,12 +360,13 @@ public class AutoController {
                             thisRobot.drivebase.initAstarAndAP(
                                 thisRobot.drivebase.swerveDrive.getPose(),
                                     thisRobot.drivebase.swerveDrive.getPose()
-                                            .transformBy(new Transform2d(-0.6, 0, new Rotation2d())));
+                                            .transformBy(new Transform2d(-0.4, 0, new Rotation2d())));
                             autoStep = 15;
                             thisRobot.drivebase.resetAPPIDControllers();
 
                             State elevatorGoalPIDState = new State(Settings.elevatorPosA2, 0);
-                            thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);  
+                            thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState); 
+                            thisRobot.elevator.state = ElevatorStates.L2a;
                             thisRobot.coral.state = CoralIntakeStates.stationary;
                             thisRobot.algae.algaeState = AlgaeIntakeStates.intake;
                         }
@@ -374,6 +376,7 @@ public class AutoController {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.coral.setMotorPower();
                         thisRobot.algae.setMotorPower();
+                        thisRobot.drivebase.forcePathHeading = true;
                         // once backed up, drive back in at lower level
 
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
@@ -423,6 +426,7 @@ public class AutoController {
                         }
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             timeStepStarted = Timer.getFPGATimestamp();
+                            thisRobot.algae.algaeOutTime = Timer.getFPGATimestamp();
                             thisRobot.algae.algaeState = AlgaeIntakeStates.outake;
                             autoStep = 25;
                         }
@@ -437,7 +441,7 @@ public class AutoController {
                             timeStepStarted = Timer.getFPGATimestamp();
                             autoStep = 30;
                             thisRobot.drivebase.initAstarAndAP(
-                                Settings.coralRightEF.transformBy(Settings.astarReefPoseOffset),
+                                Settings.coralRightEF.transformBy(new Transform2d(-0.4, 0, new Rotation2d())),
                                 Settings.coralRightEF);
                             thisRobot.elevator.state = ElevatorStates.L3a;
                             thisRobot.algae.algaeState = AlgaeIntakeStates.intake;
@@ -479,6 +483,7 @@ public class AutoController {
                         }
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             timeStepStarted = Timer.getFPGATimestamp();
+                            thisRobot.algae.algaeOutTime = Timer.getFPGATimestamp();
                             thisRobot.algae.algaeState = AlgaeIntakeStates.outake;
                             autoStep = 45;
                         }

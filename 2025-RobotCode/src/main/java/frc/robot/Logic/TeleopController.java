@@ -70,6 +70,7 @@ public class TeleopController {
         teleopAutoScore = true;
         thisRobot.coral.forceOutake = false;
         Settings.elevatorSafeToGoThold = Settings.elevatorSafeToGoTholdTele;
+        thisRobot.drivebase.forcePathHeading = false;
 
         State currentElevatorState = new State(thisRobot.elevator.elevatorMotor1.getEncoder().getPosition(), 0);
         thisRobot.elevator.m_controller.reset(currentElevatorState);
