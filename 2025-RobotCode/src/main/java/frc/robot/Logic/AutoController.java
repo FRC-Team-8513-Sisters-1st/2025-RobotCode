@@ -357,11 +357,12 @@ public class AutoController {
                             timeStepStarted = Timer.getFPGATimestamp();
 
                             thisRobot.drivebase.initAstarAndAP(
-                                thisRobot.drivebase.swerveDrive.getPose()
-                                    .transformBy(new Transform2d(-0.6, 0, new Rotation2d())),
+                                thisRobot.drivebase.swerveDrive.getPose(),
                                     thisRobot.drivebase.swerveDrive.getPose()
                                             .transformBy(new Transform2d(-0.6, 0, new Rotation2d())));
                             autoStep = 15;
+                            thisRobot.drivebase.resetAPPIDControllers();
+
                             State elevatorGoalPIDState = new State(Settings.elevatorPosProcessor, 0);
                             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);  
                             thisRobot.coral.state = CoralIntakeStates.stationary;
@@ -378,18 +379,31 @@ public class AutoController {
                         if (thisRobot.drivebase.fromOTFSwitchToAP()) {
                             timeStepStarted = Timer.getFPGATimestamp();
                             autoStep = 16;
+                            thisRobot.drivebase.resetAPPIDControllers();
                             thisRobot.drivebase.initAstarAndAP(
-                                    thisRobot.drivebase.swerveDrive.getPose(),
-                                    Settings.coralRightGH);
+                                thisRobot.drivebase.swerveDrive.getPose().transformBy(new Transform2d(0.01,0, new Rotation2d())),
+                                Settings.coralRightGH);
+                            thisRobot.drivebase.resetAPPIDControllers();
                         }
                         break;
-                    case 16: // wait at point to grab algae
+                    case 16: // go back to grab algae
+                        thisRobot.elevator.setMotorPower();
+                        thisRobot.coral.setMotorPower();
+                        thisRobot.algae.setMotorPower();
+                        // once backed up, drive back in at lower level
+
+                        if (thisRobot.drivebase.fromOTFSwitchToAP()) {
+                            timeStepStarted = Timer.getFPGATimestamp();
+                            autoStep = 18;
+                        }
+                        break;
+                    case 18: // wait at point to grab algae
                         thisRobot.drivebase.fromOTFSwitchToAP();
                         thisRobot.coral.setMotorPower();
                         thisRobot.elevator.setMotorPower();
                         thisRobot.algae.setMotorPower();
 
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 1) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
                             timeStepStarted = Timer.getFPGATimestamp();
                             autoStep = 20;
                             thisRobot.drivebase.initAstarAndAP(
@@ -419,7 +433,7 @@ public class AutoController {
                         thisRobot.coral.setMotorPower();
                         thisRobot.algae.setMotorPower();
 
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 1) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
                             timeStepStarted = Timer.getFPGATimestamp();
                             autoStep = 30;
                             thisRobot.drivebase.initAstarAndAP(
@@ -445,7 +459,7 @@ public class AutoController {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.algae.setMotorPower();
 
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 1) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.4) {
                             timeStepStarted = Timer.getFPGATimestamp();
                             autoStep = 40;
                             thisRobot.drivebase.initAstarAndAP(
@@ -475,7 +489,7 @@ public class AutoController {
                         thisRobot.coral.setMotorPower();
                         thisRobot.algae.setMotorPower();
 
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 1) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.5) {
                             timeStepStarted = Timer.getFPGATimestamp();
                             autoStep = 99;
                         }
