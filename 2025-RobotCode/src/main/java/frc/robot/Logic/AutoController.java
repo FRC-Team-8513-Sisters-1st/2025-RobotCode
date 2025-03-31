@@ -363,7 +363,7 @@ public class AutoController {
                             autoStep = 15;
                             thisRobot.drivebase.resetAPPIDControllers();
 
-                            State elevatorGoalPIDState = new State(Settings.elevatorPosProcessor, 0);
+                            State elevatorGoalPIDState = new State(Settings.elevatorPosA2, 0);
                             thisRobot.elevator.m_controller.setGoal(elevatorGoalPIDState);  
                             thisRobot.coral.state = CoralIntakeStates.stationary;
                             thisRobot.algae.algaeState = AlgaeIntakeStates.intake;
@@ -439,7 +439,7 @@ public class AutoController {
                             thisRobot.drivebase.initAstarAndAP(
                                 Settings.coralRightEF.transformBy(Settings.astarReefPoseOffset),
                                 Settings.coralRightEF);
-                            thisRobot.elevator.state = ElevatorStates.L2a;
+                            thisRobot.elevator.state = ElevatorStates.L3a;
                             thisRobot.algae.algaeState = AlgaeIntakeStates.intake;
                         }
                         break;
