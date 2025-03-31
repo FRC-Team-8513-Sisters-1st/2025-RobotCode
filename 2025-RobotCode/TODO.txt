@@ -10,6 +10,7 @@
         - test reef offsets
         - test elevator heights
         - test coral station poses
+        - calibrate cameras
 
     - backups and spares
         - flashed sd card for rio and Opi
