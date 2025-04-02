@@ -406,7 +406,7 @@ public class AutoController {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.algae.setMotorPower();
 
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.4) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.25) {
                             timeStepStarted = Timer.getFPGATimestamp();
                             autoStep = 20;
                             thisRobot.drivebase.initAstarAndAP(
@@ -463,7 +463,7 @@ public class AutoController {
                         thisRobot.elevator.setMotorPower();
                         thisRobot.algae.setMotorPower();
 
-                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.4) {
+                        if (Timer.getFPGATimestamp() - timeStepStarted > 0.25) {
                             timeStepStarted = Timer.getFPGATimestamp();
                             autoStep = 40;
                             thisRobot.drivebase.initAstarAndAP(

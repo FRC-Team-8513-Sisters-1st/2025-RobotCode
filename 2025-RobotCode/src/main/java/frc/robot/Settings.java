@@ -219,7 +219,7 @@ public final class Settings {
 
         public static double coralScoreThold = 0.05;
         public static double elevatorSafeToGoThold = 1.5;
-        public static double elevatorSafeToGoTholdTele = 1.25;
+        public static double elevatorSafeToGoTholdTele = 1;
         public static double elevatorSafeToGoTholdAuto = 1.75;
 
         public static double coralScoreDegThold = 2;
