@@ -1,5 +1,50 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Rot" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="517"/>
+	</widget>
+	<widget field="Elevator" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="496"/>
+	</widget>
+	<widget field="Dist" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="475"/>
+	</widget>
+	<widget field="AP Dist" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="454"/>
+	</widget>
+	<widget field="PathGoalY" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="433"/>
+	</widget>
+	<widget field="PathGoalX" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="412"/>
+	</widget>
+	<widget field="PathErrorY" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="391"/>
+	</widget>
+	<widget field="PathErrorX" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="370"/>
+	</widget>
+	<widget field="Teleop Auto Score Counter" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="167"/>
+	</widget>
+	<widget field="DB Acceleration" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="146"/>
+	</widget>
+	<widget field="coral goal velocity" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="125"/>
+	</widget>
+	<widget field="coral motor power" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="104"/>
+	</widget>
+	<widget field="coral motor velocity" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="83"/>
+	</widget>
+	<widget field="Limit switch" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="62"/>
+	</widget>
+	<widget field="New At Goal" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="41"/>
+	</widget>
 	<widget field="DB Velocity" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="20"/>
 	</widget>
@@ -96,4 +141,20 @@
 </dashboard>
 <live-window>
 </live-window>
+	<hidden field="Swerve Drive"/>
+	<hidden field="photonPose CoralStation"/>
+	<hidden field="Motors"/>
+	<hidden field="JSON"/>
+	<hidden field="Encoders"/>
+	<hidden field="IMU"/>
+	<hidden field="Field"/>
+	<hidden field="photonPose Lower Left"/>
+	<hidden field="photonPose Processor"/>
+	<hidden field="photonPose Lower Right"/>
+	<hidden field="pathPlannerGoalPose"/>
+	<hidden field="Alerts"/>
+	<hidden field="Path Planner Goal Pose"/>
+	<hidden field="attackPointPose"/>
+	<hidden field="PathPlanner"/>
+	<hidden field="otfGoalPose"/>
 </xml>
